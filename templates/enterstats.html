@@ -1,0 +1,405 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Game Stat Entry Page
+{% endblock %}
+
+{% block main %}
+        <div id="modalbutton">
+            <button class="button is-light js-modal-trigger" data-target="modal-js-example">
+                Scoring Guide Here
+            </button>
+        </div>
+        <hr>
+        <div class="statentrycontainerrow">
+            <div class="buttoncontainer">
+                <h3>Player Name</h3>
+                {% for players in activeplayers %}
+                <button class="button playerselectbutton" type="button" name="{{ players.playername }}">{{ players.playername }}</button>
+                {% endfor %}
+            </div>
+            <div class="buttoncontainer">
+                <h3 style="text-align: center">Select Stat</h3>
+                <button id="2PFGMake" class="button statbutton" type="button">2PFG Make</button>
+                <button id="2PFGMiss" class="button statbutton" type="button">2PFG Miss</button>
+                <button id="3PFGMake" class="button statbutton" type="button">3PFG Make</button>
+                <button id="3PFGMiss" class="button statbutton" type="button">3PFG Miss</button>
+                <button id="FTMake" class="button statbutton" type="button">FT Make</button>
+                <button id="FTMiss" class="button statbutton" type="button">FT Miss</button>
+                <button id="O-Reb" class="button statbutton" type="button">O-Reb</button>
+                <button id="D-Reb" class="button statbutton" type="button">D-Reb</button>
+                <button id="Assist" class="button statbutton" type="button">Assist</button>
+                <button id="Block" class="button statbutton" type="button">Block</button>
+                <button id="Steal" class="button statbutton" type="button">Steal</button>
+                <button id="Turnover" class="button statbutton" type="button">Turnover</button>
+                <button id="PF" class="button statbutton" type="button">PF</button>
+            </div>
+            <div class="mapcontainer">
+                <div class="undoredocontainer">
+                <button type="button" class="button" id="undo">Undo</button>
+                <button type="button" class="button" id="redo">Redo</button>
+                </div>
+                <figure class="image has-ratio" id="basketballcourt" >
+                    <img id="courtimage" src="static/FIBAcourt.jpg" alt="courtdoc" style="position:relative">
+                </figure>
+            </div>
+        </div>
+
+        <script src="static/js/helpers.js">
+        </script>
+        <script>
+
+            let undostack = [];
+            let redostack = [];
+            let makeredo = [];
+            let missredo = [];
+            let undoshots = [];
+            document.addEventListener('DOMContentLoaded', function(){
+                const statbuttonsplaceable = [
+                    document.getElementById('2PFGMake'),
+                    document.getElementById('2PFGMiss'),
+                    document.getElementById('3PFGMake'),
+                    document.getElementById('3PFGMiss'),
+                ]
+                const statbuttonsstatic = [
+                    document.getElementById('FTMake'),
+                    document.getElementById('FTMiss'),
+                    document.getElementById('O-Reb'),
+                    document.getElementById('D-Reb'),
+                    document.getElementById('Assist'),
+                    document.getElementById('Block'),
+                    document.getElementById('Steal'),
+                    document.getElementById('Turnover'),
+                    document.getElementById('PF'),
+                ]
+
+                const courtimage = document.getElementById('courtimage');
+                const courtWidth = courtimage.clientWidth;
+                const courtHeight = courtimage.clientHeight;
+                const playerselectbutton = document.getElementsByClassName('playerselectbutton');
+                const basketballcourt = document.getElementById('basketballcourt');
+                const undo = document.getElementById('undo');
+                const redo = document.getElementById('redo');
+                const submitscore = document.getElementById('submitbutton');
+                const shots = [];
+                const makelist = [];
+                const misslist = [];
+                const playerstats = [];
+                const allplayers = document.querySelectorAll('.playerselectbutton');
+                selectedstat = null;
+                selectedplayer = null;
+                console.log(selectedstat)
+
+                let tablevalues = {
+
+                    FGM: document.getElementById('FGMT-' + selectedplayer),
+                    FGA: document.getElementById('FGAT-' + selectedplayer),
+                    FGP: document.getElementById('FG%T-' + selectedplayer),
+                    TPM: document.getElementById('3PMT-' + selectedplayer),
+                    TPA: document.getElementById('3PAT-' + selectedplayer),
+                    TPP: document.getElementById('3P%T-' + selectedplayer),
+                    FTM: document.getElementById('FTMT-' + selectedplayer),
+                    FTA: document.getElementById('FTAT-' + selectedplayer),
+                    FTP: document.getElementById('FT%T-' + selectedplayer),
+                    PTS: document.getElementById('PTST-' + selectedplayer),
+                    OR: document.getElementById('R-OFFT-' + selectedplayer),
+                    DR: document.getElementById('R-DEFT-' + selectedplayer),
+                    TR: document.getElementById('R-TOTT-' + selectedplayer),
+                    Assist: document.getElementById('ASTT-' + selectedplayer),
+                    Block: document.getElementById('BLKT-' + selectedplayer),
+                    Steal: document.getElementById('STLT-' + selectedplayer),
+                    Turnover: document.getElementById('TOT-' + selectedplayer),
+                    PF: document.getElementById('PFT-' + selectedplayer),
+
+                }
+
+                allplayers.forEach(allplayers => {
+
+                    playerstats.push({
+                        name: allplayers.getAttribute('name'),
+                        FGM: 0,
+                        FGA: 0,
+                        FGP: 0,
+                        TPM: 0,
+                        TPA: 0,
+                        TPP: 0,
+                        FTM: 0,
+                        FTA: 0,
+                        FTP: 0,
+                        PTS: 0,
+                        OR: 0,
+                        DR: 0,
+                        TR: 0,
+                        Assist: 0,
+                        Block: 0,
+                        Steal: 0,
+                        Turnover: 0,
+                        PF: 0,
+                    });
+                });
+
+                for (player of allplayers){
+                    player.addEventListener('click', function(){
+                        if (event.target.classList.contains('is-active')){
+                            event.target.classList.remove('is-active');
+                            selectedplayer = null;
+                            updateTableValues(tablevalues, selectedplayer)
+                            return;
+                        }
+                        if (selectedplayer != null){
+                            updateTableValues(tablevalues, selectedplayer)
+                            return;
+                        }
+                        event.target.classList.add('is-active');
+                        selectedplayer = event.target.getAttribute('name');
+                        updateTableValues(tablevalues, selectedplayer)
+                    });
+                }
+
+                for(stat of statbuttonsstatic){
+                    stat.addEventListener('click', function(){
+                        staticstats(playerstats, selectedplayer, tablevalues);
+                        console.log(playerstats)
+                    });
+                }
+
+                for (stat of statbuttonsplaceable){
+                    stat.addEventListener('click', function(){
+                        console.log(selectedstat)
+                        if (event.target.classList.contains('is-active')){
+                            event.target.classList.remove('is-active');
+                            selectedstat = null;
+                            return;
+                        }
+                        if (selectedstat == null){
+                            event.target.classList.add('is-active');
+                            selectedstat = event.target.getAttribute('id');
+                            return;
+                        }
+                        if (selectedstat != null && !event.target.classList.contains('is-active')){
+                            event.target.classList.add('is-active');
+                            selectedstat = event.target.getAttribute('id');
+                        }
+                    });
+                }
+
+                courtimage.addEventListener('click', function(){
+                    if(selectedstat === null || selectedplayer === null){
+                        return;
+                    }
+                    stat = document.getElementById(selectedstat)
+                    stat.classList.remove('is-active')
+                    var x = event.offsetX / courtWidth;
+                    var y = event.offsetY / courtHeight;
+                    const newmake = document.createElement('i');
+                    const newmiss = document.createElement('i');
+                    playernumber = document.getElementById('playernumber')
+
+                    if(selectedstat === "2PFGMake" || selectedstat === "3PFGMake"){
+                        markmakeenter(newmake, makelist, x, y);
+
+                        // if 2 point make push shot and make stat change
+                        if(selectedstat === "2PFGMake"){
+                            M2P(shots, x, y, selectedplayer, allplayers, tablevalues, playerstats);
+                            selectedstat = null;
+                            return;
+                        }
+                        // else 3 point make push shot and make stat change
+                        M3P(shots, x, y, selectedplayer, allplayers, tablevalues, playerstats);
+                        selectedstat = null;
+                        return;
+                    }
+
+                    if(selectedstat === "2PFGMiss" || selectedstat === "3PFGMiss"){
+                        markmissenter(newmiss, misslist, x, y)
+
+                        // if 2 point miss push shot and make stat change
+                        if(selectedstat === "2PFGMiss"){
+                            Miss2P(shots, x, y, selectedplayer, allplayers, tablevalues, playerstats, undostack)
+                            selectedstat = null;
+                            return;
+                        // else 3 point miss push shot and make stat change
+                        }
+                        Miss3P(shots, x, y, selectedplayer, allplayers, tablevalues, playerstats, undostack)
+                        selectedstat = null;
+                        return;
+                    }
+                    console.log(selectedstat)
+                });
+
+                //undo button functionality
+                undo.addEventListener('click', function(){
+                    undolast(misslist, makelist, undostack, playerstats, tablevalues, basketballcourt, redostack, missredo, makeredo, undoshots, shots)
+                });
+
+                //redo button functionality
+                redo.addEventListener('click', function(){
+                    redolast(misslist, makelist, undostack, playerstats, tablevalues, basketballcourt, redostack, missredo, makeredo, undoshots, shots)
+                });
+
+                //export stats on submit
+                submitscore.addEventListener('click', function(){
+                    submitscore.classList.add('is-loading');
+                    event.preventDefault()
+                    //chatgpt and duck helped with syntax preventDefault makes it not refresh which was causing a bug with the fetch request
+                    fetch('/submitgame', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ playerstats: playerstats, shots: shots }),
+                    })
+                    .then(async response => {
+                        const contentType = response.headers.get('content-type');
+
+                        if (contentType && contentType.includes('application/json')) {
+                            const data = await response.json();
+                            console.log('JSON Response:', data);
+                        } else {
+                            const text = await response.text();
+                            console.log('HTML Response:', text);  // This is a page, like homepage.html
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                    });
+                    submitscore.classList.remove('is-loading');
+                    submitscore.classList.add('is-success');
+                    submitscore.disabled = true;
+                    submitscore.innerText = 'Success';
+                // taken from Bulma for modal button functionality
+                })
+                function openModal($el) {
+                    $el.classList.add('is-active');
+                }
+
+                function closeModal($el) {
+                    $el.classList.remove('is-active');
+                }
+
+                function closeAllModals() {
+                    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                    closeModal($modal);
+                    });
+                }
+
+                // Add a click event on buttons to open a specific modal
+                (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+                    const modal = $trigger.dataset.target;
+                    const $target = document.getElementById(modal);
+
+                    $trigger.addEventListener('click', () => {
+                    openModal($target);
+                    });
+                });
+
+                // Add a click event on various child elements to close the parent modal
+                (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+                    const $target = $close.closest('.modal');
+
+                    $close.addEventListener('click', () => {
+                    closeModal($target);
+                    });
+                });
+
+                // Add a keyboard event to close all modals
+                document.addEventListener('keydown', (event) => {
+                    if(event.key === "Escape") {
+                    closeAllModals();
+                    }
+                });
+            });
+        </script>
+        <hr>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player Name</th>
+                        <th>Player Number</th>
+                        <th>FGM</th>
+                        <th>FGA</th>
+                        <th>FG%</th>
+                        <th>3PM</th>
+                        <th>3PA</th>
+                        <th>3P%</th>
+                        <th>FTM</th>
+                        <th>FTA</th>
+                        <th>FT%</th>
+                        <th>PTS</th>
+                        <th>R-OFF</th>
+                        <th>R-DEF</th>
+                        <th>R-TOT</th>
+                        <th>AST</th>
+                        <th>BLK</th>
+                        <th>STL</th>
+                        <th>TO</th>
+                        <th>PF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for players in activeplayers %}
+                    <tr>
+                        <td>{{ players.playername }}</td>
+                        <td>{{ players.playernumber }}</td>
+                        <td id="FGMT-{{ players.playername }}">0</td>
+                        <td id="FGAT-{{ players.playername }}">0</td>
+                        <td id="FG%T-{{ players.playername }}">0</td>
+                        <td id="3PMT-{{ players.playername }}">0</td>
+                        <td id="3PAT-{{ players.playername }}">0</td>
+                        <td id="3P%T-{{ players.playername }}">0</td>
+                        <td id="FTMT-{{ players.playername }}">0</td>
+                        <td id="FTAT-{{ players.playername }}">0</td>
+                        <td id="FT%T-{{ players.playername }}">0</td>
+                        <td id="PTST-{{ players.playername }}">0</td>
+                        <td id="R-OFFT-{{ players.playername }}">0</td>
+                        <td id="R-DEFT-{{ players.playername }}">0</td>
+                        <td id="R-TOTT-{{ players.playername }}">0</td>
+                        <td id="ASTT-{{ players.playername }}">0</td>
+                        <td id="BLKT-{{ players.playername }}">0</td>
+                        <td id="STLT-{{ players.playername }}">0</td>
+                        <td id="TOT-{{ players.playername }}">0</td>
+                        <td id="PFT-{{ players.playername }}">0</td>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+    <div class="undoredocontainer">
+        <form action="/submitgame" method="post">
+            <button type="submit" class="button" id="submitbutton">Submit Gamescore</button>
+        </form>
+        <form action="/" method="get">
+            <button type="submit" class="button">Return to Homepage</button>
+        </form>
+    </div>
+
+    <div class="modal" id="modal-js-example">
+        <div class="modal-background"></div>
+
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Scoring Guide</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <h3 class="title is-4">Rules</h3>
+                <p>- If you are unsure of the rules (FIBA) read here <a href="https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2024-v10a.pdf">Download Rules.</a><p>
+                <br>
+                <h3 class="title is-4">How to record a stat</h3>
+                <p>- Select a player's name then click the stat you want to enter.</p>
+                <p>- When scoring a FG select a stat and click where it was shot on the court to enter.</p>
+                <br>
+                <h3 class="title is-4">Submitting</h3>
+                <p>- Please submit game stats using the button below once all stats are complete, if you quit without submitting this will cause issues with the database.</p>
+                <p>- Please make sure stats are accurate, there is no current delete function</p>
+            </section>
+            <footer class="modal-card-foot">
+                <div class="buttons">
+                    <button class="button">Close</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+{% endblock %}

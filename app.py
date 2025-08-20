@@ -49,6 +49,7 @@ def enterplayers():
         if len(userseasons) < 1:
             return redirect("/seasonsetup")
 
+        print(session['season_game'])
         return render_template("homepage.html", userseasons=userseasons, seasongames=(season_games[0]["gameamount"]+1))
 
     session['gamescored'] = request.form.get("gameselect")
@@ -398,8 +399,6 @@ def viewstats():
             "PTS": statistics.mean(stat["PTS"] for game in gamestats.values() for stat in game),
             "PF": sum(stat["PF"] for game in gamestats.values() for stat in game),
         }
-        print(seasonTeamStatsPG)
-        print(seasonTeamStats)
 
         return render_template("seasonstats.html", playerSeasonAverages=playerSeasonAverages, playerstats=playertotalstats, season_name=season_name, gamestats=gamestats, seasongames=season_games, gameshots=gameshots, seasongamecount=seasongamecount, seasonTeamStats=seasonTeamStats, seasonTeamStatsPG=seasonTeamStatsPG)
 
@@ -471,13 +470,14 @@ def submitgame():
             return jsonify({'error': 'Invalid or missing JSON'}), 400
 
         activeseasonid = db.execute("SELECT id FROM season WHERE name = ?", session['season_game'])
-
+        activegame =  db.execute("SELECT gamenumber FROM gamestats WHERE gamenumber = ?", session['gamescored'])
+        print(activegame)
         for player in playerstats:
 
             db.execute(
-                "UPDATE gamestats SET FGM = ?, FGA = ?, FGP = ?, TPM = ?, TPA = ?, TPP = ?, FTM = ?, FTA = ?, FTP = ?, ROFF = ?, RDEF = ?, RTOT = ?, AST = ?, BLK = ?, STL = ?, Turnovers = ?, PTS = ?, PF = ? WHERE playername = ?",
+                "UPDATE gamestats SET FGM = ?, FGA = ?, FGP = ?, TPM = ?, TPA = ?, TPP = ?, FTM = ?, FTA = ?, FTP = ?, ROFF = ?, RDEF = ?, RTOT = ?, AST = ?, BLK = ?, STL = ?, Turnovers = ?, PTS = ?, PF = ? WHERE playername = ? AND gamenumber = ?",
                 player['FGM'], player['FGA'], player['FGP'], player['TPM'], player['TPA'], player['TPP'], player['FTM'], player['FTA'], player['FTP'], player[
-                    'OR'], player['DR'], player['TR'], player['Assist'], player['Block'], player['Steal'], player['Turnover'], player['PTS'], player['PF'], player['name']
+                    'OR'], player['DR'], player['TR'], player['Assist'], player['Block'], player['Steal'], player['Turnover'], player['PTS'], player['PF'], player['name'], activegame
             )
 
         for shot in shots:
@@ -504,9 +504,6 @@ def submitgame():
         "SELECT playername, playerid FROM gamestats WHERE seasonid = ? AND WHERE gamenumber = ?",
         activeseasonid, session['gamescored']
     )
-    print(session['season_game'])
-    print(session['gamescored'])
-
     return render_template("enterstats.html", activeplayers=activeplayers)
 # use axios instead for this shit
 

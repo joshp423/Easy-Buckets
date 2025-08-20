@@ -61,6 +61,7 @@ function markmakeenter(newmake, makelist, x, y) {
     newmake.classList.add('fa-solid');
     newmake.classList.add('fa-circle');
     newmake.classList.add('makeicon');
+    newmake.classList.add('fa-2xs');
     newmake.style.color = '#04d708';
     newmake.style.position = 'absolute';
     newmake.style.left = xReactive + "px";
@@ -119,6 +120,7 @@ function markmissenter(newmiss, misslist, x, y) {
     const yReactive = y * court.clientHeight;
     newmiss.classList.add('fa-solid');
     newmiss.classList.add('fa-xmark');
+    newmiss.classList.add('fa-2xs');
     newmiss.classList.add('makeicon');
     newmiss.style.color = '#d40c0c';
     newmiss.style.position = 'absolute';
@@ -610,6 +612,7 @@ function markmakedisplay(basketballcourt, courtimage, newmake, x, y) {
     const yReactive = y * courtimage.clientHeight;
     newmake.classList.add('fa-solid');
     newmake.classList.add('fa-circle');
+    newmake.classList.add('fa-2xs');
     newmake.classList.add('makeicon');
     newmake.style.color = '#04d708';
     newmake.style.position = 'absolute';
@@ -626,6 +629,7 @@ function markmissdisplay(basketballcourt, courtimage, newmiss, x, y) {
     const yReactive = y * courtimage.clientHeight;
     newmiss.classList.add('fa-solid');
     newmiss.classList.add('fa-xmark');
+    newmiss.classList.add('fa-2xs');
     newmiss.classList.add('makeicon');
     newmiss.style.color = '#d40c0c';
     newmiss.style.position = 'absolute';

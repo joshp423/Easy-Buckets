@@ -49,7 +49,6 @@ def enterplayers():
         if len(userseasons) < 1:
             return redirect("/seasonsetup")
 
-        print(session['season_game'])
         return render_template("homepage.html", userseasons=userseasons, seasongames=(season_games[0]["gameamount"]+1))
 
     session['gamescored'] = request.form.get("gameselect")
@@ -409,6 +408,7 @@ def enterstats():
 
     if request.method == "POST":
 
+        
         playersactive = []
 
         playeramount = request.form.get("playernumber")
@@ -452,9 +452,12 @@ def enterstats():
 
             db.execute("INSERT INTO gamestats (seasonid, hashteam, playerid, playername, gamenumber) VALUES (?, ?, ?, ?, ?)",
                        players["seasonid"], players["team"], players["playernumber"], players["playername"], session['gamescored'])
-
+        print(session['season_game'])
+        print(session['gamescored'])
+        
         return render_template("enterstats.html", activeplayers=playersactive)
-
+    print(session['season_game'])
+    print(session['gamescored'])
     return render_template("enterplayers.html")
 
 
@@ -470,14 +473,18 @@ def submitgame():
             return jsonify({'error': 'Invalid or missing JSON'}), 400
 
         activeseasonid = db.execute("SELECT id FROM season WHERE name = ?", session['season_game'])
-        activegame =  db.execute("SELECT gamenumber FROM gamestats WHERE gamenumber = ?", session['gamescored'])
-        print(activegame)
+
         for player in playerstats:
+            required_keys = ['FGM', 'FGA', 'FGP', 'TPM', 'TPA', 'TPP', 'FTM', 'FTA', 'FTP', 'OR', 'DR', 'TR',
+                     'Assist', 'Block', 'Steal', 'Turnover', 'PTS', 'PF', 'name']
+            missing = [key for key in required_keys if key not in player]
+            if missing:
+                return jsonify({'error': f'Missing keys in player data: {missing}'}), 400
 
             db.execute(
                 "UPDATE gamestats SET FGM = ?, FGA = ?, FGP = ?, TPM = ?, TPA = ?, TPP = ?, FTM = ?, FTA = ?, FTP = ?, ROFF = ?, RDEF = ?, RTOT = ?, AST = ?, BLK = ?, STL = ?, Turnovers = ?, PTS = ?, PF = ? WHERE playername = ? AND gamenumber = ?",
                 player['FGM'], player['FGA'], player['FGP'], player['TPM'], player['TPA'], player['TPP'], player['FTM'], player['FTA'], player['FTP'], player[
-                    'OR'], player['DR'], player['TR'], player['Assist'], player['Block'], player['Steal'], player['Turnover'], player['PTS'], player['PF'], player['name'], activegame
+                    'OR'], player['DR'], player['TR'], player['Assist'], player['Block'], player['Steal'], player['Turnover'], player['PTS'], player['PF'], player['name'], session['gamescored']
             )
 
         for shot in shots:
@@ -504,6 +511,10 @@ def submitgame():
         "SELECT playername, playerid FROM gamestats WHERE seasonid = ? AND WHERE gamenumber = ?",
         activeseasonid, session['gamescored']
     )
+    
+    print(session['season_game'])
+    print(session['gamescored'])
+    
     return render_template("enterstats.html", activeplayers=activeplayers)
 # use axios instead for this shit
 
@@ -515,9 +526,5 @@ def getjson():
 
     playerstats = data.get('playerstats')
     shots = data.get('shots')
-
-    print('Player Stats:', playerstats)
-    print('Shots:', shots)
-    print(request.headers)
 
     return playerstats, shots

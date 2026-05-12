@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  password String
+  email String @unique
+  team Teams[] @relation("users")
+}
+
+model Players {
+  id Int @id @default(autoincrement())
+  name String
+  number Int @unique
+  teamId Int
+  team Teams @relation("players", fields: [teamId], references: [id])
+  gameStatlines GameStatlines[] @relation("gameStatlines")
+}
+
+model Teams {
+  id Int @id @default(autoincrement())
+  players Players[] @relation("players")
+  users Users[] @relation("users")
+  seasons Seasons[] @relation("seasons")
+}
+
+model Seasons {
+  id Int @id @default(autoincrement())
+  name String
+  gameAmount Int
+  teamId Int
+  team Teams @relation("seasons", fields: [teamId], references: [id])
+  games Games[] @relation("games")
+}
+
+model Games {
+  id Int @id @default(autoincrement())
+  seasonId Int
+  season Seasons @relation("games", fields: [seasonId], references: [id])
+  gameNumber Int
+  gameStatlines GameStatlines[] @relation("gameStatlines")
+  shots Shots[] @relation("shots")
+}
+
+model GameStatlines {
+  id Int @id @default(autoincrement())
+  gameId Int
+  game Games @relation("gameStatlines", fields: [gameId], references: [id])
+  playerId Int
+  player Players @relation("gameStatlines", fields: [playerId], references: [id])
+  TwoPointFGMiss Int
+  TwoPointFGMake Int
+  ThreePointFGMiss Int
+  ThreePointFGMake Int
+  FTMiss Int
+  FTMake Int
+  OReb Int
+  DReb Int
+  Assist Int
+  Block Int
+  Steal Int
+  Turnover Int
+  PF Int
+  TwoPointFGPercent Int
+  ThreePointFGPercent Int
+  FTPercent Int
+  TotalRebounds Int
+  Points Int
+  shots Shots[] @relation("shots")
+}
+
+model Shots {
+  id Int @id @default(autoincrement())
+  gameId Int
+  game Games @relation("shots", fields: [gameId], references: [id])
+  gameStatlineId Int
+  gameStatline GameStatlines @relation("shots",  fields: [gameStatlineId], references: [id])
+  make Boolean
+  X Int
+  Y Int
+  Type Int
+}

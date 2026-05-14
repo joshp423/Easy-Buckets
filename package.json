@@ -1,33 +1,29 @@
 {
   "name": "easy-buckets",
-  "version": "0.1.0",
   "private": true,
-  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:web": "npm run dev -w web",
+    "dev:api": "npm run dev -w api",
+    "dev": "npm run dev:web & npm run dev:api"
   },
-  "dependencies": {
-    "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
-    "dotenv": "^17.4.2",
-    "next": "16.2.4",
-    "pg": "^8.20.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshp423/Easy-Buckets.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshp423/Easy-Buckets/issues"
+  },
+  "homepage": "https://github.com/joshp423/Easy-Buckets#readme",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/pg": "^8.20.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.4",
-    "prisma": "^7.8.0",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@types/cors": "^2.8.19"
   }
 }

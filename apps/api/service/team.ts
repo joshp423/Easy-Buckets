@@ -1,3 +1,6 @@
+import type { TeamRepo } from "../repo/teams.js";
+import type { configSchema } from "./config.js";
+
 export type Team = { name: string, userId: number };
 
 export class TeamService {

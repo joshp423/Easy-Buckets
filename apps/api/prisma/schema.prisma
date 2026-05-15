@@ -29,8 +29,10 @@ model Players {
 
 model Teams {
   id Int @id @default(autoincrement())
+  name String
   players Players[] @relation("players")
-  users Users[] @relation("users")
+  userId Int
+  users Users @relation("team", fields: [userId], references: [id])
   seasons Seasons[] @relation("seasons")
 }
 

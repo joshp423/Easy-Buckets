@@ -1,0 +1,43 @@
+import { type SyntheticEvent } from "react";
+
+
+type signUpAPIProps = {
+    e: SyntheticEvent<HTMLFormElement>
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    setErrors: React.Dispatch<React.SetStateAction<string[]>>
+    email: string
+    password: string
+    navigate: NavigateFunction
+}
+
+
+export async function signUpAPI({e, setLoading, setErrors, email, password, navigate}:signUpAPIProps) {
+    e.preventDefault();
+    setLoading(true);
+
+    const rsp = await fetch("http://localhost:3000/users/sign-up", {
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+    });
+
+    if (rsp.status !== 201) {
+        const data = await rsp.json();
+        switch (rsp.status) {
+            case 400:
+                setErrors(data.errors || []);
+                break;
+
+            case 403:
+                setErrors([
+                    "Email already exists",
+                ]);
+                break;
+        }
+        return;
+    }
+    setLoading(false);
+    navigate("/home")
+    }

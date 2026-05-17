@@ -24,4 +24,11 @@ app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 3000;
 
-export default app
+// export default app
+
+app.listen(PORT, (error) => {
+  if (error) {
+    throw error;
+  }
+  console.log(`Testing-backend - listening on port ${PORT}!`);
+});

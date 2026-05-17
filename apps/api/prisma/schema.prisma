@@ -15,7 +15,7 @@ model Users {
   id Int @id @default(autoincrement())
   password String
   email String @unique
-  team Teams[] @relation("users")
+  team Teams[] @relation("team")
 }
 
 model Players {

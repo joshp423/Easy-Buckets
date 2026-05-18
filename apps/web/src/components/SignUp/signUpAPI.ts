@@ -45,5 +45,5 @@ export async function signUpAPI({
     return;
   }
   setLoading(false);
-  navigate("/home");
+  navigate("/");
 }

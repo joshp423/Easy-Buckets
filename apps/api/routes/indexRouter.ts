@@ -6,5 +6,4 @@ const indexRouter = Router();
 indexRouter.post("/users/sign-up", signUp);
 indexRouter.post("/users/log-in", logIn);
 
-
 export default indexRouter;

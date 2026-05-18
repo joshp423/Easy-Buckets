@@ -24,7 +24,7 @@ export class UserService {
   }
 
   async login(id: number, password: string, hashedPassword: string) {
-    if (!await bcrypt.compare(password, hashedPassword)) {
+    if (!(await bcrypt.compare(password, hashedPassword))) {
       return null;
     }
 

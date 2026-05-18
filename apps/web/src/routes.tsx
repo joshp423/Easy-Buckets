@@ -1,5 +1,5 @@
 import App from "./App";
-import Homepage from "./components/HomePage/homePage"
+import Homepage from "./components/HomePage/homePage";
 import SignUp from "./components/SignUp/signUp";
 
 const routes = [
@@ -8,7 +8,7 @@ const routes = [
     element: <App />,
     children: [
       { index: true, element: <Homepage /> },
-      { path: "/log-in", element: <SignUp /> },
+      { path: "/sign-up", element: <SignUp /> },
     ],
   },
 ];

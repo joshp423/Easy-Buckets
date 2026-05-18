@@ -9,11 +9,10 @@ export class TeamRepo {
 
   async create(name: string, userId: number) {
     return await this.prisma.teams.create({
-        data: {
-            name,
-            userId,
-        },
+      data: {
+        name,
+        userId,
+      },
     });
   }
-
 }

@@ -1,7 +1,7 @@
 import type { TeamRepo } from "../repo/teams.js";
 import type { configSchema } from "./config.js";
 
-export type Team = { name: string, userId: number };
+export type Team = { name: string; userId: number };
 
 export class TeamService {
   private config: configSchema;
@@ -12,7 +12,7 @@ export class TeamService {
     this.config = config;
   }
 
-  async create({name, userId}: Team) {
+  async create({ name, userId }: Team) {
     return this.teamRepo.create(name, userId);
   }
 }

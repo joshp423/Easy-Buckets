@@ -23,7 +23,9 @@ const SignUpSchema = z.object({
     .trim()
     .max(25, { message: `Password: ${lengthErr}` })
     .min(1, { message: `Password: ${lengthErr}` })
-    .regex(/^(?=.*[A-Za-z])(?=.*\d).+$/, { message: `Password ${passwordAlphaNumericErr}` }),
+    .regex(/^(?=.*[A-Za-z])(?=.*\d).+$/, {
+      message: `Password ${passwordAlphaNumericErr}`,
+    }),
   email: z
     .email({ message: emailErr })
     .max(254, { message: `Email: ${emailLengthErr}` })
@@ -45,7 +47,7 @@ export async function signUp(req: Request, res: Response) {
 
   if (!success) {
     return res.status(400).json({
-      errors: error.issues.map(issue => issue.message)
+      errors: error.issues.map((issue) => issue.message),
     });
   }
 
@@ -57,7 +59,6 @@ export async function signUp(req: Request, res: Response) {
       message: "an unexpected error occured",
     });
   }
-  
 }
 
 export async function logIn(req: Request, res: Response) {
@@ -80,7 +81,7 @@ export async function logIn(req: Request, res: Response) {
     return res.status(403).json({ message: "Login failed" });
   }
 
-  const token = await userService.login(user.id, data.password, user.password, );
+  const token = await userService.login(user.id, data.password, user.password);
 
   if (!token) {
     return res.status(500).json({

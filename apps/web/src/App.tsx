@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const App = () => {
         context={{ loginStatus: loginStatus, setLoginStatus: setLoginStatus }}
       />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

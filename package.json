@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:web": "npm run dev -w web",
     "dev:api": "npm run dev -w api",
-    "dev": "npm run dev:web & npm run dev:api"
+    "dev": "npm run dev:web & npm run dev:api",
+    "prettier": "npx prettier . --write"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "homepage": "https://github.com/joshp423/Easy-Buckets#readme",
   "devDependencies": {
     "@types/cors": "^2.8.19"
+  },
+  "dependencies": {
+    "prettier": "^3.8.3"
   }
 }

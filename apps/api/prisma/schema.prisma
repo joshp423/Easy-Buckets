@@ -21,7 +21,7 @@ model Users {
 model Players {
   id Int @id @default(autoincrement())
   name String
-  number Int @unique
+  number Int
   teamId Int
   team Teams @relation("players", fields: [teamId], references: [id])
   gameStatlines GameStatlines[] @relation("gameStatlines")
@@ -39,7 +39,6 @@ model Teams {
 model Seasons {
   id Int @id @default(autoincrement())
   name String
-  gameAmount Int
   teamId Int
   team Teams @relation("seasons", fields: [teamId], references: [id])
   games Games[] @relation("games")
@@ -49,9 +48,11 @@ model Games {
   id Int @id @default(autoincrement())
   seasonId Int
   season Seasons @relation("games", fields: [seasonId], references: [id])
-  gameNumber Int
   gameStatlines GameStatlines[] @relation("gameStatlines")
   shots Shots[] @relation("shots")
+  date DateTime
+  opponent String
+  replay String?
 }
 
 model GameStatlines {

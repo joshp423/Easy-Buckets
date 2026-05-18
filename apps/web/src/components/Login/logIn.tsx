@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 type logInProps = {
   loginStatus: boolean;
-  setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>
+  setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function LogIn() {
@@ -18,7 +18,7 @@ export default function LogIn() {
   const [loading, setLoading] = useState(false);
 
   if (loginStatus) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -27,8 +27,16 @@ export default function LogIn() {
         <h1>Easy Buckets</h1>
       </div>
       <form
-        onSubmit={(e) => 
-          logInAPI({ e, setLoginStatus, setLoading, setErrors, email, password, navigate })
+        onSubmit={(e) =>
+          logInAPI({
+            e,
+            setLoginStatus,
+            setLoading,
+            setErrors,
+            email,
+            password,
+            navigate,
+          })
         }
       >
         <div className="signUpForm">
@@ -54,7 +62,7 @@ export default function LogIn() {
           />
           <button type="submit">
             <div style={{ display: loading === true ? "none" : "flex" }}>
-              Sign Up
+              Log In
             </div>{" "}
             <div style={{ display: loading === true ? "flex" : "none" }}></div>
           </button>

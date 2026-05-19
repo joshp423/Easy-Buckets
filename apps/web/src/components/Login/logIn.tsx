@@ -39,7 +39,7 @@ export default function LogIn() {
           })
         }
       >
-        <div className="signUpForm">
+        <div className="logInForm">
           <div className="errorHandling">
             {errors?.map((error) => (
               <li key={error}>{error}</li>

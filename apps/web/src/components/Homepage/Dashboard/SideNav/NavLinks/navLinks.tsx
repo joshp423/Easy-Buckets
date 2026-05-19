@@ -3,11 +3,10 @@ import { Link, useLocation } from "react-router";
 //add icons
 
 const links = [
-        { name: 'Home', href: '/'},
+        { name: 'Stats', href: '/'},
         { name: 'Score New Game', href: '/new-game'},
         { name: 'Team', href: '/team'}
     ];
-
 
 export default function NavLinks() {
     

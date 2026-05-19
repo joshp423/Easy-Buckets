@@ -1,5 +1,5 @@
 import { type DashboardView } from "../../../../types/dashboardView";
-import NavViewSelector from "./navViewSelector.tsx/navViewSelector";
+import NavViewSelector from "./NavViewSelector.tsx/navViewSelector";
 
 type navProps = {
   dashboardView: DashboardView;
@@ -13,6 +13,7 @@ export default function Nav({ dashboardView, setdashboardView }: navProps) {
         dashboardView={dashboardView}
         setdashboardView={setdashboardView}
       />
+      
     </div>
   );
 }

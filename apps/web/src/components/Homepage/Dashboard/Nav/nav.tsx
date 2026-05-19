@@ -1,9 +1,18 @@
-import { Link } from "react-router"
+import { type DashboardView } from "../../../../types/dashboardView";
+import NavViewSelector from "./navViewSelector.tsx/navViewSelector";
 
-export default function Nav() {
+type navProps = {
+  dashboardView: DashboardView;
+  setdashboardView: React.Dispatch<React.SetStateAction<DashboardView>>;
+};
+
+export default function Nav({ dashboardView, setdashboardView }: navProps) {
+  return (
     <div className="dashboardNav">
-        <div className="navViewSelector">
-            
-        </div>
+      <NavViewSelector
+        dashboardView={dashboardView}
+        setdashboardView={setdashboardView}
+      />
     </div>
+  );
 }

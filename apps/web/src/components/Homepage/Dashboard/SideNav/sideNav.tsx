@@ -4,11 +4,10 @@ import logOut from "./logOut";
 import { useOutletContext } from "react-router-dom";
 
 type sideNavProps = {
-    setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>;
-}
+  setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export default function SideNav() {
-
   const { setLoginStatus } = useOutletContext<sideNavProps>();
 
   return (
@@ -20,7 +19,7 @@ export default function SideNav() {
         <NavLinks />
       </div>
       {/* Pass function reference */}
-      <button type="button" onClick={() => logOut({setLoginStatus})}> 
+      <button type="button" onClick={() => logOut({ setLoginStatus })}>
         <div>Sign Out</div>
       </button>
     </div>

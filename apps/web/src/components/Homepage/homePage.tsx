@@ -12,9 +12,7 @@ export default function Homepage() {
   // const navigate = useNavigate();
 
   if (loginStatus) {
-    return (
-      <Dashboard />
-    )
+    return <Dashboard />;
   }
 
   return <LoggedOutHP />;

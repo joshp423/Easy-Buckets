@@ -40,6 +40,7 @@ model Seasons {
   id Int @id @default(autoincrement())
   name String
   teamId Int
+  dateCreated DateTime
   team Teams @relation("seasons", fields: [teamId], references: [id])
   games Games[] @relation("games")
 }

@@ -1,7 +1,12 @@
+type teamSeasonAPIFetchProps = {
+    amount: number,
+    sort: "asc" | "desc",
+    set
+}
 
-export async function teamIDAPIFetch() {
+export async function teamSeasonAPIFetch(amount: number, sort: "asc" | "desc") {
 
-    const rsp = await fetch("http://localhost:3000/team/", {
+    const rsp = await fetch(`http://localhost:3000/team/seasons?amount=${amount}&sort=${sort}`, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -12,4 +17,4 @@ export async function teamIDAPIFetch() {
             const data = await rsp.json();
             
         }
-}
+    }

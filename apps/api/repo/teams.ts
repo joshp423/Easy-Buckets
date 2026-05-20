@@ -17,6 +17,22 @@ export class TeamRepo {
   }
 
   async getTeamSeasons(userId: number, amount: number, sort: "asc" | "desc") {
+
+    if (amount === 0) {
+      return await this.prisma.teams.findMany({
+        where: {
+          userId: userId
+        },
+        include: {
+          seasons: {
+            orderBy: {
+              dateCreated: sort
+            },
+          }
+        }
+      })
+    }
+    
     return await this.prisma.teams.findMany({
       where: {
         userId: userId

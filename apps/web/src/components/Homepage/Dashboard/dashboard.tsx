@@ -6,6 +6,7 @@ import Nav from "./Nav/nav";
 export default function Dashboard() {
   const [seasonData, setSeasonData] = useState<SeasonData>(null)
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
+  const [teamSeasons, setTeamSeasons] = useState(null)
   const [selectedDashboardSeason, setSelectedDashboardSeason] = useState()
 
   return (

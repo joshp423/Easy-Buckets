@@ -1,7 +1,11 @@
 import type { TeamRepo } from "../repo/teams.js";
 import type { configSchema } from "./config.js";
 
-export type Team = { name: string; userId: number };
+export type Team = {
+  id: string,
+  name: string,
+  userId: number
+};
 
 export class TeamService {
   private config: configSchema;
@@ -15,4 +19,9 @@ export class TeamService {
   async create({ name, userId }: Team) {
     return this.teamRepo.create(name, userId);
   }
+
+  async getSeasons(userId: number, amount: number, sort: "asc" | "desc" ) {
+    return this.teamRepo.getTeamSeasons(userId, amount, sort);
+  }
+
 }

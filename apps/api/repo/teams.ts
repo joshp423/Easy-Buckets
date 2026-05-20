@@ -15,4 +15,20 @@ export class TeamRepo {
       },
     });
   }
+
+  async getTeamSeasons(userId: number, amount: number, sort: "asc" | "desc") {
+    return await this.prisma.teams.findMany({
+      where: {
+        userId: userId
+      },
+      include: {
+        seasons: {
+          take: amount,
+          orderBy: {
+            dateCreated: sort
+          },
+        }
+      }
+    })
+  }
 }

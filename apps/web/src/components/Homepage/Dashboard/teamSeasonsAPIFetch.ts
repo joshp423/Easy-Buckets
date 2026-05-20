@@ -1,10 +1,12 @@
-type teamSeasonAPIFetchProps = {
+import { type Season } from "../../../types/season";
+
+type teamSeasonsAPIFetchProps = {
     amount: number,
     sort: "asc" | "desc",
-    set
+    setTeamSeasons: React.Dispatch<React.SetStateAction<Season[] | "No Seasons">>
 }
 
-export async function teamSeasonAPIFetch(amount: number, sort: "asc" | "desc") {
+export async function teamSeasonsAPIFetch({amount, sort, setTeamSeasons}: teamSeasonsAPIFetchProps) {
 
     const rsp = await fetch(`http://localhost:3000/team/seasons?amount=${amount}&sort=${sort}`, {
         headers: {
@@ -15,6 +17,6 @@ export async function teamSeasonAPIFetch(amount: number, sort: "asc" | "desc") {
         });
         if (rsp.status === 200) {
             const data = await rsp.json();
-            
+            setTeamSeasons(data.seasons)
         }
     }

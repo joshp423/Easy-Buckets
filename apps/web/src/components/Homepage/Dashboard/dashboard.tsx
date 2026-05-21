@@ -29,7 +29,7 @@ export default function Dashboard() {
         <SideNav />
         <div className="dashboardMain"></div>
       </div>
-    );
+    ); 
   }
 
   return (

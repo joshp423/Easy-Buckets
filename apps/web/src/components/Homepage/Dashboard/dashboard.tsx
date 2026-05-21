@@ -8,28 +8,42 @@ import { teamSeasonsAPIFetch } from "./teamSeasonsAPIFetch";
 import StatsSection from "./StatsSection/statsSection";
 
 export default function Dashboard() {
-  const [teamSeasons, setTeamSeasons] = useState<Season[] | "No Seasons">("No Seasons")
-  const [seasonData, setSeasonData] = useState<Season | null>(null)
+  const [teamSeasons, setTeamSeasons] = useState<Season[] | null>(null);
+  const [seasonData, setSeasonData] = useState<Season | null>(null);
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
-  const [selectedDashboardSeason, setSelectedDashboardSeason] = useState()
+  const [selectedDashboardSeason, setSelectedDashboardSeason] = useState<string | null>(null);
 
   useEffect(() => {
-    teamSeasonsAPIFetch({amount: 0, sort: "desc", setTeamSeasons})
-  },[])
+    teamSeasonsAPIFetch({ amount: 0, sort: "desc", setTeamSeasons });
+  }, []);
 
   useEffect(() => {
+    if (teamSeasons) { setSelectedDashboardSeason(teamSeasons[0].name)}
+  }, [teamSeasons])
 
-  }, [selectedDashboardSeason])
+  useEffect(() => {}, [selectedDashboardSeason]);
+
+  if (!teamSeasons) {
+    return (
+      <div className="dashboard">
+        <SideNav />
+        <div className="dashboardMain"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">
-      
       <SideNav />
       <div className="dashboardMain">
-        <Nav dashboardView={dashboardView} setdashboardView={setdashboardView} />
-        <StatsSection />
+        <Nav
+          dashboardView={dashboardView}
+          setdashboardView={setdashboardView}
+          setSelectedDashboardSeason={setSelectedDashboardSeason}
+          teamSeasons={teamSeasons}
+        />
+        <StatsSection seasonData={seasonData} />
       </div>
-
     </div>
   );
 }

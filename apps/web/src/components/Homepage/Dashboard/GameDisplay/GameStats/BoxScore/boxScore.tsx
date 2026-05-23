@@ -1,5 +1,3 @@
 export default function BoxScore() {
-  return <div className="boxScore">
-    
-  </div>;
+  return <div className="boxScore"></div>;
 }

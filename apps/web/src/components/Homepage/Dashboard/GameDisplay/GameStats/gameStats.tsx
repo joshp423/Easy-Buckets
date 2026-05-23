@@ -6,17 +6,17 @@ import { type Season } from "../../../../../types/season";
 import { type Game } from "../../../../../types/game";
 
 type GameStatsProps = {
-    seasonData: Season | null
-    currentGame: Game
-}
+  seasonData: Season | null;
+  currentGame: Game;
+};
 
-export default function GameStats({seasonData, currentGame}: GameStatsProps) {
-    return(
-        <div className="statsSection">
-            <VideoPlayer />
-            <ShotChart />
-            <BoxScore />
-            <TeamStats />
-        </div>
-    )
+export default function GameStats({ seasonData, currentGame }: GameStatsProps) {
+  return (
+    <div className="statsSection">
+      <VideoPlayer />
+      <ShotChart />
+      <BoxScore />
+      <TeamStats />
+    </div>
+  );
 }

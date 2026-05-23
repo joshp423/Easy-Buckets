@@ -6,7 +6,6 @@ import { type SeasonOverview } from "../../../types/seasonOverview";
 import { useEffect } from "react";
 import { teamSeasonsAPIFetch } from "./teamSeasonsAPIFetch";
 import GameStatsDisplay from "./GameDisplay/gameDisplay";
-import GameViewPager from "./GameDisplay/GameViewPager/gameViewPager";
 import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
 
 export default function Dashboard() {
@@ -60,7 +59,7 @@ export default function Dashboard() {
           <SeasonStatsDisplay />
         </div>
       </div>
-    )
+    );
   }
 
   return (

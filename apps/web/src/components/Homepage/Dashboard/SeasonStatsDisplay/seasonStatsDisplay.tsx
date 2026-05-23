@@ -1,5 +1,3 @@
-
-
-export default function SeasonStatsDisplay(){
-    return <></>
+export default function SeasonStatsDisplay() {
+  return <></>;
 }

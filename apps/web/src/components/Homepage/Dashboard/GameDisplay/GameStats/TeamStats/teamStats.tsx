@@ -1,5 +1,3 @@
 export default function TeamStats() {
-  return <div className="teamStats">
-    
-  </div>;
+  return <div className="teamStats"></div>;
 }

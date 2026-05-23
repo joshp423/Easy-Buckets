@@ -1,10 +1,11 @@
-import { type Season } from "./season";
+import z from "zod";
+import { seasonOverviewSchema } from "./seasonOverview";
 
-interface Team {
-  id: number;
-  name: string;
-  userId: number;
-  seasons: Season[];
-}
+export const teamSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  userId: z.number(),
+  seasons: z.array(seasonOverviewSchema),
+});
 
-export type { Team };
+export type Team = z.infer<typeof teamSchema>;

@@ -15,7 +15,7 @@ model Users {
   id Int @id @default(autoincrement())
   password String
   email String @unique
-  team Teams[] @relation("team")
+  team Teams? @relation("team")
 }
 
 model Players {
@@ -31,7 +31,7 @@ model Teams {
   id Int @id @default(autoincrement())
   name String
   players Players[] @relation("players")
-  userId Int
+  userId Int @unique
   users Users @relation("team", fields: [userId], references: [id])
   seasons Seasons[] @relation("seasons")
 }

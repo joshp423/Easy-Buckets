@@ -14,16 +14,17 @@ export default function NavLinks() {
 
   return (
     <>
-      {links.map((link) => {
+      {links.map(({ href, name }) => {
         // const icon = link.icon;
         return (
           <Link
-            to={link.href}
+            to={href}
             style={{
-              backgroundColor: pathname === link.href ? "blue" : "white",
+              backgroundColor: pathname === href ? "blue" : "white",
             }}
+            key={name}
           >
-            <p>{link.name}</p>
+            <p>{name}</p>
           </Link>
         );
       })}

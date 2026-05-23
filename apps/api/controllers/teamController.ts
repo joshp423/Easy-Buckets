@@ -12,19 +12,17 @@ const teamService = new TeamService(teamRepo, config);
 
 const getTeamSeasonsSchema = z.object({
   userId: z.number(),
-  amount: z.coerce.number(),
-  sort: z.enum(["asc", "desc"]),
+  orderBy: z.enum(["asc", "desc"]),
 });
 
 export async function getTeamSeasons(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { amount, sort } = req.query;
+  const { orderBy } = req.query;
 
   const { success, data, error } = getTeamSeasonsSchema.safeParse({
     userId,
-    amount,
-    sort,
+    orderBy,
   });
 
   if (!success) {
@@ -33,11 +31,7 @@ export async function getTeamSeasons(req: AuthRequest, res: Response) {
     });
   }
 
-  const teamSeasons = await teamService.getSeasons(
-    data.userId,
-    data.amount,
-    data.sort,
-  );
+  const teamSeasons = await teamService.getSeasons(data.userId, data.orderBy);
 
   if (!teamSeasons) {
     return res.status(500).json({
@@ -45,5 +39,12 @@ export async function getTeamSeasons(req: AuthRequest, res: Response) {
     });
   }
 
-  return res.status(200).json({ teamSeasons });
+  return res.status(200).json(teamSeasons);
 }
+
+/*
+prev issue: return res.json({ thing }) creates an object { thing } which is the shorthand syntax for: { thing: thing }, therefore
+the rsp became: {teamSeasons: {id, name, seasons, etc}}, not what we wanted which is { id, name, seasons, etc }
+
+solution was to strip the object we were creating in the .json() function call .json({}) so we didnt create a new object with a key
+*/

@@ -20,7 +20,7 @@ export class TeamService {
     return this.teamRepo.create(name, userId);
   }
 
-  async getSeasons(userId: number, amount: number, sort: "asc" | "desc") {
-    return this.teamRepo.getTeamSeasons(userId, amount, sort);
+  async getSeasons(userId: number, sort: "asc" | "desc") {
+    return this.teamRepo.getTeamSeasons(userId, sort);
   }
 }

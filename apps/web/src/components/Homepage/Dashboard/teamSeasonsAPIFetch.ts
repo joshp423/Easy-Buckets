@@ -1,18 +1,14 @@
-import { type Season } from "../../../types/season";
+import { teamSchema } from "../../../types/team";
 
 type teamSeasonsAPIFetchProps = {
-  amount: number;
-  sort: "asc" | "desc";
-  setTeamSeasons: React.Dispatch<React.SetStateAction<Season[] | null>>;
+  orderBy: "asc" | "desc";
 };
 
 export async function teamSeasonsAPIFetch({
-  amount,
-  sort,
-  setTeamSeasons,
+  orderBy,
 }: teamSeasonsAPIFetchProps) {
   const rsp = await fetch(
-    `http://localhost:3000/teams/seasons?amount=${amount}&sort=${sort}`,
+    `http://localhost:3000/teams/seasons?orderBy=${orderBy}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -21,9 +17,8 @@ export async function teamSeasonsAPIFetch({
       method: "GET",
     },
   );
-  if (rsp.status === 200) {
-    const data = await rsp.json();
-    const teamData = data.teamSeasons?.[0]
-    setTeamSeasons(teamData.seasons ?? null)
-  }
+
+  const data = await rsp.json();
+  const team = teamSchema.parse(data);
+  return team;
 }

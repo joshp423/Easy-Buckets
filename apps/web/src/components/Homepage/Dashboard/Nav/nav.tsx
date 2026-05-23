@@ -1,20 +1,20 @@
 import { type DashboardView } from "../../../../types/dashboardView";
 import NavViewSelector from "./NavViewSelector.tsx/navViewSelector";
 import NavSeasonSelector from "./NavSeasonSelector/navSeasonSelector";
-import { type Season } from "../../../../types/season";
+import { type SeasonOverview } from "../../../../types/seasonOverview";
 
 type navProps = {
   dashboardView: DashboardView;
   setdashboardView: React.Dispatch<React.SetStateAction<DashboardView>>;
-  teamSeasons: Season[];
-  setSelectedDashboardSeason: React.Dispatch<React.SetStateAction<string | null>>
+  teamSeasons: SeasonOverview[];
+  setSelectedDashboardSeason: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Nav({
   dashboardView,
   setdashboardView,
   teamSeasons,
-  setSelectedDashboardSeason
+  setSelectedDashboardSeason,
 }: navProps) {
   return (
     <div className="dashboardNav">
@@ -22,7 +22,10 @@ export default function Nav({
         dashboardView={dashboardView}
         setdashboardView={setdashboardView}
       />
-      <NavSeasonSelector teamSeasons={teamSeasons} setSelectedDashboardSeason={setSelectedDashboardSeason}/>
+      <NavSeasonSelector
+        teamSeasons={teamSeasons}
+        setSelectedDashboardSeason={setSelectedDashboardSeason}
+      />
     </div>
   );
 }

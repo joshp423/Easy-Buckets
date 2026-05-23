@@ -5,8 +5,8 @@ import Nav from "./Nav/nav";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import { useEffect } from "react";
 import { teamSeasonsAPIFetch } from "./teamSeasonsAPIFetch";
-import StatsSection from "./GameStatsDisplay/gameDisplay";
-import GameViewPager from "./GameStatsDisplay/GameViewPager/gameViewPager";
+import GameStatsDisplay from "./GameDisplay/gameDisplay";
+import GameViewPager from "./GameDisplay/GameViewPager/gameViewPager";
 import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
 
 export default function Dashboard() {
@@ -15,7 +15,6 @@ export default function Dashboard() {
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
-  const [selectedGame, setSelectedGame] = useState<number>(0);
 
   useEffect(() => {
     const load = async () => {
@@ -74,8 +73,7 @@ export default function Dashboard() {
           setSelectedDashboardSeason={setSelectedDashboardSeason}
           teamSeasons={teamSeasons}
         />
-        <StatsSection seasonData={seasonData} />
-        <GameViewPager setSelectedGame={setSelectedGame} selectedGame={selectedGame} seasonData={seasonData}/>
+        <GameStatsDisplay seasonData={seasonData} />
       </div>
     </div>
   );

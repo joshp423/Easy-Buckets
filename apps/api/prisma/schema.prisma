@@ -62,24 +62,24 @@ model GameStatlines {
   game Games @relation("gameStatlines", fields: [gameId], references: [id])
   playerId Int
   player Players @relation("gameStatlines", fields: [playerId], references: [id])
-  TwoPointFGMiss Int
-  TwoPointFGMake Int
-  ThreePointFGMiss Int
-  ThreePointFGMake Int
-  FTMiss Int
-  FTMake Int
-  OReb Int
-  DReb Int
-  Assist Int
-  Block Int
-  Steal Int
-  Turnover Int
-  PF Int
-  TwoPointFGPercent Int
-  ThreePointFGPercent Int
-  FTPercent Int
-  TotalRebounds Int
-  Points Int
+  twoPointFGMiss Int
+  twoPointFGMake Int
+  threePointFGMiss Int
+  threePointFGMake Int
+  fTMiss Int
+  fTMake Int
+  oReb Int
+  dReb Int
+  assist Int
+  block Int
+  steal Int
+  turnover Int
+  pF Int
+  twoPointFGPercent Int
+  threePointFGPercent Int
+  fTPercent Int
+  totalRebounds Int
+  points Int
   shots Shots[] @relation("shots")
 }
 
@@ -92,5 +92,5 @@ model Shots {
   make Boolean
   X Int
   Y Int
-  Type Int
+  type Int
 }

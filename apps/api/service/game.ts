@@ -5,6 +5,7 @@ export type Game = {
   seasonId: number;
   opponent: string;
   userId: number;
+  date: Date
 };
 
 export class GameService {
@@ -16,8 +17,8 @@ export class GameService {
     this.config = config;
   }
 
-  async create({ seasonId, opponent }: Game) {
-    return this.gameRepo.create(seasonId, opponent);
+  async create({ seasonId, opponent, date }: Game) {
+    return this.gameRepo.create(seasonId, opponent, date);
   }
 
 }

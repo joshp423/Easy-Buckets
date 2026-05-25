@@ -19,7 +19,7 @@ export class TeamRepo {
   async getTeamSeasons(userId: number, sort: "asc" | "desc") {
     return await this.prisma.teams.findUnique({
       where: {
-        userId: userId,
+        userId
       },
       include: {
         seasons: {

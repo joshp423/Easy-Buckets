@@ -17,11 +17,12 @@ const getTeamSeasonsSchema = z.object({
 
 const createTeamSchema = z.object({
   userId: z.number(),
-  name: z.string()
+  name: z
+    .string()
     .trim()
     .max(25, { message: `Team name: ${lengthErr}` })
-    .min(1, { message: `Team name: ${lengthErr}` })
-})
+    .min(1, { message: `Team name: ${lengthErr}` }),
+});
 
 export async function createTeam(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -30,7 +31,7 @@ export async function createTeam(req: AuthRequest, res: Response) {
 
   const { success, data, error } = createTeamSchema.safeParse({
     userId,
-    name
+    name,
   });
 
   if (!success) {
@@ -82,4 +83,3 @@ the rsp became: {teamSeasons: {id, name, seasons, etc}}, not what we wanted whic
 
 solution was to strip the object we were creating in the .json() function call .json({}) so we didnt create a new object with a key
 */
-

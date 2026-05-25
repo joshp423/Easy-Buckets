@@ -9,7 +9,7 @@ const indexRouter = Router();
 indexRouter.post("/users/sign-up", signUp);
 indexRouter.post("/users/log-in", logIn);
 indexRouter.get("/teams/seasons", indexController.verifyToken, getTeamSeasons);
-indexRouter.put("/teams/create", indexController.verifyToken, createTeam)
-indexRouter.put("/games/create", indexController.verifyToken, createGame)
-indexRouter.put("/seasons/create", indexController.verifyToken, createSeason)
+indexRouter.put("/teams/create", indexController.verifyToken, createTeam);
+indexRouter.put("/games/create", indexController.verifyToken, createGame);
+indexRouter.put("/seasons/create", indexController.verifyToken, createSeason);
 export default indexRouter;

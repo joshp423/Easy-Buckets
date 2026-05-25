@@ -7,7 +7,6 @@ import { SeasonService } from "../service/season.js";
 import { config } from "../service/config.js";
 import prisma from "../lib/prisma.js";
 
-
 const seasonRepo = new SeasonRepo(prisma);
 const seasonService = new SeasonService(seasonRepo, config);
 
@@ -18,12 +17,12 @@ export interface AuthRequest extends Request {
 
 const createSeasonSchema = z.object({
   name: z
-      .string()
-      .trim()
-      .max(25, { message: `Password: ${lengthErr}` })
-      .min(1, { message: `Password: ${lengthErr}` }),
-  teamId: z.number()
-})
+    .string()
+    .trim()
+    .max(25, { message: `Password: ${lengthErr}` })
+    .min(1, { message: `Password: ${lengthErr}` }),
+  teamId: z.number(),
+});
 
 export async function createSeason(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -32,7 +31,7 @@ export async function createSeason(req: AuthRequest, res: Response) {
 
   const { success, data, error } = createSeasonSchema.safeParse({
     userId,
-    name
+    name,
   });
 
   if (!success) {

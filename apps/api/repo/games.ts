@@ -8,7 +8,12 @@ export class GameRepo {
     this.prisma = prisma;
   }
 
-  async create(seasonId: number, opponent: string, date: Date, gameStats: GameStats[]) {
+  async create(
+    seasonId: number,
+    opponent: string,
+    date: Date,
+    gameStats: GameStats[],
+  ) {
     return await this.prisma.games.create({
       data: {
         seasonId,
@@ -18,9 +23,9 @@ export class GameRepo {
           create: gameStats.map((playerStats) => ({
             player: {
               connect: {
-                id: playerStats.playerId
-              }
-            },  
+                id: playerStats.playerId,
+              },
+            },
             twoPointFGMiss: playerStats.twoPointFGMiss,
             twoPointFGMake: playerStats.twoPointFGMake,
             twoPointFGA: playerStats.twoPointFGA,
@@ -47,33 +52,30 @@ export class GameRepo {
                 make: shot.make,
                 X: shot.X,
                 Y: shot.Y,
-                type: shot.type
-              }))
-            }
-          }))
-        }
-      }
+                type: shot.type,
+              })),
+            },
+          })),
+        },
+      },
     });
   }
-  
 
   async get(seasonId: number) {
     return await this.prisma.games.findMany({
       where: {
-        seasonId
+        seasonId,
       },
       orderBy: {
-        date: "desc"
+        date: "desc",
       },
       include: {
-        gameStatlines:{
+        gameStatlines: {
           include: {
-            shots: {}
-          }
+            shots: {},
+          },
         },
-      }
+      },
     });
   }
-
-
 }

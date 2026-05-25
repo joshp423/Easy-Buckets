@@ -1,28 +1,29 @@
-import { type Shot } from "./shot";
+import z from "zod";
 
-type GameStat = {
-  id: number;
-  gameId: number;
-  playerId: number;
-  TwoPointFGMiss: number;
-  TwoPointFGMake: number;
-  ThreePointFGMiss: number;
-  ThreePointFGMake: number;
-  FTMiss: number;
-  FTMake: number;
-  OReb: number;
-  DReb: number;
-  Assist: number;
-  Block: number;
-  Steal: number;
-  Turnover: number;
-  PF: number;
-  TwoPointFGPercent: number;
-  ThreePointFGPercent: number;
-  FTPercent: number;
-  TotalRebounds: number;
-  Points: number;
-  shots: Shot[]
-};
+export const gameStatSchema = z.object({
+  playerId: z.number(),
+  twoPointFGMiss: z.number(),
+  twoPointFGMake: z.number(),
+  twoPointFGA: z.number(),
+  threePointFGMiss: z.number(),
+  threePointFGMake: z.number(),
+  threePointFGA: z.number(),
+  fTMiss: z.number(),
+  fTMake: z.number(),
+  fTA: z.number(),
+  oReb: z.number(),
+  dReb: z.number(),
+  assist: z.number(),
+  block: z.number(),
+  steal: z.number(),
+  turnover: z.number(),
+  pF: z.number(),
+  twoPointFGPercent: z.number(),
+  threePointFGPercent: z.number(),
+  fTPercent: z.number(),
+  totalRebounds: z.number(),
+  points: z.number(),
+  // shots:
+});
 
-export type { GameStat };
+export type GameStat = z.infer<typeof gameStatSchema>;

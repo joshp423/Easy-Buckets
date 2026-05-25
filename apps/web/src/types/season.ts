@@ -5,7 +5,7 @@ type Season = {
   name: string;
   teamId: number;
   dateCreated: Date;
-  games: Game[]
+  games: Game[];
 };
 
 export type { Season };

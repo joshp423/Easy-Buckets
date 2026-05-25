@@ -1,20 +1,28 @@
 
+
+
 type gameStatsAPIFetchProps = {
-  orderBy: "asc" | "desc";
+  seasonId: number
+  opponent: string
+  date: string
+  gameStats: 
 };
 
 export async function gameStatsAPIFetch({
-  season: string
+  userId
   
 }: gameStatsAPIFetchProps) {
   const rsp = await fetch(
-    `http://localhost:3000/teams/seasons?orderBy=${orderBy}`,
+    "http://localhost:3000/games/create",
     {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      method: "GET",
+      method: "PUT",
+      body: JSON.stringify({
+
+      })
     },
   );
 

@@ -6,7 +6,7 @@ export type Game = {
   opponent: string;
   userId: number;
   date: Date;
-  gameStats: GameStats[]
+  gameStats: GameStats[];
 };
 
 export type GameStats = {
@@ -33,14 +33,14 @@ export type GameStats = {
   totalRebounds: number;
   points: number;
   shots: Shot[];
-}
+};
 
 export type Shot = {
-  make: boolean
-  X: number
-  Y: number
-  type: number
-}
+  make: boolean;
+  X: number;
+  Y: number;
+  type: number;
+};
 
 export class GameService {
   private config: configSchema;

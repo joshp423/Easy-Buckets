@@ -1,11 +1,10 @@
-type Shot = {
-    id: number
-    gameId: number
-    gameStatLineId: number
-    make: boolean
-    X: number
-    Y: number
-    type: number
-}
+import z from "zod";
 
-export type { Shot };
+export const shotSchema = z.object({
+  make: z.boolean(),
+  X: z.number(),
+  Y: z.number(),
+  type: z.number(),
+});
+
+export type Shot = z.infer<typeof shotSchema>;

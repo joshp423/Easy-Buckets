@@ -9,11 +9,10 @@ export class SeasonRepo {
 
   async create(name: string, teamId: number) {
     return await this.prisma.seasons.create({
-        data: {
-            name, 
-            teamId
-        }
+      data: {
+        name,
+        teamId,
+      },
     });
   }
-
 }

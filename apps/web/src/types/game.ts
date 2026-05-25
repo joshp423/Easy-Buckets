@@ -1,11 +1,10 @@
-import { type GameStat } from "./gameStat";
+import z from "zod";
 
-type Game = {
-  id: number;
-  name: string;
-  teamId: number;
-  dateCreated: Date;
-  gameStatlines: GameStat[]
-};
+export const gameSchema = z.object({
+  userId: z.number(),
+  seasonId: z.number(),
+  opponent: z.string(),
+  date: z.coerce.date(),
+});
 
-export type { Game };
+export type Game = z.infer<typeof gameSchema>;

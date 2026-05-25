@@ -13,10 +13,13 @@ export type GameStats = {
   playerId: number;
   twoPointFGMiss: number;
   twoPointFGMake: number;
+  twoPointFGA: number;
   threePointFGMiss: number;
   threePointFGMake: number;
+  threePointFGA: number;
   fTMiss: number;
   fTMake: number;
+  fTA: number;
   oReb: number;
   dReb: number;
   assist: number;

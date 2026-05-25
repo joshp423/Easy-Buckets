@@ -63,10 +63,13 @@ model GameStatlines {
   player Players @relation("gameStatlines", fields: [playerId], references: [id])
   twoPointFGMiss Int
   twoPointFGMake Int
+  twoPointFGA Int
   threePointFGMiss Int
   threePointFGMake Int
+  threePointFGA Int
   fTMiss Int
   fTMake Int
+  fTA Int
   oReb Int
   dReb Int
   assist Int

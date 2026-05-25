@@ -1,4 +1,5 @@
 import z from "zod";
+import { shotSchema } from "./shot";
 
 export const gameStatSchema = z.object({
   playerId: z.number(),
@@ -23,7 +24,7 @@ export const gameStatSchema = z.object({
   fTPercent: z.number(),
   totalRebounds: z.number(),
   points: z.number(),
-  // shots:
+  shots: z.array(shotSchema)
 });
 
 export type GameStat = z.infer<typeof gameStatSchema>;

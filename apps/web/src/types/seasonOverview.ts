@@ -8,3 +8,5 @@ export const seasonOverviewSchema = z.object({
 });
 
 export type SeasonOverview = z.infer<typeof seasonOverviewSchema>;
+
+//transfer other types to zod object

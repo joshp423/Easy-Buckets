@@ -7,7 +7,7 @@ export class TeamRepo {
     this.prisma = prisma;
   }
 
-  async create(name: string, userId: number) {
+  async createTeam(name: string, userId: number) {
     return await this.prisma.teams.create({
       data: {
         name,

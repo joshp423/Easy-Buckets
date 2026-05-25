@@ -1,4 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
+import { type GameStats } from "../service/game.js";
 
 export class GameRepo {
   private prisma: PrismaClient;
@@ -7,15 +8,51 @@ export class GameRepo {
     this.prisma = prisma;
   }
 
-  async create(seasonId: number, opponent: string, date: Date) {
+  async create(seasonId: number, opponent: string, date: Date, gameStats: GameStats[]) {
     return await this.prisma.games.create({
       data: {
         seasonId,
         opponent,
         date,
-      },
+        gameStatlines: {
+          create: gameStats.map((playerStats) => ({
+            player: {
+              connect: {
+                id: playerStats.playerId
+              }
+            },  
+            twoPointFGMiss: playerStats.twoPointFGMiss,
+            twoPointFGMake: playerStats.twoPointFGMake,
+            threePointFGMiss: playerStats.threePointFGMiss,
+            threePointFGMake: playerStats.threePointFGMake,
+            fTMiss: playerStats.fTMiss,
+            fTMake: playerStats.fTMake,
+            oReb: playerStats.oReb,
+            dReb: playerStats.dReb,
+            assist: playerStats.assist,
+            block: playerStats.block,
+            steal: playerStats.steal,
+            turnover: playerStats.turnover,
+            pF: playerStats.pF,
+            twoPointFGPercent: playerStats.twoPointFGPercent,
+            threePointFGPercent: playerStats.threePointFGPercent,
+            fTPercent: playerStats.fTPercent,
+            totalRebounds: playerStats.totalRebounds,
+            points: playerStats.points,
+            shots: {
+              create: playerStats.shots.map((shot) => ({
+                make: shot.make,
+                X: shot.X,
+                Y: shot.Y,
+                type: shot.type
+              }))
+            }
+          }))
+        }
+      }
     });
   }
+  
 
   async get(seasonId: number) {
     return await this.prisma.games.findMany({
@@ -34,5 +71,6 @@ export class GameRepo {
       }
     });
   }
+
 
 }

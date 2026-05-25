@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Seasons" ALTER COLUMN "dateCreated" SET DEFAULT CURRENT_TIMESTAMP;

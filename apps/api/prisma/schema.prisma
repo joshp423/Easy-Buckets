@@ -40,7 +40,7 @@ model Seasons {
   id Int @id @default(autoincrement())
   name String
   teamId Int
-  dateCreated DateTime
+  dateCreated DateTime @default(now())
   team Teams @relation("seasons", fields: [teamId], references: [id])
   games Games[] @relation("games")
 }
@@ -50,8 +50,7 @@ model Games {
   seasonId Int
   season Seasons @relation("games", fields: [seasonId], references: [id])
   gameStatlines GameStatlines[] @relation("gameStatlines")
-  shots Shots[] @relation("shots")
-  date DateTime
+  date DateTime 
   opponent String
   replay String?
 }
@@ -85,8 +84,6 @@ model GameStatlines {
 
 model Shots {
   id Int @id @default(autoincrement())
-  gameId Int
-  game Games @relation("shots", fields: [gameId], references: [id])
   gameStatlineId Int
   gameStatline GameStatlines @relation("shots",  fields: [gameStatlineId], references: [id])
   make Boolean

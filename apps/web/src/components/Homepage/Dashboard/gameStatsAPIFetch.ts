@@ -1,5 +1,4 @@
-
-
+import { seasonSchema } from "../../../types/season";
 
 type gameStatsAPIFetchProps = {
   id: number
@@ -20,7 +19,7 @@ export async function gameStatsAPIFetch({
   );
 
   const data = await rsp.json();
-  const team = teamSchema.parse(data);
-  return team;
+  const season = seasonSchema.parse(data);
+  return season;
 }
 

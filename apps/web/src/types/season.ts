@@ -1,11 +1,12 @@
-import { type Game } from "./game";
+import z from "zod";
+import { gameSchema} from "./game";
 
-type Season = {
-  id: number;
-  name: string;
-  teamId: number;
-  dateCreated: Date;
-  games: Game[];
-};
+export const seasonSchema = z.object({
+  id: z.boolean(),
+  name: z.string(),
+  teamId: z.number(),
+  dateCreated: z.date(),
+  games: z.array(gameSchema)
+});
 
-export type { Season };
+export type Season = z.infer<typeof seasonSchema>;

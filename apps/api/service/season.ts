@@ -18,4 +18,8 @@ export class SeasonService {
   async createSeason({ name, teamId }: Season) {
     return this.seasonRepo.create(name, teamId);
   }
+
+  async getSeasonGames(id: number) {
+    return this.seasonRepo.getGames(id)
+  }
 }

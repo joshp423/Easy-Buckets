@@ -24,6 +24,10 @@ const createSeasonSchema = z.object({
   teamId: z.number(),
 });
 
+const getSeasonGamesSchema = z.object({
+  id: z.coerce.number()
+})
+
 export async function createSeason(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
@@ -48,4 +52,29 @@ export async function createSeason(req: AuthRequest, res: Response) {
       message: "an unexpected error occured",
     });
   }
+}
+
+export async function getSeasonGames(req: Request, res: Response) {
+  const { id } = req.params
+
+  const { success, data, error } = getSeasonGamesSchema.safeParse({
+    id
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+  
+  const seasonData = await seasonService.getSeasonGames(data.id);
+
+  if (!seasonData) {
+    return res.status(500).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(200).json({ seasonData });
+  
 }

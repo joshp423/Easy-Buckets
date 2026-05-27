@@ -15,4 +15,29 @@ export class SeasonRepo {
       },
     });
   }
+
+  async getGames(id: number) {
+    return await this.prisma.seasons.findUnique({
+      where: {
+        id
+      },
+      include: {
+        games: {
+          include: {
+            gameStatlines:{
+              include: {
+                player:{
+                  select: {
+                    name: true,
+                    number: true
+                  },
+                },
+                shots: true
+              }
+            }
+          }
+        }
+      }
+    })
+  }
 }

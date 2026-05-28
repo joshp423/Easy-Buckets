@@ -24,7 +24,6 @@ export default function BoxScore({ gameStats }: boxScoreProps) {
             <th>FTM</th>
             <th>FTA</th>
             <th>FT%</th>
-            <th>PTS</th>
             <th>R-OFF</th>
             <th>R-DEF</th>
             <th>R-TOT</th>
@@ -33,6 +32,7 @@ export default function BoxScore({ gameStats }: boxScoreProps) {
             <th>STL</th>
             <th>TO</th>
             <th>PF</th>
+            <th>PTS</th>
           </tr>
         </thead>
         <tbody>
@@ -48,27 +48,27 @@ export default function BoxScore({ gameStats }: boxScoreProps) {
               <td>
                 {Math.round(
                   ((playerStats.threePointFGMake + playerStats.twoPointFGMake) /
-                    (playerStats.twoPointFGMiss +
-                      playerStats.threePointFGMiss)) *
+                    (playerStats.twoPointFGMiss + playerStats.threePointFGMake +
+                      playerStats.threePointFGMiss + playerStats.twoPointFGMake)) *
                     100,
                 )}
                 %
               </td>
-              <td></td>
-              <td></td>
-              <td>%</td>
-              <td></td>
-              <td></td>
-              <td>%</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{playerStats.threePointFGMake}</td>
+              <td>{playerStats.threePointFGA}</td>
+              <td>{playerStats.threePointFGPercent}%</td>
+              <td>{playerStats.fTMake}</td>
+              <td>{playerStats.fTA}</td>
+              <td>{playerStats.fTPercent}%</td>
+              <td>{playerStats.oReb}</td>
+              <td>{playerStats.dReb}</td>
+              <td>{playerStats.totalRebounds}</td>
+              <td>{playerStats.assist}</td>
+              <td>{playerStats.block}</td>
+              <td>{playerStats.steal}</td>
+              <td>{playerStats.turnover}</td>
+              <td>{playerStats.pF}</td>
+              <td>{playerStats.points}</td>
             </tr>
           ))}
         </tbody>

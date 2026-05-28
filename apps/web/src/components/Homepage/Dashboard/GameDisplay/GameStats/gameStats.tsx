@@ -15,8 +15,8 @@ export default function GameStats({ currentGame }: GameStatsProps) {
     <div className="statsSection">
       <VideoPlayer />
       <ShotChart />
-      <BoxScore gameStats={currentGame} />
-      <TeamStats />
+      <BoxScore currentGame={currentGame} />
+      <TeamStats currentGame={currentGame} />
     </div>
   );
 }

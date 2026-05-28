@@ -1,11 +1,11 @@
 import type { Game } from "../../../../../../types/game";
 
 type boxScoreProps = {
-  gameStats: Game;
+  currentGame: Game;
 };
 
-export default function BoxScore({ gameStats }: boxScoreProps) {
-  const gameStatlines = gameStats?.gameStatlines;
+export default function BoxScore({ currentGame }: boxScoreProps) {
+  const gameStatlines = currentGame?.gameStatlines;
 
   if (!gameStatlines) return;
 
@@ -36,8 +36,10 @@ export default function BoxScore({ gameStats }: boxScoreProps) {
           </tr>
         </thead>
         <tbody>
-          {gameStatlines.map((playerStats) => (
-            <tr>
+          {gameStatlines.map((playerStats) => { 
+              const id = playerStats.playerId
+            return (
+            <tr key={id}>
               <td>
                 {playerStats.player.name} #{playerStats.player.number}
               </td>
@@ -48,8 +50,7 @@ export default function BoxScore({ gameStats }: boxScoreProps) {
               <td>
                 {Math.round(
                   ((playerStats.threePointFGMake + playerStats.twoPointFGMake) /
-                    (playerStats.twoPointFGMiss + playerStats.threePointFGMake +
-                      playerStats.threePointFGMiss + playerStats.twoPointFGMake)) *
+                    (playerStats.twoPointFGA + playerStats.threePointFGA)) *
                     100,
                 )}
                 %
@@ -70,7 +71,7 @@ export default function BoxScore({ gameStats }: boxScoreProps) {
               <td>{playerStats.pF}</td>
               <td>{playerStats.points}</td>
             </tr>
-          ))}
+          )})}
         </tbody>
       </table>
     </div>

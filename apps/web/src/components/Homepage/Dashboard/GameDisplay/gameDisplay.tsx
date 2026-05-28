@@ -1,15 +1,15 @@
 import GameStats from "./GameStats/gameStats";
-import { type Season } from "../../../../types/season";
 import { useState } from "react";
+import type { Game } from "../../../../types/game";
 
 type GameDisplayProps = {
-  seasonData: Season | null;
+  seasonData: Game[] | null;
 };
 
 export default function GameDisplay({ seasonData }: GameDisplayProps) {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const currentGame = seasonData?.games[currentPage];
-  const gameAmount = seasonData?.games.length();
+  const currentGame = seasonData?.[currentPage];
+  const gameAmount = seasonData?.length();
 
   const canPageLeft = () => (currentPage < 0 ? true : false);
   const canPageRight = () => (currentPage >= gameAmount ? false : true);

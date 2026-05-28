@@ -7,10 +7,12 @@ import { useEffect } from "react";
 import { teamSeasonsAPIFetch } from "./teamSeasonsAPIFetch";
 import GameStatsDisplay from "./GameDisplay/gameDisplay";
 import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
+import { gameStatsAPIFetch } from "./gameStatsAPIFetch";
+import type { Game } from "../../../types/game";
 
 export default function Dashboard() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
-  const [seasonData, setSeasonData] = useState<SeasonOverview | null>(null);
+  const [seasonData, setSeasonData] = useState<Game[] | null>(null);
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
@@ -34,7 +36,24 @@ export default function Dashboard() {
     load();
   }, []);
 
-  // useEffect(() => {}, [selectedDashboardSeason]);
+  useEffect(() => {
+
+    const selectedSeason = teamSeasons.find(season => season.name === selectedDashboardSeason)
+
+    if (!selectedSeason) return
+
+    const getData = async() => {
+
+      console.log(selectedSeason.id)
+      const data = await gameStatsAPIFetch({id: selectedSeason.id})
+
+      console.log(data)
+
+      setSeasonData(data)
+    }
+
+    getData()
+},[selectedDashboardSeason, teamSeasons])
 
   if (!teamSeasons.length) {
     return (

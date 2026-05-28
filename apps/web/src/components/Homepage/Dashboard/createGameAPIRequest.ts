@@ -8,7 +8,7 @@ type gameStatsAPIFetchProps = {
   gameStats: 
 };
 
-export async function gameStatsAPIFetch({
+export async function createGameStatsAPIFetch({
   userId
   
 }: gameStatsAPIFetchProps) {

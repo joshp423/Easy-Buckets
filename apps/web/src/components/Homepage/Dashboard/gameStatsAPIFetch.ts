@@ -4,9 +4,7 @@ type gameStatsAPIFetchProps = {
   id: number
 };
 
-export async function gameStatsAPIFetch({
-  id
-}: gameStatsAPIFetchProps) {
+export async function gameStatsAPIFetch({id}: gameStatsAPIFetchProps) {
   const rsp = await fetch(
     `http://localhost:3000/seasons/${id}/games`,
     {
@@ -19,7 +17,8 @@ export async function gameStatsAPIFetch({
   );
 
   const data = await rsp.json();
-  const season = seasonSchema.parse(data);
-  return season;
+  const season = seasonSchema.parse(data.seasonData);
+  const games = season.games
+  return games;
 }
 

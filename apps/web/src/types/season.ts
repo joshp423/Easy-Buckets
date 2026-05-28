@@ -2,10 +2,10 @@ import z from "zod";
 import { gameSchema} from "./game";
 
 export const seasonSchema = z.object({
-  id: z.boolean(),
+  id: z.number(),
   name: z.string(),
   teamId: z.number(),
-  dateCreated: z.date(),
+  dateCreated: z.coerce.date(),
   games: z.array(gameSchema)
 });
 

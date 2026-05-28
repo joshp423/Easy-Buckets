@@ -11,9 +11,21 @@ type GameStatsProps = {
 export default function GameStats({ currentGame }: GameStatsProps) {
   console.log(currentGame + "waaaaa");
 
+  if (!currentGame) return
+
+  if (currentGame.replay) {
+    return (
+      <div className="statsSection">
+        <VideoPlayer videoUrl={currentGame.replay} />
+        <ShotChart />
+        <BoxScore currentGame={currentGame} />
+        <TeamStats currentGame={currentGame} />
+      </div>
+    );
+  }
+
   return (
     <div className="statsSection">
-      <VideoPlayer />
       <ShotChart />
       <BoxScore currentGame={currentGame} />
       <TeamStats currentGame={currentGame} />

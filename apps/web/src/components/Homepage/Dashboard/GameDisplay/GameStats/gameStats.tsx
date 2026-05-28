@@ -5,16 +5,17 @@ import BoxScore from "./BoxScore/boxScore";
 import { type Game } from "../../../../../types/game";
 
 type GameStatsProps = {
-  seasonData: Game[] | null;
   currentGame: Game;
 };
 
-export default function GameStats({ seasonData, currentGame }: GameStatsProps) {
+export default function GameStats({ currentGame }: GameStatsProps) {
+  console.log(currentGame + "waaaaa");
+
   return (
     <div className="statsSection">
       <VideoPlayer />
       <ShotChart />
-      <BoxScore />
+      <BoxScore gameStats={currentGame} />
       <TeamStats />
     </div>
   );

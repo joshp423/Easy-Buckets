@@ -25,8 +25,8 @@ const createSeasonSchema = z.object({
 });
 
 const getSeasonGamesSchema = z.object({
-  id: z.coerce.number()
-})
+  id: z.coerce.number(),
+});
 
 export async function createSeason(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -55,10 +55,10 @@ export async function createSeason(req: AuthRequest, res: Response) {
 }
 
 export async function getSeasonGames(req: Request, res: Response) {
-  const { id } = req.params
+  const { id } = req.params;
 
   const { success, data, error } = getSeasonGamesSchema.safeParse({
-    id
+    id,
   });
 
   if (!success) {
@@ -66,7 +66,7 @@ export async function getSeasonGames(req: Request, res: Response) {
       errors: error.issues.map((issue) => issue.message),
     });
   }
-  
+
   const seasonData = await seasonService.getSeasonGames(data.id);
 
   if (!seasonData) {
@@ -76,5 +76,4 @@ export async function getSeasonGames(req: Request, res: Response) {
   }
 
   return res.status(200).json({ seasonData });
-  
 }

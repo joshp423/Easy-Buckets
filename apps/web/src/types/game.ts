@@ -6,7 +6,7 @@ export const gameSchema = z.object({
   seasonId: z.number(),
   opponent: z.string(),
   date: z.coerce.date(),
-  gameStatlines: z.array(gameStatSchema)
+  gameStatlines: z.array(gameStatSchema),
 });
 
 export type Game = z.infer<typeof gameSchema>;

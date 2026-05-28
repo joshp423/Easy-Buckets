@@ -24,7 +24,11 @@ export const gameStatSchema = z.object({
   fTPercent: z.number(),
   totalRebounds: z.number(),
   points: z.number(),
-  shots: z.array(shotSchema)
+  player: z.object({
+    name: z.string(),
+    number: z.number(),
+  }),
+  shots: z.array(shotSchema).optional(),
 });
 
 export type GameStat = z.infer<typeof gameStatSchema>;

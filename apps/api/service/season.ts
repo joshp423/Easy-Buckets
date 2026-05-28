@@ -20,6 +20,6 @@ export class SeasonService {
   }
 
   async getSeasonGames(id: number) {
-    return this.seasonRepo.getGames(id)
+    return this.seasonRepo.getGames(id);
   }
 }

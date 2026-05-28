@@ -5,14 +5,14 @@ import Nav from "./Nav/nav";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import { useEffect } from "react";
 import { teamSeasonsAPIFetch } from "./teamSeasonsAPIFetch";
-import GameStatsDisplay from "./GameDisplay/gameDisplay";
 import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
 import { gameStatsAPIFetch } from "./gameStatsAPIFetch";
 import type { Game } from "../../../types/game";
+import GameDisplay from "./GameDisplay/gameDisplay";
 
 export default function Dashboard() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
-  const [seasonData, setSeasonData] = useState<Game[] | null>(null);
+  const [seasonData, setSeasonData] = useState<Game[]>([]);
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
@@ -37,23 +37,23 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
+    const selectedSeason = teamSeasons.find(
+      (season) => season.name === selectedDashboardSeason,
+    );
 
-    const selectedSeason = teamSeasons.find(season => season.name === selectedDashboardSeason)
+    if (!selectedSeason) return;
 
-    if (!selectedSeason) return
+    const getData = async () => {
+      console.log(selectedSeason.id);
+      const data = await gameStatsAPIFetch({ id: selectedSeason.id });
 
-    const getData = async() => {
+      console.log(data);
 
-      console.log(selectedSeason.id)
-      const data = await gameStatsAPIFetch({id: selectedSeason.id})
+      setSeasonData(data);
+    };
 
-      console.log(data)
-
-      setSeasonData(data)
-    }
-
-    getData()
-},[selectedDashboardSeason, teamSeasons])
+    getData();
+  }, [selectedDashboardSeason, teamSeasons]);
 
   if (!teamSeasons.length) {
     return (
@@ -91,7 +91,7 @@ export default function Dashboard() {
           setSelectedDashboardSeason={setSelectedDashboardSeason}
           teamSeasons={teamSeasons}
         />
-        <GameStatsDisplay seasonData={seasonData} />
+        <GameDisplay seasonData={seasonData} />
       </div>
     </div>
   );

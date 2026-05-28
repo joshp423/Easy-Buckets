@@ -3,22 +3,22 @@ import { useState } from "react";
 import type { Game } from "../../../../types/game";
 
 type GameDisplayProps = {
-  seasonData: Game[] | null;
+  seasonData: Game[];
 };
 
 export default function GameDisplay({ seasonData }: GameDisplayProps) {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const currentGame = seasonData?.[currentPage];
-  const gameAmount = seasonData?.length();
+  const gameAmount = seasonData?.length || 0;
 
-  const canPageLeft = () => (currentPage < 0 ? true : false);
-  const canPageRight = () => (currentPage >= gameAmount ? false : true);
+  const canPageLeft = () => (currentPage < 1 ? false : true);
+  const canPageRight = () => (currentPage >= gameAmount - 1 ? false : true);
 
   return (
     <div className="gameDisplay">
-      <GameStats seasonData={seasonData} currentGame={currentGame} />
+      <GameStats currentGame={currentGame} />
       <div className="gameViewPager">
-        {/* add icon */}
+        {/* add icon + button disable */}
         <button
           onClick={() => canPageLeft() && setCurrentPage(currentPage - 1)}
         >

@@ -1,0 +1,23 @@
+.HpMain {
+ display: grid;
+ grid-template-rows: 1fr 5fr;   
+ height: 100vh;
+ margin: 2%;
+}
+
+.hpTitle {
+    background-color: #E37204;
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 12px;
+}
+
+.hpTitle>h1 {
+    margin-left: 1%;
+}
+
+.hpBlurb {
+    background-color: #F9FAFC;
+    color: black;
+}

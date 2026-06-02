@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-
+import "./navLinks.css"
 //add icons
 
 const links = [
@@ -10,7 +10,7 @@ const links = [
 
 export default function NavLinks() {
   const location = useLocation();
-  const pathname = location.pathname;
+  const pathName = location.pathname;
 
   return (
     <>
@@ -20,7 +20,8 @@ export default function NavLinks() {
           <Link
             to={href}
             style={{
-              backgroundColor: pathname === href ? "blue" : "white",
+              backgroundColor: pathName === href ? "#e37204" : "#f3f5f8",
+              color: pathName === href ? "white" : "black",
             }}
             key={name}
           >

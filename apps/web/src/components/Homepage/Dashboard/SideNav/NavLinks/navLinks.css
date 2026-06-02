@@ -1,0 +1,18 @@
+.navLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    margin-top: 5%;
+}
+
+.sideNav>div>a {
+    background-color: #f3f5f8;
+    text-decoration: none;
+    padding: 2% 5% 2% 5%;
+    border-radius: 12px;
+}
+
+.sideNav>div>a>p {
+ margin: 0;
+ font-size: 1.1vw;
+}

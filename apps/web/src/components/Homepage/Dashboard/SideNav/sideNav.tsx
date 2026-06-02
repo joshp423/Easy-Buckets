@@ -14,9 +14,9 @@ export default function SideNav() {
   return (
     <div className="sideNav">
       <Link to="/">
-        <div>EasyBuckets</div>
+        <div>Easy Buckets</div>
       </Link>
-      <div>
+      <div className="navLinks">
         <NavLinks />
       </div>
       <div></div>

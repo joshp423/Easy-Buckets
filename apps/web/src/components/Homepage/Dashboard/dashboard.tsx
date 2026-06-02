@@ -55,7 +55,7 @@ export default function Dashboard() {
 
     getData();
   }, [selectedDashboardSeason, teamSeasons]);
-
+// add fallback component
   if (!teamSeasons.length) {
     return (
       <div className="dashboard">

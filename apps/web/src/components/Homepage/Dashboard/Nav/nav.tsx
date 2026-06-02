@@ -2,7 +2,7 @@ import { type DashboardView } from "../../../../types/dashboardView";
 import NavViewSelector from "./NavViewSelector.tsx/navViewSelector";
 import NavSeasonSelector from "./NavSeasonSelector/navSeasonSelector";
 import { type SeasonOverview } from "../../../../types/seasonOverview";
-
+import "./nav.css";
 type navProps = {
   dashboardView: DashboardView;
   setdashboardView: React.Dispatch<React.SetStateAction<DashboardView>>;

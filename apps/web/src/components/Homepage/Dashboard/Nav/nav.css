@@ -1,0 +1,4 @@
+.dashboardNav {
+    display: flex;
+    justify-content: space-between;
+}

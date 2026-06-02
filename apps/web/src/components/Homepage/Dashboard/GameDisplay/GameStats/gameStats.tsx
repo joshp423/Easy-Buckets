@@ -11,7 +11,7 @@ type GameStatsProps = {
 export default function GameStats({ currentGame }: GameStatsProps) {
   console.log(currentGame + "waaaaa");
 
-  if (!currentGame) return
+  if (!currentGame) return;
 
   if (currentGame.replay) {
     return (

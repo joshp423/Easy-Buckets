@@ -1,12 +1,10 @@
 import type { Game } from "../../../../../../types/game";
 
 type teamStatProps = {
-  currentGame: Game
-}
+  currentGame: Game;
+};
 
-
-export default function TeamStats({currentGame}: teamStatProps) {
-
+export default function TeamStats({ currentGame }: teamStatProps) {
   if (!currentGame) return;
 
   const teamTotals = {
@@ -27,30 +25,30 @@ export default function TeamStats({currentGame}: teamStatProps) {
     turnover: 0,
     pF: 0,
     totalRebounds: 0,
-    points: 0
-  }
+    points: 0,
+  };
 
   currentGame?.gameStatlines.forEach((playerStats) => {
-    teamTotals.twoPointFGMiss += playerStats.twoPointFGMiss
-    teamTotals.twoPointFGMake += playerStats.twoPointFGMake
-    teamTotals.twoPointFGA += playerStats.twoPointFGA
-    teamTotals.threePointFGMiss += playerStats.threePointFGMiss
-    teamTotals.threePointFGMake += playerStats.threePointFGMake
-    teamTotals.threePointFGA += playerStats.threePointFGA
-    teamTotals.fTMiss += playerStats.fTMiss
-    teamTotals.fTMake += playerStats.fTMake
-    teamTotals.fTA += playerStats.fTA
-    teamTotals.oReb += playerStats.oReb
-    teamTotals.dReb += playerStats.dReb
-    teamTotals.assist += playerStats.assist
-    teamTotals.block += playerStats.block
-    teamTotals.steal += playerStats.steal
-    teamTotals.turnover += playerStats.turnover
-    teamTotals.pF += playerStats.pF
-    teamTotals.threePointFGMake += playerStats.threePointFGMake
-    teamTotals.totalRebounds += playerStats.totalRebounds
-    teamTotals.points += playerStats.points
-  })
+    teamTotals.twoPointFGMiss += playerStats.twoPointFGMiss;
+    teamTotals.twoPointFGMake += playerStats.twoPointFGMake;
+    teamTotals.twoPointFGA += playerStats.twoPointFGA;
+    teamTotals.threePointFGMiss += playerStats.threePointFGMiss;
+    teamTotals.threePointFGMake += playerStats.threePointFGMake;
+    teamTotals.threePointFGA += playerStats.threePointFGA;
+    teamTotals.fTMiss += playerStats.fTMiss;
+    teamTotals.fTMake += playerStats.fTMake;
+    teamTotals.fTA += playerStats.fTA;
+    teamTotals.oReb += playerStats.oReb;
+    teamTotals.dReb += playerStats.dReb;
+    teamTotals.assist += playerStats.assist;
+    teamTotals.block += playerStats.block;
+    teamTotals.steal += playerStats.steal;
+    teamTotals.turnover += playerStats.turnover;
+    teamTotals.pF += playerStats.pF;
+    teamTotals.threePointFGMake += playerStats.threePointFGMake;
+    teamTotals.totalRebounds += playerStats.totalRebounds;
+    teamTotals.points += playerStats.points;
+  });
 
   return (
     <div className="teamStats">
@@ -80,24 +78,27 @@ export default function TeamStats({currentGame}: teamStatProps) {
         </thead>
         <tbody>
           <tr>
-            <td>
-              {teamTotals.twoPointFGMake+teamTotals.threePointFGMake}
-            </td>
+            <td>{teamTotals.twoPointFGMake + teamTotals.threePointFGMake}</td>
             <td>{teamTotals.twoPointFGA + teamTotals.threePointFGA}</td>
             <td>
               {Math.round(
                 ((teamTotals.threePointFGMake + teamTotals.twoPointFGMake) /
                   (teamTotals.twoPointFGA + teamTotals.threePointFGA)) *
-                  100
+                  100,
               )}
               %
             </td>
             <td>{teamTotals.threePointFGMake}</td>
             <td>{teamTotals.threePointFGA}</td>
-            <td>{Math.round(teamTotals.threePointFGMake/teamTotals.threePointFGA*100)}%</td>
+            <td>
+              {Math.round(
+                (teamTotals.threePointFGMake / teamTotals.threePointFGA) * 100,
+              )}
+              %
+            </td>
             <td>{teamTotals.fTMake}</td>
             <td>{teamTotals.fTA}</td>
-            <td>{Math.round(teamTotals.fTMake/teamTotals.fTA*100)}%</td>
+            <td>{Math.round((teamTotals.fTMake / teamTotals.fTA) * 100)}%</td>
             <td>{teamTotals.oReb}</td>
             <td>{teamTotals.dReb}</td>
             <td>{teamTotals.totalRebounds}</td>
@@ -111,5 +112,5 @@ export default function TeamStats({currentGame}: teamStatProps) {
         </tbody>
       </table>
     </div>
-  )
+  );
 }

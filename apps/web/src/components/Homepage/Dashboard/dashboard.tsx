@@ -9,6 +9,7 @@ import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
 import { gameStatsAPIFetch } from "./gameStatsAPIFetch";
 import type { Game } from "../../../types/game";
 import GameDisplay from "./GameDisplay/gameDisplay";
+import "./dashboard.css"
 
 export default function Dashboard() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);

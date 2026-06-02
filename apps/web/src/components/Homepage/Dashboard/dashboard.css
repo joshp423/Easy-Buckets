@@ -1,0 +1,6 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 0.5%;
+    height: 100vh;
+}

@@ -1,0 +1,4 @@
+.sideNav {
+    display: grid;
+    grid-template-rows: 15% 15% 65% 5%;
+}

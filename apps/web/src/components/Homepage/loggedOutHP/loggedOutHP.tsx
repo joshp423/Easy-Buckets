@@ -19,7 +19,6 @@ export default function LoggedOutHP() {
             <Link to={"/log-in"}>Log In</Link>
           </div>
         </div>
-
         <div className="hpImage"></div>
       </div>
     </div>

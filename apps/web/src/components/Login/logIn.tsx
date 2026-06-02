@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { logInAPI } from "./logInAPI";
 import { useOutletContext } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import "./logIn.css";
 
 type logInProps = {
   loginStatus: boolean;
@@ -23,7 +24,7 @@ export default function LogIn() {
 
   return (
     <div className="logIn">
-      <div className="LogInTitle">
+      <div className="logInTitle">
         <h1>Easy Buckets</h1>
       </div>
       <form
@@ -40,29 +41,34 @@ export default function LogIn() {
         }
       >
         <div className="logInForm">
+          <h1>Please log in to continue</h1>
           <div className="errorHandling">
             {errors?.map((error) => (
               <li key={error}>{error}</li>
             ))}
           </div>
-          <h1>Please log in to continue</h1>
           <label htmlFor="username">Email: </label>
-          <input
-            name="email"
-            type="text"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <label className="logInFormInput">
+            <input
+              name="email"
+              type="text"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
           <label htmlFor="username"> Password: </label>
-          <input
-            name="password"
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          {/* add icons to inputs and button */}
+          <label className="logInFormInput"> 
+            <input
+              name="password"
+              type="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
           <button type="submit">
             <div style={{ display: loading === true ? "none" : "flex" }}>
-              Log In
+              <p>Log In</p>
             </div>{" "}
             <div style={{ display: loading === true ? "flex" : "none" }}></div>
           </button>

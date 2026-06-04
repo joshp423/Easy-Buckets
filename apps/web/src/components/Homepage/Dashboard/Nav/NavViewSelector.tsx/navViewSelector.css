@@ -1,0 +1,21 @@
+.navViewSelector {
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    align-items: center;
+}
+
+.navViewSelector>button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5% 50% 5% 50%;
+    cursor:pointer;
+    border: none;
+    white-space: nowrap;
+    border-radius: 12px;
+}
+
+.navViewSelector>button>p {
+    margin: 0%;
+}

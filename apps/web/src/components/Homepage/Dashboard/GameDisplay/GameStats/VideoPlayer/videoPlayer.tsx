@@ -1,4 +1,6 @@
 import YouTube from "react-youtube";
+import "./videoPlayer.css";
+
 type videoPlayerProps = {
   videoUrl: string;
 };

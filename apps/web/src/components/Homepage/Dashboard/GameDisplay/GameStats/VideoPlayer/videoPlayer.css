@@ -1,0 +1,13 @@
+.videoPlayer {
+  padding: 5% 0% 5% 0%;
+  background-color: #f3f5f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.videoPlayer > div {
+  display: flex;
+}

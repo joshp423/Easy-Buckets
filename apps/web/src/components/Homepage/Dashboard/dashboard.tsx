@@ -9,7 +9,7 @@ import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
 import { gameStatsAPIFetch } from "./gameStatsAPIFetch";
 import type { Game } from "../../../types/game";
 import GameDisplay from "./GameDisplay/gameDisplay";
-import "./dashboard.css"
+import "./dashboard.css";
 
 export default function Dashboard() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
@@ -55,7 +55,7 @@ export default function Dashboard() {
 
     getData();
   }, [selectedDashboardSeason, teamSeasons]);
-// add fallback component
+  // add fallback component
   if (!teamSeasons.length) {
     return (
       <div className="dashboard">

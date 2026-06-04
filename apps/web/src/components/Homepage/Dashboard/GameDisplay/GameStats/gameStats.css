@@ -1,0 +1,11 @@
+.statsSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+
+.statsSection > div:first-of-type {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  margin: 1% 0% 2% 5%;
+}

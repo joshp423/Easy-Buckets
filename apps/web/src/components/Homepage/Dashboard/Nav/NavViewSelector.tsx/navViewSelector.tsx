@@ -1,5 +1,5 @@
 import { type DashboardView } from "../../../../../types/dashboardView";
-import "./navViewSelector.css"
+import "./navViewSelector.css";
 
 export type navViewProps = {
   dashboardView: DashboardView;
@@ -15,6 +15,7 @@ export default function NavViewSelector({
       <button
         style={{
           backgroundColor: dashboardView === "Game" ? "#e37204" : "#f3f5f8",
+          color: dashboardView === "Game" ? "white" : "black",
         }}
         onClick={() =>
           setdashboardView(dashboardView === "Season" ? "Game" : "Season")
@@ -25,6 +26,7 @@ export default function NavViewSelector({
       <button
         style={{
           backgroundColor: dashboardView === "Game" ? "#f3f5f8" : "#e37204",
+          color: dashboardView === "Game" ? "black" : "white",
         }}
         onClick={() =>
           setdashboardView(dashboardView === "Game" ? "Season" : "Game")

@@ -58,7 +58,7 @@ export default function LogIn() {
           </label>
           <label htmlFor="username"> Password: </label>
           {/* add icons to inputs and button */}
-          <label className="logInFormInput"> 
+          <label className="logInFormInput">
             <input
               name="password"
               type="password"

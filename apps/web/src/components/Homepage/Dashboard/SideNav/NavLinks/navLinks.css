@@ -1,26 +1,25 @@
 .navLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 5%;
-    margin: 3% 0% 3% 0%;
-    justify-content: space-around;
-
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  margin: 3% 0% 3% 0%;
+  justify-content: space-around;
 }
 
-.navLinks>a {
-    display: flex;
-    align-items: center;
+.navLinks > a {
+  display: flex;
+  align-items: center;
 }
 
-.sideNav>div>a {
-    background-color: #f3f5f8;
-    text-decoration: none;
-    padding: 2% 5% 2% 5%;
-    border-radius: 12px;
-    height: 30%;
+.sideNav > div > a {
+  background-color: #f3f5f8;
+  text-decoration: none;
+  padding: 2% 5% 2% 5%;
+  border-radius: 12px;
+  height: 30%;
 }
 
-.sideNav>div>a>p {
- margin: 0;
- font-size: 1.1vw;
+.sideNav > div > a > p {
+  margin: 0;
+  font-size: 1.1vw;
 }

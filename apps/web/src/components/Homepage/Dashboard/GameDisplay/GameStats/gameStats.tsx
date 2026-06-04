@@ -3,6 +3,7 @@ import ShotChart from "./ShotChart/shotChart";
 import TeamStats from "./TeamStats/teamStats";
 import BoxScore from "./BoxScore/boxScore";
 import { type Game } from "../../../../../types/game";
+import "./gameStats.css";
 
 type GameStatsProps = {
   currentGame: Game;
@@ -16,8 +17,10 @@ export default function GameStats({ currentGame }: GameStatsProps) {
   if (currentGame.replay) {
     return (
       <div className="statsSection">
-        <VideoPlayer videoUrl={currentGame.replay} />
-        <ShotChart />
+        <div>
+          <VideoPlayer videoUrl={currentGame.replay} />
+          <ShotChart />
+        </div>
         <BoxScore currentGame={currentGame} />
         <TeamStats currentGame={currentGame} />
       </div>

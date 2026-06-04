@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import "./navLinks.css"
+import "./navLinks.css";
 //add icons
 
 const links = [

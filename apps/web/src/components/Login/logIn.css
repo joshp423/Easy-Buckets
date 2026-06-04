@@ -1,97 +1,94 @@
 .logIn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 30% 37% 30% 37%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30% 37% 30% 37%;
 }
 
 .logInTitle {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 3%;
-    background-color: #e37204;
-    width: 100%;
-    padding: 20% 0% 5% 0%;
-    color: white;
-    align-items: flex-end;
-    border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3%;
+  background-color: #e37204;
+  width: 100%;
+  padding: 20% 0% 5% 0%;
+  color: white;
+  align-items: flex-end;
+  border-radius: 12px;
 }
 
-.logInTitle>h1 {
-    margin: 0;
-    padding-left: 5%;
-    margin-top: 5%;
+.logInTitle > h1 {
+  margin: 0;
+  padding-left: 5%;
+  margin-top: 5%;
 }
 
-.logIn>form {
-    width: 100%;
+.logIn > form {
+  width: 100%;
 }
 
 .logInForm {
-    display: flex;
-    flex-direction: column;
-    padding: 10% 5% 15% 5%;
-    background-color: #f3f5f8;
-    border-radius: 12px;
-    color: black
+  display: flex;
+  flex-direction: column;
+  padding: 10% 5% 15% 5%;
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  color: black;
 }
 
-.logInForm>h1 {
-    margin: 0;
-    font-size: 1.5vw;
-    font-weight: 500;
-    color: black;
-    margin-bottom: 8%;
+.logInForm > h1 {
+  margin: 0;
+  font-size: 1.5vw;
+  font-weight: 500;
+  color: black;
+  margin-bottom: 8%;
 }
 
-.logInForm>label {
-    font-size: 1vw;
-    margin-bottom: 2%;
+.logInForm > label {
+  font-size: 1vw;
+  margin-bottom: 2%;
 }
 
 .logInFormInput {
-    border: 1px solid #E5E7EB;
-    background-color: white;
-    padding: 2%;
-    border-radius: 12px;
-    cursor: text;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  padding: 2%;
+  border-radius: 12px;
+  cursor: text;
 }
 
 .logInFormInput:focus-within {
-    border: 1px solid #e37204;
+  border: 1px solid #e37204;
 }
 
-.logInFormInput>input {
-   background-color: white;
-   border: none;
-   outline: none;
-   color: black;
+.logInFormInput > input {
+  background-color: white;
+  border: none;
+  outline: none;
+  color: black;
 }
 
-.logInForm>button {
-    margin-top: 5%;
-    padding: 1%;
-    border-radius: 12px;
-    border: none;
-    background-color: #e37204;
-    font-weight: 500;
-    
+.logInForm > button {
+  margin-top: 5%;
+  padding: 1%;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  font-weight: 500;
 }
 
-.logInForm>button>div {
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 5%;
+.logInForm > button > div {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5%;
 }
 
-.logInForm>button>div>p {
-    font-weight: 600
+.logInForm > button > div > p {
+  font-weight: 600;
 }
 
-.errorHandling>li {
-    font-size: 1.2vw;
-    list-style-type:none;
-    color: red;
+.errorHandling > li {
+  font-size: 1.2vw;
+  list-style-type: none;
+  color: red;
 }
-
-

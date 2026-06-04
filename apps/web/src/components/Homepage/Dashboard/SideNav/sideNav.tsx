@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import NavLinks from "./NavLinks/navLinks";
 import logOut from "./logOut";
 import { useOutletContext } from "react-router-dom";
-import "./sideNav.css"
+import "./sideNav.css";
 
 type sideNavProps = {
   setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>;

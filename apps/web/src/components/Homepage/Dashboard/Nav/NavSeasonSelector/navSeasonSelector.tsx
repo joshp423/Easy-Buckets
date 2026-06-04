@@ -1,5 +1,5 @@
 import { type SeasonOverview } from "../../../../../types/seasonOverview";
-import "./navSeasonSelector.css"
+import "./navSeasonSelector.css";
 
 type navSeasonSelectorProps = {
   teamSeasons: SeasonOverview[];

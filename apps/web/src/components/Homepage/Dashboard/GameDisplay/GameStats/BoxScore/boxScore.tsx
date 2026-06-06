@@ -1,4 +1,5 @@
 import type { Game } from "../../../../../../types/game";
+import "./boxScore.css"
 
 type boxScoreProps = {
   currentGame: Game;

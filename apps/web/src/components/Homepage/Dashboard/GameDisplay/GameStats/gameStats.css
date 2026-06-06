@@ -1,11 +1,20 @@
+.gameDisplay {
+  display: grid;
+  grid-template-rows: 90% 10%;
+  height: 100%;
+}
+
 .statsSection {
   display: flex;
   flex-direction: column;
-  margin-top: 2%;
+  margin-top: 1%;
+  
 }
 
 .statsSection > div:first-of-type {
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  margin: 1% 0% 2% 5%;
+  grid-template-columns: 60% 35%;
+  margin: 0% 1% 2% 1%;
+  gap: 5%;
+  min-height: 40%;
 }

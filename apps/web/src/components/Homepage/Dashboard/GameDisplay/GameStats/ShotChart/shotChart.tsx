@@ -1,4 +1,4 @@
-import courtImage from "../../../../../../../public/FIBAcourt.jpg";
+import courtImage from "/FIBAcourt.jpg";
 import "./shotChart.css"
 
 export default function ShotChart() {

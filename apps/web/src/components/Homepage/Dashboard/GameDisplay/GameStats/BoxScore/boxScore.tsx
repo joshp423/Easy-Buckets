@@ -10,6 +10,8 @@ export default function BoxScore({ currentGame }: boxScoreProps) {
 
   if (!gameStatlines) return;
 
+
+
   const teamTotals = {
     twoPointFGMiss: 0,
     twoPointFGMake: 0,
@@ -31,27 +33,29 @@ export default function BoxScore({ currentGame }: boxScoreProps) {
     points: 0,
   };
 
-  gameStatlines.forEach((playerStats) => {
-    teamTotals.twoPointFGMiss += playerStats.twoPointFGMiss;
-    teamTotals.twoPointFGMake += playerStats.twoPointFGMake;
-    teamTotals.twoPointFGA += playerStats.twoPointFGA;
-    teamTotals.threePointFGMiss += playerStats.threePointFGMiss;
-    teamTotals.threePointFGMake += playerStats.threePointFGMake;
-    teamTotals.threePointFGA += playerStats.threePointFGA;
-    teamTotals.fTMiss += playerStats.fTMiss;
-    teamTotals.fTMake += playerStats.fTMake;
-    teamTotals.fTA += playerStats.fTA;
-    teamTotals.oReb += playerStats.oReb;
-    teamTotals.dReb += playerStats.dReb;
-    teamTotals.assist += playerStats.assist;
-    teamTotals.block += playerStats.block;
-    teamTotals.steal += playerStats.steal;
-    teamTotals.turnover += playerStats.turnover;
-    teamTotals.pF += playerStats.pF;
-    teamTotals.threePointFGMake += playerStats.threePointFGMake;
-    teamTotals.totalRebounds += playerStats.totalRebounds;
-    teamTotals.points += playerStats.points;
-  });
+
+    gameStatlines.forEach((playerStats) => {
+      teamTotals.twoPointFGMiss += playerStats.twoPointFGMiss;
+      teamTotals.twoPointFGMake += playerStats.twoPointFGMake;
+      teamTotals.twoPointFGA += playerStats.twoPointFGA;
+      teamTotals.threePointFGMiss += playerStats.threePointFGMiss;
+      teamTotals.threePointFGMake += playerStats.threePointFGMake;
+      teamTotals.threePointFGA += playerStats.threePointFGA;
+      teamTotals.fTMiss += playerStats.fTMiss;
+      teamTotals.fTMake += playerStats.fTMake;
+      teamTotals.fTA += playerStats.fTA;
+      teamTotals.oReb += playerStats.oReb;
+      teamTotals.dReb += playerStats.dReb;
+      teamTotals.assist += playerStats.assist;
+      teamTotals.block += playerStats.block;
+      teamTotals.steal += playerStats.steal;
+      teamTotals.turnover += playerStats.turnover;
+      teamTotals.pF += playerStats.pF;
+      teamTotals.totalRebounds += playerStats.totalRebounds;
+      teamTotals.points += playerStats.points;
+    });
+
+  console.log(teamTotals)
 
   return (
     <div className="boxScore">

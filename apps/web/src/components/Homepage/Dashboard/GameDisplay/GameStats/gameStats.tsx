@@ -1,6 +1,5 @@
 import VideoPlayer from "./VideoPlayer/videoPlayer";
 import ShotChart from "./ShotChart/shotChart";
-import TeamStats from "./TeamStats/teamStats";
 import BoxScore from "./BoxScore/boxScore";
 import { type Game } from "../../../../../types/game";
 import "./gameStats.css";
@@ -22,7 +21,6 @@ export default function GameStats({ currentGame }: GameStatsProps) {
           <ShotChart />
         </div>
         <BoxScore currentGame={currentGame} />
-        <TeamStats currentGame={currentGame} />
       </div>
     );
   }
@@ -31,7 +29,6 @@ export default function GameStats({ currentGame }: GameStatsProps) {
     <div className="statsSection">
       <ShotChart />
       <BoxScore currentGame={currentGame} />
-      <TeamStats currentGame={currentGame} />
     </div>
   );
 }

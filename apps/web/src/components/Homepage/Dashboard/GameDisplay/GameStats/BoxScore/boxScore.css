@@ -3,6 +3,7 @@
   padding: 2%;
   background-color: #f3f5f8;
   border-radius: 12px;
+  justify-content: center;
 }
 
 .boxScore > table {
@@ -26,6 +27,7 @@
 .boxScore > table > tfoot > tr > td {
   border: 1px solid lightgrey;
   padding: 0.25rem 0.75rem;
+  white-space: nowrap;
 }
 
 .boxScore > table > thead > tr > th {
@@ -35,4 +37,8 @@
 .boxScore > table > tbody > tr > td:not(:first-child),
 .boxScore > table > tfoot > tr > td {
   text-align: end;
+}
+
+tr {
+    width: 100%;
 }

@@ -1,17 +1,38 @@
 .boxScore {
-    display: flex;
-    padding: 2%;
-    background-color: #f3f5f8;
-    border-radius: 12px;
+  display: flex;
+  padding: 2%;
+  background-color: #f3f5f8;
+  border-radius: 12px;
 }
 
-.boxScore>table {
-    border: 1px solid black;
-    border-radius: 12px;
-    width: 100%;
-    padding: 2%;
+.boxScore > table {
+  border: 1px solid black;
+  border-radius: 12px;
+  width: 100%;
+  padding: 2%;
+  border-collapse: collapse;
+  text-align: left;
 }
 
-thead {
-    border-bottom: black;
+.boxScore > table > thead,
+.boxScore > table > tfoot {
+  border-block-end: 2px solid;
+  background: #e37204;
+  color: white;
+}
+
+.boxScore > table > thead > tr > th,
+.boxScore > table > tbody > tr > td,
+.boxScore > table > tfoot > tr > td {
+  border: 1px solid lightgrey;
+  padding: 0.25rem 0.75rem;
+}
+
+.boxScore > table > thead > tr > th {
+  text-align: start;
+}
+
+.boxScore > table > tbody > tr > td:not(:first-child),
+.boxScore > table > tfoot > tr > td {
+  text-align: end;
 }

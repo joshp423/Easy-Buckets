@@ -52,7 +52,7 @@ export default function TeamStats({ currentGame }: teamStatProps) {
 
   return (
     <div className="teamStats">
-      <h1>Team Stats</h1>
+      <caption>Team Stats</caption>
       <table>
         <thead>
           <tr>

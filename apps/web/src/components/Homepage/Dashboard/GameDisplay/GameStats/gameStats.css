@@ -1,6 +1,6 @@
 .gameDisplay {
   display: grid;
-  grid-template-rows: 90% 10%;
+  grid-template-rows: 95% 5%;
   height: 100%;
 }
 
@@ -10,10 +10,17 @@
   margin-top: 1%;
 }
 
-.statsSection > div:first-of-type {
+.replayChart {
   display: grid;
   grid-template-columns: 60% 35%;
-  margin: 0% 1% 2% 1%;
+  margin-bottom: 2%;
   gap: 5%;
   min-height: 40%;
+}
+
+.noReplayChart {
+  display: flex;
+  margin-bottom: 2%;
+  max-width: 35%;
+  align-self: center;
 }

@@ -1,6 +1,7 @@
 import GameStats from "./GameStats/gameStats";
 import { useState } from "react";
 import type { Game } from "../../../../types/game";
+import "./gameDisplay.css";
 
 type GameDisplayProps = {
   seasonData: Game[];
@@ -24,11 +25,11 @@ export default function GameDisplay({ seasonData }: GameDisplayProps) {
         >
           &lt;
         </button>
-        <p>{currentPage + 1}</p>
+        <p>Game {currentPage + 1}</p>
         <button
           onClick={() => canPageRight() && setCurrentPage(currentPage + 1)}
         >
-          right
+          &gt;
         </button>
       </div>
     </div>

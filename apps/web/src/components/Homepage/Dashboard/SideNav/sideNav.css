@@ -1,6 +1,7 @@
 .sideNav {
   display: grid;
   grid-template-rows: 15% 15% 65% 5%;
+  min-height: 100%;
 }
 
 .sideNav > a {
@@ -28,3 +29,4 @@
   display: flex;
   align-items: center;
 }
+

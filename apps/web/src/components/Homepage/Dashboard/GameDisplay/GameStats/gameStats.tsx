@@ -16,7 +16,7 @@ export default function GameStats({ currentGame }: GameStatsProps) {
   if (currentGame.replay) {
     return (
       <div className="statsSection">
-        <div>
+        <div className="replayChart">
           <VideoPlayer videoUrl={currentGame.replay} />
           <ShotChart />
         </div>
@@ -27,7 +27,9 @@ export default function GameStats({ currentGame }: GameStatsProps) {
 
   return (
     <div className="statsSection">
-      <ShotChart />
+      <div className="noReplayChart">
+        <ShotChart />
+      </div>
       <BoxScore currentGame={currentGame} />
     </div>
   );

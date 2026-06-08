@@ -3,23 +3,24 @@
   padding: 2%;
   background-color: #f3f5f8;
   border-radius: 12px;
-  justify-content: center;
+  max-width: 100%;
+  overflow-x: auto
 }
-
 .boxScore > table {
-  border: 1px solid black;
-  border-radius: 12px;
-  width: 100%;
-  padding: 2%;
   border-collapse: collapse;
   text-align: left;
+  width: 100%;
 }
 
-.boxScore > table > thead,
+.boxScore > table > thead {
+    border-block-end: 2px solid black;
+    background: #e37204;
+    color: white;
+}
+
 .boxScore > table > tfoot {
-  border-block-end: 2px solid;
+  border-block: 2px solid black;
   background: #e37204;
-  color: white;
 }
 
 .boxScore > table > thead > tr > th,
@@ -28,6 +29,7 @@
   border: 1px solid lightgrey;
   padding: 0.25rem 0.75rem;
   white-space: nowrap;
+  font-size: 1rem;
 }
 
 .boxScore > table > thead > tr > th {
@@ -41,4 +43,8 @@
 
 tr {
     width: 100%;
+}
+
+td {
+    color: black;
 }

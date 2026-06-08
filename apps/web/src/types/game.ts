@@ -6,7 +6,7 @@ export const gameSchema = z.object({
   seasonId: z.number(),
   opponent: z.string(),
   date: z.coerce.date(),
-  replay: z.url(),
+  replay: z.url().nullish(),
   gameStatlines: z.array(gameStatSchema),
 });
 

@@ -6,45 +6,72 @@
   max-width: 100%;
   overflow-x: auto
 }
+
 .boxScore > table {
-  border-collapse: collapse;
+ border-collapse: collapse;
+  text-indent: 0;
   text-align: left;
   width: 100%;
-}
-
-.boxScore > table > thead {
-    border-block-end: 2px solid black;
-    background: #e37204;
-    color: white;
-}
-
-.boxScore > table > tfoot {
-  border-block: 2px solid black;
-  background: #e37204;
-}
-
-.boxScore > table > thead > tr > th,
-.boxScore > table > tbody > tr > td,
-.boxScore > table > tfoot > tr > td {
   border: 1px solid lightgrey;
-  padding: 0.25rem 0.75rem;
-  white-space: nowrap;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
-.boxScore > table > thead > tr > th {
-  text-align: start;
-}
+/* tr {
+	border-bottom: 1px solid;
+} */
 
-.boxScore > table > tbody > tr > td:not(:first-child),
-.boxScore > table > tfoot > tr > td {
-  text-align: end;
-}
-
-tr {
-    width: 100%;
+th {
+	/* border: 1px solid; */
+    padding: 0.5rem 0.75rem;
+    
 }
 
 td {
-    color: black;
+    padding: 0.5rem 0.75rem;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+}
+
+thead {
+    background: #e37204;
+    color: white;
+    border-bottom: 2px solid black;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+}
+
+/* thead th {
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+} */
+/* thead {
+    border: 1px solid lightgrey;
+    border-bottom:  1px solid black;
+    
+} */
+
+th,
+caption {
+	text-align: start;
+}
+
+thead th:not(:first-child),
+td {
+	text-align: end;
+}
+
+td:first-of-type {
+    text-align: start;
+}
+
+tfoot {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+	background: whitesmoke;
+}
+
+th:not(:first-of-type):not(:last-of-type) {
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
 }

@@ -6,6 +6,16 @@ export type Team = {
   userId: number;
 };
 
+export type Player = {
+  name: string,
+  number: number
+}
+
+export type TeamPlayers = {
+  userId: number;
+  players: Player[]
+}
+
 export class TeamService {
   private config: configSchema;
   private teamRepo: TeamRepo;
@@ -21,5 +31,13 @@ export class TeamService {
 
   async getSeasons(userId: number, sort: "asc" | "desc") {
     return this.teamRepo.getTeamSeasons(userId, sort);
+  }
+
+  async getPlayers(userId: number) {
+    return this.teamRepo.getTeamPlayers(userId)
+  }
+
+  async createTeamPlayers({ userId, players }: TeamPlayers) {
+    return this.teamRepo.createTeamPlayers( userId, players)
   }
 }

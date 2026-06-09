@@ -1,4 +1,4 @@
-import SideNav from "./SideNav/sideNav";
+import SideNav from "../../SideNav/sideNav";
 import { useState } from "react";
 import { type DashboardView } from "../../../types/dashboardView";
 import Nav from "./Nav/nav";

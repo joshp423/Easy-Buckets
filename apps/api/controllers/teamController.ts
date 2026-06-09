@@ -24,6 +24,20 @@ const createTeamSchema = z.object({
     .min(1, { message: `Team name: ${lengthErr}` }),
 });
 
+const getTeamPlayersSchema = z.object({
+  userId: z.number()
+})
+
+const createTeamPlayersSchema = z.object({
+  userId: z.number(),
+  players: z.array(
+    z.object({
+      name: z.string(),
+      number: z.number()
+    })
+  )
+})
+
 export async function createTeam(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
@@ -77,6 +91,56 @@ export async function getTeamSeasons(req: AuthRequest, res: Response) {
   return res.status(200).json(teamSeasons);
 }
 
+export async function getTeamPlayers(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { success, data, error } = getTeamPlayersSchema.safeParse({
+    userId,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error,
+    });
+  }
+
+  const teamPlayers = await teamService.getPlayers(data.userId)
+
+  if (!teamPlayers) {
+    return res.status(500).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(200).json(teamPlayers.players);
+}
+
+export async function createTeamPlayers(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { players } = req.body
+
+  const { success, data, error } = createTeamPlayersSchema.safeParse({
+    userId,
+    players
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error,
+    });
+  }
+
+  try {
+    await teamService.createTeamPlayers(data);
+    return res.status(201).json({ message: "Player Creation Successful" });
+  } catch (err) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+}
 /*
 prev issue: return res.json({ thing }) creates an object { thing } which is the shorthand syntax for: { thing: thing }, therefore
 the rsp became: {teamSeasons: {id, name, seasons, etc}}, not what we wanted which is { id, name, seasons, etc }

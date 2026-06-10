@@ -40,6 +40,7 @@ export class TeamRepo {
       include: {
         players: {
           select: {
+            id: true,
             name: true,
             number: true,
           }

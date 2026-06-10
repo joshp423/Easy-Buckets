@@ -112,7 +112,7 @@ export async function getTeamPlayers(req: AuthRequest, res: Response) {
     });
   }
 
-  return res.status(200).json(teamPlayers);
+  return res.status(200).json(teamPlayers.players);
 }
 
 export async function createTeamPlayers(req: AuthRequest, res: Response) {

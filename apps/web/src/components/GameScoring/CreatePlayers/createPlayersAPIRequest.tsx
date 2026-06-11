@@ -1,16 +1,15 @@
-type gameStatsAPIFetchProps = {
-  seasonId: number
-  opponent: string
-  date: string
-  gameStats: 
+import { type Player } from "../../../types/player";
+
+type createPlayersAPIRequestProps = {
+  newPlayers: Player[]
 };
 
-export async function createGameStatsAPIFetch({
-  userId
+export async function createPlayersAPIRequest({
+  newPlayers
   
-}: gameStatsAPIFetchProps) {
+}: createPlayersAPIRequestProps) {
   const rsp = await fetch(
-    "http://localhost:3000/games/create",
+    "http://localhost:3000//teams/players/create",
     {
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +17,7 @@ export async function createGameStatsAPIFetch({
       },
       method: "PUT",
       body: JSON.stringify({
-
+        newPlayers
       })
     },
   );

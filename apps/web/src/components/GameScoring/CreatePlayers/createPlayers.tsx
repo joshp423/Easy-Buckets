@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Player } from "../../../types/player";
+import { createPlayersAPIRequest } from "./createPlayersAPIRequest";
 
 export default function CreatePlayers() {
   const [addPlayersAmount, setAddPlayersAmount] = useState<number>(1);
+  const [newPlayers, setNewPlayers] = useState<Player[]>([])
 
   const canDecreasePlayers = () => (addPlayersAmount === 1 ? false : true);
   const canIncreasePlayers = () => (addPlayersAmount >= 7 ? false : true);
 
+  useEffect(() => {
+    setNewPlayers(prev => Array.from({length: addPlayersAmount}, (_, i) => 
+        prev[i] ?? { name '', number: 0 })
+    )
+  }, [addPlayersAmount]);
+
   return (
     <div className="addPlayers">
       <h1>Add New Players</h1>
-      <form>
+      <form onSubmit={
+        
+        createPlayersAPIRequest(newPlayers)
+      }>
         {Array.from({ length: addPlayersAmount }).map((_, i) => (
           <div key={i}>
             <input type="text" placeholder="Player Name" />

@@ -1,7 +1,12 @@
 import { Router } from "express";
 import * as indexController from "../controllers/indexController.js";
 import { signUp, logIn } from "../controllers/userController.js";
-import { getTeamSeasons, createTeam, getTeamPlayers, createTeamPlayers } from "../controllers/teamController.js";
+import {
+  getTeamSeasons,
+  createTeam,
+  getTeamPlayers,
+  createTeamPlayers,
+} from "../controllers/teamController.js";
 import { createGame } from "../controllers/gameController.js";
 import {
   createSeason,
@@ -20,7 +25,11 @@ indexRouter.get(
   indexController.verifyToken,
   getSeasonGames,
 );
-indexRouter.get("/teams/players", indexController.verifyToken, getTeamPlayers)
-indexRouter.put("/teams/players/create", indexController.verifyToken, createTeamPlayers)
+indexRouter.get("/teams/players", indexController.verifyToken, getTeamPlayers);
+indexRouter.put(
+  "/teams/players/create",
+  indexController.verifyToken,
+  createTeamPlayers,
+);
 
 export default indexRouter;

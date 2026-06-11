@@ -25,18 +25,18 @@ const createTeamSchema = z.object({
 });
 
 const getTeamPlayersSchema = z.object({
-  userId: z.number()
-})
+  userId: z.number(),
+});
 
 const createTeamPlayersSchema = z.object({
   userId: z.number(),
   players: z.array(
     z.object({
       name: z.string(),
-      number: z.number()
-    })
-  )
-})
+      number: z.number(),
+    }),
+  ),
+});
 
 export async function createTeam(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -104,7 +104,7 @@ export async function getTeamPlayers(req: AuthRequest, res: Response) {
     });
   }
 
-  const teamPlayers = await teamService.getPlayers(data.userId)
+  const teamPlayers = await teamService.getPlayers(data.userId);
 
   if (!teamPlayers) {
     return res.status(500).json({
@@ -118,11 +118,11 @@ export async function getTeamPlayers(req: AuthRequest, res: Response) {
 export async function createTeamPlayers(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { players } = req.body
+  const { players } = req.body;
 
   const { success, data, error } = createTeamPlayersSchema.safeParse({
     userId,
-    players
+    players,
   });
 
   if (!success) {
@@ -139,7 +139,6 @@ export async function createTeamPlayers(req: AuthRequest, res: Response) {
       message: "an unexpected error occured",
     });
   }
-
 }
 /*
 prev issue: return res.json({ thing }) creates an object { thing } which is the shorthand syntax for: { thing: thing }, therefore

@@ -43,29 +43,28 @@ export class TeamRepo {
             id: true,
             name: true,
             number: true,
-          }
-        }
-      }
-    })
+          },
+        },
+      },
+    });
   }
 
   async createTeamPlayers(userId: number, players: Player[]) {
-
     const team = await this.prisma.teams.findUnique({
       where: {
-        userId
+        userId,
       },
-      select: {id:true}
-    })
+      select: { id: true },
+    });
 
-    if (!team?.id) throw new Error("An unknown error occurred")
-    
+    if (!team?.id) throw new Error("An unknown error occurred");
+
     return await this.prisma.players.createMany({
       data: players.map((player) => ({
         name: player.name,
         number: player.number,
-        teamId: team.id
-      }))
-    })
+        teamId: team.id,
+      })),
+    });
   }
 }

@@ -4,11 +4,11 @@
   background-color: #f3f5f8;
   border-radius: 12px;
   max-width: 100%;
-  overflow-x: auto
+  overflow-x: auto;
 }
 
 .boxScore > table {
- border-collapse: collapse;
+  border-collapse: collapse;
   text-indent: 0;
   text-align: left;
   width: 100%;
@@ -22,23 +22,22 @@
 } */
 
 th {
-	/* border: 1px solid; */
-    padding: 0.5rem 0.75rem;
-    
+  /* border: 1px solid; */
+  padding: 0.5rem 0.75rem;
 }
 
 td {
-    padding: 0.5rem 0.75rem;
-    border-left: 1px solid lightgrey;
-    border-right: 1px solid lightgrey;
+  padding: 0.5rem 0.75rem;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
 }
 
 thead {
-    background: #e37204;
-    color: white;
-    border-bottom: 2px solid black;
-    border-left: 1px solid lightgrey;
-    border-right: 1px solid lightgrey;
+  background: #e37204;
+  color: white;
+  border-bottom: 2px solid black;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
 }
 
 /* thead th {
@@ -53,25 +52,25 @@ thead {
 
 th,
 caption {
-	text-align: start;
+  text-align: start;
 }
 
 thead th:not(:first-child),
 td {
-	text-align: end;
+  text-align: end;
 }
 
 td:first-of-type {
-    text-align: start;
+  text-align: start;
 }
 
 tfoot {
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-	background: whitesmoke;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  background: whitesmoke;
 }
 
 th:not(:first-of-type):not(:last-of-type) {
-    border-left: 1px solid lightgrey;
-    border-right: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
 }

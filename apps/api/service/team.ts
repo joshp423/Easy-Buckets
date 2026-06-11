@@ -7,14 +7,14 @@ export type Team = {
 };
 
 export type Player = {
-  name: string,
-  number: number
-}
+  name: string;
+  number: number;
+};
 
 export type TeamPlayers = {
   userId: number;
-  players: Player[]
-}
+  players: Player[];
+};
 
 export class TeamService {
   private config: configSchema;
@@ -34,10 +34,10 @@ export class TeamService {
   }
 
   async getPlayers(userId: number) {
-    return this.teamRepo.getTeamPlayers(userId)
+    return this.teamRepo.getTeamPlayers(userId);
   }
 
   async createTeamPlayers({ userId, players }: TeamPlayers) {
-    return this.teamRepo.createTeamPlayers( userId, players)
+    return this.teamRepo.createTeamPlayers(userId, players);
   }
 }

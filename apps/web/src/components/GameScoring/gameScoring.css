@@ -1,7 +1,7 @@
 .gameScoring {
-    display: grid;
-    grid-template-columns: 15% 85%;
-    padding: 0.5%;
-    min-height: 100vh;
-    width: 100%;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0.5%;
+  min-height: 100vh;
+  width: 100%;
 }

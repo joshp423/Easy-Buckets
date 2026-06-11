@@ -11,9 +11,8 @@ export async function teamPlayersAPIFetch() {
     },
     method: "GET",
   });
-  
-  const data = await rsp.json();
-  const players = playerArraySchema.parse(data)
-  return players
 
+  const data = await rsp.json();
+  const players = playerArraySchema.parse(data);
+  return players;
 }

@@ -1,29 +1,22 @@
-import { type Player } from "../../../types/player";
+import type { NewPlayer } from "../../../types/newPlayer";
 
 type createPlayersAPIRequestProps = {
-  newPlayers: Omit<Player, 'id'>[]
+  newPlayers: NewPlayer[];
 };
 
 export async function createPlayersAPIRequest({
-  newPlayers
-  
+  newPlayers,
 }: createPlayersAPIRequestProps) {
-  const rsp = await fetch(
-    "http://localhost:3000//teams/players/create",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      method: "PUT",
-      body: JSON.stringify({
-        newPlayers
-      })
+  console.log(newPlayers);
+  const rsp = await fetch("http://localhost:3000/teams/players/create", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-  );
-
-  const data = await rsp.json();
-  const team = teamSchema.parse(data);
-  return team;
+    method: "PUT",
+    body: JSON.stringify({
+      players: newPlayers,
+    }),
+  });
+  return rsp;
 }
-

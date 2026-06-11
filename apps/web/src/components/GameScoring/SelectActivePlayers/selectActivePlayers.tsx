@@ -13,7 +13,6 @@ export default function SelectActivePlayers({
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  console.log(playerList);
   if (!playerList) return;
   if (addPlayer) {
     return <CreatePlayers />;

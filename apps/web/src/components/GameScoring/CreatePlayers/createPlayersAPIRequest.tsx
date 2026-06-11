@@ -1,7 +1,7 @@
 import { type Player } from "../../../types/player";
 
 type createPlayersAPIRequestProps = {
-  newPlayers: Player[]
+  newPlayers: Omit<Player, 'id'>[]
 };
 
 export async function createPlayersAPIRequest({

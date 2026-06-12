@@ -3,7 +3,11 @@ import type { NewPlayer } from "../../../types/newPlayer";
 import { createPlayersAPIRequest } from "./createPlayersAPIRequest";
 import { useNavigate } from "react-router";
 
-export default function CreatePlayers() {
+type CreatePlayersProps = {
+  setAddPlayer: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
   const [addPlayersAmount, setAddPlayersAmount] = useState<number>(1);
   const [newPlayers, setNewPlayers] = useState<NewPlayer[]>([]);
 
@@ -11,12 +15,16 @@ export default function CreatePlayers() {
   const canIncreasePlayers = () => (addPlayersAmount >= 7 ? false : true);
   const navigate = useNavigate();
 
-  const updatePlayer = (index: number, field: keyof NewPlayer, value: string | number) => 
-    setNewPlayers(prev => {
+  const updatePlayers = (
+    index: number,
+    field: keyof NewPlayer,
+    value: string | number,
+  ) =>
+    setNewPlayers((prev) => {
       const updated = [...prev];
-      updated[index] = {...updated[index], [field]: value} //field is a computed property key, field used as key
-      return updated
-    })
+      updated[index] = { ...updated[index], [field]: value }; //field is a computed property key, field used as key
+      return updated;
+    });
 
   useEffect(() => {
     //take the previous array and create an array
@@ -34,7 +42,7 @@ export default function CreatePlayers() {
   async function uploadNewPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const rsp = await createPlayersAPIRequest({ newPlayers });
-    console.log(rsp.status)
+    console.log(rsp.status);
     if (rsp.status === 201) {
       navigate(0);
       return;
@@ -44,7 +52,7 @@ export default function CreatePlayers() {
         error: "New message failed, try again later.",
       },
     });
-    return
+    return;
   }
 
   return (
@@ -53,16 +61,20 @@ export default function CreatePlayers() {
       <form onSubmit={uploadNewPlayers}>
         {Array.from({ length: addPlayersAmount }).map((_, i) => (
           <div key={i}>
-            <input 
-              type="text" 
-              placeholder="Player Name" 
-              value={newPlayers[i]?.name ?? ''} 
-              onChange={(e) => { updatePlayer(i, 'name', e.target.value)}}
+            <input
+              type="text"
+              placeholder="Player Name"
+              value={newPlayers[i]?.name ?? ""}
+              onChange={(e) => {
+                updatePlayers(i, "name", e.target.value);
+              }}
             />
-            <input 
-              type="number" 
-              placeholder="Player Number"  
-              onChange={(e) => { updatePlayer(i, 'number', Number(e.target.value))}}
+            <input
+              type="number"
+              placeholder="Player Number"
+              onChange={(e) => {
+                updatePlayers(i, "number", Number(e.target.value));
+              }}
             />
           </div>
         ))}
@@ -94,6 +106,14 @@ export default function CreatePlayers() {
         </button>
         <button type="submit">Add Players</button>
       </form>
+      <button
+        type="button"
+        onClick={() => {
+          setAddPlayer(false);
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 }

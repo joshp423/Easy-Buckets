@@ -4,10 +4,14 @@ import { teamPlayersAPIFetch } from "./teamPlayersAPIFetch";
 import type { Player } from "../../types/player";
 import SelectActivePlayers from "./SelectActivePlayers/selectActivePlayers";
 import CreatePlayers from "./CreatePlayers/createPlayers";
+import ScoringInterface from "./ScoringInterface/scoringInterface";
 import "./gameScoring.css";
 
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
+  const [readyCheck, setReadyCheck] = useState<boolean>(false);
+  const [addPlayer, setAddPlayer] = useState<boolean>(false);
+  const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
     const load = async () => {
@@ -20,11 +24,27 @@ export default function GameScoring() {
     load();
   }, []);
 
-  if (playerList) {
+  if (playerList && !readyCheck) {
     return (
       <div className="gameScoring">
         <SideNav />
-        <SelectActivePlayers playerList={playerList} />
+        <SelectActivePlayers
+          playerList={playerList}
+          setReadyCheck={setReadyCheck}
+          setAddPlayer={setAddPlayer}
+          addPlayer={addPlayer}
+          setSelectedPlayers={setSelectedPlayers}
+        />
+      </div>
+    );
+  }
+
+  if (playerList && readyCheck) {
+    //session for readyCheck?
+    return (
+      <div className="gameScoring">
+        <SideNav />
+        <ScoringInterface selectedPlayers={selectedPlayers} />
       </div>
     );
   }
@@ -32,7 +52,7 @@ export default function GameScoring() {
   return (
     <div className="gameScoring">
       <SideNav />
-      <CreatePlayers />
+      <CreatePlayers setAddPlayer={setAddPlayer} />
     </div>
   );
 }

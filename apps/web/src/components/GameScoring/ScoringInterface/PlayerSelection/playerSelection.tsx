@@ -3,7 +3,7 @@ import { type Player } from "../../../../types/player";
 type PlayerSelectionProps = {
   selectedPlayers: Player[];
   setSelectedPlayer :React.Dispatch<React.SetStateAction<number | null>>
-  selectedPlayer: number
+  selectedPlayer: number | null
 };
 
 export default function PlayerSelection({

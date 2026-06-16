@@ -12,6 +12,7 @@ export default function GameScoring() {
   const [readyCheck, setReadyCheck] = useState<boolean>(false);
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
+  const [newGameCheck, setNewGameCheck] = useState<boolean>(false);
 
   useEffect(() => {
     const load = async () => {

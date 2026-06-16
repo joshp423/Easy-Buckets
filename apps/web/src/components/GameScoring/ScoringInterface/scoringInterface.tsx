@@ -1,6 +1,8 @@
 import type { Player } from "../../../types/player";
 import PlayerSelection from "./PlayerSelection/playerSelection";
 import { useState } from "react";
+import StatSelection from "./StatSelection/statSelection";
+import CourtInterface from "./CourtInterface/courtInterface";
 
 type ScoringInterfaceProps = {
   selectedPlayers: Player[];
@@ -11,11 +13,13 @@ export default function ScoringInterface({
 }: ScoringInterfaceProps) {
 
   const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null)
+  const [selectedStat, setSelectedStat] = useState<string>("")
   return (
     <div className="scoringInterface">
       <div className="interfaceInput">
         <PlayerSelection selectedPlayers={selectedPlayers} setSelectedPlayer={setSelectedPlayer} selectedPlayer={selectedPlayer}/>
-
+        <StatSelection setSelectedStat={setSelectedStat} selectedStat={selectedStat}/>
+        <CourtInterface />
       </div>
     </div>
   );

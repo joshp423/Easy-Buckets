@@ -58,14 +58,13 @@ const createGameSchema = z.object({
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { seasonId, opponent, date, gameStats } = req.body;
+  const { seasonId, opponent, date } = req.body;
 
   const { success, data, error } = createGameSchema.safeParse({
     userId,
     seasonId,
     opponent,
     date,
-    gameStats,
   });
 
   if (!success) {
@@ -75,7 +74,7 @@ export async function createGame(req: AuthRequest, res: Response) {
   }
 
   try {
-    await gameService.createGame(data);
+    await gameService.createGameInitial(data);
 
     return res.status(201).json({ message: "Game Creation Successful" });
   } catch (err) {

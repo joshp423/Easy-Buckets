@@ -5,14 +5,26 @@ import type { Player } from "../../types/player";
 import SelectActivePlayers from "./SelectActivePlayers/selectActivePlayers";
 import CreatePlayers from "./CreatePlayers/createPlayers";
 import ScoringInterface from "./ScoringInterface/scoringInterface";
+import GameInitialise from "./GameInitialise/gameInitialise";
+import SelectDraftGame from "./SelectDraftGame/selectDraftGame";
 import "./gameScoring.css";
+
+type GameDraftExport = {
+  seasonId: number,
+  opponent: string,
+  date: Date,
+  replay: string
+}
 
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [readyCheck, setReadyCheck] = useState<boolean>(false);
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
-  const [newGameCheck, setNewGameCheck] = useState<boolean>(false);
+  const [newGameCheck, setNewGameCheck] = useState<"none" | "new" | "existing">(
+    "none",
+  );
+  const [gameDetails, setGameDetails] = useState<GameDraftExport | null>(null)
 
   useEffect(() => {
     const load = async () => {
@@ -25,35 +37,59 @@ export default function GameScoring() {
     load();
   }, []);
 
-  if (playerList && !readyCheck) {
-    return (
-      <div className="gameScoring">
-        <SideNav />
-        <SelectActivePlayers
-          playerList={playerList}
-          setReadyCheck={setReadyCheck}
-          setAddPlayer={setAddPlayer}
-          addPlayer={addPlayer}
-          setSelectedPlayers={setSelectedPlayers}
-        />
-      </div>
-    );
-  }
+  switch (newGameCheck) {
+    case "none":
+      return (
+        <div className="gameScoring">
+          <SideNav />
+          <GameInitialise setNewGameCheck={setNewGameCheck} />
+        </div>
+      )
 
-  if (playerList && readyCheck) {
-    //session for readyCheck?
-    return (
-      <div className="gameScoring">
-        <SideNav />
-        <ScoringInterface selectedPlayers={selectedPlayers} />
-      </div>
-    );
-  }
+    case "existing":
+      return <SelectDraftGame />;
 
-  return (
-    <div className="gameScoring">
-      <SideNav />
-      <CreatePlayers setAddPlayer={setAddPlayer} />
-    </div>
-  );
+    case "new":
+
+      if (!gameDetails) {
+        return(
+          <div className="gameScoring">
+            <SideNav />
+            
+          </div>
+        )
+      }
+      if (playerList && !readyCheck) {
+        return (
+          <div className="gameScoring">
+            <SideNav />
+            <SelectActivePlayers
+              playerList={playerList}
+              setReadyCheck={setReadyCheck}
+              setAddPlayer={setAddPlayer}
+              addPlayer={addPlayer}
+              setSelectedPlayers={setSelectedPlayers}
+            />
+
+          </div>
+        );
+      }
+
+      if (playerList && readyCheck) {
+        //session for readyCheck?
+        return (
+          <div className="gameScoring">
+            <SideNav />
+            <ScoringInterface selectedPlayers={selectedPlayers} />
+          </div>
+        );
+      }
+
+      return (
+        <div className="gameScoring">
+          <SideNav />
+          <CreatePlayers setAddPlayer={setAddPlayer} />
+        </div>
+      );
+  }
 }

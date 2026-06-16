@@ -6,12 +6,11 @@ export type Game = {
   opponent: string;
   userId: number;
   date: Date;
-  gameStats: GameStats[];
 };
 
 export type GameStats = {
   playerId: number;
-  twoPointFGMiss: number;
+  twoPointFGMiss: number;             
   twoPointFGMake: number;
   twoPointFGA: number;
   threePointFGMiss: number;
@@ -51,7 +50,11 @@ export class GameService {
     this.config = config;
   }
 
-  async createGame({ seasonId, opponent, date, gameStats }: Game) {
-    return this.gameRepo.create(seasonId, opponent, date, gameStats);
+  // async createGame({ seasonId, opponent, date, gameStats }: Game) {
+  //   return this.gameRepo.create(seasonId, opponent, date, gameStats);
+  // }
+
+  async createGameInitial({ seasonId, opponent, date }: Game) {
+    return this.gameRepo.createInitial( seasonId, opponent, date );
   }
 }

@@ -7,20 +7,16 @@ export class GameRepo {
   constructor(prisma: PrismaClient) {
     this.prisma = prisma;
   }
-  
-  async createInitial(
-    seasonId: number,
-    opponent: string,
-    date: Date,
-  ) {
+
+  async createInitial(seasonId: number, opponent: string, date: Date) {
     return this.prisma.games.create({
       data: {
         seasonId,
         opponent,
         date,
-        draft: true
-      }
-    })
+        draft: true,
+      },
+    });
   }
   // async create(
   //   seasonId: number,

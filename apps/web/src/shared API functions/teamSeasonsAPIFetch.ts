@@ -1,4 +1,4 @@
-import { teamSchema } from "../../../types/team";
+import { teamSchema } from "../types/team";
 
 type teamSeasonsAPIFetchProps = {
   orderBy: "asc" | "desc";

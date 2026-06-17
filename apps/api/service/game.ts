@@ -10,7 +10,7 @@ export type Game = {
 
 export type GameStats = {
   playerId: number;
-  twoPointFGMiss: number;             
+  twoPointFGMiss: number;
   twoPointFGMake: number;
   twoPointFGA: number;
   threePointFGMiss: number;
@@ -55,6 +55,6 @@ export class GameService {
   // }
 
   async createGameInitial({ seasonId, opponent, date }: Game) {
-    return this.gameRepo.createInitial( seasonId, opponent, date );
+    return this.gameRepo.createInitial(seasonId, opponent, date);
   }
 }

@@ -1,10 +1,9 @@
 import SideNav from "../../SideNav/sideNav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { type DashboardView } from "../../../types/dashboardView";
 import Nav from "./Nav/nav";
 import { type SeasonOverview } from "../../../types/seasonOverview";
-import { useEffect } from "react";
-import { teamSeasonsAPIFetch } from "./teamSeasonsAPIFetch";
+import { teamSeasonsAPIFetch } from "../../../shared API functions/teamSeasonsAPIFetch";
 import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
 import { gameStatsAPIFetch } from "./gameStatsAPIFetch";
 import type { Game } from "../../../types/game";

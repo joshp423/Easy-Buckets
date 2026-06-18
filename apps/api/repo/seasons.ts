@@ -23,6 +23,9 @@ export class SeasonRepo {
       },
       include: {
         games: {
+          where: {
+            draft: false
+          },
           include: {
             gameStatlines: {
               include: {

@@ -3,14 +3,23 @@ import { teamSeasonsAPIFetch } from "../../../shared API functions/teamSeasonsAP
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
 import { createGameDraftAPIRequest } from "./createGameAPIRequest";
+import { useNavigate } from "react-router";
 
-export default function GameDetailsInitialise() {
+
+type GameDetailsInitialiseProps = {
+  setGameDetailsId:React.Dispatch<React.SetStateAction<number | null>>
+}
+
+export default function GameDetailsInitialise({ setGameDetailsId }:GameDetailsInitialiseProps) {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
   const [selectedSeasonId, setSelectedSeasonId] = useState<number | null>(null);
   const [opponent, setOpponent] = useState<string>("");
   const [date, setDate] = useState<string>("");
+  const [replay, setReplay] = useState<string | null>(null);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const load = async () => {
@@ -49,10 +58,13 @@ export default function GameDetailsInitialise() {
       <form
         onSubmit={(e) =>
           createGameDraftAPIRequest({
+            setGameDetailsId,
             e,
             seasonId: selectedSeasonId,
             opponent,
             date,
+            replay,
+            navigate
           })
         }
       >
@@ -65,7 +77,7 @@ export default function GameDetailsInitialise() {
             setOpponent(e.target.value);
           }}
         />
-        <label htmlFor="date">Date</label>
+        <label htmlFor="date">Date: </label>
         <input
           type="date"
           name="date"
@@ -74,6 +86,17 @@ export default function GameDetailsInitialise() {
             setDate(String(e.target.value));
           }}
         />
+        <label htmlFor="replay">Replay URL (Optional): </label>
+        <input
+          type="text"
+          name="replay"
+          placeholder="Youtube link"
+          required
+          onChange={(e) => {
+            setReplay(String(e.target.value));
+          }}
+        />
+        <label>Season: </label>
         <NavSeasonSelector
           teamSeasons={teamSeasons}
           setSelectedDashboardSeason={setSelectedDashboardSeason}

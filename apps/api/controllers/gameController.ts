@@ -10,6 +10,25 @@ import { lengthErr, type AuthRequest } from "./indexController.js";
 const gameRepo = new GameRepo(prisma);
 const gameService = new GameService(gameRepo, config);
 
+const createInitialGameSchema = z.object({
+  userId: z.number(),
+  seasonId: z.number(),
+  opponent: z
+    .string()
+    .trim()
+    .max(25, { message: `Team name: ${lengthErr}` })
+    .min(1, { message: `Team name: ${lengthErr}` }),
+  date: z.coerce.date(),
+  
+})
+
+const replaySchema = z.object({
+  gameId: z.number(),
+  replay: z
+    .url()
+    .trim()
+})
+
 const createGameSchema = z.object({
   userId: z.number(),
   seasonId: z.number(),
@@ -60,7 +79,7 @@ export async function createGame(req: AuthRequest, res: Response) {
 
   const { seasonId, opponent, date } = req.body;
 
-  const { success, data, error } = createGameSchema.safeParse({
+  const { success, data, error } = createInitialGameSchema.safeParse({
     userId,
     seasonId,
     opponent,
@@ -73,8 +92,35 @@ export async function createGame(req: AuthRequest, res: Response) {
     });
   }
 
+  
+  const game = await gameService.createGameInitial(data);
+
+  if (!game) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(game);
+}
+
+export async function addReplay(req: Request, res: Response) {
+
+  const { gameId, replay } = req.body;
+
+  const { success, data, error } = replaySchema.safeParse({
+    gameId,
+    replay,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
   try {
-    await gameService.createGameInitial(data);
+    await gameService.addReplay(data);
 
     return res.status(201).json({ message: "Game Creation Successful" });
   } catch (err) {
@@ -82,4 +128,5 @@ export async function createGame(req: AuthRequest, res: Response) {
       message: "an unexpected error occured",
     });
   }
+
 }

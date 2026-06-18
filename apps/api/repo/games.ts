@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import { type GameStats } from "../service/game.js";
+import { data } from "react-router-dom";
 
 export class GameRepo {
   private prisma: PrismaClient;
@@ -8,7 +8,20 @@ export class GameRepo {
     this.prisma = prisma;
   }
 
-  async createInitial(seasonId: number, opponent: string, date: Date) {
+  async createInitial(userId: number, seasonId: number, opponent: string, date: Date) {
+    const season = await this.prisma.seasons.findFirst({ // userId authCheck
+      where: {
+        id: seasonId,
+        team: {
+          userId,
+        },
+      },
+    });
+
+    if (!season) {
+      throw new Error('Forbidden');
+    }
+
     return this.prisma.games.create({
       data: {
         seasonId,
@@ -17,6 +30,13 @@ export class GameRepo {
         draft: true,
       },
     });
+  }
+
+  async addReplay(gameId: number, replay: string) {
+    return this.prisma.games.update({
+      where: { id: gameId },
+      data: {replay}
+    })
   }
   // async create(
   //   seasonId: number,

@@ -41,6 +41,11 @@ export type Shot = {
   type: number;
 };
 
+type Replay = {
+  gameId: number;
+  replay: string
+}
+
 export class GameService {
   private config: configSchema;
   private gameRepo: GameRepo;
@@ -54,7 +59,11 @@ export class GameService {
   //   return this.gameRepo.create(seasonId, opponent, date, gameStats);
   // }
 
-  async createGameInitial({ seasonId, opponent, date }: Game) {
-    return this.gameRepo.createInitial(seasonId, opponent, date);
+  async createGameInitial({ userId, seasonId, opponent, date }: Game) {
+    return this.gameRepo.createInitial(userId, seasonId, opponent, date);
+  }
+
+  async addReplay({ gameId, replay }: Replay) {
+    return this.gameRepo.addReplay(gameId, replay)
   }
 }

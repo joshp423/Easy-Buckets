@@ -10,13 +10,6 @@ import SelectDraftGame from "./SelectDraftGame/selectDraftGame";
 import "./gameScoring.css";
 import GameDetailsInitialise from "./GameDetailsInitialise/gameDetailsInitialise";
 
-type GameDraftExport = {
-  seasonId: number;
-  opponent: string;
-  date: Date;
-  replay: string;
-};
-
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [readyCheck, setReadyCheck] = useState<boolean>(false);
@@ -25,7 +18,7 @@ export default function GameScoring() {
   const [newGameCheck, setNewGameCheck] = useState<"none" | "new" | "existing">(
     "none",
   );
-  const [gameDetails, setGameDetails] = useState<GameDraftExport | null>(null);
+  const [gameDetailsId, setGameDetailsId] = useState<number | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -51,11 +44,11 @@ export default function GameScoring() {
       return <SelectDraftGame />;
 
     case "new":
-      if (!gameDetails) {
+      if (!gameDetailsId) {
         return (
           <div className="gameScoring">
             <SideNav />
-            <GameDetailsInitialise />
+            <GameDetailsInitialise setGameDetailsId={setGameDetailsId}/>
           </div>
         );
       }

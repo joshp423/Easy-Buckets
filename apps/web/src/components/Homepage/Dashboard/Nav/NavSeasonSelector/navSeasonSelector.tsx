@@ -12,21 +12,19 @@ export default function NavSeasonSelector({
 }: navSeasonSelectorProps) {
   return (
     <div className="navSeasonSelector">
-      <form>
-        <select
-          name="seasonSelect"
-          id="seasonSelect"
-          onChange={(e) => {
-            setSelectedDashboardSeason(e.target.value);
-          }}
-        >
-          {teamSeasons.map(({ id, name }) => (
-            <option key={id} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
-      </form>
+      <select
+        name="seasonSelect"
+        id="seasonSelect"
+        onChange={(e) => {
+          setSelectedDashboardSeason(e.target.value);
+        }}
+      >
+        {teamSeasons.map(({ id, name }) => (
+          <option key={id} value={name}>
+            {name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

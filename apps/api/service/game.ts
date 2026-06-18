@@ -43,8 +43,8 @@ export type Shot = {
 
 type Replay = {
   gameId: number;
-  replay: string
-}
+  replay: string;
+};
 
 export class GameService {
   private config: configSchema;
@@ -64,6 +64,6 @@ export class GameService {
   }
 
   async addReplay({ gameId, replay }: Replay) {
-    return this.gameRepo.addReplay(gameId, replay)
+    return this.gameRepo.addReplay(gameId, replay);
   }
 }

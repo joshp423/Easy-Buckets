@@ -5,7 +5,7 @@ import Nav from "./Nav/nav";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../../shared API functions/teamSeasonsAPIFetch";
 import SeasonStatsDisplay from "./SeasonStatsDisplay/seasonStatsDisplay";
-import { gameStatsAPIFetch } from "./gameStatsAPIFetch";
+import { gameStatsAPIFetch } from "../../../shared API functions/gameStatsAPIFetch";
 import type { Game } from "../../../types/game";
 import GameDisplay from "./GameDisplay/gameDisplay";
 import "./dashboard.css";
@@ -45,7 +45,10 @@ export default function Dashboard() {
 
     const getData = async () => {
       console.log(selectedSeason.id);
-      const data = await gameStatsAPIFetch({ id: selectedSeason.id });
+      const data = await gameStatsAPIFetch({
+        id: selectedSeason.id,
+        draft: false,
+      });
 
       console.log(data);
 

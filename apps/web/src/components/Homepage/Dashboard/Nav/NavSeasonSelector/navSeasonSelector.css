@@ -2,7 +2,7 @@
   margin-right: 2%;
 }
 
-.navSeasonSelector > form > select {
+.navSeasonSelector > select {
   background-color: #e37204;
   color: white;
   border: none;
@@ -10,7 +10,7 @@
   border-radius: 12px;
 }
 
-.navSeasonSelector > form > select > option {
+.navSeasonSelector > select > option {
   background-color: #e37204;
   color: white;
 }

@@ -16,7 +16,7 @@ export class SeasonRepo {
     });
   }
 
-  async getGames(id: number) {
+  async getGames(id: number, draft: boolean) {
     return await this.prisma.seasons.findUnique({
       where: {
         id,
@@ -24,7 +24,7 @@ export class SeasonRepo {
       include: {
         games: {
           where: {
-            draft: false
+            draft,
           },
           include: {
             gameStatlines: {

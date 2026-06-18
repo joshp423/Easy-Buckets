@@ -19,15 +19,12 @@ const createInitialGameSchema = z.object({
     .max(25, { message: `Team name: ${lengthErr}` })
     .min(1, { message: `Team name: ${lengthErr}` }),
   date: z.coerce.date(),
-  
-})
+});
 
 const replaySchema = z.object({
   gameId: z.number(),
-  replay: z
-    .url()
-    .trim()
-})
+  replay: z.url().trim(),
+});
 
 const createGameSchema = z.object({
   userId: z.number(),
@@ -92,7 +89,6 @@ export async function createGame(req: AuthRequest, res: Response) {
     });
   }
 
-  
   const game = await gameService.createGameInitial(data);
 
   if (!game) {
@@ -105,7 +101,6 @@ export async function createGame(req: AuthRequest, res: Response) {
 }
 
 export async function addReplay(req: Request, res: Response) {
-
   const { gameId, replay } = req.body;
 
   const { success, data, error } = replaySchema.safeParse({
@@ -128,5 +123,4 @@ export async function addReplay(req: Request, res: Response) {
       message: "an unexpected error occured",
     });
   }
-
 }

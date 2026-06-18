@@ -2,7 +2,7 @@ import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
 
 type createGameDraftAPIRequestProps = {
-  setGameDetailsId: React.Dispatch<React.SetStateAction<number | null>>
+  setGameDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
   e: SyntheticEvent<HTMLFormElement>;
   seasonId: number | null;
   opponent: string;
@@ -18,10 +18,10 @@ export async function createGameDraftAPIRequest({
   opponent,
   date,
   replay,
-  navigate
+  navigate,
 }: createGameDraftAPIRequestProps) {
   e.preventDefault();
-  console.log(seasonId, opponent, date, replay)
+  console.log(seasonId, opponent, date, replay);
 
   const rsp = await fetch("http://localhost:3000/games/create", {
     headers: {
@@ -38,13 +38,13 @@ export async function createGameDraftAPIRequest({
 
   if (rsp.status !== 201) {
     // const data = await rsp.json();
-    navigate("/error")
+    navigate("/error");
     return;
   }
 
   const data = await rsp.json();
-  const gameId = data.id
-  setGameDetailsId(gameId)
+  const gameId = data.id;
+  setGameDetailsId(gameId);
 
   if (replay) {
     const replayRsp = await fetch("http://localhost:3000/games/add-replay", {
@@ -55,12 +55,12 @@ export async function createGameDraftAPIRequest({
       method: "PUT",
       body: JSON.stringify({
         gameId,
-        replay
+        replay,
       }),
     });
     if (replayRsp.status !== 201) {
       // const data = await rsp.json();
-      navigate("/error")
+      navigate("/error");
       return;
     }
   }

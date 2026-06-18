@@ -9,6 +9,7 @@ import GameInitialise from "./GameInitialise/gameInitialise";
 import SelectDraftGame from "./SelectDraftGame/selectDraftGame";
 import "./gameScoring.css";
 import GameDetailsInitialise from "./GameDetailsInitialise/gameDetailsInitialise";
+import { type SeasonOverview } from "../../types/seasonOverview";
 
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
@@ -19,6 +20,9 @@ export default function GameScoring() {
     "none",
   );
   const [gameDetailsId, setGameDetailsId] = useState<number | null>(null);
+  const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
+  const [selectedDashboardSeason, setSelectedDashboardSeason] =
+    useState<string>("");
 
   useEffect(() => {
     const load = async () => {
@@ -36,7 +40,7 @@ export default function GameScoring() {
       return (
         <div className="gameScoring">
           <SideNav />
-          <GameInitialise setNewGameCheck={setNewGameCheck} />
+          <GameInitialise setNewGameCheck={setNewGameCheck} teamSeasons={teamSeasons} setSelectedDashboardSeason={setSelectedDashboardSeason}/>
         </div>
       );
 
@@ -48,7 +52,13 @@ export default function GameScoring() {
         return (
           <div className="gameScoring">
             <SideNav />
-            <GameDetailsInitialise setGameDetailsId={setGameDetailsId}/>
+            <GameDetailsInitialise
+              setGameDetailsId={setGameDetailsId}
+              teamSeasons={teamSeasons}
+              setTeamSeasons={setTeamSeasons}
+              selectedDashboardSeason={selectedDashboardSeason}
+              setSelectedDashboardSeason={setSelectedDashboardSeason}
+            />
           </div>
         );
       }

@@ -19,10 +19,10 @@ indexRouter.post("/users/log-in", logIn);
 indexRouter.get("/teams/seasons", indexController.verifyToken, getTeamSeasons);
 indexRouter.post("/teams/create", indexController.verifyToken, createTeam);
 indexRouter.post("/games/create", indexController.verifyToken, createGame);
-indexRouter.put("/games/add-replay", indexController.verifyToken, addReplay)
+indexRouter.put("/games/add-replay", indexController.verifyToken, addReplay);
 indexRouter.post("/seasons/create", indexController.verifyToken, createSeason);
 indexRouter.get(
-  "/seasons/:id/games",
+  "/seasons/:id/games/",
   indexController.verifyToken,
   getSeasonGames,
 );

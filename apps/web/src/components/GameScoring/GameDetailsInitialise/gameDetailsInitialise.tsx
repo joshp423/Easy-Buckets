@@ -1,27 +1,30 @@
 import { useState, useEffect } from "react";
 import { teamSeasonsAPIFetch } from "../../../shared API functions/teamSeasonsAPIFetch";
 import { type SeasonOverview } from "../../../types/seasonOverview";
-import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
 import { createGameDraftAPIRequest } from "./createGameAPIRequest";
 import { useNavigate } from "react-router";
 
-
 type GameDetailsInitialiseProps = {
-  setGameDetailsId:React.Dispatch<React.SetStateAction<number | null>>
-}
+  setGameDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
+  teamSeasons: SeasonOverview[];
+  setTeamSeasons: React.Dispatch<React.SetStateAction<SeasonOverview[]>>;
+  selectedDashboardSeason: string;
+};
 
-export default function GameDetailsInitialise({ setGameDetailsId }:GameDetailsInitialiseProps) {
-  const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
-  const [selectedDashboardSeason, setSelectedDashboardSeason] =
-    useState<string>("");
+export default function GameDetailsInitialise({
+  setGameDetailsId,
+  teamSeasons,
+  setTeamSeasons,
+  selectedDashboardSeason,
+}: GameDetailsInitialiseProps) {
   const [selectedSeasonId, setSelectedSeasonId] = useState<number | null>(null);
   const [opponent, setOpponent] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [replay, setReplay] = useState<string | null>(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => { //relocate
     const load = async () => {
       const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
       const seasons = team.seasons;
@@ -36,7 +39,12 @@ export default function GameDetailsInitialise({ setGameDetailsId }:GameDetailsIn
       }
     };
     load();
-  }, []);
+  }, [
+    teamSeasons,
+    selectedDashboardSeason,
+    setTeamSeasons,
+
+  ]);
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -64,7 +72,7 @@ export default function GameDetailsInitialise({ setGameDetailsId }:GameDetailsIn
             opponent,
             date,
             replay,
-            navigate
+            navigate,
           })
         }
       >
@@ -97,10 +105,6 @@ export default function GameDetailsInitialise({ setGameDetailsId }:GameDetailsIn
           }}
         />
         <label>Season: </label>
-        <NavSeasonSelector
-          teamSeasons={teamSeasons}
-          setSelectedDashboardSeason={setSelectedDashboardSeason}
-        />
         <button type="submit">Next</button>
       </form>
     </div>

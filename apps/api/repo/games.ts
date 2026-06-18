@@ -8,8 +8,14 @@ export class GameRepo {
     this.prisma = prisma;
   }
 
-  async createInitial(userId: number, seasonId: number, opponent: string, date: Date) {
-    const season = await this.prisma.seasons.findFirst({ // userId authCheck
+  async createInitial(
+    userId: number,
+    seasonId: number,
+    opponent: string,
+    date: Date,
+  ) {
+    const season = await this.prisma.seasons.findFirst({
+      // userId authCheck
       where: {
         id: seasonId,
         team: {
@@ -19,7 +25,7 @@ export class GameRepo {
     });
 
     if (!season) {
-      throw new Error('Forbidden');
+      throw new Error("Forbidden");
     }
 
     return this.prisma.games.create({
@@ -35,8 +41,8 @@ export class GameRepo {
   async addReplay(gameId: number, replay: string) {
     return this.prisma.games.update({
       where: { id: gameId },
-      data: {replay}
-    })
+      data: { replay },
+    });
   }
   // async create(
   //   seasonId: number,

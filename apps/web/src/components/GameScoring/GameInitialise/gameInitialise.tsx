@@ -1,7 +1,6 @@
 import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 
-
 type GameInitialiseProps = {
   teamSeasons: SeasonOverview[];
   setNewGameCheck: React.Dispatch<
@@ -13,7 +12,7 @@ type GameInitialiseProps = {
 export default function GameInitialise({
   setNewGameCheck,
   teamSeasons,
-  setSelectedDashboardSeason
+  setSelectedDashboardSeason,
 }: GameInitialiseProps) {
   return (
     <div className="gameInitialise">
@@ -31,9 +30,10 @@ export default function GameInitialise({
       >
         Continuing Scoring Existing Game
       </button>
-      <NavSeasonSelector 
+      <NavSeasonSelector
         teamSeasons={teamSeasons}
-        setSelectedDashboardSeason={setSelectedDashboardSeason}/>
+        setSelectedDashboardSeason={setSelectedDashboardSeason}
+      />
     </div>
   );
 }

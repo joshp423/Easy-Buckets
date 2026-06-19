@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { teamSeasonsAPIFetch } from "../../../shared API functions/teamSeasonsAPIFetch";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import { createGameDraftAPIRequest } from "./createGameAPIRequest";
 import { useNavigate } from "react-router";
@@ -7,14 +6,12 @@ import { useNavigate } from "react-router";
 type GameDetailsInitialiseProps = {
   setGameDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
   teamSeasons: SeasonOverview[];
-  setTeamSeasons: React.Dispatch<React.SetStateAction<SeasonOverview[]>>;
   selectedDashboardSeason: string;
 };
 
 export default function GameDetailsInitialise({
   setGameDetailsId,
   teamSeasons,
-  setTeamSeasons,
   selectedDashboardSeason,
 }: GameDetailsInitialiseProps) {
   const [selectedSeasonId, setSelectedSeasonId] = useState<number | null>(null);
@@ -23,28 +20,6 @@ export default function GameDetailsInitialise({
   const [replay, setReplay] = useState<string | null>(null);
 
   const navigate = useNavigate();
-
-  useEffect(() => { //relocate
-    const load = async () => {
-      const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
-      const seasons = team.seasons;
-
-      if (seasons.length) {
-        setTeamSeasons(seasons);
-      }
-      const latestSeason = seasons[0].name;
-
-      if (latestSeason) {
-        setSelectedDashboardSeason(latestSeason);
-      }
-    };
-    load();
-  }, [
-    teamSeasons,
-    selectedDashboardSeason,
-    setTeamSeasons,
-
-  ]);
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -104,7 +79,6 @@ export default function GameDetailsInitialise({
             setReplay(String(e.target.value));
           }}
         />
-        <label>Season: </label>
         <button type="submit">Next</button>
       </form>
     </div>

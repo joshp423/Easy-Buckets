@@ -10,6 +10,7 @@ import SelectDraftGame from "./SelectDraftGame/selectDraftGame";
 import "./gameScoring.css";
 import GameDetailsInitialise from "./GameDetailsInitialise/gameDetailsInitialise";
 import { type SeasonOverview } from "../../types/seasonOverview";
+import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
 
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
@@ -23,6 +24,24 @@ export default function GameScoring() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
+
+  useEffect(() => {
+    //relocate
+    const load = async () => {
+      const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
+      const seasons = team.seasons;
+
+      if (seasons.length) {
+        setTeamSeasons(seasons);
+      }
+      const latestSeason = seasons[0].name;
+
+      if (latestSeason) {
+        setSelectedDashboardSeason(latestSeason);
+      }
+    };
+    load();
+  }, []);
 
   useEffect(() => {
     const load = async () => {
@@ -40,12 +59,47 @@ export default function GameScoring() {
       return (
         <div className="gameScoring">
           <SideNav />
-          <GameInitialise setNewGameCheck={setNewGameCheck} teamSeasons={teamSeasons} setSelectedDashboardSeason={setSelectedDashboardSeason}/>
+          <GameInitialise
+            setNewGameCheck={setNewGameCheck}
+            teamSeasons={teamSeasons}
+            setSelectedDashboardSeason={setSelectedDashboardSeason}
+          />
         </div>
       );
 
     case "existing":
-      return <SelectDraftGame />;
+      // if (playerList && !readyCheck) {
+      //   return (
+      //     <div className="gameScoring">
+      //       <SideNav />
+      //       <SelectActivePlayers
+      //         playerList={playerList}
+      //         setReadyCheck={setReadyCheck}
+      //         setAddPlayer={setAddPlayer}
+      //         addPlayer={addPlayer}
+      //         setSelectedPlayers={setSelectedPlayers}
+      //       />
+      //     </div>
+      //   );
+      // }
+
+      // if (playerList && readyCheck) {
+      //   //session for readyCheck?
+      //   return (
+      //     <div className="gameScoring">
+      //       <SideNav />
+      //       <ScoringInterface selectedPlayers={selectedPlayers} />
+      //     </div>
+      //   );
+      // }
+
+      return (
+        <SelectDraftGame
+          teamSeasons={teamSeasons}
+          selectedDashboardSeason={selectedDashboardSeason}
+          setGameDetailsId={setGameDetailsId}
+        />
+      );
 
     case "new":
       if (!gameDetailsId) {
@@ -55,9 +109,7 @@ export default function GameScoring() {
             <GameDetailsInitialise
               setGameDetailsId={setGameDetailsId}
               teamSeasons={teamSeasons}
-              setTeamSeasons={setTeamSeasons}
               selectedDashboardSeason={selectedDashboardSeason}
-              setSelectedDashboardSeason={setSelectedDashboardSeason}
             />
           </div>
         );

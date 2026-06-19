@@ -19,7 +19,7 @@ export class SeasonService {
     return this.seasonRepo.create(name, teamId);
   }
 
-  async getSeasonGames(id: number, draft: boolean) {
-    return this.seasonRepo.getGames(id, draft);
+  async getSeasonGames(id: number, drafts: boolean) {
+    return this.seasonRepo.getGames(id, drafts);
   }
 }

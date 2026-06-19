@@ -26,7 +26,8 @@ const createSeasonSchema = z.object({
 
 const getSeasonGamesSchema = z.object({
   id: z.coerce.number(),
-  draft: z.coerce.string(),
+  drafts: z.enum(["true", "false"]).transform((v) => v === "true"), //enum checks if it is one of the values in array,
+  //then compared to true
 });
 
 export async function createSeason(req: AuthRequest, res: Response) {
@@ -58,11 +59,11 @@ export async function createSeason(req: AuthRequest, res: Response) {
 export async function getSeasonGames(req: Request, res: Response) {
   const { id } = req.params;
 
-  const { draft } = req.query;
+  const { drafts } = req.query;
 
   const { success, data, error } = getSeasonGamesSchema.safeParse({
     id,
-    draft,
+    drafts,
   });
 
   if (!success) {
@@ -71,10 +72,7 @@ export async function getSeasonGames(req: Request, res: Response) {
     });
   }
 
-  const seasonData = await seasonService.getSeasonGames(
-    data.id,
-    Boolean(draft),
-  );
+  const seasonData = await seasonService.getSeasonGames(data.id, data.drafts);
 
   if (!seasonData) {
     return res.status(500).json({

@@ -68,30 +68,29 @@ export default function GameScoring() {
       );
 
     case "existing":
-      // if (playerList && !readyCheck) {
-      //   return (
-      //     <div className="gameScoring">
-      //       <SideNav />
-      //       <SelectActivePlayers
-      //         playerList={playerList}
-      //         setReadyCheck={setReadyCheck}
-      //         setAddPlayer={setAddPlayer}
-      //         addPlayer={addPlayer}
-      //         setSelectedPlayers={setSelectedPlayers}
-      //       />
-      //     </div>
-      //   );
-      // }
-
-      // if (playerList && readyCheck) {
-      //   //session for readyCheck?
-      //   return (
-      //     <div className="gameScoring">
-      //       <SideNav />
-      //       <ScoringInterface selectedPlayers={selectedPlayers} />
-      //     </div>
-      //   );
-      // }
+      if (gameDetailsId && !readyCheck) {
+        return (
+          <div className="gameScoring">
+            <SideNav />
+            <SelectActivePlayers
+              playerList={playerList}
+              setReadyCheck={setReadyCheck}
+              setAddPlayer={setAddPlayer}
+              addPlayer={addPlayer}
+              setSelectedPlayers={setSelectedPlayers}
+            />
+          </div>
+        );
+      }
+      if (playerList && readyCheck) {
+        //session for readyCheck?
+        return (
+          <div className="gameScoring">
+            <SideNav />
+            <ScoringInterface selectedPlayers={selectedPlayers} />
+          </div>
+        );
+      }
 
       return (
         <SelectDraftGame

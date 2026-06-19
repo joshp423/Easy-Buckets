@@ -9,7 +9,6 @@ export async function seasonGameAPIFetch({
   id,
   draft,
 }: gameStatsAPIFetchProps) {
-  console.log(draft);
   const rsp = await fetch(
     `http://localhost:3000/seasons/${id}/games?drafts=${draft}`,
     {

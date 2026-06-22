@@ -23,57 +23,59 @@ export default function LogIn() {
   }
 
   return (
-    <div className="logIn">
-      <div className="logInTitle">
-        <h1>Easy Buckets</h1>
-      </div>
-      <form
-        onSubmit={(e) =>
-          logInAPI({
-            e,
-            setLoginStatus,
-            setLoading,
-            setErrors,
-            email,
-            password,
-            navigate,
-          })
-        }
-      >
-        <div className="logInForm">
-          <h1>Please log in to continue</h1>
-          <div className="errorHandling">
-            {errors?.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </div>
-          <label htmlFor="username">Email: </label>
-          <div className="logInFormInput">
-            <input
-              name="email"
-              type="text"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <label htmlFor="username"> Password: </label>
-          {/* add icons to inputs and button */}
-          <div className="logInFormInput">
-            <input
-              name="password"
-              type="password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit">
-            <div style={{ display: loading === true ? "none" : "flex" }}>
-              <p>Log In</p>
-            </div>{" "}
-            <div style={{ display: loading === true ? "flex" : "none" }}></div>
-          </button>
+    <div className="logInContainer">
+      <div className="logIn">
+        <div className="logInTitle">
+          <h1>Easy Buckets</h1>
         </div>
-      </form>
+        <form
+          onSubmit={(e) =>
+            logInAPI({
+              e,
+              setLoginStatus,
+              setLoading,
+              setErrors,
+              email,
+              password,
+              navigate,
+            })
+          }
+        >
+          <div className="logInForm">
+            <h1>Please log in to continue</h1>
+            <div className="errorHandling">
+              {errors?.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </div>
+            <label htmlFor="username">Email: </label>
+            <div className="logInFormInput">
+              <input
+                name="email"
+                type="text"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <label htmlFor="username"> Password: </label>
+            {/* add icons to inputs and button */}
+            <div className="logInFormInput">
+              <input
+                name="password"
+                type="password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit">
+              <div style={{ display: loading === true ? "none" : "flex" }}>
+                <p>Log In</p>
+              </div>{" "}
+              <div style={{ display: loading === true ? "flex" : "none" }}></div>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

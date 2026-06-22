@@ -48,24 +48,24 @@ export default function LogIn() {
             ))}
           </div>
           <label htmlFor="username">Email: </label>
-          <label className="logInFormInput">
+          <div className="logInFormInput">
             <input
               name="email"
               type="text"
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-          </label>
+          </div>
           <label htmlFor="username"> Password: </label>
           {/* add icons to inputs and button */}
-          <label className="logInFormInput">
+          <div className="logInFormInput">
             <input
               name="password"
               type="password"
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-          </label>
+          </div>
           <button type="submit">
             <div style={{ display: loading === true ? "none" : "flex" }}>
               <p>Log In</p>

@@ -75,6 +75,7 @@
   border: none;
   background-color: #e37204;
   font-weight: 500;
+  color: white;
 }
 
 .logInForm > button > div {

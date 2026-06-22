@@ -8,6 +8,7 @@
   border: none;
   padding: 12%;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .navSeasonSelector > select > option {

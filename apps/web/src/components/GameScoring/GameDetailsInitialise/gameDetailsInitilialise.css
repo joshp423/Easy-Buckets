@@ -1,0 +1,52 @@
+.gameDetailsInitialise {
+    display: flex;
+    flex-direction: column;
+    margin: 30% 20% 30% 20%;
+    padding: 3%;
+    align-items: center;
+    background-color: #f3f5f8;
+    justify-content: center;
+    gap: 2%;
+    border-radius: 12px;
+    min-height: 40%;
+}
+
+.gameDetailsInitialise >p, .gameDetailsInitialise>h1 {
+    margin: none;
+}
+
+
+.gameDetailsInitialise >  p, .gameDetailsInitialise >  h1 {
+    margin: 0;
+}
+
+.gameDetailsInitialise > form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5%
+}
+
+.gameDetailsInitialise > form > input {
+    border: 1px solid #e5e7eb;
+  background-color: white;
+  padding: 2%;
+  border-radius: 12px;
+  cursor: text;
+  justify-self: center;
+}
+
+.gameDetailsInitialise > form > input:focus {
+  border: 1px solid #e37204;
+    outline: none !important;
+}
+
+.gameDetailsInitialise > form > button {
+    margin: 1% 0% 5% 0%;
+  padding: 1%;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  font-weight: 500;
+  color: white;
+}

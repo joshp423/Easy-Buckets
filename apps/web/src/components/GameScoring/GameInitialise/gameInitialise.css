@@ -1,36 +1,36 @@
 .gameInitialise {
-    display: flex;
-    flex-direction: column;
-    margin: 30% 20% 30% 20%;
-    padding: 0% 3% 3% 3%;
-    align-items: center;
-    background-color: #f3f5f8;
-    justify-content: center;
-    gap: 10%;
-    border-radius: 12px;
-    min-height: 40%;
+  display: flex;
+  flex-direction: column;
+  margin: 30% 20% 30% 20%;
+  padding: 0% 3% 3% 3%;
+  align-items: center;
+  background-color: #f3f5f8;
+  justify-content: center;
+  gap: 10%;
+  border-radius: 12px;
+  min-height: 40%;
 }
 
-.gameInitialise>p {
-    margin: 0%;
+.gameInitialise > p {
+  margin: 0%;
 }
 
-.gameInitialise >div:first-of-type {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5%;
-    justify-content: center;
-    border-bottom: 1px solid black;
-    width: 80%;
+.gameInitialise > div:first-of-type {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5%;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  width: 80%;
 }
 
 .gameInitialise > div:last-of-type {
-    display: flex;
-    flex-direction: column;
-    gap: 20%;
-    justify-content: center;
-    width: 100%
+  display: flex;
+  flex-direction: column;
+  gap: 20%;
+  justify-content: center;
+  width: 100%;
 }
 
 .gameInitialise > div > button {

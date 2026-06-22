@@ -1,6 +1,6 @@
 import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
 import { type SeasonOverview } from "../../../types/seasonOverview";
-import './gameInitialise.css'
+import "./gameInitialise.css";
 
 type GameInitialiseProps = {
   teamSeasons: SeasonOverview[];
@@ -23,7 +23,7 @@ export default function GameInitialise({
           teamSeasons={teamSeasons}
           setSelectedDashboardSeason={setSelectedDashboardSeason}
         />
-        </div>
+      </div>
       <div>
         <button
           onClick={() => {

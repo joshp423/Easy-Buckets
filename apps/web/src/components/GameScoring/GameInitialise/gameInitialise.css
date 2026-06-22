@@ -1,7 +1,9 @@
 .gameInitialise {
   display: flex;
   flex-direction: column;
-  margin: 30% 20% 30% 20%;
+  margin: 20rem auto;
+  width: 500px;
+  max-width: 800px;
   padding: 0% 3% 3% 3%;
   align-items: center;
   background-color: #f3f5f8;

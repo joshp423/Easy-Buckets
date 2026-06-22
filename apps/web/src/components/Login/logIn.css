@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 500px;
   margin: 30% 37% 30% 37%;
+  justify-content: center;
+  height: 100%;
 }
 
 .logInTitle {
@@ -38,14 +41,14 @@
 
 .logInForm > h1 {
   margin: 0;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   font-weight: 500;
   color: black;
   margin-bottom: 8%;
 }
 
 .logInForm > label {
-  font-size: 1vw;
+  font-size: 1rem;
   margin-bottom: 2%;
 }
 
@@ -89,7 +92,7 @@
 }
 
 .errorHandling > li {
-  font-size: 1.2vw;
+  font-size: 1.2rem;
   list-style-type: none;
   color: red;
 }

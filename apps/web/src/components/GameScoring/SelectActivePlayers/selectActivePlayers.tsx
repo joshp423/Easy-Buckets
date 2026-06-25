@@ -1,6 +1,7 @@
 import { type SyntheticEvent } from "react";
 import { type Player } from "../../../types/player";
 import CreatePlayers from "../CreatePlayers/createPlayers";
+import "./selectActivePlayers.css";
 
 type SelectActivePlayersProps = {
   playerList: Player[];
@@ -43,31 +44,51 @@ export default function SelectActivePlayers({
     <div className="selectActivePlayers">
       <form onSubmit={confirmPlayers}>
         <h1>Select Active Players</h1>
-        {playerList.map((player) => (
-          <div key={player.id}>
-            <input
-              type="checkbox"
-              id={String(player.id)}
-              name={String(player.id)}
-              value={player.id}
-              onChange={(e) => {
-                updateSelectedPlayers(player, e.target.checked);
-              }}
-            />
-            <label htmlFor={String(player.number)}>
-              {player.name + " " + player.number}
-            </label>
-          </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Active?</th>
+            </tr>
+          </thead>
+        </table>
+        <tbody>
+          {playerList.map((player) => (
+            <tr>
+              <div key={player.id}>
+                <td>
+                  <label htmlFor={String(player.number)}>
+                    {player.name + " " + player.number}
+                  </label>
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    id={String(player.id)}
+                    name={String(player.id)}
+                    value={player.id}
+                    onChange={(e) => {
+                      updateSelectedPlayers(player, e.target.checked);
+                    }}
+                  />
+                </td>
+              </div>
+            </tr>
         ))}
-        <button
-          type="button"
-          onClick={() => {
-            setAddPlayer(true);
-          }}
-        >
-          Add player
-        </button>
-        <button type="submit">Submit</button>
+          
+        </tbody>
+        
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              setAddPlayer(true);
+            }}
+          >
+            Add player
+          </button>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );

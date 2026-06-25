@@ -1,4 +1,4 @@
-.gameDetailsInitialise {
+.selectDraftGame {
   display: flex;
   flex-direction: column;
   margin: 20rem auto;
@@ -12,24 +12,15 @@
   min-height: 40%;
 }
 
-.gameDetailsInitialise > p,
-.gameDetailsInitialise > h1 {
-  margin: none;
-}
-
-.gameDetailsInitialise > p,
-.gameDetailsInitialise > h1 {
-  margin: 0;
-}
-
-.gameDetailsInitialise > form {
+.selectDraftGame > form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 4%;
+  gap: 20%;
+  align-items: center;
 }
 
-.gameDetailsInitialise > form > input {
+#gameSelect {
   border: 1px solid #e5e7eb;
   background-color: white;
   color: black;
@@ -37,19 +28,15 @@
   border-radius: 12px;
   cursor: text;
   justify-self: center;
+  width: 100%;
 }
 
-.gameDetailsInitialise > form > input:focus {
+#gameSelect:focus {
   border: 1px solid #e37204;
   outline: none !important;
 }
 
-.gameDetailsInitialise > form > input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0); /* invert against whichever background  */
-  cursor: pointer;
-}
-
-.gameDetailsInitialise > form > button {
+.selectDraftGame > form > button {
   margin: 1% 0% 5% 0%;
   padding: 1%;
   border-radius: 12px;
@@ -57,4 +44,5 @@
   background-color: #e37204;
   font-weight: 500;
   color: white;
+  width: 40%;
 }

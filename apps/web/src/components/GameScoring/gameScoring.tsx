@@ -93,11 +93,14 @@ export default function GameScoring() {
       }
 
       return (
-        <SelectDraftGame
-          teamSeasons={teamSeasons}
-          selectedDashboardSeason={selectedDashboardSeason}
-          setGameDetailsId={setGameDetailsId}
-        />
+        <div className="gameScoring">
+          <SideNav />
+          <SelectDraftGame
+            teamSeasons={teamSeasons}
+            selectedDashboardSeason={selectedDashboardSeason}
+            setGameDetailsId={setGameDetailsId}
+          />
+        </div>
       );
 
     case "new":

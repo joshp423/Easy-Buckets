@@ -3,6 +3,8 @@ import { type SyntheticEvent } from "react";
 import { seasonGameAPIFetch } from "../../../shared API functions/seasonGameAPIFetch";
 import { type Game } from "../../../types/game";
 import { useState, useEffect } from "react";
+import "./selectDraftGame.css";
+
 type SelectDraftGameProps = {
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
@@ -47,6 +49,7 @@ export default function SelectDraftGame({
   }
   return (
     <div className="selectDraftGame">
+      <h1>Select Draft Game</h1>
       <form onSubmit={selectGame}>
         <select
           name="gameSelect"
@@ -55,13 +58,16 @@ export default function SelectDraftGame({
             setGameId(Number(e.target.value));
           }}
         >
-          {seasonData.map(({ id, date, opponent }) => (
-            <option key={id} value={id}>
-              {String(date)} vs {opponent}
-            </option>
-          ))}
+          {seasonData.map(({ id, date, opponent }) => {
+            const formatDate = new Date(date).toLocaleString();
+            return (
+              <option key={id} value={id}>
+                {formatDate} vs {opponent}
+              </option>
+            )
+          })}
         </select>
-        <button type="submit">Submit</button>
+        <button type="submit">Next</button>
       </form>
     </div>
   );

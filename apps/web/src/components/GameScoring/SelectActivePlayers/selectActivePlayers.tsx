@@ -51,11 +51,10 @@ export default function SelectActivePlayers({
               <th>Active?</th>
             </tr>
           </thead>
-        </table>
+        
         <tbody>
           {playerList.map((player) => (
-            <tr>
-              <div key={player.id}>
+            <tr key={player.id}>
                 <td>
                   <label htmlFor={String(player.number)}>
                     {player.name + " " + player.number}
@@ -72,11 +71,12 @@ export default function SelectActivePlayers({
                     }}
                   />
                 </td>
-              </div>
+              
             </tr>
         ))}
           
         </tbody>
+        </table>
         
         <div>
           <button

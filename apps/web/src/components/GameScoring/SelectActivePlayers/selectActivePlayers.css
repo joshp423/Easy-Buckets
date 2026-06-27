@@ -62,6 +62,10 @@
   border-bottom: none;
 }
 
+.selectActivePlayers > form > table > thead > tr > th:last-of-type {
+  border-left: 1px solid lightgrey;
+}
+
 .selectActivePlayers > form > table > tbody > tr  > td:first-of-type {
   width: 80%;
 }

@@ -1,0 +1,64 @@
+.addPlayers {
+    display: flex;
+  flex-direction: column;
+  margin: 20rem auto ;
+  max-width: 800px;
+  padding: 0% 5% 0% 5%;
+  align-items: center;
+  background-color: #f3f5f8;
+  justify-content: center;
+  gap: 2%;
+  border-radius: 12px;
+  min-height: 50%;
+  height: auto;
+}
+
+.addPlayers > form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10%;
+  justify-content: center;
+}
+
+.addPlayers > form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10%
+}
+
+.addPlayers > form > div > input {
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  padding: 4%;
+  border-radius: 12px;
+}
+
+.addPlayers > form > div:last-of-type {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.addPlayers > form > div:last-of-type > button {
+  margin: 1% 0% 5% 0%;
+  padding: 1%;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  font-weight: 500;
+  color: white;
+  width: 40%;
+}
+
+.addPlayers > form > button {
+  margin: 1% 0% 5% 0%;
+  padding: 1%;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  font-weight: 500;
+  color: white;
+  width: 40%;
+}

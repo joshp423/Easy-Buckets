@@ -2,6 +2,7 @@ import { useEffect, useState, type SyntheticEvent } from "react";
 import type { NewPlayer } from "../../../types/newPlayer";
 import { createPlayersAPIRequest } from "./createPlayersAPIRequest";
 import { useNavigate } from "react-router";
+import "./createPlayers.css";
 
 type CreatePlayersProps = {
   setAddPlayer: React.Dispatch<React.SetStateAction<boolean>>;
@@ -78,32 +79,34 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
             />
           </div>
         ))}
-        <button
-          type="button"
-          onClick={() =>
-            canDecreasePlayers() && setAddPlayersAmount(addPlayersAmount - 1)
-          }
-          style={
-            addPlayersAmount === 1
-              ? { opacity: "0.6", cursor: "not-allowed" }
-              : undefined
-          }
-        >
-          -
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            canIncreasePlayers() && setAddPlayersAmount(addPlayersAmount + 1)
-          }
-          style={
-            addPlayersAmount >= 7
-              ? { opacity: "0.6", cursor: "not-allowed" }
-              : undefined
-          }
-        >
-          +
-        </button>
+        <div>
+          <button
+            type="button"
+            onClick={() =>
+              canDecreasePlayers() && setAddPlayersAmount(addPlayersAmount - 1)
+            }
+            style={
+              addPlayersAmount === 1
+                ? { opacity: "0.6", cursor: "not-allowed" }
+                : undefined
+            }
+          >
+            -
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              canIncreasePlayers() && setAddPlayersAmount(addPlayersAmount + 1)
+            }
+            style={
+              addPlayersAmount >= 7
+                ? { opacity: "0.6", cursor: "not-allowed" }
+                : undefined
+            }
+          >
+            +
+          </button>
+        </div>
         <button type="submit">Add Players</button>
       </form>
       <button

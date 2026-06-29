@@ -5,16 +5,31 @@ type PlayerSelectionProps = {
   selectedPlayers: Player[];
   setSelectedPlayer: React.Dispatch<React.SetStateAction<number | null>>;
   selectedPlayer: number | null;
+  selectedUI: "playerSelection" | "statSelection" | "courtPlacement";
+  setSelectedUI: React.Dispatch<
+    React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
+  >;
 };
 
 export default function PlayerSelection({
   selectedPlayers,
   setSelectedPlayer,
   selectedPlayer,
+  selectedUI,
+  setSelectedUI,
 }: PlayerSelectionProps) {
+
+  function 
   return (
     <div
-      className={`playerSelection ${selectedPlayer ? "notSpotlightedLeft" : "spotlightLeft"}`}
+      className={`playerSelection ${
+        switch(selectedUI) {
+          case playerSelection": 
+            "notSpotlightedLeft"
+          break;
+        } ? "notSpotlightedLeft" : "spotlightLeft"}
+        
+      `}
     >
       {selectedPlayers.map((player) => (
         <button

@@ -24,7 +24,6 @@ export default function GameScoring() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
-  
 
   useEffect(() => {
     //relocate

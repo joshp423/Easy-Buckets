@@ -12,6 +12,9 @@ type ScoringInterfaceProps = {
 export default function ScoringInterface({
   selectedPlayers,
 }: ScoringInterfaceProps) {
+  const [selectedUI, setSelectedUI] = useState<
+    "playerSelection" | "statSelection" | "courtPlacement"
+  >("playerSelection");
   const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null);
   const [selectedStat, setSelectedStat] = useState<string>("");
 
@@ -22,15 +25,21 @@ export default function ScoringInterface({
           selectedPlayers={selectedPlayers}
           setSelectedPlayer={setSelectedPlayer}
           selectedPlayer={selectedPlayer}
+          selectedUI={selectedUI}
+          setSelectedUI={setSelectedUI}
         />
         <StatSelection
           setSelectedStat={setSelectedStat}
           selectedStat={selectedStat}
           selectedPlayer={selectedPlayer}
+          selectedUI={selectedUI}
+          setSelectedUI={setSelectedUI}
         />
-        <CourtInterface 
+        <CourtInterface
           selectedStat={selectedStat}
           selectedPlayer={selectedPlayer}
+          selectedUI={selectedUI}
+          setSelectedUI={setSelectedUI}
         />
       </div>
     </div>

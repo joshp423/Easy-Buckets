@@ -4,12 +4,18 @@ type StatSelectionProps = {
   setSelectedStat: React.Dispatch<React.SetStateAction<string>>;
   selectedStat: string;
   selectedPlayer: number | null;
+  selectedUI: "playerSelection" | "statSelection" | "courtPlacement";
+  setSelectedUI: React.Dispatch<
+    React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
+  >;
 };
 
 export default function StatSelection({
   setSelectedStat,
   selectedStat,
   selectedPlayer,
+  selectedUI,
+  setSelectedUI,
 }: StatSelectionProps) {
   const statTypes = [
     "Two Point Make",
@@ -32,17 +38,13 @@ export default function StatSelection({
     "Two Point Miss",
     "Three Point Make",
     "Three Point Miss",
-  ]
-
-
+  ];
 
   return (
     <div
-      className={
-        `statSelection 
+      className={`statSelection 
         ${selectedPlayer ? "spotlightMiddle" : "notSpotlightedMiddle"}
-        ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`
-      }
+        ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`}
     >
       {statTypes.map((stat) => (
         <button

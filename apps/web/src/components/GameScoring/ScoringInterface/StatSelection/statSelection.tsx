@@ -27,13 +27,34 @@ export default function StatSelection({
     "Foul",
   ];
 
+  const courtPlacementStats = [
+    "Two Point Make",
+    "Two Point Miss",
+    "Three Point Make",
+    "Three Point Miss",
+  ]
+
+
+
   return (
     <div
-      className={`statSelection ${selectedPlayer ? "spotlight" : "notSpotlightedMiddle"}`}
+      className={
+        `statSelection 
+        ${selectedPlayer ? "spotlightMiddle" : "notSpotlightedMiddle"}
+        ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`
+      }
     >
       {statTypes.map((stat) => (
         <button
-          onClick={() => setSelectedStat(stat)}
+          onClick={() => {
+            if (!selectedPlayer) return;
+            if (selectedStat === stat) {
+              setSelectedStat("");
+              return;
+            }
+            setSelectedStat(stat);
+            return;
+          }}
           style={
             selectedStat === stat
               ? { backgroundColor: "#e37204", color: "white" }

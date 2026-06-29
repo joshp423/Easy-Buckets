@@ -28,7 +28,10 @@ export default function ScoringInterface({
           selectedStat={selectedStat}
           selectedPlayer={selectedPlayer}
         />
-        <CourtInterface />
+        <CourtInterface 
+          selectedStat={selectedStat}
+          selectedPlayer={selectedPlayer}
+        />
       </div>
     </div>
   );

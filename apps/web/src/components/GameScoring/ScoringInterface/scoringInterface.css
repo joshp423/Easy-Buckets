@@ -5,16 +5,26 @@
 
 .interfaceInput > div {
   width: 20%;
-  transition: transform 125ms ease-in-out;
+  transition: transform 200ms ease-in-out;
   transform-origin: left top;
 }
 
 .spotlightLeft {
-  transform: scale(2, 2);
+  transform: scale(1.5, 1.5);
 }
+
+.spotlightMiddle {
+  transform: scale(1.5, 1.5) translateX(-20%);
+}
+
 .notSpotlightedLeft {
-  transform: scale(0.5, 0.5);
+  transform: scale(0.8, 0.8);
 }
+
 .notSpotlightedMiddle {
-  transform: scale(0.5, 0.5) translateX(350px);
+  transform: scale(0.5, 0.5) translateX(90%);
+}
+
+.courtSpotlightMiddle {
+    transform: scale(0.5, 0.5) translateX(90%);
 }

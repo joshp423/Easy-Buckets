@@ -4,6 +4,7 @@ type StatSelectionProps = {
   setSelectedStat: React.Dispatch<React.SetStateAction<string>>;
   selectedStat: string;
   selectedPlayer: number | null;
+  setSelectedPlayer: React.Dispatch<React.SetStateAction<number | null>>
   selectedUI: "playerSelection" | "statSelection" | "courtPlacement";
   setSelectedUI: React.Dispatch<
     React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
@@ -14,6 +15,7 @@ export default function StatSelection({
   setSelectedStat,
   selectedStat,
   selectedPlayer,
+  setSelectedPlayer,
   selectedUI,
   setSelectedUI,
 }: StatSelectionProps) {
@@ -40,11 +42,23 @@ export default function StatSelection({
     "Three Point Miss",
   ];
 
+  function addUIClasses(selectedUI: "playerSelection" | "statSelection" | "courtPlacement") {
+    switch (selectedUI) {
+      case "playerSelection":
+        return "notSpotlightedMiddle"
+      case "statSelection":
+        return "spotlightMiddle"
+      case "courtPlacement":
+        return "courtSpotlightMiddle"
+    }
+  }
+
   return (
     <div
-      className={`statSelection 
-        ${selectedPlayer ? "spotlightMiddle" : "notSpotlightedMiddle"}
-        ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`}
+      className={`playerSelection ${addUIClasses(selectedUI)} `}
+      // className={`statSelection 
+      //   ${selectedPlayer ? "spotlightMiddle" : "notSpotlightedMiddle"}
+      //   ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`}
     >
       {statTypes.map((stat) => (
         <button
@@ -52,9 +66,20 @@ export default function StatSelection({
             if (!selectedPlayer) return;
             if (selectedStat === stat) {
               setSelectedStat("");
+              setSelectedUI("statSelection")
               return;
             }
             setSelectedStat(stat);
+            console.log(selectedStat)
+            const courtStatCheck = courtPlacementStats.filter((clickedStat) => clickedStat === stat)
+            if (courtStatCheck.length === 1) {
+                setSelectedUI("courtPlacement")
+                return;
+              }
+            //send stat
+            // setSelectedStat("")
+            setSelectedUI("playerSelection");
+            setSelectedPlayer(null)
             return;
           }}
           style={

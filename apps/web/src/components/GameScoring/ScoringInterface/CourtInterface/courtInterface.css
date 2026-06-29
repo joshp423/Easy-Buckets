@@ -1,3 +1,17 @@
+.courtInterface {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin: 20px;
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  gap: 1rem;
+  min-width: 10%;
+  transform-origin: right top;
+}
+
 .courtInterface > img {
-  width: 50%;
+  width: 100%;
+  justify-self: center;
+  height: 100%;
 }

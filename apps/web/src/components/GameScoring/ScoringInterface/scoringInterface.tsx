@@ -7,10 +7,12 @@ import "./scoringInterface.css";
 
 type ScoringInterfaceProps = {
   selectedPlayers: Player[];
+  gameDetailsId: number
 };
 //session storage for selectedPlayers
 export default function ScoringInterface({
   selectedPlayers,
+  gameDetailsId
 }: ScoringInterfaceProps) {
   const [selectedUI, setSelectedUI] = useState<
     "playerSelection" | "statSelection" | "courtPlacement"
@@ -18,6 +20,7 @@ export default function ScoringInterface({
   const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null);
   const [selectedStat, setSelectedStat] = useState<string>("");
 
+  if ()
   return (
     <div className="scoringInterface">
       <div className="interfaceInput">
@@ -32,12 +35,14 @@ export default function ScoringInterface({
           setSelectedStat={setSelectedStat}
           selectedStat={selectedStat}
           selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
           selectedUI={selectedUI}
           setSelectedUI={setSelectedUI}
         />
         <CourtInterface
           selectedStat={selectedStat}
           selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
           selectedUI={selectedUI}
           setSelectedUI={setSelectedUI}
         />

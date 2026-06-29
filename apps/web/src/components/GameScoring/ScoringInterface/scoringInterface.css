@@ -1,12 +1,13 @@
 .interfaceInput {
   display: flex;
   width: 100%;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .interfaceInput > div {
-  width: 20%;
   transition: transform 200ms ease-in-out;
-  transform-origin: left top;
+  
 }
 
 .spotlightLeft {
@@ -14,17 +15,24 @@
 }
 
 .spotlightMiddle {
-  transform: scale(1.5, 1.5) translateX(-20%);
+  transform: scale(1.5, 1.5) ;
 }
 
 .notSpotlightedLeft {
+  width: 40%;
   transform: scale(0.8, 0.8);
 }
 
 .notSpotlightedMiddle {
-  transform: scale(0.5, 0.5) translateX(90%);
+  width: 40%;
+  transform: scale(0.8, 0.8) translateX(130%);
+}
+
+.notSpotlightedRight {
+  transform: scale(0.3, 0.3) ;
 }
 
 .courtSpotlightMiddle {
-  transform: scale(0.5, 0.5) translateX(90%);
+  transform: scale(0.8, 0.8) translateX(0%);
 }
+

@@ -78,6 +78,7 @@ export default function GameScoring() {
               setAddPlayer={setAddPlayer}
               addPlayer={addPlayer}
               setSelectedPlayers={setSelectedPlayers}
+              gameDetailsId={gameDetailsId}
             />
           </div>
         );
@@ -126,6 +127,7 @@ export default function GameScoring() {
               setAddPlayer={setAddPlayer}
               addPlayer={addPlayer}
               setSelectedPlayers={setSelectedPlayers}
+              gameDetailsId={gameDetailsId}
             />
           </div>
         );

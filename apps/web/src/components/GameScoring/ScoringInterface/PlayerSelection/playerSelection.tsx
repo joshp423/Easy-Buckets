@@ -18,11 +18,12 @@ export default function PlayerSelection({
   selectedUI,
   setSelectedUI,
 }: PlayerSelectionProps) {
-
-  function addUIClasses(selectedUI: "playerSelection" | "statSelection" | "courtPlacement") {
+  function addUIClasses(
+    selectedUI: "playerSelection" | "statSelection" | "courtPlacement",
+  ) {
     switch (selectedUI) {
       case "playerSelection":
-        return "spotlightLeft"
+        return "spotlightLeft";
       case "statSelection":
         return "notSpotlightedLeft";
       case "courtPlacement":
@@ -30,9 +31,7 @@ export default function PlayerSelection({
     }
   }
   return (
-    <div
-      className={`playerSelection ${addUIClasses(selectedUI)}`}
-    >
+    <div className={`playerSelection ${addUIClasses(selectedUI)}`}>
       {selectedPlayers.map((player) => (
         <button
           key={player.id}
@@ -44,7 +43,7 @@ export default function PlayerSelection({
               return;
             }
             setSelectedPlayer(null);
-            setSelectedUI("playerSelection")
+            setSelectedUI("playerSelection");
             return;
           }}
           style={

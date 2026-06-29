@@ -11,6 +11,7 @@ import "./gameScoring.css";
 import GameDetailsInitialise from "./GameDetailsInitialise/gameDetailsInitialise";
 import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
+import { type Game } from "../../types/game";
 
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
@@ -20,7 +21,7 @@ export default function GameScoring() {
   const [newGameCheck, setNewGameCheck] = useState<"none" | "new" | "existing">(
     "none",
   );
-  const [gameDetailsId, setGameDetailsId] = useState<number | null>(null);
+  const [gameDetails, setGameDetails] = useState<Game | null>(null);
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
@@ -68,7 +69,7 @@ export default function GameScoring() {
       );
 
     case "existing":
-      if (gameDetailsId && !readyCheck) {
+      if (gameDetails && !readyCheck) {
         return (
           <div className="gameScoring">
             <SideNav />
@@ -78,7 +79,6 @@ export default function GameScoring() {
               setAddPlayer={setAddPlayer}
               addPlayer={addPlayer}
               setSelectedPlayers={setSelectedPlayers}
-              gameDetailsId={gameDetailsId}
             />
           </div>
         );
@@ -88,7 +88,10 @@ export default function GameScoring() {
         return (
           <div className="gameScoring">
             <SideNav />
-            <ScoringInterface selectedPlayers={selectedPlayers} />
+            <ScoringInterface
+              selectedPlayers={selectedPlayers}
+              gameDetails={gameDetails}
+            />
           </div>
         );
       }
@@ -99,18 +102,18 @@ export default function GameScoring() {
           <SelectDraftGame
             teamSeasons={teamSeasons}
             selectedDashboardSeason={selectedDashboardSeason}
-            setGameDetailsId={setGameDetailsId}
+            setGameDetails={setGameDetails}
           />
         </div>
       );
 
     case "new":
-      if (!gameDetailsId) {
+      if (!gameDetails) {
         return (
           <div className="gameScoring">
             <SideNav />
             <GameDetailsInitialise
-              setGameDetailsId={setGameDetailsId}
+              setGameDetails={setGameDetails}
               teamSeasons={teamSeasons}
               selectedDashboardSeason={selectedDashboardSeason}
             />
@@ -127,7 +130,6 @@ export default function GameScoring() {
               setAddPlayer={setAddPlayer}
               addPlayer={addPlayer}
               setSelectedPlayers={setSelectedPlayers}
-              gameDetailsId={gameDetailsId}
             />
           </div>
         );
@@ -138,7 +140,10 @@ export default function GameScoring() {
         return (
           <div className="gameScoring">
             <SideNav />
-            <ScoringInterface selectedPlayers={selectedPlayers} />
+            <ScoringInterface
+              selectedPlayers={selectedPlayers}
+              gameDetails={gameDetails}
+            />
           </div>
         );
       }

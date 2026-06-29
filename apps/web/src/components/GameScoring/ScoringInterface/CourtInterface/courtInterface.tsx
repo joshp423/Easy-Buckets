@@ -5,7 +5,7 @@ type CourtInterfaceProps = {
   selectedPlayer: number | null;
   selectedStat: string;
   selectedUI: "playerSelection" | "statSelection" | "courtPlacement";
-  setSelectedPlayer: React.Dispatch<React.SetStateAction<number | null>>
+  setSelectedPlayer: React.Dispatch<React.SetStateAction<number | null>>;
   setSelectedUI: React.Dispatch<
     React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
   >;
@@ -18,15 +18,16 @@ export default function CourtInterface({
   setSelectedPlayer,
   setSelectedUI,
 }: CourtInterfaceProps) {
-
-  function addUIClasses(selectedUI: "playerSelection" | "statSelection" | "courtPlacement") {
+  function addUIClasses(
+    selectedUI: "playerSelection" | "statSelection" | "courtPlacement",
+  ) {
     switch (selectedUI) {
       case "playerSelection":
-        return "notSpotlightedRight"
+        return "notSpotlightedRight";
       case "statSelection":
-        return "notSpotlightedRight"
+        return "notSpotlightedRight";
       case "courtPlacement":
-        return "courtSpotlight"
+        return "courtSpotlight";
     }
   }
 
@@ -35,7 +36,7 @@ export default function CourtInterface({
       className={`courtInterface ${addUIClasses(selectedUI)}`}
       onClick={() => {
         setSelectedPlayer(null);
-        setSelectedUI("playerSelection")
+        setSelectedUI("playerSelection");
         return;
       }}
     >

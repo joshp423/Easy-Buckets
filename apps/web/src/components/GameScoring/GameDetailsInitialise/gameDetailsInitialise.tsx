@@ -3,15 +3,16 @@ import { type SeasonOverview } from "../../../types/seasonOverview";
 import { createGameDraftAPIRequest } from "./createGameAPIRequest";
 import { useNavigate } from "react-router";
 import "./gameDetailsInitilialise.css";
+import { type Game } from "../../../types/game";
 
 type GameDetailsInitialiseProps = {
-  setGameDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
 };
 
 export default function GameDetailsInitialise({
-  setGameDetailsId,
+  setGameDetails,
   teamSeasons,
   selectedDashboardSeason,
 }: GameDetailsInitialiseProps) {
@@ -42,7 +43,7 @@ export default function GameDetailsInitialise({
       <form
         onSubmit={(e) =>
           createGameDraftAPIRequest({
-            setGameDetailsId,
+            setGameDetails,
             e,
             seasonId: selectedSeasonId,
             opponent,

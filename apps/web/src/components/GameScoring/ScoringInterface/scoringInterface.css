@@ -7,7 +7,6 @@
 
 .interfaceInput > div {
   transition: transform 200ms ease-in-out;
-  
 }
 
 .spotlightLeft {
@@ -15,7 +14,7 @@
 }
 
 .spotlightMiddle {
-  transform: scale(1.5, 1.5) ;
+  transform: scale(1.5, 1.5);
 }
 
 .notSpotlightedLeft {
@@ -29,10 +28,9 @@
 }
 
 .notSpotlightedRight {
-  transform: scale(0.3, 0.3) ;
+  transform: scale(0.3, 0.3);
 }
 
 .courtSpotlightMiddle {
   transform: scale(0.8, 0.8) translateX(0%);
 }
-

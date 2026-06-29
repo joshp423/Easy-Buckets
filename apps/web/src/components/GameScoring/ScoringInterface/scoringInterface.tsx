@@ -4,15 +4,16 @@ import { useState } from "react";
 import StatSelection from "./StatSelection/statSelection";
 import CourtInterface from "./CourtInterface/courtInterface";
 import "./scoringInterface.css";
+import type { Game } from "../../../types/game";
 
 type ScoringInterfaceProps = {
   selectedPlayers: Player[];
-  gameDetailsId: number
+  gameDetails: Game;
 };
 //session storage for selectedPlayers
 export default function ScoringInterface({
   selectedPlayers,
-  gameDetailsId
+  gameDetails,
 }: ScoringInterfaceProps) {
   const [selectedUI, setSelectedUI] = useState<
     "playerSelection" | "statSelection" | "courtPlacement"
@@ -20,7 +21,6 @@ export default function ScoringInterface({
   const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null);
   const [selectedStat, setSelectedStat] = useState<string>("");
 
-  if ()
   return (
     <div className="scoringInterface">
       <div className="interfaceInput">

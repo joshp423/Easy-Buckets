@@ -114,4 +114,16 @@ export class GameRepo {
       },
     });
   }
+
+  async getSingleGame(userId: number, gameId: number) {
+    return await this.prisma.games.findUnique({
+      where: {
+        id: gameId,
+        team: {
+          userId,
+        },
+        draft: true,
+      },
+    });
+  }
 }

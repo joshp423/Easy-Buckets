@@ -1,8 +1,9 @@
 import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
+import { type Game } from "../../../types/game";
 
 type createGameDraftAPIRequestProps = {
-  setGameDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
   e: SyntheticEvent<HTMLFormElement>;
   seasonId: number | null;
   opponent: string;
@@ -12,7 +13,7 @@ type createGameDraftAPIRequestProps = {
 };
 
 export async function createGameDraftAPIRequest({
-  setGameDetailsId,
+  setGameDetails,
   e,
   seasonId,
   opponent,
@@ -43,8 +44,8 @@ export async function createGameDraftAPIRequest({
   }
 
   const data = await rsp.json();
-  const gameId = data.id;
-  setGameDetailsId(gameId);
+  const gameData = data;
+  setGameDetails(gameData);
 
   if (replay) {
     const replayRsp = await fetch("http://localhost:3000/games/add-replay", {
@@ -54,7 +55,7 @@ export async function createGameDraftAPIRequest({
       },
       method: "PUT",
       body: JSON.stringify({
-        gameId,
+        gameId: gameData.id,
         replay,
       }),
     });

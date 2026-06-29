@@ -71,7 +71,9 @@ export default function LogIn() {
               <div style={{ display: loading === true ? "none" : "flex" }}>
                 <p>Log In</p>
               </div>{" "}
-              <div style={{ display: loading === true ? "flex" : "none" }}></div>
+              <div
+                style={{ display: loading === true ? "flex" : "none" }}
+              ></div>
             </button>
           </div>
         </form>

@@ -1,4 +1,5 @@
 import courtImage from "/FIBAcourt.jpg";
+import "./courtInterface.css";
 
 export default function CourtInterface() {
   return (

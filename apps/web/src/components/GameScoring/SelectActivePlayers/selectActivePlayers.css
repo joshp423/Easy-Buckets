@@ -1,7 +1,7 @@
 .selectActivePlayers {
   display: flex;
   flex-direction: column;
-  margin: 20rem auto ;
+  margin: 20rem auto;
   max-width: 800px;
   padding: 0% 5% 0% 5%;
   align-items: center;
@@ -22,23 +22,23 @@
 }
 
 .selectActivePlayers > form > div {
-    display: flex;
-    gap: 5%;
-    align-items: center;
+  display: flex;
+  gap: 5%;
+  align-items: center;
 }
 
 .selectActivePlayers > form > div {
-    display: flex;
-    gap: 5%;
-    align-items: center;
+  display: flex;
+  gap: 5%;
+  align-items: center;
 }
 
 .selectActivePlayers > form > div:last-of-type {
-    justify-content: center;
+  justify-content: center;
 }
 
 .selectActivePlayers > form > div > input {
-    accent-color: #e37204;
+  accent-color: #e37204;
 }
 
 .selectActivePlayers > form > div > button {
@@ -66,10 +66,10 @@
   border-left: 1px solid lightgrey;
 }
 
-.selectActivePlayers > form > table > tbody > tr  > td:first-of-type {
+.selectActivePlayers > form > table > tbody > tr > td:first-of-type {
   width: 80%;
 }
 
-.selectActivePlayers > form > table > tbody > tr  > td:last-of-type {
+.selectActivePlayers > form > table > tbody > tr > td:last-of-type {
   text-align: center;
 }

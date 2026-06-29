@@ -1,11 +1,15 @@
+import "./statSelection.css";
+
 type StatSelectionProps = {
   setSelectedStat: React.Dispatch<React.SetStateAction<string>>;
   selectedStat: string;
+  selectedPlayer: number | null;
 };
 
 export default function StatSelection({
   setSelectedStat,
   selectedStat,
+  selectedPlayer,
 }: StatSelectionProps) {
   const statTypes = [
     "Two Point Make",
@@ -24,11 +28,17 @@ export default function StatSelection({
   ];
 
   return (
-    <div className="statSelection">
+    <div
+      className={`statSelection ${selectedPlayer ? "spotlight" : "notSpotlightedMiddle"}`}
+    >
       {statTypes.map((stat) => (
         <button
           onClick={() => setSelectedStat(stat)}
-          style={selectedStat === stat ? { border: "1px solid green" } : {}}
+          style={
+            selectedStat === stat
+              ? { backgroundColor: "#e37204", color: "white" }
+              : {}
+          }
         >
           {stat}
         </button>

@@ -1,0 +1,20 @@
+.interfaceInput {
+  display: flex;
+  width: 100%;
+}
+
+.interfaceInput > div {
+  width: 20%;
+  transition: transform 125ms ease-in-out;
+  transform-origin: left top;
+}
+
+.spotlightLeft {
+  transform: scale(2, 2);
+}
+.notSpotlightedLeft {
+  transform: scale(0.5, 0.5);
+}
+.notSpotlightedMiddle {
+  transform: scale(0.5, 0.5) translateX(350px);
+}

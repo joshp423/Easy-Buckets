@@ -64,7 +64,7 @@ export default function SelectDraftGame({
               <option key={id} value={id}>
                 {formatDate} vs {opponent}
               </option>
-            )
+            );
           })}
         </select>
         <button type="submit">Next</button>

@@ -44,7 +44,9 @@
   outline: none !important;
 }
 
-.gameDetailsInitialise > form > input[type="date"]::-webkit-calendar-picker-indicator {
+.gameDetailsInitialise
+  > form
+  > input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0); /* invert against whichever background  */
   cursor: pointer;
 }

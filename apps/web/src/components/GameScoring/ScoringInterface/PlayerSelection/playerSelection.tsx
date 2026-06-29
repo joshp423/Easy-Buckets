@@ -1,4 +1,5 @@
 import { type Player } from "../../../../types/player";
+import "./playerSelection.css";
 
 type PlayerSelectionProps = {
   selectedPlayers: Player[];
@@ -12,15 +13,24 @@ export default function PlayerSelection({
   selectedPlayer,
 }: PlayerSelectionProps) {
   return (
-    <div className="playerSelection">
+    <div
+      className={`playerSelection ${selectedPlayer ? "notSpotlightedLeft" : "spotlightLeft"}`}
+    >
       {selectedPlayers.map((player) => (
         <button
           key={player.id}
           onClick={() => {
-            setSelectedPlayer(player.id);
+            if (selectedPlayer !== player.id) {
+              setSelectedPlayer(player.id);
+              return;
+            }
+            setSelectedPlayer(null);
+            return;
           }}
           style={
-            selectedPlayer === player.id ? { border: "1px solid green" } : {}
+            selectedPlayer === player.id
+              ? { backgroundColor: "#e37204", color: "white" }
+              : {}
           }
         >
           {player.name} {player.number}

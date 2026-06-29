@@ -1,37 +1,39 @@
 .addPlayers {
-    display: flex;
+  display: flex;
   flex-direction: column;
-  margin: 20rem auto ;
+  margin: 10rem auto ;
   max-width: 800px;
-  padding: 0% 5% 0% 5%;
+  padding: 5%;
   align-items: center;
   background-color: #f3f5f8;
   justify-content: center;
-  gap: 2%;
+  gap: 1.5rem;
   border-radius: 12px;
-  min-height: 50%;
   height: auto;
+  width: 90%;
 }
 
 .addPlayers > form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 10%;
+  gap: 1rem;
   justify-content: center;
 }
 
 .addPlayers > form > div {
     display: flex;
-    flex-direction: column;
-    gap: 10%
+    flex-direction: row;
+    gap: 10%;
+    justify-content: center;
 }
 
 .addPlayers > form > div > input {
   border: 1px solid #e5e7eb;
   background-color: white;
-  padding: 4%;
+  padding: 2%;
   border-radius: 12px;
+  width: 100%;
 }
 
 .addPlayers > form > div:last-of-type {
@@ -49,7 +51,7 @@
   background-color: #e37204;
   font-weight: 500;
   color: white;
-  width: 40%;
+  width: 10%;
 }
 
 .addPlayers > form > button {
@@ -61,4 +63,16 @@
   font-weight: 500;
   color: white;
   width: 40%;
+  align-self: center;
+}
+
+.addPlayers >button {
+  padding: 1%;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  font-weight: 500;
+  color: white;
+  width: 10%;
+  align-self: center;
 }

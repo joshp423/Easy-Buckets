@@ -1,3 +1,11 @@
+.scoringInterface {
+  display: grid;
+  grid-template-rows: 1.4fr 1fr;
+  margin: 0px 20px 0px 20px;
+  gap: 1rem;
+  height: 100%;
+}
+
 .interfaceInput {
   display: flex;
   width: 100%;

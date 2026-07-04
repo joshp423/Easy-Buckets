@@ -94,4 +94,5 @@ model Shots {
   X Int
   Y Int
   type Int
+  timeStamp Int?
 }

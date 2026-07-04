@@ -33,29 +33,32 @@ export default function PlayerSelection({
   return (
     <div className={`playerSelection ${addUIClasses(selectedUI)}`}>
       <h3>Select Player</h3>
-      {selectedPlayers.map((player) => (
-        <button
-          key={player.id}
-          onClick={() => {
-            if (selectedUI === "courtPlacement") return;
-            if (selectedPlayer !== player.id) {
-              setSelectedPlayer(player.id);
-              setSelectedUI("statSelection");
+      <div>
+        {selectedPlayers.map((player) => (
+          <button
+            key={player.id}
+            onClick={() => {
+              if (selectedUI === "courtPlacement") return;
+              if (selectedPlayer !== player.id) {
+                setSelectedPlayer(player.id);
+                setSelectedUI("statSelection");
+                return;
+              }
+              setSelectedPlayer(null);
+              setSelectedUI("playerSelection");
               return;
+            }}
+            style={
+              selectedPlayer === player.id
+                ? { backgroundColor: "#e37204", color: "white" }
+                : {}
+             
             }
-            setSelectedPlayer(null);
-            setSelectedUI("playerSelection");
-            return;
-          }}
-          style={
-            selectedPlayer === player.id
-              ? { backgroundColor: "#e37204", color: "white" }
-              : {}
-          }
-        >
-          {player.name} {player.number}
-        </button>
-      ))}
+          >
+            {player.name} {player.number}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 .scoringInterface {
   display: flex;
   flex-direction: column;
-  padding: 0px 20px 0px 20px;
   gap: 1rem;
   max-height: 1920px;
   max-width: 1400px;
@@ -15,8 +14,8 @@
 
 .interfaceInput {
   display: grid;
-  grid-template-columns: 50% 1fr;
-  /* gap: 1rem; */
+  grid-template-columns: 48% 1fr;
+  gap: 2%;
   align-items: flex-start;
   height: 650px;
   justify-items: center;
@@ -27,16 +26,17 @@
 .interfaceInput > div:first-of-type {
     display: grid;
     grid-template-rows: repeat(2, 48%);
-    width: 100%;
     gap: 2%;
     height: inherit;
+    width: 100%;
 }
 
 .selectionSections {
     display: grid;
-    grid-template-columns: repeat(2, 48%);
+    grid-template-columns: repeat(2, 49%);
     height: 100%;
     gap: 2%;
+    width: 100%;
 }
 
 .interfaceInput > div > div > div {

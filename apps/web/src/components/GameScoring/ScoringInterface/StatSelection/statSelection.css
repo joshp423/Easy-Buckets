@@ -8,6 +8,7 @@
   min-width: 10%;
   transform-origin: left top;
   height: 100%;
+  width: 100%;
 }
 
 .statSelection > div {

@@ -4,7 +4,6 @@ import BoxScore from "./BoxScore/boxScore";
 import { type Game } from "../../../../../types/game";
 import "./gameStats.css";
 
-
 type GameStatsProps = {
   currentGame: Game;
 };

@@ -1,4 +1,5 @@
 import "./statSelection.css";
+import StatSelectionButton from "./statSelectionButton/statSelectionButton";
 
 type StatSelectionProps = {
   setSelectedStat: React.Dispatch<React.SetStateAction<string>>;
@@ -19,27 +20,25 @@ export default function StatSelection({
   selectedUI,
   setSelectedUI,
 }: StatSelectionProps) {
-  const statTypes = [
-    "Two Point Make",
-    "Two Point Miss",
-    "Three Point Make",
-    "Three Point Miss",
-    "Free Throw Make",
-    "Free Throw Miss",
-    "Offensive Rebound",
-    "Defensive Rebound",
-    "Assist",
-    "Block",
-    "Steal",
-    "Turnover",
-    "Foul",
+
+  const pointsStats = [
+    "2P Make",
+    "2P Miss",
+    "3P Make",
+    "3P Miss",
+    "FT Make",
+    "FT Miss",
   ];
 
+  const reboundingStats = ["O-Reb", "D-Reb"];
+
+  const miscStats = ["Assist", "Block", "Steal", "TO", "Foul"];
+
   const courtPlacementStats = [
-    "Two Point Make",
-    "Two Point Miss",
-    "Three Point Make",
-    "Three Point Miss",
+    "2P Make",
+    "2P Miss",
+    "3P Make",
+    "3P Miss",
   ];
 
   function addUIClasses(
@@ -57,44 +56,41 @@ export default function StatSelection({
 
   return (
     <div
-      className={`playerSelection ${addUIClasses(selectedUI)} `}
+      className={`statSelection ${addUIClasses(selectedUI)} `}
       // className={`statSelection
       //   ${selectedPlayer ? "spotlightMiddle" : "notSpotlightedMiddle"}
       //   ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`}
     >
-      {statTypes.map((stat) => (
-        <button
-          onClick={() => {
-            if (!selectedPlayer) return;
-            if (selectedStat === stat) {
-              setSelectedStat("");
-              setSelectedUI("statSelection");
-              return;
-            }
-            setSelectedStat(stat);
-            console.log(selectedStat);
-            const courtStatCheck = courtPlacementStats.filter(
-              (clickedStat) => clickedStat === stat,
-            );
-            if (courtStatCheck.length === 1) {
-              setSelectedUI("courtPlacement");
-              return;
-            }
-            //send stat
-            // setSelectedStat("")
-            setSelectedUI("playerSelection");
-            setSelectedPlayer(null);
-            return;
-          }}
-          style={
-            selectedStat === stat
-              ? { backgroundColor: "#e37204", color: "white" }
-              : {}
-          }
-        >
-          {stat}
-        </button>
-      ))}
+      <StatSelectionButton
+        statArray={pointsStats}
+        sectionName={"Points"}
+        selectedStat={selectedStat}
+        selectedPlayer={selectedPlayer}
+        setSelectedPlayer={setSelectedPlayer}
+        setSelectedUI={setSelectedUI}
+        setSelectedStat={setSelectedStat}
+        courtPlacementStats={courtPlacementStats}
+      />
+      <StatSelectionButton
+        statArray={reboundingStats}
+        sectionName={"Rebounding"}
+        selectedStat={selectedStat}
+        selectedPlayer={selectedPlayer}
+        setSelectedPlayer={setSelectedPlayer}
+        setSelectedUI={setSelectedUI}
+        setSelectedStat={setSelectedStat}
+        courtPlacementStats={courtPlacementStats}
+      />
+      <StatSelectionButton
+        statArray={miscStats}
+        sectionName={"Misc"}
+        selectedStat={selectedStat}
+        selectedPlayer={selectedPlayer}
+        setSelectedPlayer={setSelectedPlayer}
+        setSelectedUI={setSelectedUI}
+        setSelectedStat={setSelectedStat}
+        courtPlacementStats={courtPlacementStats}
+      />
     </div>
   );
 }

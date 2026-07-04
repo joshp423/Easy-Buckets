@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  margin: 20px;
   background-color: #f3f5f8;
   border-radius: 12px;
   gap: 1rem;
@@ -10,7 +9,27 @@
   transform-origin: right top;
 }
 
-.statSelection > button {
+.statSelection > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.statSelection > div > h3 {
+  margin: 0;
+}
+
+.statSelection > div > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 0.5rem;
+}
+
+.statSelection > div > div > button {
   background-color: white;
   color: black;
   padding: 0.5rem;

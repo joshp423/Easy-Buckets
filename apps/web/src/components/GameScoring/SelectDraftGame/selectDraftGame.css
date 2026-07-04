@@ -1,7 +1,6 @@
 .selectDraftGame {
   display: flex;
   flex-direction: column;
-  margin: 20rem auto;
   max-width: 800px;
   padding: 3%;
   align-items: center;
@@ -9,7 +8,8 @@
   justify-content: center;
   gap: 2%;
   border-radius: 12px;
-  min-height: 100vh;
+  justify-self: center;
+  align-self: center;
 }
 
 .selectDraftGame > form {

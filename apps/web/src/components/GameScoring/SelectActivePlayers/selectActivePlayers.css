@@ -1,7 +1,6 @@
 .selectActivePlayers {
   display: flex;
   flex-direction: column;
-  margin: 20rem auto;
   max-width: 800px;
   padding: 0% 5% 0% 5%;
   align-items: center;
@@ -11,6 +10,8 @@
   border-radius: 12px;
   min-height: 50%;
   height: auto;
+  justify-self: center;
+  align-self: center;
 }
 
 .selectActivePlayers > form {
@@ -42,7 +43,7 @@
 }
 
 .selectActivePlayers > form > div > button {
-  margin: 1% 0% 5% 0%;
+  margin: 5% 0% 5% 0%;
   padding: 1%;
   border-radius: 12px;
   border: none;

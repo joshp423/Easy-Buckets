@@ -1,12 +1,13 @@
 .statSelection {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
   background-color: #f3f5f8;
   border-radius: 12px;
   gap: 1rem;
   min-width: 10%;
   transform-origin: left top;
+  height: 100%;
 }
 
 .statSelection > div {

@@ -1,7 +1,6 @@
 .gameInitialise {
   display: flex;
   flex-direction: column;
-  margin: 20rem auto;
   width: 500px;
   max-width: 800px;
   padding: 0% 3% 3% 3%;
@@ -11,6 +10,9 @@
   gap: 10%;
   border-radius: 12px;
   min-height: 40%;
+  max-height: 350px;
+  justify-self: center;
+  align-self: center;
 }
 
 .gameInitialise > p {
@@ -30,9 +32,10 @@
 .gameInitialise > div:last-of-type {
   display: flex;
   flex-direction: column;
-  gap: 20%;
+  gap: 1rem;
   justify-content: center;
   width: 100%;
+  margin-top: 2rem;
 }
 
 .gameInitialise > div > button {

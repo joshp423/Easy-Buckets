@@ -57,21 +57,28 @@ export default function ScoringInterface({
     <div className="scoringInterface">
       <VideoPlayer videoUrl={gameDetails.replay} />
       <div className="interfaceInput">
-        <PlayerSelection
-          selectedPlayers={selectedPlayers}
-          setSelectedPlayer={setSelectedPlayer}
-          selectedPlayer={selectedPlayer}
-          selectedUI={selectedUI}
-          setSelectedUI={setSelectedUI}
-        />
-        <StatSelection
-          setSelectedStat={setSelectedStat}
-          selectedStat={selectedStat}
-          selectedPlayer={selectedPlayer}
-          setSelectedPlayer={setSelectedPlayer}
-          selectedUI={selectedUI}
-          setSelectedUI={setSelectedUI}
-        />
+        <div>
+          <div className="selectionSections">
+            <PlayerSelection
+              selectedPlayers={selectedPlayers}
+              setSelectedPlayer={setSelectedPlayer}
+              selectedPlayer={selectedPlayer}
+              selectedUI={selectedUI}
+              setSelectedUI={setSelectedUI}
+            />
+            <StatSelection
+              setSelectedStat={setSelectedStat}
+              selectedStat={selectedStat}
+              selectedPlayer={selectedPlayer}
+              setSelectedPlayer={setSelectedPlayer}
+              selectedUI={selectedUI}
+              setSelectedUI={setSelectedUI}
+            />
+          </div>
+          <div className="shotLog">
+            
+          </div>
+        </div>
         <CourtInterface
           selectedStat={selectedStat}
           selectedPlayer={selectedPlayer}

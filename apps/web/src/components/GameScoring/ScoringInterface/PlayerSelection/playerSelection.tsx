@@ -23,11 +23,11 @@ export default function PlayerSelection({
   ) {
     switch (selectedUI) {
       case "playerSelection":
-        return "spotlightLeft";
+        return "spotlight";
       case "statSelection":
-        return "spotlightLeft";
+        return "";
       case "courtPlacement":
-        return "notSpotlightedLeft";
+        return "";
     }
   }
   return (

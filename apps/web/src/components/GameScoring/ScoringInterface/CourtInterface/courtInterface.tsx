@@ -23,11 +23,11 @@ export default function CourtInterface({
   ) {
     switch (selectedUI) {
       case "playerSelection":
-        return "notSpotlightedRight";
+        return "";
       case "statSelection":
-        return "notSpotlightedRight";
+        return "";
       case "courtPlacement":
-        return "courtSpotlight";
+        return "spotlight";
     }
   }
 

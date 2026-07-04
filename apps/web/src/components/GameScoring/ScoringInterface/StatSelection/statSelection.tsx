@@ -46,11 +46,11 @@ export default function StatSelection({
   ) {
     switch (selectedUI) {
       case "playerSelection":
-        return "notSpotlightedMiddle";
+        return "";
       case "statSelection":
-        return "spotlightMiddle";
+        return "spotlight";
       case "courtPlacement":
-        return "courtSpotlightMiddle";
+        return "";
     }
   }
 

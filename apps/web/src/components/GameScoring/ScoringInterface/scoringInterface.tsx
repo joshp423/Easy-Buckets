@@ -3,7 +3,8 @@ import PlayerSelection from "./PlayerSelection/playerSelection";
 import { useState } from "react";
 import StatSelection from "./StatSelection/statSelection";
 import CourtInterface from "./CourtInterface/courtInterface";
-import "./scoringInterface.css";
+// import "./scoringInterface.css";
+import "./scoringInterfaceB.css";
 import type { Game } from "../../../types/game";
 import VideoPlayer from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
 

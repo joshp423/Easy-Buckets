@@ -6,7 +6,7 @@
   border-radius: 12px;
   gap: 1rem;
   min-width: 10%;
-  transform-origin: right top;
+  transform-origin: top right;
 }
 
 .courtInterface > img {

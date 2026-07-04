@@ -25,7 +25,7 @@ export default function PlayerSelection({
       case "playerSelection":
         return "spotlightLeft";
       case "statSelection":
-        return "notSpotlightedLeft";
+        return "spotlightLeft";
       case "courtPlacement":
         return "notSpotlightedLeft";
     }

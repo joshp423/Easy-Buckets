@@ -19,7 +19,7 @@ export default function SideNav() {
       <div className="navLinks">
         <NavLinks />
       </div>
-      <div></div>
+      <div className="sideNavSpace"></div>
       {/* Pass function reference */}
       <button type="button" onClick={() => logOut({ setLoginStatus })}>
         <div>Sign Out</div>

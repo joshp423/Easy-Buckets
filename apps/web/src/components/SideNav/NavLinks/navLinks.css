@@ -4,6 +4,7 @@
   gap: 5%;
   margin: 3% 0% 3% 0%;
   justify-content: space-around;
+  min-height: 100px;
 }
 
 .navLinks > a {

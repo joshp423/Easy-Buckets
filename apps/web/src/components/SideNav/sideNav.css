@@ -1,7 +1,9 @@
 .sideNav {
   display: grid;
-  grid-template-rows: 15% 15% 65% 5%;
-  min-height: 100%;
+  grid-template-rows: 15% 15% 1fr 5%;
+  max-width: 200px;
+  height: 100%;
+  min-height: 750px;
 }
 
 .sideNav > a {
@@ -13,6 +15,7 @@
   padding: 0 0 2% 5%;
   border-radius: 12px;
   font-weight: 600;
+  min-height: 100px;
 }
 
 .sideNav > div:last-of-type {
@@ -28,4 +31,8 @@
   border: none;
   display: flex;
   align-items: center;
+}
+
+.sideNavSpace {
+  min-height: none;
 }

@@ -35,10 +35,13 @@ export type GameStats = {
 };
 
 export type Shot = {
+  userId: number;
+  gameId: number;
   make: boolean;
   X: number;
   Y: number;
   type: number;
+  timeStamp: number;
 };
 
 type Replay = {
@@ -66,4 +69,10 @@ export class GameService {
   async addReplay({ gameId, replay }: Replay) {
     return this.gameRepo.addReplay(gameId, replay);
   }
+
+  async createShot({ userId, gameId, make, X, Y, type, timeStamp }: Shot) {
+    return this.gameRepo.createShot( userId, gameId, make, X, Y, type, timeStamp)
+  }
+
+  async deleteShot({})
 }

@@ -5,6 +5,7 @@ export const shotSchema = z.object({
   X: z.number(),
   Y: z.number(),
   type: z.number(),
+  timeStamp: z.number()
 });
 
 export type Shot = z.infer<typeof shotSchema>;

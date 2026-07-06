@@ -2,6 +2,7 @@ import z from "zod";
 import { shotSchema } from "./shot";
 
 export const gameStatSchema = z.object({
+  gameId: z.number(),
   playerId: z.number(),
   twoPointFGMiss: z.number(),
   twoPointFGMake: z.number(),

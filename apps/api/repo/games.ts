@@ -126,4 +126,27 @@ export class GameRepo {
       },
     });
   }
+
+  async createShot(userId: number, gameId: number, make: boolean, X: number, Y: number, type: number, timeStamp: number ) {
+    const season = await this.prisma.games.findFirst({
+      // userId authCheck
+      where: {
+        id: gameId,
+          season: {
+            team: {
+              userId
+            }
+          }
+      },
+    });
+
+    if (!season) {
+      throw new Error("Forbidden");
+    }
+    return await this.prisma.shots.create({
+      data: {
+        game
+      }
+    })
+  }
 }

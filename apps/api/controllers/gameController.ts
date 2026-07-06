@@ -164,7 +164,31 @@ export async function addReplay(req: Request, res: Response) {
 export async function createGameStatLine(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-
+  const { 
+    gameId,
+    playerId, 
+    twoPointFGMiss, 
+    twoPointFGMake, 
+    twoPointFGA, 
+    threePointFGMiss, 
+    threePointFGMake, 
+    threePointFGA, 
+    fTMiss,
+    fTMake,
+    fTA,
+    oReb,
+    dReb,
+    assist,
+    block,
+    steal,
+    turnover,
+    pF,
+    twoPointFGPercent,
+    threePointFGPercent,
+    fTPercent,
+    totalRebounds,
+    points
+  } = req.body;
 }
 
 export async function createShot(req: AuthRequest, res: Response) {

@@ -68,7 +68,7 @@ export default function GameScoring() {
         </div>
       );
 
-    case "existing":
+    case "existing": //skip playerselect for draft games, should be pulled anyway. gameStatlines created on selectActivePlayers for the first time 
       if (gameDetails && !readyCheck) {
         return (
           <div className="gameScoring">

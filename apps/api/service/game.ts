@@ -11,28 +11,7 @@ export type Game = {
 export type GameStats = {
   userId: number;
   gameId: number;
-  playerId: number;
-  twoPointFGMiss: number;
-  twoPointFGMake: number;
-  twoPointFGA: number;
-  threePointFGMiss: number;
-  threePointFGMake: number;
-  threePointFGA: number;
-  fTMiss: number;
-  fTMake: number;
-  fTA: number;
-  oReb: number;
-  dReb: number;
-  assist: number;
-  block: number;
-  steal: number;
-  turnover: number;
-  pF: number;
-  twoPointFGPercent: number;
-  threePointFGPercent: number;
-  fTPercent: number;
-  totalRebounds: number;
-  points: number;
+  activePlayers: number[];
 };
 
 export type Shot = {
@@ -71,57 +50,15 @@ export class GameService {
     return this.gameRepo.addReplay(gameId, replay);
   }
 
-  async createGameStatLine({
+  async createGameStatLines({
     userId,
     gameId,
-    playerId,
-    twoPointFGMiss,
-    twoPointFGMake,
-    twoPointFGA,
-    threePointFGMiss,
-    threePointFGMake,
-    threePointFGA,
-    fTMiss,
-    fTMake,
-    fTA,
-    oReb,
-    dReb,
-    assist,
-    block,
-    steal,
-    turnover,
-    pF,
-    twoPointFGPercent,
-    threePointFGPercent,
-    fTPercent,
-    totalRebounds,
-    points,
+    activePlayers
   }: GameStats) {
-    return this.gameRepo.createGameStatline(
+    return this.gameRepo.createGameStatlines(
       userId,
       gameId,
-      playerId,
-      twoPointFGMiss,
-      twoPointFGMake,
-      twoPointFGA,
-      threePointFGMiss,
-      threePointFGMake,
-      threePointFGA,
-      fTMiss,
-      fTMake,
-      fTA,
-      oReb,
-      dReb,
-      assist,
-      block,
-      steal,
-      turnover,
-      pF,
-      twoPointFGPercent,
-      threePointFGPercent,
-      fTPercent,
-      totalRebounds,
-      points,
+      activePlayers
     );
   }
 

@@ -7,7 +7,7 @@ import {
   getTeamPlayers,
   createTeamPlayers,
 } from "../controllers/teamController.js";
-import { createGame, addReplay } from "../controllers/gameController.js";
+import { createGame, addReplay, createGameStatLines, createShot } from "../controllers/gameController.js";
 import {
   createSeason,
   getSeasonGames,
@@ -32,6 +32,9 @@ indexRouter.post(
   indexController.verifyToken,
   createTeamPlayers,
 );
-indexRouter.post("/games/shots/create", indexController.verifyToken);
+
+indexRouter.post("/games/gameStatlines/create", indexController.verifyToken, createGameStatLines);
+indexRouter.put("/games/gameStatlines/update", indexController.verifyToken, )
+indexRouter.post("/games/shots/create", indexController.verifyToken, createShot);
 
 export default indexRouter;

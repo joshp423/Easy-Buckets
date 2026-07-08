@@ -127,31 +127,10 @@ export class GameRepo {
     });
   }
 
-  async createGameStatline(
+  async createGameStatlines(
     userId: number,
     gameId: number,
-    playerId: number,
-    twoPointFGMiss: number,
-    twoPointFGMake: number,
-    twoPointFGA: number,
-    threePointFGMiss: number,
-    threePointFGMake: number,
-    threePointFGA: number,
-    fTMiss: number,
-    fTMake: number,
-    fTA: number,
-    oReb: number,
-    dReb: number,
-    assist: number,
-    block: number,
-    steal: number,
-    turnover: number,
-    pF: number,
-    twoPointFGPercent: number,
-    threePointFGPercent: number,
-    fTPercent: number,
-    totalRebounds: number,
-    points: number,
+    activePlayers: number[]
   ) {
     const game = await this.prisma.games.findFirst({
       // userId authCheck
@@ -169,33 +148,33 @@ export class GameRepo {
       throw new Error("Forbidden");
     }
 
-    return await this.prisma.gameStatlines.create({
+    return this.prisma.$transaction(activePlayers.map((playerId) => this.prisma.gameStatlines.create({
       data: {
         gameId,
         playerId,
-        twoPointFGMiss,
-        twoPointFGMake,
-        twoPointFGA,
-        threePointFGMiss,
-        threePointFGMake,
-        threePointFGA,
-        fTMiss,
-        fTMake,
-        fTA,
-        oReb,
-        dReb,
-        assist,
-        block,
-        steal,
-        turnover,
-        pF,
-        twoPointFGPercent,
-        threePointFGPercent,
-        fTPercent,
-        totalRebounds,
-        points,
+        twoPointFGMiss: 0,
+        twoPointFGMake: 0,
+        twoPointFGA: 0,
+        threePointFGMiss: 0,
+        threePointFGMake: 0,
+        threePointFGA: 0,
+        fTMiss: 0,
+        fTMake: 0,
+        fTA: 0,
+        oReb: 0,
+        dReb: 0,
+        assist: 0,
+        block: 0,
+        steal: 0,
+        turnover: 0,
+        pF: 0,
+        twoPointFGPercent: 0,
+        threePointFGPercent: 0,
+        fTPercent: 0,
+        totalRebounds: 0,
+        points: 0,
       },
-    });
+    })));
   }
 
   async createShot(

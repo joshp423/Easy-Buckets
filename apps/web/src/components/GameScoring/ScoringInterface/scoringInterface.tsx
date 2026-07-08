@@ -6,7 +6,9 @@ import CourtInterface from "./CourtInterface/courtInterface";
 // import "./scoringInterface.css";
 import "./scoringInterfaceB.css";
 import type { Game } from "../../../types/game";
-import VideoPlayer, { type VideoPlayerHandle } from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
+import VideoPlayer, {
+  type VideoPlayerHandle,
+} from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
 
 type ScoringInterfaceProps = {
   selectedPlayers: Player[];
@@ -24,15 +26,15 @@ export default function ScoringInterface({
   const [selectedStat, setSelectedStat] = useState<string>("");
   const videoRef = useRef<VideoPlayerHandle>(null);
 
-   function uploadStat(statType: string) {
-    console.log(statType)
-    let timeStamp = 0
+  function uploadStat(statType: string) {
+    console.log(statType);
+    let timeStamp = 0;
     switch (statType) {
       case "2P Make":
-      timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
-      console.log(timeStamp)
+        timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
+        console.log(timeStamp);
     }
-   }
+  }
 
   if (!gameDetails.replay)
     return (
@@ -66,10 +68,13 @@ export default function ScoringInterface({
 
   return (
     <div className="scoringInterface">
-      <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef}/>
+      <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
       <div className="interfaceInput">
         <div>
-          <div className="selectionSections" onClick={() => uploadStat("2P Make")}>
+          <div
+            className="selectionSections"
+            onClick={() => uploadStat("2P Make")}
+          >
             <PlayerSelection
               selectedPlayers={selectedPlayers}
               setSelectedPlayer={setSelectedPlayer}
@@ -86,9 +91,7 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
             />
           </div>
-          <div className="shotLog">
-            
-          </div>
+          <div className="shotLog"></div>
         </div>
         <CourtInterface
           selectedStat={selectedStat}
@@ -96,7 +99,6 @@ export default function ScoringInterface({
           setSelectedPlayer={setSelectedPlayer}
           selectedUI={selectedUI}
           setSelectedUI={setSelectedUI}
-          
         />
       </div>
     </div>

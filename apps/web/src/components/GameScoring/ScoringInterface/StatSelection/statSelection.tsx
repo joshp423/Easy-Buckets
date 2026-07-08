@@ -20,7 +20,6 @@ export default function StatSelection({
   selectedUI,
   setSelectedUI,
 }: StatSelectionProps) {
-
   const pointsStats = [
     "2P Make",
     "2P Miss",
@@ -34,12 +33,7 @@ export default function StatSelection({
 
   const miscStats = ["Assist", "Block", "Steal", "TO", "Foul"];
 
-  const courtPlacementStats = [
-    "2P Make",
-    "2P Miss",
-    "3P Make",
-    "3P Miss",
-  ];
+  const courtPlacementStats = ["2P Make", "2P Miss", "3P Make", "3P Miss"];
 
   function addUIClasses(
     selectedUI: "playerSelection" | "statSelection" | "courtPlacement",

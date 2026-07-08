@@ -127,26 +127,113 @@ export class GameRepo {
     });
   }
 
-  async createShot(userId: number, gameId: number, make: boolean, X: number, Y: number, type: number, timeStamp: number ) {
-    const season = await this.prisma.games.findFirst({
+  async createGameStatline(
+    userId: number,
+    gameId: number,
+    playerId: number,
+    twoPointFGMiss: number,
+    twoPointFGMake: number,
+    twoPointFGA: number,
+    threePointFGMiss: number,
+    threePointFGMake: number,
+    threePointFGA: number,
+    fTMiss: number,
+    fTMake: number,
+    fTA: number,
+    oReb: number,
+    dReb: number,
+    assist: number,
+    block: number,
+    steal: number,
+    turnover: number,
+    pF: number,
+    twoPointFGPercent: number,
+    threePointFGPercent: number,
+    fTPercent: number,
+    totalRebounds: number,
+    points: number,
+  ) {
+    const game = await this.prisma.games.findFirst({
       // userId authCheck
       where: {
         id: gameId,
-          season: {
-            team: {
-              userId
-            }
-          }
+        season: {
+          team: {
+            userId,
+          },
+        },
       },
     });
 
-    if (!season) {
+    if (!game) {
+      throw new Error("Forbidden");
+    }
+
+    return await this.prisma.gameStatlines.create({
+      data: {
+        gameId,
+        playerId,
+        twoPointFGMiss,
+        twoPointFGMake,
+        twoPointFGA,
+        threePointFGMiss,
+        threePointFGMake,
+        threePointFGA,
+        fTMiss,
+        fTMake,
+        fTA,
+        oReb,
+        dReb,
+        assist,
+        block,
+        steal,
+        turnover,
+        pF,
+        twoPointFGPercent,
+        threePointFGPercent,
+        fTPercent,
+        totalRebounds,
+        points,
+      },
+    });
+  }
+
+  async createShot(
+    userId: number,
+    gameStatlineId: number,
+    make: boolean,
+    X: number,
+    Y: number,
+    type: number,
+    timeStamp: number,
+  ) {
+    const gameStatline = await this.prisma.gameStatlines.findFirst({
+      // userId authCheck
+      where: {
+        id: gameStatlineId,
+        game: {
+          season: {
+            team: {
+              userId,
+            },
+          },
+        },
+      },
+    });
+
+    if (!gameStatline) {
       throw new Error("Forbidden");
     }
     return await this.prisma.shots.create({
       data: {
-        game
-      }
-    })
+        userId,
+        gameStatlineId,
+        make,
+        X,
+        Y,
+        type,
+        timeStamp,
+      },
+    });
   }
 }

@@ -72,6 +72,7 @@ const createGameSchema = z.object({
 });
 
 const createGameStatLineSchema = z.object({
+  userId: z.number(),
   gameId: z.number(),
   playerId: z.number(),
   twoPointFGMiss: z.number(),
@@ -94,18 +95,18 @@ const createGameStatLineSchema = z.object({
   threePointFGPercent: z.number(),
   fTPercent: z.number(),
   totalRebounds: z.number(),
-  points: z.number()
-})
+  points: z.number(),
+});
 
 const createShotSchema = z.object({
   userId: z.number(),
-  gameId: z.number(),
+  gameStatlineId: z.number(),
   make: z.boolean(),
   X: z.number(),
   Y: z.number(),
   type: z.number(),
-  timeStamp: z.number()
-})
+  timeStamp: z.number(),
+});
 
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -164,15 +165,15 @@ export async function addReplay(req: Request, res: Response) {
 export async function createGameStatLine(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { 
+  const {
     gameId,
-    playerId, 
-    twoPointFGMiss, 
-    twoPointFGMake, 
-    twoPointFGA, 
-    threePointFGMiss, 
-    threePointFGMake, 
-    threePointFGA, 
+    playerId,
+    twoPointFGMiss,
+    twoPointFGMake,
+    twoPointFGA,
+    threePointFGMiss,
+    threePointFGMake,
+    threePointFGA,
     fTMiss,
     fTMake,
     fTA,
@@ -187,24 +188,35 @@ export async function createGameStatLine(req: AuthRequest, res: Response) {
     threePointFGPercent,
     fTPercent,
     totalRebounds,
-    points
+    points,
   } = req.body;
-}
 
-export async function createShot(req: AuthRequest, res: Response) {
-  const userId = req.user?.id;
-
-  const { gameId, make, X, Y, type, timeStamp } = req.body;
-
-  const { success, data, error } = createShotSchema.safeParse({
+  const { success, data, error } = createGameStatLineSchema.safeParse({
     userId,
     gameId,
-    make,
-    X,
-    Y,
-    type,
-    timeStamp
-  })
+    playerId,
+    twoPointFGMiss,
+    twoPointFGMake,
+    twoPointFGA,
+    threePointFGMiss,
+    threePointFGMake,
+    threePointFGA,
+    fTMiss,
+    fTMake,
+    fTA,
+    oReb,
+    dReb,
+    assist,
+    block,
+    steal,
+    turnover,
+    pF,
+    twoPointFGPercent,
+    threePointFGPercent,
+    fTPercent,
+    totalRebounds,
+    points,
+  });
 
   if (!success) {
     return res.status(400).json({
@@ -212,5 +224,44 @@ export async function createShot(req: AuthRequest, res: Response) {
     });
   }
 
-  const shot = await gameService.
+  const gameStatline = await gameService.createGameStatLine(data);
+
+  if (!gameStatline) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(gameStatline);
+}
+
+export async function createShot(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { gameStatlineId, make, X, Y, type, timeStamp } = req.body;
+
+  const { success, data, error } = createShotSchema.safeParse({
+    userId,
+    gameStatlineId,
+    make,
+    X,
+    Y,
+    type,
+    timeStamp,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const shot = await gameService.createShot(data);
+  if (!shot) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201);
 }

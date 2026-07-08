@@ -23,7 +23,6 @@
   align-content: space-around;
 }
 
-
 .playerSelection > div > button {
   background-color: white;
   color: black;
@@ -32,4 +31,3 @@
   width: 40%;
   height: 12%;
 }
-

@@ -47,7 +47,7 @@ export default function StatSelectionButton({
               // setSelectedStat("")
               setSelectedUI("playerSelection");
               setSelectedPlayer(null);
-              setSelectedStat("")
+              setSelectedStat("");
               return;
             }}
             style={

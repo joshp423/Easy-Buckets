@@ -52,7 +52,6 @@ export default function PlayerSelection({
               selectedPlayer === player.id
                 ? { backgroundColor: "#e37204", color: "white" }
                 : {}
-             
             }
           >
             {player.name} {player.number}

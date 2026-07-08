@@ -25,20 +25,20 @@
 }
 
 .interfaceInput > div:first-of-type {
-    display: grid;
-    grid-template-rows: repeat(2, 49%);
-    gap: 2%;
-    height: 100%;
-    width: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, 49%);
+  gap: 2%;
+  height: 100%;
+  width: 100%;
 }
 
 .selectionSections {
-    display: grid;
-    grid-template-columns: repeat(2, 49%);
-    height: 100%;
-    gap: 2%;
-    width: 100%;
-    min-width: 600px
+  display: grid;
+  grid-template-columns: repeat(2, 49%);
+  height: 100%;
+  gap: 2%;
+  width: 100%;
+  min-width: 600px;
 }
 
 .interfaceInput > div > div > div {
@@ -50,6 +50,6 @@
 }
 
 .shotLog {
-    height: 100%;
-    border: 1px solid black;
+  height: 100%;
+  border: 1px solid black;
 }

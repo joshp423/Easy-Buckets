@@ -32,6 +32,6 @@ indexRouter.post(
   indexController.verifyToken,
   createTeamPlayers,
 );
-indexRouter.post("/games/shots/create", indexController.verifyToken, )
+indexRouter.post("/games/shots/create", indexController.verifyToken);
 
 export default indexRouter;

@@ -15,9 +15,8 @@ export type GameStatsInitial = {
 };
 
 export type GameStats = {
-  userId: number
-  gameId: number;
-  playerId: number;
+  gameStatlineId: number;
+  userId: number;
   twoPointFGMiss: number;
   twoPointFGMake: number;
   twoPointFGA: number;
@@ -90,8 +89,8 @@ export class GameService {
   }
 
   async updateGameStatline({
+    gameStatlineId,
     userId,
-    playerId,
     twoPointFGMiss,
     twoPointFGMake,
     twoPointFGA,
@@ -113,9 +112,9 @@ export class GameService {
     totalRebounds,
     points,
   }: GameStats) {
-    return this.gameRepo.updateGameStats(
+    return this.gameRepo.updateGameStatline(
+      gameStatlineId,
       userId,
-      playerId,
       twoPointFGMiss,
       twoPointFGMake,
       twoPointFGA,

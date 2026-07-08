@@ -178,8 +178,8 @@ export class GameRepo {
   }
 
   async updateGameStatline(
+    gameStatlineId: number,
     userId: number,
-    playerId: number,
     twoPointFGMiss: number,
     twoPointFGMake: number,
     twoPointFGA: number,
@@ -201,8 +201,52 @@ export class GameRepo {
     totalRebounds: number,
     points: number,
   ) {
+    const gameStatline = await this.prisma.gameStatlines.findFirst({
+      // userId authCheck
+      where: {
+        id: gameStatlineId,
+        game: {
+          season: {
+            team: {
+              userId,
+            },
+          },
+        },
+      },
+    });
+
+    if (!gameStatline) {
+      throw new Error("Forbidden");
+    }
     
-  }
+
+  return await this.prisma.gameStatlines.update({
+    where: { id: gameStatlineId },
+    data: { 
+      gameStatlineId,
+      userId,
+      twoPointFGMiss,
+      twoPointFGMake,
+      twoPointFGA,
+      threePointFGMiss,
+      threePointFGMake,
+      threePointFGA,
+      fTMiss,
+      fTMake,
+      fTA,
+      oReb,
+      assist,
+      block,
+      steal,
+      turnover,
+      pF,
+      twoPointFGPercent,
+      threePointFGPercent,
+      fTPercent,
+      totalRebounds,
+      points,
+    }
+  })}
 
   async createShot(
     userId: number,

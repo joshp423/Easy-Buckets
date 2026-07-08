@@ -78,9 +78,8 @@ const createGameStatLinesSchema = z.object({
 });
 
 const updateGameStatLineSchema = z.object({
+  gameStatlineId: z.number(),
   userId: z.number(),
-  gameId: z.number(),
-  playerId: z.number(),
   twoPointFGMiss: z.number(),
   twoPointFGMake: z.number(),
   twoPointFGA: z.number(),
@@ -203,8 +202,7 @@ export async function updateGameStatline(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
   const {
-    gameId,
-    playerId,
+    gameStatlineId,
     twoPointFGMiss,
     twoPointFGMake,
     twoPointFGA,
@@ -228,9 +226,9 @@ export async function updateGameStatline(req: AuthRequest, res: Response) {
   } = req.body;
 
 
-  const { success, data, error } = createGameStatLinesSchema.safeParse({
+  const { success, data, error } = updateGameStatLineSchema.safeParse({
+    gameStatlineId,
     userId,
-    playerId,
     twoPointFGMiss,
     twoPointFGMake,
     twoPointFGA,

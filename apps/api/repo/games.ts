@@ -177,6 +177,33 @@ export class GameRepo {
     })));
   }
 
+  async updateGameStatline(
+    userId: number,
+    playerId: number,
+    twoPointFGMiss: number,
+    twoPointFGMake: number,
+    twoPointFGA: number,
+    threePointFGMiss: number,
+    threePointFGMake: number,
+    threePointFGA: number,
+    fTMiss: number,
+    fTMake: number,
+    fTA: number,
+    oReb: number,
+    assist: number,
+    block: number,
+    steal: number,
+    turnover: number,
+    pF: number,
+    twoPointFGPercent: number,
+    threePointFGPercent: number,
+    fTPercent: number,
+    totalRebounds: number,
+    points: number,
+  ) {
+    
+  }
+
   async createShot(
     userId: number,
     gameStatlineId: number,

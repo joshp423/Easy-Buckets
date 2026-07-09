@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import z from "zod";
+import z, { number } from "zod";
 import prisma from "../lib/prisma.js";
 import { config } from "../service/config.js";
 import { GameRepo } from "../repo/games.js";
@@ -24,6 +24,10 @@ const replaySchema = z.object({
   gameId: z.number(),
   replay: z.url().trim(),
 });
+
+const getGameSchema = z.object({
+  id: number()
+})
 
 const createGameSchema = z.object({
   userId: z.number(),
@@ -163,12 +167,37 @@ export async function addReplay(req: Request, res: Response) {
   try {
     await gameService.addReplay(data);
 
-    return res.status(201).json({ message: "Game Creation Successful" });
+    return res.status(201).json({ message: "Replay Added Successfully" });
   } catch (err) {
     return res.status(403).json({
       message: "an unexpected error occured",
     });
   }
+}
+
+export async function getGame(req:Request, res: Response) {
+  const { id } = req.params;
+
+  const { success, data, error } = getGameSchema.safeParse({
+    id
+  })
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const game = await gameService.getGame(data.id);
+
+  if (!game) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(game);
+
 }
 
 export async function createGameStatLines(req: AuthRequest, res: Response) {
@@ -261,15 +290,15 @@ export async function updateGameStatline(req: AuthRequest, res: Response) {
     });
   }
 
-  const gameStatline = await gameService.updateGameStatline(data);
+  try {
+    await gameService.updateGameStatline(data);
 
-  if (!gameStatline) {
+    return res.status(201).json({ message: "Stats Updated Successfully" });
+  } catch (err) {
     return res.status(403).json({
       message: "an unexpected error occured",
     });
   }
-
-  return res.status(201).json(gameStatline);
 }
 
 export async function createShot(req: AuthRequest, res: Response) {

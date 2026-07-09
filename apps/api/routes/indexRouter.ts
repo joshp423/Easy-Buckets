@@ -7,7 +7,7 @@ import {
   getTeamPlayers,
   createTeamPlayers,
 } from "../controllers/teamController.js";
-import { createGame, addReplay, createGameStatLines, createShot, updateGameStatline, deleteShot } from "../controllers/gameController.js";
+import { createGame, addReplay, createGameStatLines, createShot, updateGameStatline, deleteShot, getGame } from "../controllers/gameController.js";
 import {
   createSeason,
   getSeasonGames,
@@ -22,6 +22,7 @@ indexRouter.get("/teams/seasons", indexController.verifyToken, getTeamSeasons);
 indexRouter.post("/teams/create", indexController.verifyToken, createTeam);
 indexRouter.post("/games/create", indexController.verifyToken, createGame);
 indexRouter.put("/games/add-replay", indexController.verifyToken, addReplay);
+indexRouter.get("/games/:id", indexController.verifyToken, getGame);
 indexRouter.post("/seasons/create", indexController.verifyToken, createSeason);
 indexRouter.get(
   "/seasons/:id/games/",
@@ -35,7 +36,7 @@ indexRouter.post(
   createTeamPlayers,
 );
 indexRouter.post("/games/gameStatlines/create", indexController.verifyToken, createGameStatLines);
-indexRouter.put("/games/gameStatlines/update", indexController.verifyToken, updateGameStatline)
+indexRouter.put("/games/gameStatlines/update", indexController.verifyToken, updateGameStatline);
 indexRouter.post("/games/shots/create", indexController.verifyToken, createShot);
 indexRouter.delete("/games/shots/delete", indexController.verifyToken, deleteShot);
 

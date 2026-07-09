@@ -76,6 +76,10 @@ export class GameService {
     return this.gameRepo.addReplay(gameId, replay);
   }
 
+  async getGame(id: number) {
+    return this.gameRepo.getGame(id);
+  }
+
   async createGameStatlines({
     userId,
     gameId,

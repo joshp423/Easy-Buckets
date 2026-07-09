@@ -20,7 +20,7 @@ export default function SelectDraftGame({
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
-      (season) => season.name === selectedDashboardSeason,
+      (season) => season.name === selectedDashboardSeason, //make more robust?
     );
 
     if (!selectedSeason) return;

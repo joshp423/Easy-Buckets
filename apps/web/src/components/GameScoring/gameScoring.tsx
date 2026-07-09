@@ -69,22 +69,7 @@ export default function GameScoring() {
       );
 
     case "existing": //skip playerselect for draft games, should be pulled anyway. gameStatlines created on selectActivePlayers for the first time 
-      if (gameDetails && !readyCheck) {
-        return (
-          <div className="gameScoring">
-            <SideNav />
-            <SelectActivePlayers
-              playerList={playerList}
-              setReadyCheck={setReadyCheck}
-              setAddPlayer={setAddPlayer}
-              addPlayer={addPlayer}
-              setSelectedPlayers={setSelectedPlayers}
-            />
-          </div>
-        );
-      }
-      if (playerList && readyCheck) {
-        //session for readyCheck?
+      if (gameDetails) {
         return (
           <div className="gameScoring">
             <SideNav />

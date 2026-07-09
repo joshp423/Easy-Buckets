@@ -115,14 +115,10 @@ export class GameRepo {
     });
   }
 
-  async getSingleGame(userId: number, gameId: number) {
+  async getGame(id: number) {
     return await this.prisma.games.findUnique({
       where: {
-        id: gameId,
-        team: {
-          userId,
-        },
-        draft: true,
+        id,
       },
     });
   }

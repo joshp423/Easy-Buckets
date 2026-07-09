@@ -1,4 +1,3 @@
-import jwt, { type JwtPayload } from "jsonwebtoken";
 import type { Request, Response, NextFunction } from "express";
 import z from "zod";
 import prisma from "../lib/prisma.js";
@@ -112,6 +111,11 @@ const createShotSchema = z.object({
   type: z.number(),
   timeStamp: z.number(),
 });
+
+const deleteShotSchema = z.object({
+  userId: z.number(),
+  shotId: z.number()
+})
 
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -257,15 +261,15 @@ export async function updateGameStatline(req: AuthRequest, res: Response) {
     });
   }
 
-  const gameStatlines = await gameService.updateGameStatline(data);
+  const gameStatline = await gameService.updateGameStatline(data);
 
-  if (!gameStatlines) {
+  if (!gameStatline) {
     return res.status(403).json({
       message: "an unexpected error occured",
     });
   }
 
-  return res.status(201).json(gameStatlines);
+  return res.status(201).json(gameStatline);
 }
 
 export async function createShot(req: AuthRequest, res: Response) {
@@ -296,5 +300,32 @@ export async function createShot(req: AuthRequest, res: Response) {
     });
   }
 
-  return res.status(201);
+  return res.status(201).json(shot);
+}
+
+export async function deleteShot(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { shotID } = req.body;
+
+  const { success, data, error } = deleteShotSchema.safeParse({
+    userId,
+    shotID
+  })
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const deletedShot = await gameService.deleteShot(data.shotId, data. userId);
+
+  if (!deletedShot) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(deletedShot);
 }

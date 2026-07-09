@@ -286,4 +286,20 @@ export class GameRepo {
       },
     });
   }
+  
+  async deleteShot(userId: number, shotId: number) {
+    return await this.prisma.shots.delete({
+      where: {
+        id: shotId,
+        gameStatline: {
+          game: {
+            season: {
+              userId
+            }
+          }
+        }
+      }
+      
+    })
+  }
 }

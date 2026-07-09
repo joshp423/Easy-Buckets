@@ -158,5 +158,7 @@ export class GameService {
     );
   }
 
-  // async deleteShot({});
+  async deleteShot(userId: number, shotId: number) {
+    return this.gameRepo.deleteShot(userId, shotId);
+  }
 }

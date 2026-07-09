@@ -7,12 +7,14 @@ import {
   getTeamPlayers,
   createTeamPlayers,
 } from "../controllers/teamController.js";
-import { createGame, addReplay, createGameStatLines, createShot } from "../controllers/gameController.js";
+import { createGame, addReplay, createGameStatLines, createShot, updateGameStatline } from "../controllers/gameController.js";
 import {
   createSeason,
   getSeasonGames,
 } from "../controllers/seasonController.js";
 const indexRouter = Router();
+
+//what if someone completes initial gameupdate then not players? Think upload has to be at player lock in.
 
 indexRouter.post("/users/sign-up", signUp);
 indexRouter.post("/users/log-in", logIn);
@@ -32,9 +34,9 @@ indexRouter.post(
   indexController.verifyToken,
   createTeamPlayers,
 );
-
 indexRouter.post("/games/gameStatlines/create", indexController.verifyToken, createGameStatLines);
-indexRouter.put("/games/gameStatlines/update", indexController.verifyToken, )
+indexRouter.put("/games/gameStatlines/update", indexController.verifyToken, updateGameStatline)
 indexRouter.post("/games/shots/create", indexController.verifyToken, createShot);
+indexRouter.delete("/games/shots/delete", indexController.verifyToken, )
 
 export default indexRouter;

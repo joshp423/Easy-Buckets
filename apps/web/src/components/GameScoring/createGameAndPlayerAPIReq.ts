@@ -5,7 +5,6 @@ import { type Game } from "../../types/game";
 type createGameDraftAPIRequestProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
   e: SyntheticEvent<HTMLFormElement>;
-  selectedPlayers: 
   seasonId: number | null;
   opponent: string;
   date: string;

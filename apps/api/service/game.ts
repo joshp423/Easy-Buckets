@@ -83,13 +83,9 @@ export class GameService {
   async createGameStatlines({
     userId,
     gameId,
-    activePlayers
+    activePlayers,
   }: GameStatsInitial) {
-    return this.gameRepo.createGameStatlines(
-      userId,
-      gameId,
-      activePlayers
-    );
+    return this.gameRepo.createGameStatlines(userId, gameId, activePlayers);
   }
 
   async updateGameStatline({
@@ -139,7 +135,7 @@ export class GameService {
       fTPercent,
       totalRebounds,
       points,
-  )
+    );
   }
 
   async createShot({

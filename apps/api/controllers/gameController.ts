@@ -26,8 +26,8 @@ const replaySchema = z.object({
 });
 
 const getGameSchema = z.object({
-  id: z.coerce.number()
-})
+  id: z.coerce.number(),
+});
 
 const createGameSchema = z.object({
   userId: z.number(),
@@ -77,7 +77,7 @@ const createGameSchema = z.object({
 const createGameStatLinesSchema = z.object({
   userId: z.number(),
   gameId: z.number(),
-  activePlayers: z.array(z.number())
+  activePlayers: z.array(z.number()),
 });
 
 const updateGameStatLineSchema = z.object({
@@ -118,8 +118,8 @@ const createShotSchema = z.object({
 
 const deleteShotSchema = z.object({
   userId: z.number(),
-  shotId: z.number()
-})
+  shotId: z.number(),
+});
 
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -175,12 +175,12 @@ export async function addReplay(req: Request, res: Response) {
   }
 }
 
-export async function getGame(req:Request, res: Response) {
+export async function getGame(req: Request, res: Response) {
   const { id } = req.params;
 
   const { success, data, error } = getGameSchema.safeParse({
-    id
-  })
+    id,
+  });
 
   if (!success) {
     return res.status(400).json({
@@ -197,21 +197,17 @@ export async function getGame(req:Request, res: Response) {
   }
 
   return res.status(201).json(game);
-
 }
 
 export async function createGameStatLines(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const {
-    gameId,
-    activePlayers
-  } = req.body;
+  const { gameId, activePlayers } = req.body;
 
   const { success, data, error } = createGameStatLinesSchema.safeParse({
     userId,
     gameId,
-    activePlayers
+    activePlayers,
   });
 
   if (!success) {
@@ -257,7 +253,6 @@ export async function updateGameStatline(req: AuthRequest, res: Response) {
     totalRebounds,
     points,
   } = req.body;
-
 
   const { success, data, error } = updateGameStatLineSchema.safeParse({
     gameStatlineId,
@@ -339,8 +334,8 @@ export async function deleteShot(req: AuthRequest, res: Response) {
 
   const { success, data, error } = deleteShotSchema.safeParse({
     userId,
-    shotID
-  })
+    shotID,
+  });
 
   if (!success) {
     return res.status(400).json({
@@ -348,7 +343,7 @@ export async function deleteShot(req: AuthRequest, res: Response) {
     });
   }
 
-  const deletedShot = await gameService.deleteShot(data.shotId, data. userId);
+  const deletedShot = await gameService.deleteShot(data.shotId, data.userId);
 
   if (!deletedShot) {
     return res.status(403).json({

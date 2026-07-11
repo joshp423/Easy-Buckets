@@ -20,6 +20,7 @@ export default function SelectActivePlayers({
 }: SelectActivePlayersProps) {
   function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+
     setReadyCheck(true);
   }
 

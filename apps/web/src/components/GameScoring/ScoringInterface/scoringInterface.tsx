@@ -12,14 +12,18 @@ import VideoPlayer, {
 import { getSingleGameAPIFetch } from "./getSingleGameAPIFetch";
 
 type ScoringInterfaceProps = {
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
   selectedPlayers: Player[];
   gameDetails: Game;
-  setSelectedPlayers: React.Dispatch<React.SetStateAction<{
-    id: number;
-    name: string;
-    number: number;
-}[]>>
+  setSelectedPlayers: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        name: string;
+        number: number;
+      }[]
+    >
+  >;
 };
 //session storage for selectedPlayers
 export default function ScoringInterface({
@@ -45,19 +49,19 @@ export default function ScoringInterface({
     }
   }
 
-
   useEffect(() => {
     if (!selectedPlayers || selectedPlayers.length === 0) {
       const load = async () => {
-        const game = await getSingleGameAPIFetch(gameDetails.id)
-        const gamePlayers = game.gameStatlines.map(gameStatline => gameStatline.player)
-        setSelectedPlayers(gamePlayers)
-        setGameDetails(game)
-      }
-      load()
+        const game = await getSingleGameAPIFetch(gameDetails.id);
+        const gamePlayers = game.gameStatlines.map(
+          (gameStatline) => gameStatline.player,
+        );
+        setSelectedPlayers(gamePlayers);
+        setGameDetails(game);
+      };
+      load();
     }
-  },[gameDetails.id, selectedPlayers,setGameDetails, setSelectedPlayers])
-
+  }, [gameDetails.id, selectedPlayers, setGameDetails, setSelectedPlayers]);
 
   if (!gameDetails.replay)
     return (

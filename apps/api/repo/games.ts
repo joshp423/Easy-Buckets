@@ -129,9 +129,9 @@ export class GameRepo {
                 id: true,
                 name: true,
                 number: true,
-              }
-            }
-          }
+              },
+            },
+          },
         },
       },
     });
@@ -140,7 +140,7 @@ export class GameRepo {
   async createGameStatlines(
     userId: number,
     gameId: number,
-    activePlayers: number[]
+    activePlayers: number[],
   ) {
     const game = await this.prisma.games.findFirst({
       // userId authCheck
@@ -158,33 +158,37 @@ export class GameRepo {
       throw new Error("Forbidden");
     }
 
-    return this.prisma.$transaction(activePlayers.map((playerId) => this.prisma.gameStatlines.create({
-      data: {
-        gameId,
-        playerId,
-        twoPointFGMiss: 0,
-        twoPointFGMake: 0,
-        twoPointFGA: 0,
-        threePointFGMiss: 0,
-        threePointFGMake: 0,
-        threePointFGA: 0,
-        fTMiss: 0,
-        fTMake: 0,
-        fTA: 0,
-        oReb: 0,
-        dReb: 0,
-        assist: 0,
-        block: 0,
-        steal: 0,
-        turnover: 0,
-        pF: 0,
-        twoPointFGPercent: 0,
-        threePointFGPercent: 0,
-        fTPercent: 0,
-        totalRebounds: 0,
-        points: 0,
-      },
-    })));
+    return this.prisma.$transaction(
+      activePlayers.map((playerId) =>
+        this.prisma.gameStatlines.create({
+          data: {
+            gameId,
+            playerId,
+            twoPointFGMiss: 0,
+            twoPointFGMake: 0,
+            twoPointFGA: 0,
+            threePointFGMiss: 0,
+            threePointFGMake: 0,
+            threePointFGA: 0,
+            fTMiss: 0,
+            fTMake: 0,
+            fTA: 0,
+            oReb: 0,
+            dReb: 0,
+            assist: 0,
+            block: 0,
+            steal: 0,
+            turnover: 0,
+            pF: 0,
+            twoPointFGPercent: 0,
+            threePointFGPercent: 0,
+            fTPercent: 0,
+            totalRebounds: 0,
+            points: 0,
+          },
+        }),
+      ),
+    );
   }
 
   async updateGameStatline(
@@ -228,35 +232,35 @@ export class GameRepo {
     if (!gameStatline) {
       throw new Error("Forbidden");
     }
-    
 
-  return await this.prisma.gameStatlines.update({
-    where: { id: gameStatlineId },
-    data: { 
-      gameStatlineId,
-      userId,
-      twoPointFGMiss,
-      twoPointFGMake,
-      twoPointFGA,
-      threePointFGMiss,
-      threePointFGMake,
-      threePointFGA,
-      fTMiss,
-      fTMake,
-      fTA,
-      oReb,
-      assist,
-      block,
-      steal,
-      turnover,
-      pF,
-      twoPointFGPercent,
-      threePointFGPercent,
-      fTPercent,
-      totalRebounds,
-      points,
-    }
-  })}
+    return await this.prisma.gameStatlines.update({
+      where: { id: gameStatlineId },
+      data: {
+        gameStatlineId,
+        userId,
+        twoPointFGMiss,
+        twoPointFGMake,
+        twoPointFGA,
+        threePointFGMiss,
+        threePointFGMake,
+        threePointFGA,
+        fTMiss,
+        fTMake,
+        fTA,
+        oReb,
+        assist,
+        block,
+        steal,
+        turnover,
+        pF,
+        twoPointFGPercent,
+        threePointFGPercent,
+        fTPercent,
+        totalRebounds,
+        points,
+      },
+    });
+  }
 
   async createShot(
     userId: number,
@@ -296,22 +300,21 @@ export class GameRepo {
       },
     });
   }
-  
+
   async deleteShot(userId: number, shotId: number) {
     return await this.prisma.shots.delete({
       where: {
         id: shotId,
         gameStatline: {
-          game : {
+          game: {
             season: {
-              team :{
-                userId
-              }
-            }
-          }
-        }
-      }
-      
-    })
+              team: {
+                userId,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 }

@@ -1,6 +1,6 @@
 import type { Player } from "../../../types/player";
 import PlayerSelection from "./PlayerSelection/playerSelection";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StatSelection from "./StatSelection/statSelection";
 import CourtInterface from "./CourtInterface/courtInterface";
 // import "./scoringInterface.css";
@@ -9,13 +9,22 @@ import type { Game } from "../../../types/game";
 import VideoPlayer, {
   type VideoPlayerHandle,
 } from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
+import { getSingleGameAPIFetch } from "./getSingleGameAPIFetch";
 
 type ScoringInterfaceProps = {
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>
   selectedPlayers: Player[];
   gameDetails: Game;
+  setSelectedPlayers: React.Dispatch<React.SetStateAction<{
+    id: number;
+    name: string;
+    number: number;
+}[]>>
 };
 //session storage for selectedPlayers
 export default function ScoringInterface({
+  setGameDetails,
+  setSelectedPlayers,
   selectedPlayers,
   gameDetails,
 }: ScoringInterfaceProps) {
@@ -28,13 +37,27 @@ export default function ScoringInterface({
 
   function uploadStat(statType: string) {
     console.log(statType);
-    let timeStamp = 0;
+    let timeStamp;
     switch (statType) {
       case "2P Make":
         timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
         console.log(timeStamp);
     }
   }
+
+
+  useEffect(() => {
+    if (!selectedPlayers || selectedPlayers.length === 0) {
+      const load = async () => {
+        const game = await getSingleGameAPIFetch(gameDetails.id)
+        const gamePlayers = game.gameStatlines.map(gameStatline => gameStatline.player)
+        setSelectedPlayers(gamePlayers)
+        setGameDetails(game)
+      }
+      load()
+    }
+  },[gameDetails.id, selectedPlayers,setGameDetails, setSelectedPlayers])
+
 
   if (!gameDetails.replay)
     return (

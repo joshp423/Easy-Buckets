@@ -108,7 +108,7 @@ export class GameRepo {
       include: {
         gameStatlines: {
           include: {
-            shots: {},
+            shots: true,
           },
         },
       },
@@ -119,6 +119,20 @@ export class GameRepo {
     return await this.prisma.games.findUnique({
       where: {
         id,
+      },
+      include: {
+        gameStatlines: {
+          include: {
+            shots: true,
+            player: {
+              select: {
+                id: true,
+                name: true,
+                number: true,
+              }
+            }
+          }
+        },
       },
     });
   }
@@ -288,9 +302,11 @@ export class GameRepo {
       where: {
         id: shotId,
         gameStatline: {
-          game: {
+          game : {
             season: {
-              userId
+              team :{
+                userId
+              }
             }
           }
         }

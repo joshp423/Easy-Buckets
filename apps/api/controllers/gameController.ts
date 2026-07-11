@@ -26,7 +26,7 @@ const replaySchema = z.object({
 });
 
 const getGameSchema = z.object({
-  id: number()
+  id: z.coerce.number()
 })
 
 const createGameSchema = z.object({

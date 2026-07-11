@@ -74,6 +74,8 @@ export default function GameScoring() {
           <div className="gameScoring">
             <SideNav />
             <ScoringInterface
+              setGameDetails={setGameDetails}
+              setSelectedPlayers={setSelectedPlayers}
               selectedPlayers={selectedPlayers}
               gameDetails={gameDetails}
             />
@@ -126,6 +128,8 @@ export default function GameScoring() {
           <div className="gameScoring">
             <SideNav />
             <ScoringInterface
+              setGameDetails={setGameDetails}
+              setSelectedPlayers={setSelectedPlayers}
               selectedPlayers={selectedPlayers}
               gameDetails={gameDetails}
             />

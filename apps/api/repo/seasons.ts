@@ -31,6 +31,7 @@ export class SeasonRepo {
               include: {
                 player: {
                   select: {
+                    id: true,
                     name: true,
                     number: true,
                   },

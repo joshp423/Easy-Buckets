@@ -26,6 +26,7 @@ export const gameStatSchema = z.object({
   totalRebounds: z.number(),
   points: z.number(),
   player: z.object({
+    id: z.number(),
     name: z.string(),
     number: z.number(),
   }),

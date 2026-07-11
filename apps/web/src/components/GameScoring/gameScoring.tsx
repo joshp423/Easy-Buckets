@@ -13,18 +13,24 @@ import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
 import { type Game } from "../../types/game";
 
+export type newGameCheck = "none" | "new" | "existing"
+
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [readyCheck, setReadyCheck] = useState<boolean>(false);
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
-  const [newGameCheck, setNewGameCheck] = useState<"none" | "new" | "existing">(
+  const [newGameCheck, setNewGameCheck] = useState<newGameCheck>(
     "none",
   );
-  const [gameDetails, setGameDetails] = useState<Game | null>(null);
+  const [gameDetails, setGameDetails] = useState<Game | null | "ready">(null);
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
+  const [selectedSeasonId, setSelectedSeasonId] = useState<number | null>(null);
+  const [opponent, setOpponent] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [replay, setReplay] = useState<string | null>(null);
 
   useEffect(() => {
     //relocate
@@ -61,6 +67,7 @@ export default function GameScoring() {
         <div className="gameScoring">
           <SideNav />
           <GameInitialise
+            setGameDetails={setGameDetails}
             setNewGameCheck={setNewGameCheck}
             teamSeasons={teamSeasons}
             setSelectedDashboardSeason={setSelectedDashboardSeason}
@@ -69,7 +76,7 @@ export default function GameScoring() {
       );
 
     case "existing": //skip playerselect for draft games, should be pulled anyway. gameStatlines created on selectActivePlayers for the first time
-      if (gameDetails) {
+      if (gameDetails === "ready") {
         return (
           <div className="gameScoring">
             <SideNav />
@@ -100,7 +107,10 @@ export default function GameScoring() {
           <div className="gameScoring">
             <SideNav />
             <GameDetailsInitialise
-              setGameDetails={setGameDetails}
+              setSelectedSeasonId={setSelectedSeasonId}
+              setOpponent={setOpponent}
+              setDate={setDate}
+              setReplay={setReplay}
               teamSeasons={teamSeasons}
               selectedDashboardSeason={selectedDashboardSeason}
             />
@@ -112,6 +122,12 @@ export default function GameScoring() {
           <div className="gameScoring">
             <SideNav />
             <SelectActivePlayers
+              gameDetails={gameDetails}
+              selectedSeasonId={selectedSeasonId}
+              opponent={opponent}
+              date={date}
+              replay={replay}
+              setGameDetails={setGameDetails}
               playerList={playerList}
               setReadyCheck={setReadyCheck}
               setAddPlayer={setAddPlayer}

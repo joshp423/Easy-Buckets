@@ -1,8 +1,9 @@
 import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
 import { type Game } from "../../types/game";
+import { type Player } from "../../types/player";
 
-type createGameDraftAPIRequestProps = {
+type createGameAndPlayerAPIRequestProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
   e: SyntheticEvent<HTMLFormElement>;
   seasonId: number | null;
@@ -10,9 +11,11 @@ type createGameDraftAPIRequestProps = {
   date: string;
   replay: string | null;
   navigate: NavigateFunction;
+  playerList: Player[];
+  gameId: number;
 };
 
-export async function createGameDraftAPIRequest({
+export async function createGameAndPlayerAPIRequest({
   setGameDetails,
   e,
   seasonId,
@@ -20,11 +23,12 @@ export async function createGameDraftAPIRequest({
   date,
   replay,
   navigate,
-}: createGameDraftAPIRequestProps) {
+  playerList,
+  gameId
+}: createGameAndPlayerAPIRequestProps) {
   e.preventDefault();
-  console.log(seasonId, opponent, date, replay);
 
-  const rsp = await fetch("http://localhost:3000/games/create", {
+  const gameCreateRsp = await fetch("http://localhost:3000/games/create", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,13 +41,13 @@ export async function createGameDraftAPIRequest({
     }),
   });
 
-  if (rsp.status !== 201) {
+  if (gameCreateRsp.status !== 201) {
     // const data = await rsp.json();
     navigate("/error");
     return;
   }
 
-  const data = await rsp.json();
+  const data = await gameCreateRsp.json();
   const gameData = data;
   setGameDetails(gameData);
 
@@ -65,5 +69,21 @@ export async function createGameDraftAPIRequest({
       return;
     }
   }
-  return;
+
+  const gameStatCreateRsp = await fetch("http://localhost:3000/games/gameStatlines/create", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    method: "POST",
+    body: JSON.stringify({
+      gameId,
+      playerList
+    }),
+  });
+   if (gameStatCreateRsp.status !== 201) {
+    // const data = await rsp.json();
+    navigate("/error");
+    return;
+  }
 }

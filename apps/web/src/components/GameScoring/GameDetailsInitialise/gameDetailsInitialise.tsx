@@ -1,27 +1,29 @@
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { type SeasonOverview } from "../../../types/seasonOverview";
-import { createGameDraftAPIRequest } from "./createGameAPIRequest";
-import { useNavigate } from "react-router";
 import "./gameDetailsInitilialise.css";
 import { type Game } from "../../../types/game";
 
 type GameDetailsInitialiseProps = {
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
+  setGameDetails:React.Dispatch<React.SetStateAction<Game | null | "ready">>
+  setSelectedSeasonId: React.Dispatch<React.SetStateAction<number | null>>
+  setOpponent: React.Dispatch<React.SetStateAction<string>>
+  setDate: React.Dispatch<React.SetStateAction<string>>
+  setReplay: React.Dispatch<React.SetStateAction<string | null>>
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
 };
 
 export default function GameDetailsInitialise({
   setGameDetails,
+  setSelectedSeasonId,
+  setOpponent,
+  setDate,
   teamSeasons,
+  setReplay,
   selectedDashboardSeason,
 }: GameDetailsInitialiseProps) {
-  const [selectedSeasonId, setSelectedSeasonId] = useState<number | null>(null);
-  const [opponent, setOpponent] = useState<string>("");
-  const [date, setDate] = useState<string>("");
-  const [replay, setReplay] = useState<string | null>(null);
+  
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -34,25 +36,13 @@ export default function GameDetailsInitialise({
     };
 
     load();
-  }, [selectedDashboardSeason, teamSeasons]);
+  }, [selectedDashboardSeason, teamSeasons, setSelectedSeasonId]);
 
   return (
     <div className="gameDetailsInitialise">
       <h1>New Game</h1>
       <p>Completing this section will save the game as a draft</p>
-      <form
-        onSubmit={(e) =>
-          createGameDraftAPIRequest({
-            setGameDetails,
-            e,
-            seasonId: selectedSeasonId,
-            opponent,
-            date,
-            replay,
-            navigate,
-          })
-        }
-      >
+      <form>
         <label htmlFor="opponent">Opponent </label>
         <input
           type="text"
@@ -81,7 +71,7 @@ export default function GameDetailsInitialise({
             setReplay(String(e.target.value));
           }}
         />
-        <button type="submit">Next</button>
+        <button type="button" onClick={() => setGameDetails("ready")}>Next</button>
       </form>
     </div>
   );

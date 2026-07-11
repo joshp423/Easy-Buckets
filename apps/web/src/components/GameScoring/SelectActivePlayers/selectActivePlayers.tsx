@@ -2,25 +2,53 @@ import { type SyntheticEvent } from "react";
 import { type Player } from "../../../types/player";
 import CreatePlayers from "../CreatePlayers/createPlayers";
 import "./selectActivePlayers.css";
+import { createGameAndPlayerAPIRequest } from "../createGameAndPlayerAPIReq";
+import { useNavigate } from "react-router";
+import { type Game } from "../../../types/game";
 
 type SelectActivePlayersProps = {
+  selectedSeasonId: number | null;
   playerList: Player[];
   setReadyCheck: React.Dispatch<React.SetStateAction<boolean>>;
   setAddPlayer: React.Dispatch<React.SetStateAction<boolean>>;
   addPlayer: boolean;
   setSelectedPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+  opponent: string;
+  date: string;
+  replay: string | null;
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
+  gameDetails: Game | null
 };
 
 export default function SelectActivePlayers({
+  selectedSeasonId,
   playerList,
   setReadyCheck,
   setAddPlayer,
   addPlayer,
   setSelectedPlayers,
+  opponent,
+  date,
+  replay,
+  setGameDetails,
+  gameDetails
 }: SelectActivePlayersProps) {
   function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    
+    if (!gameDetails) return;
 
+    createGameAndPlayerAPIRequest({
+      setGameDetails,
+      e,
+      seasonId: selectedSeasonId,
+      opponent,
+      date,
+      replay,
+      navigate,
+      playerList,
+      gameId: gameDetails?.id
+  })
     setReadyCheck(true);
   }
 
@@ -34,6 +62,8 @@ export default function SelectActivePlayers({
     ); //filters to records where selectedPlayer.id !== player.id, removing the selected
     return;
   };
+
+  const navigate = useNavigate();
 
   if (!playerList) return;
 

@@ -77,7 +77,11 @@ const createGameSchema = z.object({
 const createGameStatLinesSchema = z.object({
   userId: z.number(),
   gameId: z.number(),
-  activePlayers: z.array(z.number()),
+  activePlayers: z.array(z.object({
+    id: z.number(),
+    name: z.string(),
+    number: z.number()
+  })),
 });
 
 const updateGameStatLineSchema = z.object({
@@ -196,7 +200,7 @@ export async function getGame(req: Request, res: Response) {
     });
   }
 
-  return res.status(201).json(game);
+  return res.status(200).json(game);
 }
 
 export async function createGameStatLines(req: AuthRequest, res: Response) {

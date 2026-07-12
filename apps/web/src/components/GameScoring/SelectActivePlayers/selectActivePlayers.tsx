@@ -33,13 +33,12 @@ export default function SelectActivePlayers({
   setGameDetails,
   gameDetails
 }: SelectActivePlayersProps) {
-  function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
+  async function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    
-    if (!gameDetails || gameDetails === "ready") return;
+    console.log(gameDetails)
+    if (!gameDetails) return;
 
-    createGameAndPlayerAPIRequest({
-      setGameDetails,
+    const gameData = createGameAndPlayerAPIRequest({
       e,
       seasonId: selectedSeasonId,
       opponent,
@@ -47,8 +46,8 @@ export default function SelectActivePlayers({
       replay,
       navigate,
       playerList,
-      gameId: gameDetails?.id
-  })
+    })
+    setGameDetails(await gameData);
     setReadyCheck(true);
   }
 

@@ -1,10 +1,8 @@
 import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
-import { type Game } from "../../types/game";
 import { type Player } from "../../types/player";
 
 type createGameAndPlayerAPIRequestProps = {
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
   e: SyntheticEvent<HTMLFormElement>;
   seasonId: number | null;
   opponent: string;
@@ -12,11 +10,9 @@ type createGameAndPlayerAPIRequestProps = {
   replay: string | null;
   navigate: NavigateFunction;
   playerList: Player[];
-  gameId: number;
 };
 
 export async function createGameAndPlayerAPIRequest({
-  setGameDetails,
   e,
   seasonId,
   opponent,
@@ -24,9 +20,9 @@ export async function createGameAndPlayerAPIRequest({
   replay,
   navigate,
   playerList,
-  gameId
 }: createGameAndPlayerAPIRequestProps) {
   e.preventDefault();
+  
 
   const gameCreateRsp = await fetch("http://localhost:3000/games/create", {
     headers: {
@@ -49,7 +45,7 @@ export async function createGameAndPlayerAPIRequest({
 
   const data = await gameCreateRsp.json();
   const gameData = data;
-  setGameDetails(gameData);
+  
 
   if (replay) {
     const replayRsp = await fetch("http://localhost:3000/games/add-replay", {
@@ -77,7 +73,7 @@ export async function createGameAndPlayerAPIRequest({
     },
     method: "POST",
     body: JSON.stringify({
-      gameId,
+      gameId: gameData.id,
       playerList
     }),
   });
@@ -86,4 +82,22 @@ export async function createGameAndPlayerAPIRequest({
     navigate("/error");
     return;
   }
+
+  const gameDataRsp = await fetch(`http://localhost:3000/games/${gameData.id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    method: "GET",
+  })
+
+  if (gameDataRsp.status !== 200) {
+      // const data = await rsp.json();
+    navigate("/error");
+    return;
+  }
+    
+  const updatedGameData = await gameDataRsp.json();
+  const gD = updatedGameData;
+  return gD;
 }

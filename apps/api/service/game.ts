@@ -11,7 +11,7 @@ export type Game = {
 export type GameStatsInitial = {
   userId: number;
   gameId: number;
-  activePlayers: number[];
+  activePlayers: GameStatPlayer[];
 };
 
 export type GameStats = {
@@ -54,6 +54,12 @@ type Replay = {
   gameId: number;
   replay: string;
 };
+
+export type GameStatPlayer = {
+  id: number;
+  name: string;
+  number: number;
+}
 
 export class GameService {
   private config: configSchema;

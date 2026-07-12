@@ -66,7 +66,6 @@ export default function GameDetailsInitialise({
           type="text"
           name="replay"
           placeholder="Youtube link"
-          required
           onChange={(e) => {
             setReplay(String(e.target.value));
           }}

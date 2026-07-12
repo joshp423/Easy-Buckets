@@ -1,6 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import { data } from "react-router-dom";
-
+import type { GameStatPlayer } from "../service/game.js";
 export class GameRepo {
   private prisma: PrismaClient;
 
@@ -140,7 +139,7 @@ export class GameRepo {
   async createGameStatlines(
     userId: number,
     gameId: number,
-    activePlayers: number[],
+    activePlayers: GameStatPlayer[],
   ) {
     const game = await this.prisma.games.findFirst({
       // userId authCheck
@@ -163,7 +162,7 @@ export class GameRepo {
         this.prisma.gameStatlines.create({
           data: {
             gameId,
-            playerId,
+            playerId: playerId.id,
             twoPointFGMiss: 0,
             twoPointFGMake: 0,
             twoPointFGA: 0,

@@ -4,7 +4,7 @@ import { type Game } from "../../types/game";
 import { type Player } from "../../types/player";
 
 type createGameAndPlayerAPIRequestProps = {
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
   e: SyntheticEvent<HTMLFormElement>;
   seasonId: number | null;
   opponent: string;

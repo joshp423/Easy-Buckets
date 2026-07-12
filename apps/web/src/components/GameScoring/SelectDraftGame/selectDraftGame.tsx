@@ -8,7 +8,7 @@ import "./selectDraftGame.css";
 type SelectDraftGameProps = {
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
 };
 export default function SelectDraftGame({
   selectedDashboardSeason,
@@ -47,7 +47,6 @@ export default function SelectDraftGame({
   function selectGame(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const selectedGame = seasonData.find((season) => season.id === gameId);
-    console.log(selectedGame);
     if (!selectedGame) return;
     setGameDetails(selectedGame);
   }

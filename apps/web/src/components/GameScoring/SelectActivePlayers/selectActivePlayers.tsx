@@ -16,8 +16,8 @@ type SelectActivePlayersProps = {
   opponent: string;
   date: string;
   replay: string | null;
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;
-  gameDetails: Game | null
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
+  gameDetails: Game | null | "ready"
 };
 
 export default function SelectActivePlayers({
@@ -36,7 +36,7 @@ export default function SelectActivePlayers({
   function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     
-    if (!gameDetails) return;
+    if (!gameDetails || gameDetails === "ready") return;
 
     createGameAndPlayerAPIRequest({
       setGameDetails,

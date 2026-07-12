@@ -67,7 +67,6 @@ export default function GameScoring() {
         <div className="gameScoring">
           <SideNav />
           <GameInitialise
-            setGameDetails={setGameDetails}
             setNewGameCheck={setNewGameCheck}
             teamSeasons={teamSeasons}
             setSelectedDashboardSeason={setSelectedDashboardSeason}
@@ -107,6 +106,7 @@ export default function GameScoring() {
           <div className="gameScoring">
             <SideNav />
             <GameDetailsInitialise
+              setGameDetails={setGameDetails}
               setSelectedSeasonId={setSelectedSeasonId}
               setOpponent={setOpponent}
               setDate={setDate}

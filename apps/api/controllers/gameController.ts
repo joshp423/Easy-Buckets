@@ -77,7 +77,7 @@ const createGameSchema = z.object({
 const createGameStatLinesSchema = z.object({
   userId: z.number(),
   gameId: z.number(),
-  activePlayers: z.array(z.object({
+  playerList: z.array(z.object({
     id: z.number(),
     name: z.string(),
     number: z.number()
@@ -206,12 +206,12 @@ export async function getGame(req: Request, res: Response) {
 export async function createGameStatLines(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { gameId, activePlayers } = req.body;
+  const { gameId, playerList } = req.body;
 
   const { success, data, error } = createGameStatLinesSchema.safeParse({
     userId,
     gameId,
-    activePlayers,
+    playerList,
   });
 
   if (!success) {

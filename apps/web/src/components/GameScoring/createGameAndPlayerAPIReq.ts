@@ -1,6 +1,7 @@
 import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
 import { type Player } from "../../types/player";
+import { gameSchema } from "../../types/game";
 
 type createGameAndPlayerAPIRequestProps = {
   e: SyntheticEvent<HTMLFormElement>;
@@ -44,8 +45,8 @@ export async function createGameAndPlayerAPIRequest({
   }
 
   const data = await gameCreateRsp.json();
-  const gameData = data;
-  
+  const { id } = data;
+  console.log( id, playerList )
 
   if (replay) {
     const replayRsp = await fetch("http://localhost:3000/games/add-replay", {
@@ -55,7 +56,7 @@ export async function createGameAndPlayerAPIRequest({
       },
       method: "PUT",
       body: JSON.stringify({
-        gameId: gameData.id,
+        gameId: id,
         replay,
       }),
     });
@@ -73,7 +74,7 @@ export async function createGameAndPlayerAPIRequest({
     },
     method: "POST",
     body: JSON.stringify({
-      gameId: gameData.id,
+      gameId: id,
       playerList
     }),
   });
@@ -83,7 +84,7 @@ export async function createGameAndPlayerAPIRequest({
     return;
   }
 
-  const gameDataRsp = await fetch(`http://localhost:3000/games/${gameData.id}`, {
+  const gameDataRsp = await fetch(`http://localhost:3000/games/${id}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -98,6 +99,6 @@ export async function createGameAndPlayerAPIRequest({
   }
     
   const updatedGameData = await gameDataRsp.json();
-  const gD = updatedGameData;
+  const gD = gameSchema.parse(updatedGameData)
   return gD;
 }

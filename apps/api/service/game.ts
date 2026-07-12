@@ -11,7 +11,7 @@ export type Game = {
 export type GameStatsInitial = {
   userId: number;
   gameId: number;
-  activePlayers: GameStatPlayer[];
+  playerList: GameStatPlayer[];
 };
 
 export type GameStats = {
@@ -89,9 +89,9 @@ export class GameService {
   async createGameStatlines({
     userId,
     gameId,
-    activePlayers,
+    playerList,
   }: GameStatsInitial) {
-    return this.gameRepo.createGameStatlines(userId, gameId, activePlayers);
+    return this.gameRepo.createGameStatlines(userId, gameId, playerList);
   }
 
   async updateGameStatline({

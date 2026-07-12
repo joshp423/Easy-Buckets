@@ -139,7 +139,7 @@ export class GameRepo {
   async createGameStatlines(
     userId: number,
     gameId: number,
-    activePlayers: GameStatPlayer[],
+    playerList: GameStatPlayer[],
   ) {
     const game = await this.prisma.games.findFirst({
       // userId authCheck
@@ -158,7 +158,7 @@ export class GameRepo {
     }
 
     return this.prisma.$transaction(
-      activePlayers.map((playerId) =>
+      playerList.map((playerId) =>
         this.prisma.gameStatlines.create({
           data: {
             gameId,

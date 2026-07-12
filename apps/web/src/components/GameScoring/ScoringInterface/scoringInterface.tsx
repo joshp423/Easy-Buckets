@@ -50,22 +50,17 @@ export default function ScoringInterface({
     }
   }
 
-  
-
   useEffect(() => {
-    if (!selectedPlayers || selectedPlayers.length === 0) {
-      const load = async () => {
-        if (gameDetails === "ready" || !gameDetails) return;
-        const game = await getSingleGameAPIFetch(gameDetails?.id);
-        const gamePlayers = game.gameStatlines.map(
-          (gameStatline) => gameStatline.player,
-        );
-        setSelectedPlayers(gamePlayers);
-        setGameDetails(game);
-      };
-      load();
-    }
-  }, [gameDetails, selectedPlayers, setGameDetails, setSelectedPlayers]);
+    const load = async () => {
+      if (gameDetails === "ready") return;
+      const gamePlayers = gameDetails?.gameStatlines.map(
+        (gameStatline) => gameStatline.player,
+      );
+      if (!gamePlayers) return;
+      setSelectedPlayers(gamePlayers);
+    };
+    load();
+  }, [gameDetails, setGameDetails, setSelectedPlayers]);
 
   if (gameDetails === "ready" || !gameDetails) return;
 
@@ -90,10 +85,12 @@ export default function ScoringInterface({
           />
           <CourtInterface
             selectedStat={selectedStat}
+            setSelectedStat={setSelectedStat}
             selectedPlayer={selectedPlayer}
             setSelectedPlayer={setSelectedPlayer}
             selectedUI={selectedUI}
             setSelectedUI={setSelectedUI}
+            videoRef={videoRef}
           />
         </div>
       </div>
@@ -106,7 +103,6 @@ export default function ScoringInterface({
         <div>
           <div
             className="selectionSections"
-            onClick={() => uploadStat("2P Make")}
           >
             <PlayerSelection
               selectedPlayers={selectedPlayers}
@@ -128,6 +124,7 @@ export default function ScoringInterface({
         </div>
         <CourtInterface
           selectedStat={selectedStat}
+          setSelectedStat={setSelectedStat}
           selectedPlayer={selectedPlayer}
           setSelectedPlayer={setSelectedPlayer}
           selectedUI={selectedUI}

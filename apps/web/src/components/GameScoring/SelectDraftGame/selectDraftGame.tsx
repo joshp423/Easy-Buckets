@@ -39,6 +39,7 @@ export default function SelectDraftGame({
 
   useEffect(() => {
     const load = async () => {
+      if (seasonData.length === 0) return;
       setGameId(seasonData?.[0].id);
     };
     load();

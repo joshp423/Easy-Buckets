@@ -74,8 +74,19 @@ export default function GameScoring() {
         </div>
       );
 
-    case "existing": //skip playerselect for draft games, should be pulled anyway. gameStatlines created on selectActivePlayers for the first time
-      if (gameDetails === "ready") {
+    case "existing": 
+      if (!gameDetails) {
+        return (
+          <div className="gameScoring">
+            <SideNav />
+            <SelectDraftGame
+              teamSeasons={teamSeasons}
+              selectedDashboardSeason={selectedDashboardSeason}
+              setGameDetails={setGameDetails}
+            />
+          </div>
+        );
+      }
         return (
           <div className="gameScoring">
             <SideNav />
@@ -87,18 +98,9 @@ export default function GameScoring() {
             />
           </div>
         );
-      }
-
-      return (
-        <div className="gameScoring">
-          <SideNav />
-          <SelectDraftGame
-            teamSeasons={teamSeasons}
-            selectedDashboardSeason={selectedDashboardSeason}
-            setGameDetails={setGameDetails}
-          />
-        </div>
-      );
+      
+      
+      
 
     case "new":
       if (!gameDetails) {

@@ -122,6 +122,7 @@ export default function GameScoring() {
           <div className="gameScoring">
             <SideNav />
             <SelectActivePlayers
+              selectedPlayers={selectedPlayers}
               gameDetails={gameDetails}
               selectedSeasonId={selectedSeasonId}
               opponent={opponent}

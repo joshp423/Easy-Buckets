@@ -17,10 +17,12 @@ type SelectActivePlayersProps = {
   date: string;
   replay: string | null;
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
-  gameDetails: Game | null | "ready"
+  gameDetails: Game | null | "ready";
+  selectedPlayers: Player[];
 };
 
 export default function SelectActivePlayers({
+  selectedPlayers,
   selectedSeasonId,
   playerList,
   setReadyCheck,
@@ -33,22 +35,25 @@ export default function SelectActivePlayers({
   setGameDetails,
   gameDetails
 }: SelectActivePlayersProps) {
+  
   async function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(gameDetails)
     if (!gameDetails) return;
 
-    const gameData = createGameAndPlayerAPIRequest({
+    const gameData = await createGameAndPlayerAPIRequest({
       e,
       seasonId: selectedSeasonId,
       opponent,
       date,
       replay,
       navigate,
-      playerList,
+      playerList: selectedPlayers,
     })
-    setGameDetails(await gameData);
-    setReadyCheck(true);
+    if (gameData) {
+      setGameDetails(gameData);
+      setReadyCheck(true);
+    }
   }
 
   const updateSelectedPlayers = (player: Player, selected: boolean) => {
@@ -86,7 +91,7 @@ export default function SelectActivePlayers({
             {playerList.map((player) => (
               <tr key={player.id}>
                 <td>
-                  <label htmlFor={String(player.number)}>
+                  <label htmlFor={String(player.id)}>
                     {player.name + " " + player.number}
                   </label>
                 </td>

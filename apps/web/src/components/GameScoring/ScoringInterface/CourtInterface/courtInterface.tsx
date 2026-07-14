@@ -88,6 +88,53 @@ export default function CourtInterface({
                 timeStamp,
               },
             });
+          case "2P Make":
+            uploadShotAPIReq({
+              gameStatlineId: selectedGameStatline[0].id,
+              shot: {
+                make: true,
+                X,
+                Y,
+                type: 2,
+                timeStamp,
+              },
+            })
+            
+
+          case "2P Miss":
+            uploadShotAPIReq({
+              gameStatlineId: selectedGameStatline[0].id,
+              shot: {
+                make: false,
+                X,
+                Y,
+                type: 2,
+                timeStamp,
+              },
+            })
+          case "3P Make":
+            uploadShotAPIReq({
+              gameStatlineId: selectedGameStatline[0].id,
+              shot: {
+                make: true,
+                X,
+                Y,
+                type: 3,
+                timeStamp,
+              },
+            })
+          case "3P Miss":
+            uploadShotAPIReq({
+              gameStatlineId: selectedGameStatline[0].id,
+              shot: {
+                make: false,
+                X,
+                Y,
+                type: 3,
+                timeStamp,
+              },
+            })
+
         }
         setSelectedPlayer(null);
         setSelectedStat("");

@@ -113,11 +113,13 @@ const updateGameStatLineSchema = z.object({
 const createShotSchema = z.object({
   userId: z.number(),
   gameStatlineId: z.number(),
-  make: z.boolean(),
-  X: z.number(),
-  Y: z.number(),
-  type: z.number(),
-  timeStamp: z.number(),
+  shot: z.object({
+    make: z.boolean(),
+    X: z.number(),
+    Y: z.number(),
+    type: z.number(),
+    timeStamp: z.number(),
+  })
 });
 
 const deleteShotSchema = z.object({
@@ -303,16 +305,12 @@ export async function updateGameStatline(req: AuthRequest, res: Response) {
 export async function createShot(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { gameStatlineId, make, X, Y, type, timeStamp } = req.body;
+  const { gameStatlineId, shot } = req.body;
 
   const { success, data, error } = createShotSchema.safeParse({
     userId,
     gameStatlineId,
-    make,
-    X,
-    Y,
-    type,
-    timeStamp,
+    shot,
   });
 
   if (!success) {
@@ -321,14 +319,14 @@ export async function createShot(req: AuthRequest, res: Response) {
     });
   }
 
-  const shot = await gameService.createShot(data);
-  if (!shot) {
+  const newShot = await gameService.createShot(data);
+  if (!newShot) {
     return res.status(403).json({
       message: "an unexpected error occured",
     });
   }
 
-  return res.status(201).json(shot);
+  return res.status(201).json(newShot);
 }
 
 export async function deleteShot(req: AuthRequest, res: Response) {

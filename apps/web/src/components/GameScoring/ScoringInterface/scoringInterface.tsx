@@ -40,15 +40,15 @@ export default function ScoringInterface({
   const videoRef = useRef<VideoPlayerHandle>(null);
 
   
-  function uploadStat(statType: string) {
-    console.log(statType);
-    let timeStamp;
-    switch (statType) {
-      case "2P Make":
-        timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
-        console.log(timeStamp);
-    }
-  }
+  // function uploadStat(statType: string) {
+  //   console.log(statType);
+  //   let timeStamp;
+  //   switch (statType) {
+  //     case "2P Make":
+  //       timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
+  //       console.log(timeStamp);
+  //   }
+  // }
 
   useEffect(() => {
     const load = async () => {
@@ -129,6 +129,7 @@ export default function ScoringInterface({
           setSelectedPlayer={setSelectedPlayer}
           selectedUI={selectedUI}
           setSelectedUI={setSelectedUI}
+          gameDetails={gameDetails}
         />
       </div>
     </div>

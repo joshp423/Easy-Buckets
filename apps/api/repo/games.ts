@@ -1,5 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 import type { GameStatPlayer } from "../service/game.js";
+import type { shotObject } from "../service/game.js";
+
 export class GameRepo {
   private prisma: PrismaClient;
 
@@ -264,11 +266,7 @@ export class GameRepo {
   async createShot(
     userId: number,
     gameStatlineId: number,
-    make: boolean,
-    X: number,
-    Y: number,
-    type: number,
-    timeStamp: number,
+    shot: shotObject
   ) {
     const gameStatline = await this.prisma.gameStatlines.findFirst({
       // userId authCheck
@@ -291,11 +289,11 @@ export class GameRepo {
       data: {
         userId,
         gameStatlineId,
-        make,
-        X,
-        Y,
-        type,
-        timeStamp,
+        make: shot.make,
+        X: shot.X,
+        Y: shot.Y,
+        type: shot.type,
+        timeStamp: shot.timeStamp,
       },
     });
   }

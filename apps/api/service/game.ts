@@ -43,11 +43,7 @@ export type GameStats = {
 export type Shot = {
   userId: number;
   gameStatlineId: number;
-  make: boolean;
-  X: number;
-  Y: number;
-  type: number;
-  timeStamp: number;
+  shot: shotObject;
 };
 
 type Replay = {
@@ -59,6 +55,14 @@ export type GameStatPlayer = {
   id: number;
   name: string;
   number: number;
+}
+
+export type shotObject = {
+  make: boolean;
+  X: number;
+  Y: number;
+  type: number;
+  timeStamp: number;
 }
 
 export class GameService {
@@ -147,20 +151,12 @@ export class GameService {
   async createShot({
     userId,
     gameStatlineId,
-    make,
-    X,
-    Y,
-    type,
-    timeStamp,
+    shot
   }: Shot) {
     return this.gameRepo.createShot(
       userId,
       gameStatlineId,
-      make,
-      X,
-      Y,
-      type,
-      timeStamp,
+      shot
     );
   }
 

@@ -3,6 +3,8 @@ import "./courtInterface.css";
 import { useState, useRef, useEffect } from "react";
 import { type Shot } from "../../../../types/shot";
 import { type VideoPlayerHandle } from "../../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
+import { uploadShotAPIReq } from "../../../../shared API functions/uploadShotAPIReq";
+import type { Game } from "../../../../types/game";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;
@@ -14,6 +16,7 @@ type CourtInterfaceProps = {
     React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
   >;
   videoRef: React.RefObject<VideoPlayerHandle | null>
+  gameDetails: Game | null | "ready";
 };
 
 export default function CourtInterface({
@@ -23,10 +26,10 @@ export default function CourtInterface({
   selectedUI,
   setSelectedPlayer,
   setSelectedUI,
-  videoRef
+  videoRef,
+  gameDetails
 }: CourtInterfaceProps) {
 
-  const [shotObject, setShotObject] = useState<Shot | null>(null);
   const courtImageRef = useRef<HTMLImageElement>(null)
   const [courtWidth, setCourtWidth] = useState<number>(0);
   const [courtHeight, setCourtHeight] = useState<number>(0);
@@ -64,19 +67,24 @@ export default function CourtInterface({
       onClick={(e) => {
         if (selectedUI !== "courtPlacement") return;
         if (!courtImageRef.current) return;
+        if (!gameDetails || gameDetails === "ready")return
 
         const realImage = courtImageRef.current?.getBoundingClientRect(); //get image position and size relative to viewport
         const X = (e.clientX - realImage?.left) / courtWidth;
         const Y = (e.clientY - realImage?.top) / courtHeight;
         const timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
+        const selectedGameStatline = gameDetails.gameStatlines.filter((gameStatline) => gameStatline.playerId === selectedPlayer)
         switch (selectedStat) {
           case "2P Make":
-          setShotObject({ //why do we need state variable just call the api?
-            make: true,
-            X,
-            Y,
-            type: 2,
-            timeStamp
+          uploadShotAPIReq({
+            gameStatlineId: selectedGameStatline[0].id,
+            shot: {
+              make: true,
+              X,
+              Y,
+              type: 2,
+              timeStamp
+            }
           })
         }
         setSelectedPlayer(null);

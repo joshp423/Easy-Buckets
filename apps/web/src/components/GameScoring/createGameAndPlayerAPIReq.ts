@@ -23,7 +23,6 @@ export async function createGameAndPlayerAPIRequest({
   playerList,
 }: createGameAndPlayerAPIRequestProps) {
   e.preventDefault();
-  
 
   const gameCreateRsp = await fetch("http://localhost:3000/games/create", {
     headers: {
@@ -46,7 +45,7 @@ export async function createGameAndPlayerAPIRequest({
 
   const data = await gameCreateRsp.json();
   const { id } = data;
-  console.log( id, playerList )
+  console.log(id, playerList);
 
   if (replay) {
     const replayRsp = await fetch("http://localhost:3000/games/add-replay", {
@@ -67,18 +66,21 @@ export async function createGameAndPlayerAPIRequest({
     }
   }
 
-  const gameStatCreateRsp = await fetch("http://localhost:3000/games/gameStatlines/create", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+  const gameStatCreateRsp = await fetch(
+    "http://localhost:3000/games/gameStatlines/create",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({
+        gameId: id,
+        playerList,
+      }),
     },
-    method: "POST",
-    body: JSON.stringify({
-      gameId: id,
-      playerList
-    }),
-  });
-   if (gameStatCreateRsp.status !== 201) {
+  );
+  if (gameStatCreateRsp.status !== 201) {
     // const data = await rsp.json();
     navigate("/error");
     return;
@@ -87,18 +89,18 @@ export async function createGameAndPlayerAPIRequest({
   const gameDataRsp = await fetch(`http://localhost:3000/games/${id}`, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     method: "GET",
-  })
+  });
 
   if (gameDataRsp.status !== 200) {
-      // const data = await rsp.json();
+    // const data = await rsp.json();
     navigate("/error");
     return;
   }
-    
+
   const updatedGameData = await gameDataRsp.json();
-  const gD = gameSchema.parse(updatedGameData)
+  const gD = gameSchema.parse(updatedGameData);
   return gD;
 }

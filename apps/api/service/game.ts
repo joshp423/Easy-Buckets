@@ -55,7 +55,7 @@ export type GameStatPlayer = {
   id: number;
   name: string;
   number: number;
-}
+};
 
 export type shotObject = {
   make: boolean;
@@ -63,7 +63,7 @@ export type shotObject = {
   Y: number;
   type: number;
   timeStamp: number;
-}
+};
 
 export class GameService {
   private config: configSchema;
@@ -90,11 +90,7 @@ export class GameService {
     return this.gameRepo.getGame(id);
   }
 
-  async createGameStatlines({
-    userId,
-    gameId,
-    playerList,
-  }: GameStatsInitial) {
+  async createGameStatlines({ userId, gameId, playerList }: GameStatsInitial) {
     return this.gameRepo.createGameStatlines(userId, gameId, playerList);
   }
 
@@ -148,16 +144,8 @@ export class GameService {
     );
   }
 
-  async createShot({
-    userId,
-    gameStatlineId,
-    shot
-  }: Shot) {
-    return this.gameRepo.createShot(
-      userId,
-      gameStatlineId,
-      shot
-    );
+  async createShot({ userId, gameStatlineId, shot }: Shot) {
+    return this.gameRepo.createShot(userId, gameStatlineId, shot);
   }
 
   async deleteShot(userId: number, shotId: number) {

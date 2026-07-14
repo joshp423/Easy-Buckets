@@ -263,11 +263,7 @@ export class GameRepo {
     });
   }
 
-  async createShot(
-    userId: number,
-    gameStatlineId: number,
-    shot: shotObject
-  ) {
+  async createShot(userId: number, gameStatlineId: number, shot: shotObject) {
     const gameStatline = await this.prisma.gameStatlines.findFirst({
       // userId authCheck
       where: {

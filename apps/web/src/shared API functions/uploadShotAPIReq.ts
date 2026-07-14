@@ -3,10 +3,13 @@ import type { Shot } from "../types/shot";
 
 type uploadShotAPIReqProps = {
   gameStatlineId: number;
-  shot: Shot
-}
+  shot: Shot;
+};
 
-export async function uploadShotAPIReq({gameStatlineId, shot}: uploadShotAPIReqProps) {
+export async function uploadShotAPIReq({
+  gameStatlineId,
+  shot,
+}: uploadShotAPIReqProps) {
   const rsp = await fetch("http://localhost:3000/games/shots/create", {
     headers: {
       "Content-Type": "application/json",
@@ -15,8 +18,8 @@ export async function uploadShotAPIReq({gameStatlineId, shot}: uploadShotAPIReqP
     method: "POST",
     body: JSON.stringify({
       gameStatlineId,
-      shot
-    })
+      shot,
+    }),
   });
 
   const data = await rsp.json();

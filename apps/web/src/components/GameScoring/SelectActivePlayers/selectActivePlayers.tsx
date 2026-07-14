@@ -33,12 +33,11 @@ export default function SelectActivePlayers({
   date,
   replay,
   setGameDetails,
-  gameDetails
+  gameDetails,
 }: SelectActivePlayersProps) {
-  
   async function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(gameDetails)
+    console.log(gameDetails);
     if (!gameDetails) return;
 
     const gameData = await createGameAndPlayerAPIRequest({
@@ -49,7 +48,7 @@ export default function SelectActivePlayers({
       replay,
       navigate,
       playerList: selectedPlayers,
-    })
+    });
     if (gameData) {
       setGameDetails(gameData);
       setReadyCheck(true);

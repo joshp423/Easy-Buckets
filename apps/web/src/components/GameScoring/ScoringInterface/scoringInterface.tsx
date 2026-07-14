@@ -39,7 +39,6 @@ export default function ScoringInterface({
   const [selectedStat, setSelectedStat] = useState<string>("");
   const videoRef = useRef<VideoPlayerHandle>(null);
 
-  
   // function uploadStat(statType: string) {
   //   console.log(statType);
   //   let timeStamp;
@@ -101,9 +100,7 @@ export default function ScoringInterface({
       <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
       <div className="interfaceInput">
         <div>
-          <div
-            className="selectionSections"
-          >
+          <div className="selectionSections">
             <PlayerSelection
               selectedPlayers={selectedPlayers}
               setSelectedPlayer={setSelectedPlayer}

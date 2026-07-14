@@ -1,14 +1,14 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import "./gameDetailsInitilialise.css";
 import { type Game } from "../../../types/game";
 
 type GameDetailsInitialiseProps = {
-  setGameDetails:React.Dispatch<React.SetStateAction<Game | null | "ready">>
-  setSelectedSeasonId: React.Dispatch<React.SetStateAction<number | null>>
-  setOpponent: React.Dispatch<React.SetStateAction<string>>
-  setDate: React.Dispatch<React.SetStateAction<string>>
-  setReplay: React.Dispatch<React.SetStateAction<string | null>>
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
+  setSelectedSeasonId: React.Dispatch<React.SetStateAction<number | null>>;
+  setOpponent: React.Dispatch<React.SetStateAction<string>>;
+  setDate: React.Dispatch<React.SetStateAction<string>>;
+  setReplay: React.Dispatch<React.SetStateAction<string | null>>;
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
 };
@@ -22,9 +22,6 @@ export default function GameDetailsInitialise({
   setReplay,
   selectedDashboardSeason,
 }: GameDetailsInitialiseProps) {
-  
-
-
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
       (season) => season.name === selectedDashboardSeason,
@@ -70,7 +67,9 @@ export default function GameDetailsInitialise({
             setReplay(String(e.target.value));
           }}
         />
-        <button type="button" onClick={() => setGameDetails("ready")}>Next</button>
+        <button type="button" onClick={() => setGameDetails("ready")}>
+          Next
+        </button>
       </form>
     </div>
   );

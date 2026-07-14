@@ -13,16 +13,14 @@ import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
 import { type Game } from "../../types/game";
 
-export type newGameCheck = "none" | "new" | "existing"
+export type newGameCheck = "none" | "new" | "existing";
 
 export default function GameScoring() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [readyCheck, setReadyCheck] = useState<boolean>(false);
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
   const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
-  const [newGameCheck, setNewGameCheck] = useState<newGameCheck>(
-    "none",
-  );
+  const [newGameCheck, setNewGameCheck] = useState<newGameCheck>("none");
   const [gameDetails, setGameDetails] = useState<Game | null | "ready">(null);
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
@@ -74,7 +72,7 @@ export default function GameScoring() {
         </div>
       );
 
-    case "existing": 
+    case "existing":
       if (!gameDetails) {
         return (
           <div className="gameScoring">
@@ -87,20 +85,17 @@ export default function GameScoring() {
           </div>
         );
       }
-        return (
-          <div className="gameScoring">
-            <SideNav />
-            <ScoringInterface
-              setGameDetails={setGameDetails}
-              setSelectedPlayers={setSelectedPlayers}
-              selectedPlayers={selectedPlayers}
-              gameDetails={gameDetails}
-            />
-          </div>
-        );
-      
-      
-      
+      return (
+        <div className="gameScoring">
+          <SideNav />
+          <ScoringInterface
+            setGameDetails={setGameDetails}
+            setSelectedPlayers={setSelectedPlayers}
+            selectedPlayers={selectedPlayers}
+            gameDetails={gameDetails}
+          />
+        </div>
+      );
 
     case "new":
       if (!gameDetails) {

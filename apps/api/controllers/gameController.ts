@@ -77,11 +77,13 @@ const createGameSchema = z.object({
 const createGameStatLinesSchema = z.object({
   userId: z.number(),
   gameId: z.number(),
-  playerList: z.array(z.object({
-    id: z.number(),
-    name: z.string(),
-    number: z.number()
-  })),
+  playerList: z.array(
+    z.object({
+      id: z.number(),
+      name: z.string(),
+      number: z.number(),
+    }),
+  ),
 });
 
 const updateGameStatLineSchema = z.object({
@@ -119,7 +121,7 @@ const createShotSchema = z.object({
     Y: z.number(),
     type: z.number(),
     timeStamp: z.number(),
-  })
+  }),
 });
 
 const deleteShotSchema = z.object({

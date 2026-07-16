@@ -65,6 +65,13 @@ export type shotObject = {
   timeStamp: number;
 };
 
+type UpdateGameStats = {
+  userId: number;
+  gameStatlineId: number;
+  statlineUpdateField: string;
+  statlineUpdateIndicator: boolean;
+}
+
 export class GameService {
   private config: configSchema;
   private gameRepo: GameRepo;
@@ -95,52 +102,16 @@ export class GameService {
   }
 
   async updateGameStatline({
-    gameStatlineId,
     userId,
-    twoPointFGMiss,
-    twoPointFGMake,
-    twoPointFGA,
-    threePointFGMiss,
-    threePointFGMake,
-    threePointFGA,
-    fTMiss,
-    fTMake,
-    fTA,
-    oReb,
-    assist,
-    block,
-    steal,
-    turnover,
-    pF,
-    twoPointFGPercent,
-    threePointFGPercent,
-    fTPercent,
-    totalRebounds,
-    points,
-  }: GameStats) {
+    gameStatlineId,
+    statlineUpdateField,
+    statlineUpdateIndicator
+  }: UpdateGameStats) {
     return this.gameRepo.updateGameStatline(
-      gameStatlineId,
       userId,
-      twoPointFGMiss,
-      twoPointFGMake,
-      twoPointFGA,
-      threePointFGMiss,
-      threePointFGMake,
-      threePointFGA,
-      fTMiss,
-      fTMake,
-      fTA,
-      oReb,
-      assist,
-      block,
-      steal,
-      turnover,
-      pF,
-      twoPointFGPercent,
-      threePointFGPercent,
-      fTPercent,
-      totalRebounds,
-      points,
+      gameStatlineId,
+      statlineUpdateField,
+      statlineUpdateIndicator
     );
   }
 

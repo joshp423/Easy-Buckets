@@ -1,10 +1,10 @@
 import courtImage from "/FIBAcourt.jpg";
 import "./courtInterface.css";
 import { useState, useRef, useEffect } from "react";
-import { type Shot } from "../../../../types/shot";
 import { type VideoPlayerHandle } from "../../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
 import { uploadShotAPIReq } from "../../../../shared API functions/uploadShotAPIReq";
 import type { Game } from "../../../../types/game";
+import { updateGameStatAPIReq } from "../../../../shared API functions/updateGameStatAPIReq";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;
@@ -88,19 +88,7 @@ export default function CourtInterface({
                 timeStamp,
               },
             });
-          case "2P Make":
-            uploadShotAPIReq({
-              gameStatlineId: selectedGameStatline[0].id,
-              shot: {
-                make: true,
-                X,
-                Y,
-                type: 2,
-                timeStamp,
-              },
-            })
-            
-
+            break
           case "2P Miss":
             uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
@@ -112,6 +100,7 @@ export default function CourtInterface({
                 timeStamp,
               },
             })
+            break
           case "3P Make":
             uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
@@ -123,6 +112,7 @@ export default function CourtInterface({
                 timeStamp,
               },
             })
+            break
           case "3P Miss":
             uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
@@ -134,7 +124,12 @@ export default function CourtInterface({
                 timeStamp,
               },
             })
-
+            updateGameStatAPIReq({
+              gameStatlineId: selectedGameStatline[0].id,
+              gameStatline: {
+                
+              }
+            })
         }
         setSelectedPlayer(null);
         setSelectedStat("");

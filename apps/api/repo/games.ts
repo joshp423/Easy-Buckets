@@ -193,28 +193,10 @@ export class GameRepo {
   }
 
   async updateGameStatline(
-    gameStatlineId: number,
     userId: number,
-    twoPointFGMiss: number,
-    twoPointFGMake: number,
-    twoPointFGA: number,
-    threePointFGMiss: number,
-    threePointFGMake: number,
-    threePointFGA: number,
-    fTMiss: number,
-    fTMake: number,
-    fTA: number,
-    oReb: number,
-    assist: number,
-    block: number,
-    steal: number,
-    turnover: number,
-    pF: number,
-    twoPointFGPercent: number,
-    threePointFGPercent: number,
-    fTPercent: number,
-    totalRebounds: number,
-    points: number,
+    gameStatlineId: number,
+    statlineUpdateField: string,
+    statlineUpdateIndicator: boolean,
   ) {
     const gameStatline = await this.prisma.gameStatlines.findFirst({
       // userId authCheck
@@ -234,34 +216,168 @@ export class GameRepo {
       throw new Error("Forbidden");
     }
 
-    return await this.prisma.gameStatlines.update({
-      where: { id: gameStatlineId },
-      data: {
-        gameStatlineId,
-        userId,
-        twoPointFGMiss,
-        twoPointFGMake,
-        twoPointFGA,
-        threePointFGMiss,
-        threePointFGMake,
-        threePointFGA,
-        fTMiss,
-        fTMake,
-        fTA,
-        oReb,
-        assist,
-        block,
-        steal,
-        turnover,
-        pF,
-        twoPointFGPercent,
-        threePointFGPercent,
-        fTPercent,
-        totalRebounds,
-        points,
-      },
-    });
+    const statAmount = statlineUpdateIndicator ? 1 : -1;
+
+    switch(statlineUpdateField) {
+      case "2P Make": {
+        const pointsUpdateAmount = statlineUpdateIndicator ? 2 : -2;
+        const updatedStatline = await this.prisma.gameStatlines.update({
+          where: {
+            id: gameStatlineId
+          },
+          data: {
+            twoPointFGMake: gameStatline.twoPointFGMake + statAmount,
+            twoPointFGA: gameStatline.twoPointFGA + statAmount,
+            twoPointFGPercent: Math.round((gameStatline.twoPointFGMake / gameStatline.twoPointFGA) * 100),
+            points: gameStatline.points + pointsUpdateAmount
+          }
+        })
+        return updatedStatline
+      }
+        
+      case "2P Miss": {
+        const updatedStatline = await this.prisma.gameStatlines.update({
+          where: {
+            id: gameStatlineId
+          },
+          data: {
+            twoPointFGMiss: gameStatline.threePointFGMiss + statAmount,
+            twoPointFGA: gameStatline.twoPointFGA + statAmount,
+            twoPointFGPercent: Math.round((gameStatline.twoPointFGMake / gameStatline.twoPointFGA) * 100),
+          }
+        })
+        return updatedStatline
+      }
+
+      case "3P Make": {
+        const pointsUpdateAmount = statlineUpdateIndicator ? 3 : -3;
+        const updatedStatline = await this.prisma.gameStatlines.update({
+          where: {
+            id: gameStatlineId
+          },
+          data: {
+            threePointFGMake: gameStatline.threePointFGMake + statAmount,
+            threePointFGA: gameStatline.threePointFGA + statAmount,
+            threePointFGPercent: Math.round((gameStatline.threePointFGMake / gameStatline.threePointFGA) * 100),
+            pointspoints: gameStatline.points + pointsUpdateAmount
+          }
+        })
+        return updatedStatline
+      }
+
+      case "3P Miss": {
+        const updatedStatline = await this.prisma.gameStatlines.update({
+          where: {
+            id: gameStatlineId
+          },
+          data: {
+            threePointFGMiss: gameStatline.threePointFGMiss + statAmount,
+            threePointFGA: gameStatline.threePointFGA + statAmount,
+            threePointFGPercent: Math.round((gameStatline.threePointFGMake / gameStatline.threePointFGA) * 100),
+          }
+        })
+        return updatedStatline
+      }
+
+      case "FT Make": {
+        const updatedStatline = await this.prisma.gameStatlines.update({
+          where: {
+            id: gameStatlineId
+          },
+          data: {
+            fTMake: gameStatline.fTMake + statAmount,
+            fTA: gameStatline.fTA + statAmount,
+            fTPercent: Math.round((gameStatline.fTMake / gameStatline.fTA) * 100),
+          }
+        })
+        return updatedStatline
+      }
+
+      case "FT Miss": {
+        const updatedStatline = await this.prisma.gameStatlines.update({
+          where: {
+            id: gameStatlineId
+          },
+          data: {
+            fTMiss: gameStatline.fTMiss + statAmount,
+            fTA: gameStatline.fTMiss + statAmount,
+            fTPercent: Math.round((gameStatline.fTMake / gameStatline.fTA) * 100),
+          }
+        })
+        return updatedStatline
+      }
   }
+
+  // async updateGameStatline(
+  //   gameStatlineId: number,
+  //   userId: number,
+  //   twoPointFGMiss: number,
+  //   twoPointFGMake: number,
+  //   twoPointFGA: number,
+  //   threePointFGMiss: number,
+  //   threePointFGMake: number,
+  //   threePointFGA: number,
+  //   fTMiss: number,
+  //   fTMake: number,
+  //   fTA: number,
+  //   oReb: number,
+  //   assist: number,
+  //   block: number,
+  //   steal: number,
+  //   turnover: number,
+  //   pF: number,
+  //   twoPointFGPercent: number,
+  //   threePointFGPercent: number,
+  //   fTPercent: number,
+  //   totalRebounds: number,
+  //   points: number,
+  // ) {
+  //   const gameStatline = await this.prisma.gameStatlines.findFirst({
+  //     // userId authCheck
+  //     where: {
+  //       id: gameStatlineId,
+  //       game: {
+  //         season: {
+  //           team: {
+  //             userId,
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+
+  //   if (!gameStatline) {
+  //     throw new Error("Forbidden");
+  //   }
+
+  //   return await this.prisma.gameStatlines.update({
+  //     where: { id: gameStatlineId },
+  //     data: {
+  //       gameStatlineId,
+  //       userId,
+  //       twoPointFGMiss,
+  //       twoPointFGMake,
+  //       twoPointFGA,
+  //       threePointFGMiss,
+  //       threePointFGMake,
+  //       threePointFGA,
+  //       fTMiss,
+  //       fTMake,
+  //       fTA,
+  //       oReb,
+  //       assist,
+  //       block,
+  //       steal,
+  //       turnover,
+  //       pF,
+  //       twoPointFGPercent,
+  //       threePointFGPercent,
+  //       fTPercent,
+  //       totalRebounds,
+  //       points,
+  //     },
+  //   });
+  // }
 
   async createShot(userId: number, gameStatlineId: number, shot: shotObject) {
     const gameStatline = await this.prisma.gameStatlines.findFirst({

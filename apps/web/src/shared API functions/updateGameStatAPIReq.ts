@@ -1,16 +1,40 @@
-import { shotSchema } from "../types/shot";
-import type { Shot } from "../types/shot";
+// type GameStatlineUpload = {
+//   twoPointFGMiss: number;
+//   twoPointFGMake: number;
+//   twoPointFGA: number;
+//   threePointFGMiss: number;
+//   threePointFGMake: number;
+//   threePointFGA: number;
+//   fTMiss: number;
+//   fTMake: number;
+//   fTA: number;
+//   oReb: number;
+//   dReb: number;
+//   assist: number;
+//   block: number;
+//   steal: number;
+//   turnover: number;
+//   pF: number;
+//   twoPointFGPercent: number;
+//   threePointFGPercent: number;
+//   fTPercent: number;
+//   totalRebounds: number;
+//   points: number;
+// }
 
-type uploadShotAPIReqProps = {
+type updateGameStatAPIProps = {
   gameStatlineId: number;
-  shot: Shot;
+  // gameStatline: GameStatlineUpload;
+  statlineUpdateField: string;
+  statlineUpdateIndicator: boolean;
 };
 
-export async function uploadShotAPIReq({
+export async function updateGameStatAPIReq({
   gameStatlineId,
-  shot,
-}: uploadShotAPIReqProps) {
-  const rsp = await fetch("http://localhost:3000/games/shots/create", {
+  statlineUpdateField,
+  statlineUpdateIndicator
+}: updateGameStatAPIProps) {
+  const rsp = await fetch("http://localhost:3000/games/gameStatlines/update", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -18,7 +42,8 @@ export async function uploadShotAPIReq({
     method: "POST",
     body: JSON.stringify({
       gameStatlineId,
-      shot,
+      statlineUpdateField,
+      statlineUpdateIndicator
     }),
   });
 

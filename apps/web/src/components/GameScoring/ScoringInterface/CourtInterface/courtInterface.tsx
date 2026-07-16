@@ -5,6 +5,7 @@ import { type VideoPlayerHandle } from "../../../Homepage/Dashboard/GameDisplay/
 import { uploadShotAPIReq } from "../../../../shared API functions/uploadShotAPIReq";
 import type { Game } from "../../../../types/game";
 import { updateGameStatAPIReq } from "../../../../shared API functions/updateGameStatAPIReq";
+import { getSingleGameAPIFetch } from "../getSingleGameAPIFetch";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;
@@ -17,6 +18,7 @@ type CourtInterfaceProps = {
   >;
   videoRef: React.RefObject<VideoPlayerHandle | null>;
   gameDetails: Game | null | "ready";
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
 };
 
 export default function CourtInterface({
@@ -28,6 +30,7 @@ export default function CourtInterface({
   setSelectedUI,
   videoRef,
   gameDetails,
+  setGameDetails
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -41,6 +44,7 @@ export default function CourtInterface({
 
     const courtSizeObserver = new ResizeObserver(() => {
       //resizeObserver fires callback every time rendered size changes
+      console.log("resize fired", element.clientWidth, element.clientHeight);
       setCourtWidth(element.clientWidth);
       setCourtHeight(element.clientHeight);
     });
@@ -64,11 +68,12 @@ export default function CourtInterface({
   return (
     <div
       className={`courtInterface ${addUIClasses(selectedUI)}`}
-      onClick={(e) => {
+      onClick={async (e) => {
+        console.log(gameDetails, courtImageRef.current)
         if (selectedUI !== "courtPlacement") return;
         if (!courtImageRef.current) return;
         if (!gameDetails || gameDetails === "ready") return;
-
+        if (!courtWidth || !courtHeight) return;
         const realImage = courtImageRef.current?.getBoundingClientRect(); //get image position and size relative to viewport
         const X = (e.clientX - realImage?.left) / courtWidth;
         const Y = (e.clientY - realImage?.top) / courtHeight;
@@ -76,9 +81,10 @@ export default function CourtInterface({
         const selectedGameStatline = gameDetails.gameStatlines.filter(
           (gameStatline) => gameStatline.playerId === selectedPlayer,
         );
+        console.log(X, Y, timeStamp)
         switch (selectedStat) {
           case "2P Make":
-            uploadShotAPIReq({
+            await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: true,
@@ -90,7 +96,7 @@ export default function CourtInterface({
             });
             break;
           case "2P Miss":
-            uploadShotAPIReq({
+            await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: false,
@@ -102,7 +108,7 @@ export default function CourtInterface({
             });
             break;
           case "3P Make":
-            uploadShotAPIReq({
+            await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: true,
@@ -114,7 +120,7 @@ export default function CourtInterface({
             });
             break;
           case "3P Miss":
-            uploadShotAPIReq({
+            await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: false,
@@ -124,19 +130,23 @@ export default function CourtInterface({
                 timeStamp,
               },
             });
-            updateGameStatAPIReq({
-              gameStatlineId: selectedGameStatline[0].id,
-              statlineUpdateField: selectedStat,
-              statlineUpdateIndicator: true
-            });
+            break;
         }
+        await updateGameStatAPIReq({
+          gameStatlineId: selectedGameStatline[0].id,
+          statlineUpdateField: selectedStat,
+          statlineUpdateIndicator: true
+        });
+        //add to undo queue
+        const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+        if (updatedGame) setGameDetails( updatedGame );
         setSelectedPlayer(null);
         setSelectedStat("");
         setSelectedUI("playerSelection");
         return;
       }}
     >
-      <img src={courtImage} alt="court image" />
+      <img src={courtImage} alt="court image" ref={courtImageRef}/>
     </div>
   );
 }

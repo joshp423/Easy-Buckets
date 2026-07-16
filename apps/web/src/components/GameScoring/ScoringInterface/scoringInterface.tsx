@@ -9,7 +9,6 @@ import type { Game } from "../../../types/game";
 import VideoPlayer, {
   type VideoPlayerHandle,
 } from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
-import { getSingleGameAPIFetch } from "./getSingleGameAPIFetch";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -90,6 +89,8 @@ export default function ScoringInterface({
             selectedUI={selectedUI}
             setSelectedUI={setSelectedUI}
             videoRef={videoRef}
+            gameDetails={gameDetails}
+            setGameDetails={setGameDetails}
           />
         </div>
       </div>
@@ -126,7 +127,9 @@ export default function ScoringInterface({
           setSelectedPlayer={setSelectedPlayer}
           selectedUI={selectedUI}
           setSelectedUI={setSelectedUI}
+          videoRef={videoRef}
           gameDetails={gameDetails}
+          setGameDetails={setGameDetails}
         />
       </div>
     </div>

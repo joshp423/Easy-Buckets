@@ -22,6 +22,7 @@
 //   points: number;
 // }
 
+
 type updateGameStatAPIProps = {
   gameStatlineId: number;
   // gameStatline: GameStatlineUpload;
@@ -39,7 +40,7 @@ export async function updateGameStatAPIReq({
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify({
       gameStatlineId,
       statlineUpdateField,
@@ -48,6 +49,5 @@ export async function updateGameStatAPIReq({
   });
 
   const data = await rsp.json();
-  const shotData = shotSchema.parse(data);
-  return shotData;
+  return data;
 }

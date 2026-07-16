@@ -241,7 +241,7 @@ export class GameRepo {
             id: gameStatlineId
           },
           data: {
-            twoPointFGMiss: gameStatline.threePointFGMiss + statAmount,
+            twoPointFGMiss: gameStatline.twoPointFGMiss + statAmount,
             twoPointFGA: gameStatline.twoPointFGA + statAmount,
             twoPointFGPercent: Math.round((gameStatline.twoPointFGMake / gameStatline.twoPointFGA) * 100),
           }
@@ -460,7 +460,6 @@ export class GameRepo {
     }
     return await this.prisma.shots.create({
       data: {
-        userId,
         gameStatlineId,
         make: shot.make,
         X: shot.X,

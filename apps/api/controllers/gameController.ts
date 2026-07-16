@@ -113,8 +113,9 @@ const createGameStatLinesSchema = z.object({
 // });
 
 const updateGameStatLineSchema = z.object({
+  userId: z.number(),
   gameStatlineId: z.number(),
-  statlineUpdateField: z.number(),
+  statlineUpdateField: z.string(),
   statlineUpdateIndicator: z.boolean(),
 });
 

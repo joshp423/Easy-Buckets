@@ -9,6 +9,7 @@ import type { Game } from "../../../types/game";
 import VideoPlayer, {
   type VideoPlayerHandle,
 } from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
+import ScoringBoxScore from "./ScoringBoxScore/scoringBoxScore";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -92,6 +93,7 @@ export default function ScoringInterface({
             gameDetails={gameDetails}
             setGameDetails={setGameDetails}
           />
+          <ScoringBoxScore gameDetails={gameDetails}/>
         </div>
       </div>
     );
@@ -131,6 +133,7 @@ export default function ScoringInterface({
           gameDetails={gameDetails}
           setGameDetails={setGameDetails}
         />
+        <ScoringBoxScore gameDetails={gameDetails}/>
       </div>
     </div>
   );

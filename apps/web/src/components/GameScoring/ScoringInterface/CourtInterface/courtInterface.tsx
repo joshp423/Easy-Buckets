@@ -126,7 +126,8 @@ export default function CourtInterface({
             });
             updateGameStatAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
-              gameStatline: {},
+              statlineUpdateField: selectedStat,
+              statlineUpdateIndicator: true
             });
         }
         setSelectedPlayer(null);

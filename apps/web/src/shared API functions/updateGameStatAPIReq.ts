@@ -32,7 +32,7 @@ type updateGameStatAPIProps = {
 export async function updateGameStatAPIReq({
   gameStatlineId,
   statlineUpdateField,
-  statlineUpdateIndicator
+  statlineUpdateIndicator,
 }: updateGameStatAPIProps) {
   const rsp = await fetch("http://localhost:3000/games/gameStatlines/update", {
     headers: {
@@ -43,7 +43,7 @@ export async function updateGameStatAPIReq({
     body: JSON.stringify({
       gameStatlineId,
       statlineUpdateField,
-      statlineUpdateIndicator
+      statlineUpdateIndicator,
     }),
   });
 

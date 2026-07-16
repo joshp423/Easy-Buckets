@@ -115,8 +115,8 @@ const createGameStatLinesSchema = z.object({
 const updateGameStatLineSchema = z.object({
   gameStatlineId: z.number(),
   statlineUpdateField: z.number(),
-  statlineUpdateIndicator: z.boolean()
-})
+  statlineUpdateIndicator: z.boolean(),
+});
 
 const createShotSchema = z.object({
   userId: z.number(),
@@ -244,17 +244,14 @@ export async function createGameStatLines(req: AuthRequest, res: Response) {
 export async function updateGameStatline(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const {
-    gameStatlineId,
-    statlineUpdateField,
-    statlineUpdateIndicator
-  } = req.body;
+  const { gameStatlineId, statlineUpdateField, statlineUpdateIndicator } =
+    req.body;
 
   const { success, data, error } = updateGameStatLineSchema.safeParse({
     userId,
     gameStatlineId,
     statlineUpdateField,
-    statlineUpdateIndicator
+    statlineUpdateIndicator,
   });
 
   if (!success) {

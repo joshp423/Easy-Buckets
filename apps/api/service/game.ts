@@ -70,7 +70,7 @@ type UpdateGameStats = {
   gameStatlineId: number;
   statlineUpdateField: string;
   statlineUpdateIndicator: boolean;
-}
+};
 
 export class GameService {
   private config: configSchema;
@@ -105,13 +105,13 @@ export class GameService {
     userId,
     gameStatlineId,
     statlineUpdateField,
-    statlineUpdateIndicator
+    statlineUpdateIndicator,
   }: UpdateGameStats) {
     return this.gameRepo.updateGameStatline(
       userId,
       gameStatlineId,
       statlineUpdateField,
-      statlineUpdateIndicator
+      statlineUpdateIndicator,
     );
   }
 

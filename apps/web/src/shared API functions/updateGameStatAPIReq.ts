@@ -22,7 +22,6 @@
 //   points: number;
 // }
 
-
 type updateGameStatAPIProps = {
   gameStatlineId: number;
   // gameStatline: GameStatlineUpload;

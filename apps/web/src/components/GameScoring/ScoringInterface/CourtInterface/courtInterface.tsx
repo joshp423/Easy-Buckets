@@ -30,7 +30,7 @@ export default function CourtInterface({
   setSelectedUI,
   videoRef,
   gameDetails,
-  setGameDetails
+  setGameDetails,
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -69,7 +69,7 @@ export default function CourtInterface({
     <div
       className={`courtInterface ${addUIClasses(selectedUI)}`}
       onClick={async (e) => {
-        console.log(gameDetails, courtImageRef.current)
+        console.log(gameDetails, courtImageRef.current);
         if (selectedUI !== "courtPlacement") return;
         if (!courtImageRef.current) return;
         if (!gameDetails || gameDetails === "ready") return;
@@ -81,7 +81,7 @@ export default function CourtInterface({
         const selectedGameStatline = gameDetails.gameStatlines.filter(
           (gameStatline) => gameStatline.playerId === selectedPlayer,
         );
-        console.log(X, Y, timeStamp)
+        console.log(X, Y, timeStamp);
         switch (selectedStat) {
           case "2P Make":
             await uploadShotAPIReq({
@@ -135,18 +135,18 @@ export default function CourtInterface({
         await updateGameStatAPIReq({
           gameStatlineId: selectedGameStatline[0].id,
           statlineUpdateField: selectedStat,
-          statlineUpdateIndicator: true
+          statlineUpdateIndicator: true,
         });
         //add to undo queue
         const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-        if (updatedGame) setGameDetails( updatedGame );
+        if (updatedGame) setGameDetails(updatedGame);
         setSelectedPlayer(null);
         setSelectedStat("");
         setSelectedUI("playerSelection");
         return;
       }}
     >
-      <img src={courtImage} alt="court image" ref={courtImageRef}/>
+      <img src={courtImage} alt="court image" ref={courtImageRef} />
     </div>
   );
 }

@@ -93,8 +93,8 @@ export default function ScoringInterface({
             gameDetails={gameDetails}
             setGameDetails={setGameDetails}
           />
-          <ScoringBoxScore gameDetails={gameDetails}/>
         </div>
+        <ScoringBoxScore gameDetails={gameDetails} />
       </div>
     );
 
@@ -133,8 +133,8 @@ export default function ScoringInterface({
           gameDetails={gameDetails}
           setGameDetails={setGameDetails}
         />
-        <ScoringBoxScore gameDetails={gameDetails}/>
       </div>
+      <ScoringBoxScore gameDetails={gameDetails} />
     </div>
   );
 }

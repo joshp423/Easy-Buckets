@@ -67,23 +67,28 @@ export default function ScoringInterface({
     return (
       <div className="scoringInterface">
         <div className="interfaceInput">
-          <PlayerSelection
-            selectedPlayers={selectedPlayers}
-            setSelectedPlayer={setSelectedPlayer}
-            selectedPlayer={selectedPlayer}
-            selectedUI={selectedUI}
-            setSelectedUI={setSelectedUI}
-          />
-          <StatSelection
-            gameDetails={gameDetails}
-            setGameDetails={setGameDetails}
-            setSelectedStat={setSelectedStat}
-            selectedStat={selectedStat}
-            selectedPlayer={selectedPlayer}
-            setSelectedPlayer={setSelectedPlayer}
-            selectedUI={selectedUI}
-            setSelectedUI={setSelectedUI}
-          />
+          <div>
+            <div className="selectionSections">
+              <PlayerSelection
+                selectedPlayers={selectedPlayers}
+                setSelectedPlayer={setSelectedPlayer}
+                selectedPlayer={selectedPlayer}
+                selectedUI={selectedUI}
+                setSelectedUI={setSelectedUI}
+              />
+              <StatSelection
+                gameDetails={gameDetails}
+                setGameDetails={setGameDetails}
+                setSelectedStat={setSelectedStat}
+                selectedStat={selectedStat}
+                selectedPlayer={selectedPlayer}
+                setSelectedPlayer={setSelectedPlayer}
+                selectedUI={selectedUI}
+                setSelectedUI={setSelectedUI}
+              />
+            </div>
+          <div className="shotLog"></div>
+          </div>
           <CourtInterface
             selectedStat={selectedStat}
             setSelectedStat={setSelectedStat}
@@ -124,7 +129,7 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
             />
           </div>
-          <div className="shotLog"></div>
+        <div className="shotLog"></div>
         </div>
         <CourtInterface
           selectedStat={selectedStat}

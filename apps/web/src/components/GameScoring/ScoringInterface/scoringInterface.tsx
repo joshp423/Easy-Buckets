@@ -75,6 +75,8 @@ export default function ScoringInterface({
             setSelectedUI={setSelectedUI}
           />
           <StatSelection
+            gameDetails={gameDetails}
+            setGameDetails={setGameDetails}
             setSelectedStat={setSelectedStat}
             selectedStat={selectedStat}
             selectedPlayer={selectedPlayer}
@@ -112,6 +114,8 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
             />
             <StatSelection
+              gameDetails={gameDetails}
+              setGameDetails={setGameDetails}
               setSelectedStat={setSelectedStat}
               selectedStat={selectedStat}
               selectedPlayer={selectedPlayer}

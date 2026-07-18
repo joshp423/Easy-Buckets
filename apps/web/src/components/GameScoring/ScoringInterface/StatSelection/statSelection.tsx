@@ -1,5 +1,6 @@
 import "./statSelection.css";
 import StatSelectionButton from "./statSelectionButton/statSelectionButton";
+import type { Game } from "../../../../types/game";
 
 type StatSelectionProps = {
   setSelectedStat: React.Dispatch<React.SetStateAction<string>>;
@@ -10,6 +11,8 @@ type StatSelectionProps = {
   setSelectedUI: React.Dispatch<
     React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
   >;
+  gameDetails: Game | null | "ready";
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>; 
 };
 
 export default function StatSelection({
@@ -19,6 +22,8 @@ export default function StatSelection({
   setSelectedPlayer,
   selectedUI,
   setSelectedUI,
+  gameDetails,
+  setGameDetails
 }: StatSelectionProps) {
   const pointsStats = [
     "2P Make",
@@ -56,6 +61,8 @@ export default function StatSelection({
       //   ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`}
     >
       <StatSelectionButton
+        gameDetails={gameDetails}
+        setGameDetails={setGameDetails}
         statArray={pointsStats}
         sectionName={"Points"}
         selectedStat={selectedStat}
@@ -66,6 +73,8 @@ export default function StatSelection({
         courtPlacementStats={courtPlacementStats}
       />
       <StatSelectionButton
+        gameDetails={gameDetails}
+        setGameDetails={setGameDetails}
         statArray={reboundingStats}
         sectionName={"Rebounding"}
         selectedStat={selectedStat}
@@ -76,6 +85,8 @@ export default function StatSelection({
         courtPlacementStats={courtPlacementStats}
       />
       <StatSelectionButton
+        gameDetails={gameDetails}
+        setGameDetails={setGameDetails}
         statArray={miscStats}
         sectionName={"Misc"}
         selectedStat={selectedStat}

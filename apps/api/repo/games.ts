@@ -333,7 +333,7 @@ export class GameRepo {
         return updatedStatline;
       }
 
-      case "oReb": {
+      case "O-Reb": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
           data: {
@@ -344,7 +344,7 @@ export class GameRepo {
         return updatedStatline;
       }
 
-      case "dReb": {
+      case "D-Reb": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
           data: {
@@ -355,42 +355,42 @@ export class GameRepo {
         return updatedStatline;
       }
 
-      case "assist": {
+      case "Assist": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
-          data: { dReb: gameStatline.assist + statAmount },
+          data: { assist: gameStatline.assist + statAmount },
         });
         return updatedStatline;
       }
 
-      case "block": {
+      case "Block": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
-          data: { dReb: gameStatline.block + statAmount },
+          data: { block: gameStatline.block + statAmount },
         });
         return updatedStatline;
       }
 
-      case "steal": {
+      case "Steal": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
-          data: { dReb: gameStatline.steal + statAmount },
+          data: { steal: gameStatline.steal + statAmount },
         });
         return updatedStatline;
       }
 
-      case "turnover": {
+      case "TO": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
-          data: { dReb: gameStatline.turnover + statAmount },
+          data: { turnover: gameStatline.turnover + statAmount },
         });
         return updatedStatline;
       }
 
-      case "pf": {
+      case "Foul": {
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
-          data: { dReb: gameStatline.pF + statAmount },
+          data: { pF: gameStatline.pF + statAmount },
         });
         return updatedStatline;
       }

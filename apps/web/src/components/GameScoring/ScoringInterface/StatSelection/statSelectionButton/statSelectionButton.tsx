@@ -1,3 +1,7 @@
+import { updateGameStatAPIReq } from "../../../../../shared API functions/updateGameStatAPIReq";
+import { getSingleGameAPIFetch } from "../../../../../shared API functions/getSingleGameAPIFetch";
+import type { Game } from "../../../../../types/game";
+
 type StatSelectionButtonProps = {
   statArray: string[];
   sectionName: string;
@@ -9,6 +13,8 @@ type StatSelectionButtonProps = {
     React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
   >;
   courtPlacementStats: string[];
+  gameDetails: Game | null | "ready";
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>; 
 };
 
 export default function StatSelectionButton({
@@ -20,14 +26,18 @@ export default function StatSelectionButton({
   setSelectedUI,
   setSelectedStat,
   courtPlacementStats,
+  gameDetails,
+  setGameDetails
 }: StatSelectionButtonProps) {
+  
+
   return (
     <div>
       <h3>{sectionName}</h3>
       <div>
         {statArray.map((stat) => (
           <button
-            onClick={() => {
+            onClick={async () => {
               if (!selectedPlayer) return;
               if (selectedStat === stat) {
                 setSelectedStat("");
@@ -35,7 +45,6 @@ export default function StatSelectionButton({
                 return;
               }
               setSelectedStat(stat);
-              console.log(selectedStat);
               const courtStatCheck = courtPlacementStats.filter(
                 (clickedStat) => clickedStat === stat,
               );
@@ -43,8 +52,18 @@ export default function StatSelectionButton({
                 setSelectedUI("courtPlacement");
                 return;
               }
-              //send stat
-              // setSelectedStat("")
+              if (!gameDetails || gameDetails === "ready") return;
+              const selectedGameStatline = gameDetails.gameStatlines.filter(
+                (gameStatline) => gameStatline.playerId === selectedPlayer,
+              );
+              console.log(selectedPlayer, stat)
+              await updateGameStatAPIReq({
+                gameStatlineId: selectedGameStatline[0]?.id,
+                statlineUpdateField: stat,
+                statlineUpdateIndicator: true
+              })
+              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+              if (updatedGame) setGameDetails(updatedGame);
               setSelectedUI("playerSelection");
               setSelectedPlayer(null);
               setSelectedStat("");

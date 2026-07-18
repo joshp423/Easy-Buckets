@@ -108,6 +108,9 @@ export class GameRepo {
       },
       include: {
         gameStatlines: {
+          orderBy: { 
+            id: "desc"
+          },
           include: {
             shots: true,
           },
@@ -123,6 +126,9 @@ export class GameRepo {
       },
       include: {
         gameStatlines: {
+          orderBy: { 
+            id: "desc"
+          },
           include: {
             shots: true,
             player: {
@@ -218,19 +224,24 @@ export class GameRepo {
 
     const statAmount = statlineUpdateIndicator ? 1 : -1;
 
+    function roundTo(value: number, decimals: number): number {
+      return Number(value.toFixed(decimals));
+    }
+
     switch (statlineUpdateField) {
       case "2P Make": {
+        const newMakes = gameStatline.twoPointFGMake + statAmount;
+        const newAttempts = gameStatline.twoPointFGA + statAmount;
         const pointsUpdateAmount = statlineUpdateIndicator ? 2 : -2;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: {
             id: gameStatlineId,
           },
           data: {
-            twoPointFGMake: gameStatline.twoPointFGMake + statAmount,
-            twoPointFGA: gameStatline.twoPointFGA + statAmount,
-            twoPointFGPercent: Math.round(
-              (gameStatline.twoPointFGMake / gameStatline.twoPointFGA) * 100,
-            ),
+            twoPointFGMake: newMakes,
+            twoPointFGA: newAttempts,
+            twoPointFGPercent: newAttempts === 0 ? 0 :
+              roundTo(((newMakes / newAttempts) * 100), 1),
             points: gameStatline.points + pointsUpdateAmount,
           },
         });
@@ -238,82 +249,85 @@ export class GameRepo {
       }
 
       case "2P Miss": {
+        const newMiss = gameStatline.twoPointFGMiss + statAmount;
+        const newAttempts = gameStatline.twoPointFGA + statAmount;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: {
             id: gameStatlineId,
           },
           data: {
-            twoPointFGMiss: gameStatline.twoPointFGMiss + statAmount,
-            twoPointFGA: gameStatline.twoPointFGA + statAmount,
-            twoPointFGPercent: Math.round(
-              (gameStatline.twoPointFGMake / gameStatline.twoPointFGA) * 100,
-            ),
+            twoPointFGMiss: newMiss,
+            twoPointFGA: newAttempts,
+            twoPointFGPercent: newAttempts === 0 ? 0 :
+              (gameStatline.twoPointFGMake / newAttempts) * 100,
           },
         });
         return updatedStatline;
       }
 
       case "3P Make": {
+        const newMakes = gameStatline.threePointFGMake + statAmount;
+        const newAttempts = gameStatline.threePointFGA + statAmount;
         const pointsUpdateAmount = statlineUpdateIndicator ? 3 : -3;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: {
             id: gameStatlineId,
           },
           data: {
-            threePointFGMake: gameStatline.threePointFGMake + statAmount,
-            threePointFGA: gameStatline.threePointFGA + statAmount,
-            threePointFGPercent: Math.round(
-              (gameStatline.threePointFGMake / gameStatline.threePointFGA) *
-                100,
-            ),
-            pointspoints: gameStatline.points + pointsUpdateAmount,
+            threePointFGMake: newMakes,
+            threePointFGA: newAttempts,
+            threePointFGPercent: newAttempts === 0 ? 0 :
+              (newMakes / newAttempts) * 100,
+            points: gameStatline.points + pointsUpdateAmount,
           },
         });
         return updatedStatline;
       }
 
       case "3P Miss": {
+        const newMiss = gameStatline.threePointFGMiss + statAmount;
+        const newAttempts = gameStatline.threePointFGA + statAmount;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: {
             id: gameStatlineId,
           },
           data: {
-            threePointFGMiss: gameStatline.threePointFGMiss + statAmount,
-            threePointFGA: gameStatline.threePointFGA + statAmount,
-            threePointFGPercent: Math.round(
-              (gameStatline.threePointFGMake / gameStatline.threePointFGA) *
+            threePointFGMiss: newMiss,
+            threePointFGA: newAttempts,
+            threePointFGPercent: newAttempts === 0 ? 0 :
+              (gameStatline.twoPointFGMake / newAttempts) *
                 100,
-            ),
           },
         });
         return updatedStatline;
       }
 
       case "FT Make": {
+        const newMakes = gameStatline.fTMake + statAmount;
+        const newAttempts = gameStatline.fTA + statAmount;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: {
             id: gameStatlineId,
           },
           data: {
-            fTMake: gameStatline.fTMake + statAmount,
-            fTA: gameStatline.fTA + statAmount,
-            fTPercent: Math.round(
-              (gameStatline.fTMake / gameStatline.fTA) * 100,
-            ),
+            fTMake: newMakes,
+            fTA: newAttempts,
+            fTPercent: newMakes === 0 ? 0 :
+              (newMakes / newAttempts) * 100
           },
         });
         return updatedStatline;
       }
 
       case "FT Miss": {
+        const newMiss = gameStatline.threePointFGMiss + statAmount;
+        const newAttempts = gameStatline.threePointFGA + statAmount;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: { id: gameStatlineId },
           data: {
-            fTMiss: gameStatline.fTMiss + statAmount,
-            fTA: gameStatline.fTMiss + statAmount,
-            fTPercent: Math.round(
-              (gameStatline.fTMake / gameStatline.fTA) * 100,
-            ),
+            fTMiss: newMiss,
+            fTA: newAttempts,
+            fTPercent: newAttempts === 0 ? 0 : gameStatline.fTMake / newAttempts * 100
           },
         });
         return updatedStatline;

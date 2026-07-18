@@ -1,4 +1,4 @@
-import { gameSchema } from "../../../types/game";
+import { gameSchema } from "../types/game";
 
 export async function getSingleGameAPIFetch(id: number) {
   const rsp = await fetch(`http://localhost:3000/games/${id}`, {

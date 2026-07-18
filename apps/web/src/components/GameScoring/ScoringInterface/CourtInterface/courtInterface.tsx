@@ -5,7 +5,7 @@ import { type VideoPlayerHandle } from "../../../Homepage/Dashboard/GameDisplay/
 import { uploadShotAPIReq } from "../../../../shared API functions/uploadShotAPIReq";
 import type { Game } from "../../../../types/game";
 import { updateGameStatAPIReq } from "../../../../shared API functions/updateGameStatAPIReq";
-import { getSingleGameAPIFetch } from "../getSingleGameAPIFetch";
+import { getSingleGameAPIFetch } from "../../../../shared API functions/getSingleGameAPIFetch";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;

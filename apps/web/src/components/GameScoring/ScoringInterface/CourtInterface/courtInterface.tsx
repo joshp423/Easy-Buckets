@@ -8,6 +8,7 @@ import { updateGameStatAPIReq } from "../../../../shared API functions/updateGam
 import { getSingleGameAPIFetch } from "../../../../shared API functions/getSingleGameAPIFetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import type { ShotLog } from "../../../../types/shotLog";
 
 type CourtInterfaceProps = {
@@ -151,17 +152,41 @@ export default function CourtInterface({
         return;
       }}
     >
-      <img src={courtImage} alt="court image" ref={courtImageRef} />
-      {gameDetails.gameStatlines.map((statLine) => {
-        if (!statLine.shots) return;
-        // const xReactive = statLine.shots
+      <div>
+        <img src={courtImage} alt="court image" ref={courtImageRef} />
+        {shotLog?.map((shot) => {
+          const xReactive = shot.X * courtWidth;
+          const yReactive = shot.Y * courtHeight;
+          if (shot.make) {
+          return (
+            <FontAwesomeIcon
+              icon={faCircle}
+              style={
+                {
+                  color: "#04d708",
+                  position: "absolute",
+                  left: `${xReactive}px`,
+                  top: `${yReactive}px`
+                }
+              }
+            />   
+          );
+        }
         return (
           <FontAwesomeIcon
             icon={faX}
-            // style={}
+            style={
+              {
+                color: "#d40c0c",
+                position: "absolute",
+                left: `${xReactive}px`,
+                top: `${yReactive}px`
+              }
+            }
           />
-        );
-      })}
+        )
+        })}d40c0c
+      </div>
     </div>
   );
 }

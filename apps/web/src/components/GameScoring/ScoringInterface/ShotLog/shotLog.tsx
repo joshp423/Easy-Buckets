@@ -4,6 +4,8 @@ type shotLogProps = {
   shotLog: ShotLog | null;
 };
 
+//shared useState variable for selected shot needed for reactivity
+
 export default function Shotlog({ shotLog }: shotLogProps) {
   if (!shotLog) return;
 

@@ -24,11 +24,13 @@
   text-align: center;
   margin: 10px;
 }
-/* .shotLog > table > tbody > tr:hover {
-
-} */
+.shotLog > table > tbody > tr:hover {
+  background-color: rgb(56, 56, 240);
+  color: white;
+}
 
 .shotLog > table > thead > tr > th, .shotLog > table > tbody > tr >td {
   font-size: 0.8rem;
   padding: 0.25rem;
 }
+

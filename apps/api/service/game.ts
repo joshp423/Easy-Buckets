@@ -65,6 +65,11 @@ export type shotObject = {
   timeStamp: number;
 };
 
+type ShotLogReq = {
+  userId: number;
+  gameId: number;
+}
+
 type UpdateGameStats = {
   userId: number;
   gameStatlineId: number;
@@ -121,5 +126,9 @@ export class GameService {
 
   async deleteShot(userId: number, shotId: number) {
     return this.gameRepo.deleteShot(userId, shotId);
+  }
+
+  async getShotLog({userId, gameId}: ShotLogReq) {
+    return this.gameRepo.getShotLog(userId, gameId)
   }
 }

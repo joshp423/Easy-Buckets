@@ -1,6 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 import type { GameStatPlayer } from "../service/game.js";
 import type { shotObject } from "../service/game.js";
+import { id } from "zod/locales";
 
 export class GameRepo {
   private prisma: PrismaClient;
@@ -513,5 +514,47 @@ export class GameRepo {
         },
       },
     });
+  }
+
+  async getShotLog(userId: number, gameId: number) {
+    const game = await this.prisma.games.findUnique({
+      // userId authCheck
+      where: {
+        id: gameId,
+          season: {
+            team: {
+              userId,
+            },
+          },
+      },
+    });
+
+    if (!game) {
+      throw new Error("Forbidden");
+    }
+
+    return await this.prisma.shots.findMany({
+      where: {
+        gameStatline: {
+          game: {
+            id: gameId
+          }
+        }
+      },
+      include: {
+        gameStatline: {
+          select: {
+            player: {
+              select: {
+                name: true,
+                number: true,
+              }
+            }
+          }
+        }
+      },
+      
+      orderBy: { id: "asc" }
+    })
   }
 }

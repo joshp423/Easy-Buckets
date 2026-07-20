@@ -15,6 +15,7 @@ import {
   updateGameStatline,
   deleteShot,
   getGame,
+  getGameShots
 } from "../controllers/gameController.js";
 import {
   createSeason,
@@ -63,5 +64,6 @@ indexRouter.delete(
   indexController.verifyToken,
   deleteShot,
 );
+indexRouter.get("/games/:gameId/shots", indexController.verifyToken, getGameShots)
 
 export default indexRouter;

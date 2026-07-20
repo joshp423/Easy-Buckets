@@ -31,3 +31,7 @@
   width: 40%;
   height: 12%;
 }
+
+.enableButtonHover:hover {
+  outline: 1px solid black;
+}

@@ -11,6 +11,7 @@
   text-wrap-mode: nowrap;
 }
 
-.scoringBoxScore > table > thead > tr > th, .scoringBoxScore > table > tbody {
+.scoringBoxScore > table > thead > tr > th, .scoringBoxScore > table > tbody > tr >td {
   font-size: 0.8rem;
+  
 }

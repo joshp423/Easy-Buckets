@@ -58,6 +58,7 @@ export default function PlayerSelection({
                 ? { cursor: "pointer" }
                 : {}),
             }}
+            className={selectedUI === "statSelection" || selectedUI === "playerSelection" ? "enableButtonHover" : ""}
           >
             {player.name} {player.number}
           </button>

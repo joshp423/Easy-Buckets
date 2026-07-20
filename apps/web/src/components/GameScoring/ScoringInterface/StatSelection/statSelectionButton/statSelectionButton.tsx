@@ -75,6 +75,7 @@ export default function StatSelectionButton({
                 : {}),
               ...(selectedUI === "statSelection" || selectedUI === "courtPlacement" ? { cursor: "pointer" } : {}),
             }}
+            className={selectedUI === "statSelection" || selectedUI === "courtPlacement" ? "enableButtonHover" : ""}
           >
             {stat}
           </button>

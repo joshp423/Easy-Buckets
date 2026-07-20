@@ -8,4 +8,9 @@
   width: 100%;
   border-collapse: collapse;
   background-color: white;
+  text-wrap-mode: nowrap;
+}
+
+.scoringBoxScore > table > thead > tr > th, .scoringBoxScore > table > tbody {
+  font-size: 0.8rem;
 }

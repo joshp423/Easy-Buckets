@@ -1,6 +1,8 @@
 .shotLog {
+  display: flex;
+  flex-direction: column;
   overflow: auto;
-  max-height: 300px;
+  max-height: 375px;
   padding: 20px;
   border-radius: 12px;
   background-color: #f3f5f8;

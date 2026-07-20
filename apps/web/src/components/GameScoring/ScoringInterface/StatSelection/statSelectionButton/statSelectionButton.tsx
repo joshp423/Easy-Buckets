@@ -73,7 +73,7 @@ export default function StatSelectionButton({
               ...(selectedStat === stat
                 ? { backgroundColor: "#e37204", color: "white" }
                 : {}),
-              ...(selectedUI === "statSelection" ? { cursor: "pointer" } : {}),
+              ...(selectedUI === "statSelection" || selectedUI === "courtPlacement" ? { cursor: "pointer" } : {}),
             }}
           >
             {stat}

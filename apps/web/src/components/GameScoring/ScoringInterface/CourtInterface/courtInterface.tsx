@@ -153,7 +153,9 @@ export default function CourtInterface({
       }}
     >
       <div>
-        <img src={courtImage} alt="court image" ref={courtImageRef} />
+        <img src={courtImage} alt="court image" ref={courtImageRef} 
+          style={selectedUI === "courtPlacement" ? {cursor: "pointer"} : {}}
+        />
         {shotLog?.map((shot) => {
           const xReactive = shot.X * courtWidth;
           const yReactive = shot.Y * courtHeight;
@@ -185,7 +187,7 @@ export default function CourtInterface({
             }
           />
         )
-        })}d40c0c
+        })}
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import z from "zod";
 
 const shotLog = z.object({
-    id: z.number(),
-    gameStatlineId: z.number(),
+  id: z.number(),
+  gameStatlineId: z.number(),
   make: z.boolean(),
   X: z.number(),
   Y: z.number(),
@@ -10,12 +10,12 @@ const shotLog = z.object({
   timeStamp: z.number(),
   gameStatline: z.object({
     player: z.object({
-        name: z.string(),
-        number: z.number()
-    })
-  })
-})
+      name: z.string(),
+      number: z.number(),
+    }),
+  }),
+});
 
-export const shotLogSchema= z.array(shotLog);
+export const shotLogSchema = z.array(shotLog);
 
 export type ShotLog = z.infer<typeof shotLogSchema>;

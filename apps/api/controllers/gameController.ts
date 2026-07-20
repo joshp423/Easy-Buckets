@@ -138,8 +138,8 @@ const deleteShotSchema = z.object({
 
 const getShotsSchema = z.object({
   userId: z.number(),
-  gameId: z.coerce.number()
-})
+  gameId: z.coerce.number(),
+});
 
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -406,7 +406,7 @@ export async function getGameShots(req: AuthRequest, res: Response) {
 
   const { success, data, error } = getShotsSchema.safeParse({
     userId,
-    gameId
+    gameId,
   });
 
   if (!success) {
@@ -415,7 +415,7 @@ export async function getGameShots(req: AuthRequest, res: Response) {
     });
   }
 
-  const gameShots = await gameService.getShotLog(data)
+  const gameShots = await gameService.getShotLog(data);
 
   if (!gameShots) {
     return res.status(403).json({

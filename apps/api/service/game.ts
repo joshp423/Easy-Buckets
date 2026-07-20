@@ -68,7 +68,7 @@ export type shotObject = {
 type ShotLogReq = {
   userId: number;
   gameId: number;
-}
+};
 
 type UpdateGameStats = {
   userId: number;
@@ -128,7 +128,7 @@ export class GameService {
     return this.gameRepo.deleteShot(userId, shotId);
   }
 
-  async getShotLog({userId, gameId}: ShotLogReq) {
-    return this.gameRepo.getShotLog(userId, gameId)
+  async getShotLog({ userId, gameId }: ShotLogReq) {
+    return this.gameRepo.getShotLog(userId, gameId);
   }
 }

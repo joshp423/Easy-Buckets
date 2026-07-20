@@ -8,18 +8,17 @@ type scoringBoxScoreProps = {
 };
 
 export default function ScoringBoxScore({ gameDetails }: scoringBoxScoreProps) {
-
-  const [ gameStats, setGameStats ] = useState<GameStat[] | null>(null)
+  const [gameStats, setGameStats] = useState<GameStat[] | null>(null);
 
   useEffect(() => {
     const load = async () => {
-        if (!gameDetails || gameDetails === "ready") return;
-        setGameStats(gameDetails?.gameStatlines);
-    }
-    load()
-  }, [gameDetails])
-  
-  if (!gameStats) return
+      if (!gameDetails || gameDetails === "ready") return;
+      setGameStats(gameDetails?.gameStatlines);
+    };
+    load();
+  }, [gameDetails]);
+
+  if (!gameStats) return;
 
   return (
     <div className="scoringBoxScore">

@@ -15,7 +15,7 @@ type StatSelectionButtonProps = {
   courtPlacementStats: string[];
   gameDetails: Game | null | "ready";
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
-  selectedUI: "playerSelection" | "statSelection" | "courtPlacement"; 
+  selectedUI: "playerSelection" | "statSelection" | "courtPlacement";
 };
 
 export default function StatSelectionButton({
@@ -29,10 +29,8 @@ export default function StatSelectionButton({
   courtPlacementStats,
   gameDetails,
   setGameDetails,
-  selectedUI
+  selectedUI,
 }: StatSelectionButtonProps) {
-  
-
   return (
     <div>
       <h3>{sectionName}</h3>
@@ -58,12 +56,12 @@ export default function StatSelectionButton({
               const selectedGameStatline = gameDetails.gameStatlines.filter(
                 (gameStatline) => gameStatline.playerId === selectedPlayer,
               );
-              console.log(selectedPlayer, stat)
+              console.log(selectedPlayer, stat);
               await updateGameStatAPIReq({
                 gameStatlineId: selectedGameStatline[0]?.id,
                 statlineUpdateField: stat,
-                statlineUpdateIndicator: true
-              })
+                statlineUpdateIndicator: true,
+              });
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
               setSelectedUI("playerSelection");
@@ -75,9 +73,7 @@ export default function StatSelectionButton({
               ...(selectedStat === stat
                 ? { backgroundColor: "#e37204", color: "white" }
                 : {}),
-              ...(selectedUI === "statSelection"
-                ? { cursor: "pointer" }
-                : {})
+              ...(selectedUI === "statSelection" ? { cursor: "pointer" } : {}),
             }}
           >
             {stat}

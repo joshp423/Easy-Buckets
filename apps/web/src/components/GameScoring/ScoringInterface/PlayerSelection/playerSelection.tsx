@@ -48,15 +48,16 @@ export default function PlayerSelection({
               setSelectedUI("playerSelection");
               return;
             }}
-            style={{ //spread copies over whatever comes out of the turnary to one object as style requires
+            style={{
+              //spread copies over whatever comes out of the turnary to one object as style requires
               ...(selectedPlayer === player.id
                 ? { backgroundColor: "#e37204", color: "white" }
                 : {}),
-              ...(selectedUI === "playerSelection" || selectedUI === "statSelection" 
-                ? { cursor: "pointer"}
-                : {})
+              ...(selectedUI === "playerSelection" ||
+              selectedUI === "statSelection"
+                ? { cursor: "pointer" }
+                : {}),
             }}
-            
           >
             {player.name} {player.number}
           </button>

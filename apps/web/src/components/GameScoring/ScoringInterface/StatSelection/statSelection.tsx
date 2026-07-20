@@ -12,7 +12,7 @@ type StatSelectionProps = {
     React.SetStateAction<"playerSelection" | "statSelection" | "courtPlacement">
   >;
   gameDetails: Game | null | "ready";
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>; 
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
 };
 
 export default function StatSelection({
@@ -23,7 +23,7 @@ export default function StatSelection({
   selectedUI,
   setSelectedUI,
   gameDetails,
-  setGameDetails
+  setGameDetails,
 }: StatSelectionProps) {
   const pointsStats = [
     "2P Make",

@@ -62,7 +62,7 @@ export default function ScoringInterface({
       if (!gamePlayers) return;
       setSelectedPlayers(gamePlayers);
       const shotLogData = await getShotsAPIReq(gameDetails.id);
-      if (shotLogData) setShotLog(shotLogData) 
+      if (shotLogData) setShotLog(shotLogData);
     };
     load();
   }, [gameDetails, setGameDetails, setSelectedPlayers]);
@@ -93,7 +93,7 @@ export default function ScoringInterface({
                 setSelectedUI={setSelectedUI}
               />
             </div>
-            <Shotlog shotLog={shotLog}/>
+            <Shotlog shotLog={shotLog} />
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -136,7 +136,7 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
             />
           </div>
-          <Shotlog shotLog={shotLog}/>
+          <Shotlog shotLog={shotLog} />
         </div>
         <CourtInterface
           selectedStat={selectedStat}

@@ -109,8 +109,8 @@ export class GameRepo {
       },
       include: {
         gameStatlines: {
-          orderBy: { 
-            id: "desc"
+          orderBy: {
+            id: "desc",
           },
           include: {
             shots: true,
@@ -127,8 +127,8 @@ export class GameRepo {
       },
       include: {
         gameStatlines: {
-          orderBy: { 
-            id: "desc"
+          orderBy: {
+            id: "desc",
           },
           include: {
             shots: true,
@@ -241,8 +241,10 @@ export class GameRepo {
           data: {
             twoPointFGMake: newMakes,
             twoPointFGA: newAttempts,
-            twoPointFGPercent: newAttempts === 0 ? 0 :
-              roundTo(((newMakes / newAttempts) * 100), 1),
+            twoPointFGPercent:
+              newAttempts === 0
+                ? 0
+                : roundTo((newMakes / newAttempts) * 100, 1),
             points: gameStatline.points + pointsUpdateAmount,
           },
         });
@@ -259,8 +261,10 @@ export class GameRepo {
           data: {
             twoPointFGMiss: newMiss,
             twoPointFGA: newAttempts,
-            twoPointFGPercent: newAttempts === 0 ? 0 :
-              (gameStatline.twoPointFGMake / newAttempts) * 100,
+            twoPointFGPercent:
+              newAttempts === 0
+                ? 0
+                : (gameStatline.twoPointFGMake / newAttempts) * 100,
           },
         });
         return updatedStatline;
@@ -277,8 +281,8 @@ export class GameRepo {
           data: {
             threePointFGMake: newMakes,
             threePointFGA: newAttempts,
-            threePointFGPercent: newAttempts === 0 ? 0 :
-              (newMakes / newAttempts) * 100,
+            threePointFGPercent:
+              newAttempts === 0 ? 0 : (newMakes / newAttempts) * 100,
             points: gameStatline.points + pointsUpdateAmount,
           },
         });
@@ -295,9 +299,10 @@ export class GameRepo {
           data: {
             threePointFGMiss: newMiss,
             threePointFGA: newAttempts,
-            threePointFGPercent: newAttempts === 0 ? 0 :
-              (gameStatline.twoPointFGMake / newAttempts) *
-                100,
+            threePointFGPercent:
+              newAttempts === 0
+                ? 0
+                : (gameStatline.twoPointFGMake / newAttempts) * 100,
           },
         });
         return updatedStatline;
@@ -313,8 +318,7 @@ export class GameRepo {
           data: {
             fTMake: newMakes,
             fTA: newAttempts,
-            fTPercent: newMakes === 0 ? 0 :
-              (newMakes / newAttempts) * 100
+            fTPercent: newMakes === 0 ? 0 : (newMakes / newAttempts) * 100,
           },
         });
         return updatedStatline;
@@ -328,7 +332,8 @@ export class GameRepo {
           data: {
             fTMiss: newMiss,
             fTA: newAttempts,
-            fTPercent: newAttempts === 0 ? 0 : gameStatline.fTMake / newAttempts * 100
+            fTPercent:
+              newAttempts === 0 ? 0 : (gameStatline.fTMake / newAttempts) * 100,
           },
         });
         return updatedStatline;
@@ -521,11 +526,11 @@ export class GameRepo {
       // userId authCheck
       where: {
         id: gameId,
-          season: {
-            team: {
-              userId,
-            },
+        season: {
+          team: {
+            userId,
           },
+        },
       },
     });
 
@@ -537,9 +542,9 @@ export class GameRepo {
       where: {
         gameStatline: {
           game: {
-            id: gameId
-          }
-        }
+            id: gameId,
+          },
+        },
       },
       include: {
         gameStatline: {
@@ -548,13 +553,13 @@ export class GameRepo {
               select: {
                 name: true,
                 number: true,
-              }
-            }
-          }
-        }
+              },
+            },
+          },
+        },
       },
-      
-      orderBy: { id: "desc" }
-    })
+
+      orderBy: { id: "desc" },
+    });
   }
 }

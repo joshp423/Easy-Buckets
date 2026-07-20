@@ -6,8 +6,8 @@ import { uploadShotAPIReq } from "../../../../shared API functions/uploadShotAPI
 import type { Game } from "../../../../types/game";
 import { updateGameStatAPIReq } from "../../../../shared API functions/updateGameStatAPIReq";
 import { getSingleGameAPIFetch } from "../../../../shared API functions/getSingleGameAPIFetch";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import type { ShotLog } from "../../../../types/shotLog";
 
 type CourtInterfaceProps = {
@@ -35,7 +35,7 @@ export default function CourtInterface({
   videoRef,
   gameDetails,
   setGameDetails,
-  shotLog
+  shotLog,
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -152,14 +152,15 @@ export default function CourtInterface({
       }}
     >
       <img src={courtImage} alt="court image" ref={courtImageRef} />
-      {gameDetails.gameStatlines.map((statLine)=> {
+      {gameDetails.gameStatlines.map((statLine) => {
         if (!statLine.shots) return;
         // const xReactive = statLine.shots
-        return(
-          <FontAwesomeIcon icon={faX} 
+        return (
+          <FontAwesomeIcon
+            icon={faX}
             // style={}
           />
-        )
+        );
       })}
     </div>
   );

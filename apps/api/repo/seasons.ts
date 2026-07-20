@@ -28,8 +28,8 @@ export class SeasonRepo {
           },
           include: {
             gameStatlines: {
-              orderBy: { 
-                id: "desc"
+              orderBy: {
+                id: "desc",
               },
               include: {
                 player: {
@@ -40,7 +40,6 @@ export class SeasonRepo {
                   },
                 },
                 shots: true,
-                
               },
             },
           },

@@ -11,6 +11,8 @@ import VideoPlayer, {
 } from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
 import ScoringBoxScore from "./ScoringBoxScore/scoringBoxScore";
 import Shotlog from "./ShotLog/shotLog";
+import { getShotsAPIReq } from "../../../shared API functions/getShotsAPIReq";
+import type { ShotLog } from "../../../types/shotLog";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -39,6 +41,7 @@ export default function ScoringInterface({
   const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null);
   const [selectedStat, setSelectedStat] = useState<string>("");
   const videoRef = useRef<VideoPlayerHandle>(null);
+  const [shotLog, setShotLog] = useState<ShotLog | null>(null);
 
   // function uploadStat(statType: string) {
   //   console.log(statType);
@@ -52,12 +55,14 @@ export default function ScoringInterface({
 
   useEffect(() => {
     const load = async () => {
-      if (gameDetails === "ready") return;
+      if (gameDetails === "ready" || !gameDetails) return;
       const gamePlayers = gameDetails?.gameStatlines.map(
         (gameStatline) => gameStatline.player,
       );
       if (!gamePlayers) return;
       setSelectedPlayers(gamePlayers);
+      const shotLogData = await getShotsAPIReq(gameDetails.id);
+      if (shotLogData) setShotLog(shotLogData) 
     };
     load();
   }, [gameDetails, setGameDetails, setSelectedPlayers]);
@@ -88,7 +93,7 @@ export default function ScoringInterface({
                 setSelectedUI={setSelectedUI}
               />
             </div>
-            <Shotlog gameDetails={gameDetails}/>
+            <Shotlog shotLog={shotLog}/>
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -100,6 +105,7 @@ export default function ScoringInterface({
             videoRef={videoRef}
             gameDetails={gameDetails}
             setGameDetails={setGameDetails}
+            shotLog={shotLog}
           />
         </div>
         <ScoringBoxScore gameDetails={gameDetails} />
@@ -130,7 +136,7 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
             />
           </div>
-          <Shotlog gameDetails={gameDetails}/>
+          <Shotlog shotLog={shotLog}/>
         </div>
         <CourtInterface
           selectedStat={selectedStat}
@@ -142,6 +148,7 @@ export default function ScoringInterface({
           videoRef={videoRef}
           gameDetails={gameDetails}
           setGameDetails={setGameDetails}
+          shotLog={shotLog}
         />
       </div>
       <ScoringBoxScore gameDetails={gameDetails} />

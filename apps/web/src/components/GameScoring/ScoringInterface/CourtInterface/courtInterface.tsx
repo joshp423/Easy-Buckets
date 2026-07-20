@@ -6,6 +6,9 @@ import { uploadShotAPIReq } from "../../../../shared API functions/uploadShotAPI
 import type { Game } from "../../../../types/game";
 import { updateGameStatAPIReq } from "../../../../shared API functions/updateGameStatAPIReq";
 import { getSingleGameAPIFetch } from "../../../../shared API functions/getSingleGameAPIFetch";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
+import type { ShotLog } from "../../../../types/shotLog";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;
@@ -19,6 +22,7 @@ type CourtInterfaceProps = {
   videoRef: React.RefObject<VideoPlayerHandle | null>;
   gameDetails: Game | null | "ready";
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
+  shotLog: ShotLog | null;
 };
 
 export default function CourtInterface({
@@ -31,6 +35,7 @@ export default function CourtInterface({
   videoRef,
   gameDetails,
   setGameDetails,
+  shotLog
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -65,6 +70,7 @@ export default function CourtInterface({
     }
   }
 
+  if (!gameDetails || gameDetails === "ready") return;
   return (
     <div
       className={`courtInterface ${addUIClasses(selectedUI)}`}
@@ -72,7 +78,6 @@ export default function CourtInterface({
         console.log(gameDetails, courtImageRef.current);
         if (selectedUI !== "courtPlacement") return;
         if (!courtImageRef.current) return;
-        if (!gameDetails || gameDetails === "ready") return;
         if (!courtWidth || !courtHeight) return;
         const realImage = courtImageRef.current?.getBoundingClientRect(); //get image position and size relative to viewport
         const X = (e.clientX - realImage?.left) / courtWidth;
@@ -147,6 +152,15 @@ export default function CourtInterface({
       }}
     >
       <img src={courtImage} alt="court image" ref={courtImageRef} />
+      {gameDetails.gameStatlines.map((statLine)=> {
+        if (!statLine.shots) return;
+        // const xReactive = statLine.shots
+        return(
+          <FontAwesomeIcon icon={faX} 
+            // style={}
+          />
+        )
+      })}
     </div>
   );
 }

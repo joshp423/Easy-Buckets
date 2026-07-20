@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Game } from "../../../../types/game";
 import type { GameStat } from "../../../../types/gameStat";
+import "./scoringBoxScore.css";
 
 type scoringBoxScoreProps = {
   gameDetails: Game | null | "ready";

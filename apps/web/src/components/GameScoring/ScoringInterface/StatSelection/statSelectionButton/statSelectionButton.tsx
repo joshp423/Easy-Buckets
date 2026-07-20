@@ -14,7 +14,8 @@ type StatSelectionButtonProps = {
   >;
   courtPlacementStats: string[];
   gameDetails: Game | null | "ready";
-  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>; 
+  setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
+  selectedUI: "playerSelection" | "statSelection" | "courtPlacement"; 
 };
 
 export default function StatSelectionButton({
@@ -27,7 +28,8 @@ export default function StatSelectionButton({
   setSelectedStat,
   courtPlacementStats,
   gameDetails,
-  setGameDetails
+  setGameDetails,
+  selectedUI
 }: StatSelectionButtonProps) {
   
 
@@ -69,11 +71,14 @@ export default function StatSelectionButton({
               setSelectedStat("");
               return;
             }}
-            style={
-              selectedStat === stat
+            style={{
+              ...(selectedStat === stat
                 ? { backgroundColor: "#e37204", color: "white" }
-                : {}
-            }
+                : {}),
+              ...(selectedUI === "statSelection"
+                ? { cursor: "pointer" }
+                : {})
+            }}
           >
             {stat}
           </button>

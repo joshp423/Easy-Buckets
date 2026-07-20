@@ -554,7 +554,7 @@ export class GameRepo {
         }
       },
       
-      orderBy: { id: "asc" }
+      orderBy: { id: "desc" }
     })
   }
 }

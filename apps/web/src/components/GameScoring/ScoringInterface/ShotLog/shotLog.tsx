@@ -1,30 +1,18 @@
-import { useEffect, useState } from "react";
-import type { Game } from "../../../../types/game"
 import type { ShotLog } from "../../../../types/shotLog";
-import { getShotsAPIReq } from "./getShotsAPIReq";
 import "./shotLog.css";
 type shotLogProps = {
-    gameDetails: Game | null | "ready";
+    shotLog: ShotLog | null;
 }
 
 export default function Shotlog({
-    gameDetails
+    shotLog
 }: shotLogProps) {
-    const [shotLog, setShotLog] = useState<ShotLog | null>(null)
-
-    useEffect(() => {
-        const load = async () => {
-            if (!gameDetails || gameDetails === "ready") return
-            const shotLogData = await getShotsAPIReq(gameDetails.id);
-            if (shotLogData) setShotLog(shotLogData)
-        }
-        load()
-    }, [gameDetails])
 
     if (!shotLog) return
 
     return(
         <div className="shotLog">
+            <h3>Shot Log (Newest First)</h3>
             <table>
                 <thead>
                     <tr>

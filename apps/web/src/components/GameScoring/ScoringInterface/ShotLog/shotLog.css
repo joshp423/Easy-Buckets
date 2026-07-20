@@ -1,7 +1,7 @@
 .shotLog {
     overflow: auto;
     max-height: 300px;
-    padding: 1rem;
+    padding: 20px;
     border-radius: 12px;
     background-color: #f3f5f8;
 }
@@ -11,10 +11,18 @@
     border-collapse: collapse;
     
 }
+
+.shotLog > table > thead > tr > th {
+    text-align: center;
+}
 .shotLog > table > tbody {
     background-color: white;
 }
 
+.shotLog > h3 {
+    text-align: center;
+    margin: 10px;
+}
 /* .shotLog > table > tbody > tr:hover {
 
 } */

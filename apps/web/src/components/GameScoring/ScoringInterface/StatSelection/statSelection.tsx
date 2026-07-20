@@ -69,6 +69,7 @@ export default function StatSelection({
         selectedPlayer={selectedPlayer}
         setSelectedPlayer={setSelectedPlayer}
         setSelectedUI={setSelectedUI}
+        selectedUI={selectedUI}
         setSelectedStat={setSelectedStat}
         courtPlacementStats={courtPlacementStats}
       />
@@ -81,6 +82,7 @@ export default function StatSelection({
         selectedPlayer={selectedPlayer}
         setSelectedPlayer={setSelectedPlayer}
         setSelectedUI={setSelectedUI}
+        selectedUI={selectedUI}
         setSelectedStat={setSelectedStat}
         courtPlacementStats={courtPlacementStats}
       />
@@ -93,6 +95,7 @@ export default function StatSelection({
         selectedPlayer={selectedPlayer}
         setSelectedPlayer={setSelectedPlayer}
         setSelectedUI={setSelectedUI}
+        selectedUI={selectedUI}
         setSelectedStat={setSelectedStat}
         courtPlacementStats={courtPlacementStats}
       />

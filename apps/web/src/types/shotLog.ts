@@ -8,10 +8,10 @@ const shotLog = z.object({
   Y: z.number(),
   type: z.number(),
   timeStamp: z.number(),
-  gameStatLine: z.object({
+  gameStatline: z.object({
     player: z.object({
         name: z.string(),
-        number: z.number
+        number: z.number()
     })
   })
 })

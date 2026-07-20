@@ -1,0 +1,20 @@
+.shotLog {
+    overflow: auto;
+    max-height: 300px;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #f3f5f8;
+}
+
+.shotLog > table {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+.shotLog > table > tbody {
+    background-color: white;
+}
+
+/* .shotLog > table > tbody > tr:hover {
+
+} */

@@ -10,6 +10,7 @@ import VideoPlayer, {
   type VideoPlayerHandle,
 } from "../../Homepage/Dashboard/GameDisplay/GameStats/VideoPlayer/videoPlayer";
 import ScoringBoxScore from "./ScoringBoxScore/scoringBoxScore";
+import Shotlog from "./ShotLog/shotLog";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -87,7 +88,7 @@ export default function ScoringInterface({
                 setSelectedUI={setSelectedUI}
               />
             </div>
-          <div className="shotLog"></div>
+            <Shotlog gameDetails={gameDetails}/>
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -129,7 +130,7 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
             />
           </div>
-        <div className="shotLog"></div>
+          <Shotlog gameDetails={gameDetails}/>
         </div>
         <CourtInterface
           selectedStat={selectedStat}

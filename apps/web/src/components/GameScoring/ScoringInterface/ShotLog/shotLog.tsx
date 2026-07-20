@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Game } from "../../../../types/game"
 import type { ShotLog } from "../../../../types/shotLog";
-import { getShotsAPIReq } from "./getShotsAPIReq"
+import { getShotsAPIReq } from "./getShotsAPIReq";
+import "./shotLog.css";
 type shotLogProps = {
     gameDetails: Game | null | "ready";
 }
@@ -9,7 +10,7 @@ type shotLogProps = {
 export default function Shotlog({
     gameDetails
 }: shotLogProps) {
-    const [shotLog, setShotLog] = useState<ShotLog[] | null>(null)
+    const [shotLog, setShotLog] = useState<ShotLog | null>(null)
 
     useEffect(() => {
         const load = async () => {
@@ -35,7 +36,11 @@ export default function Shotlog({
                 <tbody>
                     {shotLog?.map((shot) => {
                         return(
-                            <tr key={shot.id}></tr>
+                            <tr key={shot.id}>
+                                <td>{shot.gameStatline.player.name}</td>
+                                <td>#{shot.gameStatline.player.number}</td>
+                                <td>{shot.type} Point {shot.make === true ? "Make" : "Miss"}</td>
+                            </tr>
                         )
                     })}
                 </tbody>

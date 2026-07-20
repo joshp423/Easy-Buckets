@@ -1,5 +1,6 @@
+import { shotLogSchema } from "../../../../types/shotLog"
 
-export default function getShotsAPIReq(gameId: number){
+export async function getShotsAPIReq(gameId: number){
     const rsp = await fetch(`http://localhost:3000/games/${gameId}/shots`, {
     headers: {
       "Content-Type": "application/json",
@@ -9,5 +10,6 @@ export default function getShotsAPIReq(gameId: number){
   });
 
   const data = await rsp.json();
-  const shotLog = 
+  const shotLog = shotLogSchema.parse(data);
+  return shotLog;
 }

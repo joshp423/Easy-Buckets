@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import type { ShotLog } from "../../../../types/shotLog";
+import type { stackStat } from "../scoringInterface";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;
@@ -24,6 +25,9 @@ type CourtInterfaceProps = {
   gameDetails: Game | null | "ready";
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
   shotLog: ShotLog | null;
+  hoveredShotId: number | null;
+  undoStack: stackStat[];
+  setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
 };
 
 export default function CourtInterface({
@@ -37,6 +41,9 @@ export default function CourtInterface({
   gameDetails,
   setGameDetails,
   shotLog,
+  hoveredShotId,
+  undoStack,
+  setUndoStack
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -73,7 +80,7 @@ export default function CourtInterface({
 
   if (!gameDetails || gameDetails === "ready") return;
   return (
-    <div
+    <div // add hover shotLog animation useState
       className={`courtInterface ${addUIClasses(selectedUI)}`}
       onClick={async (e) => {
         console.log(gameDetails, courtImageRef.current);
@@ -142,6 +149,8 @@ export default function CourtInterface({
           gameStatlineId: selectedGameStatline[0].id,
           statlineUpdateField: selectedStat,
           statlineUpdateIndicator: true,
+          undoStack,
+          setUndoStack
         });
         //add to undo queue
         const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
@@ -163,6 +172,7 @@ export default function CourtInterface({
           return (
             <FontAwesomeIcon
               icon={faCircle}
+              className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
               style={
                 {
                   color: "#04d708",
@@ -177,6 +187,7 @@ export default function CourtInterface({
         return (
           <FontAwesomeIcon
             icon={faX}
+            className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
             style={
               {
                 color: "#d40c0c",

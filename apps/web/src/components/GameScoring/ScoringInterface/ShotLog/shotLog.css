@@ -29,6 +29,10 @@
   color: white;
 }
 
+.shotLog > table > tbody > tr {
+  cursor: pointer;
+}
+
 .shotLog > table > thead > tr > th, .shotLog > table > tbody > tr >td {
   font-size: 0.8rem;
   padding: 0.25rem;

@@ -28,6 +28,13 @@ type ScoringInterfaceProps = {
     >
   >;
 };
+
+export type stackStat = {
+  type: string;
+  adding: boolean;
+  gameStatId: number;
+}
+
 //session storage for selectedPlayers
 export default function ScoringInterface({
   setGameDetails,
@@ -42,16 +49,19 @@ export default function ScoringInterface({
   const [selectedStat, setSelectedStat] = useState<string>("");
   const videoRef = useRef<VideoPlayerHandle>(null);
   const [shotLog, setShotLog] = useState<ShotLog | null>(null);
+  const [hoveredShotId, setHoveredShotId] = useState<number | null>(null)
+  const [undoStack, setUndoStack] = useState<stackStat[]>([]);
+  const [redoStack, setRedoStack] = useState<stackStat[]>([]);
 
-  // function uploadStat(statType: string) {
-  //   console.log(statType);
-  //   let timeStamp;
-  //   switch (statType) {
-  //     case "2P Make":
-  //       timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
-  //       console.log(timeStamp);
-  //   }
-  // }
+  function undoLast(
+    undoStack: stackStat[], 
+    setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>, 
+    setRedoStack: React.Dispatch<React.SetStateAction<stackStat[]>>
+  ) {
+    if (undoStack.length === 0) return;
+    const lastStackAction = undoStack[undoStack.length -1];
+    if (lastStackAction.type)
+  }
 
   useEffect(() => {
     const load = async () => {
@@ -72,6 +82,10 @@ export default function ScoringInterface({
   if (!gameDetails.replay)
     return (
       <div className="scoringInterface">
+        <div>
+          <button>Undo</button>
+          <button>Redo</button>
+        </div>
         <div className="interfaceInput">
           <div>
             <div className="selectionSections">
@@ -91,9 +105,11 @@ export default function ScoringInterface({
                 setSelectedPlayer={setSelectedPlayer}
                 selectedUI={selectedUI}
                 setSelectedUI={setSelectedUI}
+                undoStack={undoStack}
+                setUndoStack={setUndoStack}
               />
             </div>
-            <Shotlog shotLog={shotLog} />
+            <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -106,6 +122,9 @@ export default function ScoringInterface({
             gameDetails={gameDetails}
             setGameDetails={setGameDetails}
             shotLog={shotLog}
+            hoveredShotId={hoveredShotId}
+            undoStack={undoStack}
+            setUndoStack={setUndoStack}
           />
         </div>
         <ScoringBoxScore gameDetails={gameDetails} />
@@ -115,6 +134,10 @@ export default function ScoringInterface({
   return (
     <div className="scoringInterface">
       <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
+      <div>
+        <button>Undo</button>
+        <button>Redo</button>
+      </div>
       <div className="interfaceInput">
         <div>
           <div className="selectionSections">
@@ -134,9 +157,11 @@ export default function ScoringInterface({
               setSelectedPlayer={setSelectedPlayer}
               selectedUI={selectedUI}
               setSelectedUI={setSelectedUI}
+              undoStack={undoStack}
+              setUndoStack={setUndoStack}
             />
           </div>
-          <Shotlog shotLog={shotLog} />
+          <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
         </div>
         <CourtInterface
           selectedStat={selectedStat}
@@ -149,9 +174,17 @@ export default function ScoringInterface({
           gameDetails={gameDetails}
           setGameDetails={setGameDetails}
           shotLog={shotLog}
+          hoveredShotId={hoveredShotId}
+          undoStack={undoStack}
+          setUndoStack={setUndoStack}
         />
       </div>
       <ScoringBoxScore gameDetails={gameDetails} />
+      {/* <button 
+        onClick={(e) => {
+
+        }}
+      >Finish Scoring Game</button> */}
     </div>
   );
 }

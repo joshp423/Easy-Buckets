@@ -2,11 +2,10 @@ import type { ShotLog } from "../../../../types/shotLog";
 import "./shotLog.css";
 type shotLogProps = {
   shotLog: ShotLog | null;
+  setHoveredShotId: React.Dispatch<React.SetStateAction<number | null>>
 };
 
-//shared useState variable for selected shot needed for reactivity
-
-export default function Shotlog({ shotLog }: shotLogProps) {
+export default function Shotlog({ shotLog, setHoveredShotId }: shotLogProps) {
   if (!shotLog) return;
 
   return (
@@ -23,7 +22,11 @@ export default function Shotlog({ shotLog }: shotLogProps) {
         <tbody>
           {shotLog?.map((shot) => {
             return (
-              <tr key={shot.id}>
+              <tr 
+                key={shot.id}
+                onMouseEnter={() => setHoveredShotId(shot.id)}
+                onMouseLeave={() => setHoveredShotId(null)}
+              >
                 <td>{shot.gameStatline.player.name}</td>
                 <td>#{shot.gameStatline.player.number}</td>
                 <td>

@@ -19,8 +19,14 @@
   z-index: -1;
 }
 
-.courtInterface >div >svg {
+.courtInterface >div > svg {
   width: 12px;
   height: 12px;
-  transform: translate(14px, 14px)
+  transform-origin: center;
+  transition: transform 250ms ease-in;
+  position: absolute,
+}
+
+.hoveredIcon {
+  transform: scale(1.5, 1.5);
 }

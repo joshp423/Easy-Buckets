@@ -1,6 +1,7 @@
 import { updateGameStatAPIReq } from "../../../../../shared API functions/updateGameStatAPIReq";
 import { getSingleGameAPIFetch } from "../../../../../shared API functions/getSingleGameAPIFetch";
 import type { Game } from "../../../../../types/game";
+import type { stackStat } from "../../scoringInterface";
 
 type StatSelectionButtonProps = {
   statArray: string[];
@@ -16,6 +17,8 @@ type StatSelectionButtonProps = {
   gameDetails: Game | null | "ready";
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
   selectedUI: "playerSelection" | "statSelection" | "courtPlacement";
+  undoStack: stackStat[];
+  setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
 };
 
 export default function StatSelectionButton({
@@ -30,6 +33,8 @@ export default function StatSelectionButton({
   gameDetails,
   setGameDetails,
   selectedUI,
+  undoStack,
+  setUndoStack
 }: StatSelectionButtonProps) {
   return (
     <div>
@@ -61,6 +66,8 @@ export default function StatSelectionButton({
                 gameStatlineId: selectedGameStatline[0]?.id,
                 statlineUpdateField: stat,
                 statlineUpdateIndicator: true,
+                undoStack,
+                setUndoStack
               });
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);

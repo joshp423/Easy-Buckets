@@ -1,6 +1,7 @@
 import "./statSelection.css";
 import StatSelectionButton from "./statSelectionButton/statSelectionButton";
 import type { Game } from "../../../../types/game";
+import type { stackStat } from "../scoringInterface";
 
 type StatSelectionProps = {
   setSelectedStat: React.Dispatch<React.SetStateAction<string>>;
@@ -13,6 +14,8 @@ type StatSelectionProps = {
   >;
   gameDetails: Game | null | "ready";
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
+  undoStack: stackStat[];
+  setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
 };
 
 export default function StatSelection({
@@ -24,6 +27,8 @@ export default function StatSelection({
   setSelectedUI,
   gameDetails,
   setGameDetails,
+  undoStack,
+  setUndoStack
 }: StatSelectionProps) {
   const pointsStats = [
     "2P Make",
@@ -72,6 +77,8 @@ export default function StatSelection({
         selectedUI={selectedUI}
         setSelectedStat={setSelectedStat}
         courtPlacementStats={courtPlacementStats}
+        undoStack={undoStack}
+        setUndoStack={setUndoStack}
       />
       <StatSelectionButton
         gameDetails={gameDetails}
@@ -85,6 +92,8 @@ export default function StatSelection({
         selectedUI={selectedUI}
         setSelectedStat={setSelectedStat}
         courtPlacementStats={courtPlacementStats}
+        undoStack={undoStack}
+        setUndoStack={setUndoStack}
       />
       <StatSelectionButton
         gameDetails={gameDetails}
@@ -98,6 +107,8 @@ export default function StatSelection({
         selectedUI={selectedUI}
         setSelectedStat={setSelectedStat}
         courtPlacementStats={courtPlacementStats}
+        undoStack={undoStack}
+        setUndoStack={setUndoStack}
       />
     </div>
   );

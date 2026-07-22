@@ -1,38 +1,20 @@
-// type GameStatlineUpload = {
-//   twoPointFGMiss: number;
-//   twoPointFGMake: number;
-//   twoPointFGA: number;
-//   threePointFGMiss: number;
-//   threePointFGMake: number;
-//   threePointFGA: number;
-//   fTMiss: number;
-//   fTMake: number;
-//   fTA: number;
-//   oReb: number;
-//   dReb: number;
-//   assist: number;
-//   block: number;
-//   steal: number;
-//   turnover: number;
-//   pF: number;
-//   twoPointFGPercent: number;
-//   threePointFGPercent: number;
-//   fTPercent: number;
-//   totalRebounds: number;
-//   points: number;
-// }
+import type { stackStat } from "../components/GameScoring/ScoringInterface/scoringInterface";
 
 type updateGameStatAPIProps = {
   gameStatlineId: number;
   // gameStatline: GameStatlineUpload;
   statlineUpdateField: string;
   statlineUpdateIndicator: boolean;
+  setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
+  undoStack: stackStat[];
 };
 
 export async function updateGameStatAPIReq({
   gameStatlineId,
   statlineUpdateField,
   statlineUpdateIndicator,
+  undoStack,
+  setUndoStack
 }: updateGameStatAPIProps) {
   const rsp = await fetch("http://localhost:3000/games/gameStatlines/update", {
     headers: {
@@ -48,5 +30,13 @@ export async function updateGameStatAPIReq({
   });
 
   const data = await rsp.json();
+  
+  const newUndo = {
+    type: statlineUpdateField,
+    adding: statlineUpdateIndicator,
+    gameStatId: gameStatlineId
+  }
+  setUndoStack([...undoStack, newUndo])
+  
   return data;
 }

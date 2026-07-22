@@ -43,7 +43,7 @@ export default function CourtInterface({
   shotLog,
   hoveredShotId,
   undoStack,
-  setUndoStack
+  setUndoStack,
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -150,7 +150,7 @@ export default function CourtInterface({
           statlineUpdateField: selectedStat,
           statlineUpdateIndicator: true,
           undoStack,
-          setUndoStack
+          setUndoStack,
         });
         //add to undo queue
         const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
@@ -162,42 +162,41 @@ export default function CourtInterface({
       }}
     >
       <div>
-        <img src={courtImage} alt="court image" ref={courtImageRef} 
-          style={selectedUI === "courtPlacement" ? {cursor: "pointer"} : {}}
+        <img
+          src={courtImage}
+          alt="court image"
+          ref={courtImageRef}
+          style={selectedUI === "courtPlacement" ? { cursor: "pointer" } : {}}
         />
         {shotLog?.map((shot) => {
           const xReactive = shot.X * courtWidth;
           const yReactive = shot.Y * courtHeight;
           if (shot.make) {
-          return (
-            <FontAwesomeIcon
-              icon={faCircle}
-              className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
-              style={
-                {
+            return (
+              <FontAwesomeIcon
+                icon={faCircle}
+                className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
+                style={{
                   color: "#04d708",
                   position: "absolute",
                   left: `${xReactive}px`,
-                  top: `${yReactive}px`
-                }
-              }
-            />   
-          );
-        }
-        return (
-          <FontAwesomeIcon
-            icon={faX}
-            className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
-            style={
-              {
+                  top: `${yReactive}px`,
+                }}
+              />
+            );
+          }
+          return (
+            <FontAwesomeIcon
+              icon={faX}
+              className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
+              style={{
                 color: "#d40c0c",
                 position: "absolute",
                 left: `${xReactive}px`,
-                top: `${yReactive}px`
-              }
-            }
-          />
-        )
+                top: `${yReactive}px`,
+              }}
+            />
+          );
         })}
       </div>
     </div>

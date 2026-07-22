@@ -28,7 +28,7 @@ export default function StatSelection({
   gameDetails,
   setGameDetails,
   undoStack,
-  setUndoStack
+  setUndoStack,
 }: StatSelectionProps) {
   const pointsStats = [
     "2P Make",

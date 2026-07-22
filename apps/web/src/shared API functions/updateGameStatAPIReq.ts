@@ -2,7 +2,6 @@ import type { stackStat } from "../components/GameScoring/ScoringInterface/scori
 
 type updateGameStatAPIProps = {
   gameStatlineId: number;
-  // gameStatline: GameStatlineUpload;
   statlineUpdateField: string;
   statlineUpdateIndicator: boolean;
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
@@ -14,7 +13,7 @@ export async function updateGameStatAPIReq({
   statlineUpdateField,
   statlineUpdateIndicator,
   undoStack,
-  setUndoStack
+  setUndoStack,
 }: updateGameStatAPIProps) {
   const rsp = await fetch("http://localhost:3000/games/gameStatlines/update", {
     headers: {
@@ -30,13 +29,13 @@ export async function updateGameStatAPIReq({
   });
 
   const data = await rsp.json();
-  
+
   const newUndo = {
     type: statlineUpdateField,
     adding: statlineUpdateIndicator,
-    gameStatId: gameStatlineId
-  }
-  setUndoStack([...undoStack, newUndo])
-  
+    gameStatId: gameStatlineId,
+  };
+  setUndoStack([...undoStack, newUndo]);
+
   return data;
 }

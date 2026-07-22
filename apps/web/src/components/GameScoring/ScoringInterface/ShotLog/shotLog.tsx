@@ -2,7 +2,7 @@ import type { ShotLog } from "../../../../types/shotLog";
 import "./shotLog.css";
 type shotLogProps = {
   shotLog: ShotLog | null;
-  setHoveredShotId: React.Dispatch<React.SetStateAction<number | null>>
+  setHoveredShotId: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 export default function Shotlog({ shotLog, setHoveredShotId }: shotLogProps) {
@@ -22,7 +22,7 @@ export default function Shotlog({ shotLog, setHoveredShotId }: shotLogProps) {
         <tbody>
           {shotLog?.map((shot) => {
             return (
-              <tr 
+              <tr
                 key={shot.id}
                 onMouseEnter={() => setHoveredShotId(shot.id)}
                 onMouseLeave={() => setHoveredShotId(null)}

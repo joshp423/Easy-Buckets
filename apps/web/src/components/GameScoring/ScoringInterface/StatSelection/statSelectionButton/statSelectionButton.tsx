@@ -34,7 +34,7 @@ export default function StatSelectionButton({
   setGameDetails,
   selectedUI,
   undoStack,
-  setUndoStack
+  setUndoStack,
 }: StatSelectionButtonProps) {
   return (
     <div>
@@ -67,7 +67,7 @@ export default function StatSelectionButton({
                 statlineUpdateField: stat,
                 statlineUpdateIndicator: true,
                 undoStack,
-                setUndoStack
+                setUndoStack,
               });
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
@@ -80,9 +80,16 @@ export default function StatSelectionButton({
               ...(selectedStat === stat
                 ? { backgroundColor: "#e37204", color: "white" }
                 : {}),
-              ...(selectedUI === "statSelection" || selectedUI === "courtPlacement" ? { cursor: "pointer" } : {}),
+              ...(selectedUI === "statSelection" ||
+              selectedUI === "courtPlacement"
+                ? { cursor: "pointer" }
+                : {}),
             }}
-            className={selectedUI === "statSelection" || selectedUI === "courtPlacement" ? "enableButtonHover" : ""}
+            className={
+              selectedUI === "statSelection" || selectedUI === "courtPlacement"
+                ? "enableButtonHover"
+                : ""
+            }
           >
             {stat}
           </button>

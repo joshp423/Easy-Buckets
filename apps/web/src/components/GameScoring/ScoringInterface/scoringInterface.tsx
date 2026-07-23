@@ -13,6 +13,8 @@ import ScoringBoxScore from "./ScoringBoxScore/scoringBoxScore";
 import Shotlog from "./ShotLog/shotLog";
 import { getShotsAPIReq } from "../../../shared API functions/getShotsAPIReq";
 import type { ShotLog } from "../../../types/shotLog";
+import undoLast from "./undoLast";
+import { getSingleGameAPIFetch } from "../../../shared API functions/getSingleGameAPIFetch";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -33,7 +35,7 @@ export type stackStat = {
   type: string;
   adding: boolean;
   gameStatId: number;
-}
+};
 
 //session storage for selectedPlayers
 export default function ScoringInterface({
@@ -49,19 +51,9 @@ export default function ScoringInterface({
   const [selectedStat, setSelectedStat] = useState<string>("");
   const videoRef = useRef<VideoPlayerHandle>(null);
   const [shotLog, setShotLog] = useState<ShotLog | null>(null);
-  const [hoveredShotId, setHoveredShotId] = useState<number | null>(null)
+  const [hoveredShotId, setHoveredShotId] = useState<number | null>(null);
   const [undoStack, setUndoStack] = useState<stackStat[]>([]);
   const [redoStack, setRedoStack] = useState<stackStat[]>([]);
-
-  function undoLast(
-    undoStack: stackStat[], 
-    setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>, 
-    setRedoStack: React.Dispatch<React.SetStateAction<stackStat[]>>
-  ) {
-    if (undoStack.length === 0) return;
-    const lastStackAction = undoStack[undoStack.length -1];
-    if (lastStackAction.type)
-  }
 
   useEffect(() => {
     const load = async () => {
@@ -83,7 +75,21 @@ export default function ScoringInterface({
     return (
       <div className="scoringInterface">
         <div>
-          <button>Undo</button>
+          <button
+            onClick={async() => {
+              undoLast(
+                shotLog,
+                undoStack,
+                setUndoStack,
+                redoStack,
+                setRedoStack,
+              );
+              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+              if (updatedGame) setGameDetails(updatedGame);
+            }}
+          >
+            Undo
+          </button>
           <button>Redo</button>
         </div>
         <div className="interfaceInput">
@@ -109,7 +115,7 @@ export default function ScoringInterface({
                 setUndoStack={setUndoStack}
               />
             </div>
-            <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
+            <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId} />
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -161,7 +167,7 @@ export default function ScoringInterface({
               setUndoStack={setUndoStack}
             />
           </div>
-          <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
+          <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId} />
         </div>
         <CourtInterface
           selectedStat={selectedStat}

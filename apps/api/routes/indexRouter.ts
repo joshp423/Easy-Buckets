@@ -60,7 +60,7 @@ indexRouter.post(
   createShot,
 );
 indexRouter.delete(
-  "/games/shots/delete",
+  "/games/shots/:shotId",
   indexController.verifyToken,
   deleteShot,
 );

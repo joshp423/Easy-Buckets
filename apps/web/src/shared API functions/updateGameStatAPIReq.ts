@@ -36,6 +36,5 @@ export async function updateGameStatAPIReq({
     gameStatId: gameStatlineId,
   };
   setUndoStack([...undoStack, newUndo]);
-
   return data;
 }

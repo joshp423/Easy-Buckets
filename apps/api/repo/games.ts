@@ -505,7 +505,8 @@ export class GameRepo {
   }
 
   async deleteShot(userId: number, shotId: number) {
-    return await this.prisma.shots.delete({
+    const shot = await this.prisma.shots.findUnique({
+      // userId authCheck
       where: {
         id: shotId,
         gameStatline: {
@@ -514,9 +515,18 @@ export class GameRepo {
               team: {
                 userId,
               },
-            },
-          },
+            }
+          }
         },
+      },
+    });
+
+    if (!shot) {
+      throw new Error("Forbidden");
+    }
+    return await this.prisma.shots.delete({
+      where: {
+        id: shotId,
       },
     });
   }

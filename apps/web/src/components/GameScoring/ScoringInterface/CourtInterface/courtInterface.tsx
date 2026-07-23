@@ -152,7 +152,7 @@ export default function CourtInterface({
           undoStack,
           setUndoStack,
         });
-        //add to undo queue
+        console.log(undoStack);
         const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
         if (updatedGame) setGameDetails(updatedGame);
         setSelectedPlayer(null);

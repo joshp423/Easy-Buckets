@@ -2,7 +2,6 @@ import type { stackStat } from "./scoringInterface";
 import { updateGameStatAPIReq } from "../../../shared API functions/updateGameStatAPIReq";
 import { deleteShotAPIReq } from "./deleteShotsAPIReq";
 import type { ShotLog } from "../../../types/shotLog";
-import { useNavigate } from "react-router";
 
 export default function undoLast(
   shotLog: ShotLog | null,
@@ -11,7 +10,7 @@ export default function undoLast(
   redoStack: stackStat[],
   setRedoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
 ) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   if (undoStack.length === 0) return;
   const lastStackAction = undoStack[undoStack.length - 1];
   if (
@@ -30,8 +29,8 @@ export default function undoLast(
         setUndoStack,
         undoStack,
       });
-    } catch (error) {
-      navigate("/error", error);
+    } catch  {
+      // navigate("/error", error);
     }
   } else {
     updateGameStatAPIReq({
@@ -48,4 +47,5 @@ export default function undoLast(
     gameStatId: lastStackAction.gameStatId,
   };
   setRedoStack([...redoStack, newRedo]);
+
 }

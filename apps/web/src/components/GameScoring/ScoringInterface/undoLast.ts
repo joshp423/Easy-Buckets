@@ -2,13 +2,14 @@ import type { stackStat } from "./scoringInterface";
 import { updateGameStatAPIReq } from "../../../shared API functions/updateGameStatAPIReq";
 import { deleteShotAPIReq } from "./deleteShotsAPIReq";
 import type { ShotLog } from "../../../types/shotLog";
+import type { redoStat } from "./scoringInterface";
 
 export default async function undoLast(
   shotLog: ShotLog | null,
   undoStack: stackStat[],
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
-  redoStack: stackStat[],
-  setRedoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
+  redoStack: redoStat[],
+  setRedoStack: React.Dispatch<React.SetStateAction<redoStat[]>>,
 ) {
   // const navigate = useNavigate();
   console.log(undoStack)
@@ -22,16 +23,21 @@ export default async function undoLast(
   ) {
     if (!shotLog) return;
     try {
-      await deleteShotAPIReq(shotLog[0].id);
-      await updateGameStatAPIReq({
+      const shot = await deleteShotAPIReq(shotLog[0].id);
+      await updateGameStatAPIReq({ // if undoing dont add the undo to undoStack, need to differentiate here
         gameStatlineId: lastStackAction.gameStatId,
         statlineUpdateField: lastStackAction.type,
         statlineUpdateIndicator: false,
         setUndoStack,
         undoStack,
       });
-      const newUndoStack = undoStack.slice(0, -1);
-      setUndoStack(newUndoStack);
+      const newRedo = {
+        type: lastStackAction.type,
+        adding: false,
+        gameStatId: lastStackAction.gameStatId,
+        shotInfo: shot
+      };
+      setRedoStack([...redoStack, newRedo]);
     } catch  {
       // navigate("/error", error);
     }
@@ -43,14 +49,20 @@ export default async function undoLast(
       setUndoStack,
       undoStack,
     });
-    const newUndoStack = undoStack.slice(0, -1);
-    setUndoStack(newUndoStack);
+    const newRedo = {
+      type: lastStackAction.type,
+      adding: false,
+      gameStatId: lastStackAction.gameStatId,
+      shotInfo: {
+        make: true,
+        X: 0,
+        Y: 0,
+        type: 0,
+        timeStamp: 0
+      }
+    };
+    setRedoStack([...redoStack, newRedo]);
   }
-  const newRedo = {
-    type: lastStackAction.type,
-    adding: false,
-    gameStatId: lastStackAction.gameStatId,
-  };
-  setRedoStack([...redoStack, newRedo]);
+  
 
 }

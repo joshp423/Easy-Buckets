@@ -15,6 +15,8 @@ import { getShotsAPIReq } from "../../../shared API functions/getShotsAPIReq";
 import type { ShotLog } from "../../../types/shotLog";
 import undoLast from "./undoLast";
 import { getSingleGameAPIFetch } from "../../../shared API functions/getSingleGameAPIFetch";
+import type { Shot } from "../../../types/shot";
+import redoLast from "./redoLast";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -37,6 +39,14 @@ export type stackStat = {
   gameStatId: number;
 };
 
+export type redoStat = {
+  type: string;
+  adding: boolean;
+  gameStatId: number;
+  shotInfo: Shot;
+}
+
+
 //session storage for selectedPlayers
 export default function ScoringInterface({
   setGameDetails,
@@ -53,7 +63,7 @@ export default function ScoringInterface({
   const [shotLog, setShotLog] = useState<ShotLog | null>(null);
   const [hoveredShotId, setHoveredShotId] = useState<number | null>(null);
   const [undoStack, setUndoStack] = useState<stackStat[]>([]);
-  const [redoStack, setRedoStack] = useState<stackStat[]>([]);
+  const [redoStack, setRedoStack] = useState<redoStat[]>([]);
 
   useEffect(() => {
     const load = async () => {
@@ -84,14 +94,24 @@ export default function ScoringInterface({
                 redoStack,
                 setRedoStack,
               );
-              console.log(undoStack)
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
             }}
           >
             Undo
           </button>
-          <button>Redo</button>
+          <button
+            onClick={async () => {
+              redoLast(
+                undoStack,
+                setUndoStack,
+                redoStack,
+                setRedoStack,
+              );
+              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+              if (updatedGame) setGameDetails(updatedGame);
+            }}
+          >Redo</button>
         </div>
         <div className="interfaceInput">
           <div>
@@ -151,13 +171,25 @@ export default function ScoringInterface({
                 redoStack,
                 setRedoStack,
               );
-              console.log(undoStack)
+              console.log(undoStack[0])
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
             }}
           >
           Undo</button>
-        <button>Redo</button>
+        <button
+          onClick={async () => {
+            redoLast(
+              undoStack,
+              setUndoStack,
+              redoStack,
+              setRedoStack,
+            );
+            console.log(redoStack[0])
+            const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+            if (updatedGame) setGameDetails(updatedGame);
+          }}
+        >Redo</button>
       </div>
       <div className="interfaceInput">
         <div>

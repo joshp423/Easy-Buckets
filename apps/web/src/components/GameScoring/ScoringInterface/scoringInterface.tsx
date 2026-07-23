@@ -67,7 +67,7 @@ export default function ScoringInterface({
       if (shotLogData) setShotLog(shotLogData);
     };
     load();
-  }, [gameDetails, setGameDetails, setSelectedPlayers]);
+  }, [gameDetails, setGameDetails, setSelectedPlayers, undoStack]);
 
   if (gameDetails === "ready" || !gameDetails) return;
 
@@ -76,7 +76,7 @@ export default function ScoringInterface({
       <div className="scoringInterface">
         <div>
           <button
-            onClick={async() => {
+            onClick={async () => {
               undoLast(
                 shotLog,
                 undoStack,
@@ -84,6 +84,7 @@ export default function ScoringInterface({
                 redoStack,
                 setRedoStack,
               );
+              console.log(undoStack)
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
             }}
@@ -141,7 +142,21 @@ export default function ScoringInterface({
     <div className="scoringInterface">
       <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
       <div>
-        <button>Undo</button>
+        <button
+            onClick={async () => {
+              undoLast(
+                shotLog,
+                undoStack,
+                setUndoStack,
+                redoStack,
+                setRedoStack,
+              );
+              console.log(undoStack)
+              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+              if (updatedGame) setGameDetails(updatedGame);
+            }}
+          >
+          Undo</button>
         <button>Redo</button>
       </div>
       <div className="interfaceInput">

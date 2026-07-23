@@ -3,7 +3,7 @@ import { updateGameStatAPIReq } from "../../../shared API functions/updateGameSt
 import { deleteShotAPIReq } from "./deleteShotsAPIReq";
 import type { ShotLog } from "../../../types/shotLog";
 
-export default function undoLast(
+export default async function undoLast(
   shotLog: ShotLog | null,
   undoStack: stackStat[],
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
@@ -11,6 +11,7 @@ export default function undoLast(
   setRedoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
 ) {
   // const navigate = useNavigate();
+  console.log(undoStack)
   if (undoStack.length === 0) return;
   const lastStackAction = undoStack[undoStack.length - 1];
   if (
@@ -21,25 +22,29 @@ export default function undoLast(
   ) {
     if (!shotLog) return;
     try {
-      deleteShotAPIReq(shotLog[0].id);
-      updateGameStatAPIReq({
+      await deleteShotAPIReq(shotLog[0].id);
+      await updateGameStatAPIReq({
         gameStatlineId: lastStackAction.gameStatId,
         statlineUpdateField: lastStackAction.type,
         statlineUpdateIndicator: false,
         setUndoStack,
         undoStack,
       });
+      const newUndoStack = undoStack.slice(0, -1);
+      setUndoStack(newUndoStack);
     } catch  {
       // navigate("/error", error);
     }
   } else {
-    updateGameStatAPIReq({
+    await updateGameStatAPIReq({
       gameStatlineId: lastStackAction.gameStatId,
       statlineUpdateField: lastStackAction.type,
       statlineUpdateIndicator: false,
       setUndoStack,
       undoStack,
     });
+    const newUndoStack = undoStack.slice(0, -1);
+    setUndoStack(newUndoStack);
   }
   const newRedo = {
     type: lastStackAction.type,

@@ -149,9 +149,15 @@ export default function CourtInterface({
           gameStatlineId: selectedGameStatline[0].id,
           statlineUpdateField: selectedStat,
           statlineUpdateIndicator: true,
-          undoStack,
-          setUndoStack,
         });
+
+        const newUndo = {
+          type: selectedStat,
+          adding: true,
+          gameStatId: selectedGameStatline[0]?.id,
+        };
+        setUndoStack([...undoStack, newUndo]);
+        
         console.log(undoStack);
         const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
         if (updatedGame) setGameDetails(updatedGame);

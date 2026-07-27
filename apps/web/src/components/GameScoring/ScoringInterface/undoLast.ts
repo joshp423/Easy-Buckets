@@ -7,7 +7,6 @@ import type { redoStat } from "./scoringInterface";
 export default async function undoLast(
   shotLog: ShotLog | null,
   undoStack: stackStat[],
-  setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
   redoStack: redoStat[],
   setRedoStack: React.Dispatch<React.SetStateAction<redoStat[]>>,
 ) {
@@ -28,8 +27,6 @@ export default async function undoLast(
         gameStatlineId: lastStackAction.gameStatId,
         statlineUpdateField: lastStackAction.type,
         statlineUpdateIndicator: false,
-        setUndoStack,
-        undoStack,
       });
       const newRedo = {
         type: lastStackAction.type,
@@ -46,8 +43,6 @@ export default async function undoLast(
       gameStatlineId: lastStackAction.gameStatId,
       statlineUpdateField: lastStackAction.type,
       statlineUpdateIndicator: false,
-      setUndoStack,
-      undoStack,
     });
     const newRedo = {
       type: lastStackAction.type,

@@ -24,6 +24,7 @@
   height: 12px;
   transform-origin: center;
   transition: transform 250ms ease-in;
+  transform: translate(13px, 12px);
   position: absolute;
 }
 

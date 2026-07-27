@@ -515,8 +515,8 @@ export class GameRepo {
               team: {
                 userId,
               },
-            }
-          }
+            },
+          },
         },
       },
     });

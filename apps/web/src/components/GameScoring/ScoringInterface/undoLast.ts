@@ -7,11 +7,12 @@ import type { redoStat } from "./scoringInterface";
 export default async function undoLast(
   shotLog: ShotLog | null,
   undoStack: stackStat[],
+  setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>,
   redoStack: redoStat[],
   setRedoStack: React.Dispatch<React.SetStateAction<redoStat[]>>,
 ) {
   // const navigate = useNavigate();
-  console.log(undoStack)
+  console.log(undoStack);
   if (undoStack.length === 0) return;
   const lastStackAction = undoStack[undoStack.length - 1];
   if (
@@ -23,7 +24,8 @@ export default async function undoLast(
     if (!shotLog) return;
     try {
       const shot = await deleteShotAPIReq(shotLog[0].id);
-      await updateGameStatAPIReq({ // if undoing dont add the undo to undoStack, need to differentiate here
+      await updateGameStatAPIReq({
+        // if undoing dont add the undo to undoStack, need to differentiate here
         gameStatlineId: lastStackAction.gameStatId,
         statlineUpdateField: lastStackAction.type,
         statlineUpdateIndicator: false,
@@ -32,10 +34,12 @@ export default async function undoLast(
         type: lastStackAction.type,
         adding: false,
         gameStatId: lastStackAction.gameStatId,
-        shotInfo: shot
+        shotInfo: shot,
       };
       setRedoStack([...redoStack, newRedo]);
-    } catch  {
+      const newUndoStack = undoStack.slice(0, -1);
+      setUndoStack(newUndoStack);
+    } catch {
       // navigate("/error", error);
     }
   } else {
@@ -53,11 +57,11 @@ export default async function undoLast(
         X: 0,
         Y: 0,
         type: 0,
-        timeStamp: 0
-      }
+        timeStamp: 0,
+      },
     };
     setRedoStack([...redoStack, newRedo]);
+    const newUndoStack = undoStack.slice(0, -1);
+    setUndoStack(newUndoStack);
   }
-  
-
 }

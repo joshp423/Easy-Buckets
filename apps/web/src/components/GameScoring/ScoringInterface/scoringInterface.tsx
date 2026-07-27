@@ -44,8 +44,7 @@ export type redoStat = {
   adding: boolean;
   gameStatId: number;
   shotInfo: Shot;
-}
-
+};
 
 //session storage for selectedPlayers
 export default function ScoringInterface({
@@ -87,7 +86,7 @@ export default function ScoringInterface({
         <div>
           <button
             onClick={async () => {
-              undoLast(
+              await undoLast(
                 shotLog,
                 undoStack,
                 setUndoStack,
@@ -102,16 +101,13 @@ export default function ScoringInterface({
           </button>
           <button
             onClick={async () => {
-              redoLast(
-                undoStack,
-                setUndoStack,
-                redoStack,
-                setRedoStack,
-              );
+              await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
             }}
-          >Redo</button>
+          >
+            Redo
+          </button>
         </div>
         <div className="interfaceInput">
           <div>
@@ -163,33 +159,31 @@ export default function ScoringInterface({
       <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
       <div>
         <button
-            onClick={async () => {
-              undoLast(
-                shotLog,
-                undoStack,
-                setUndoStack,
-                redoStack,
-                setRedoStack,
-              );
-              console.log(undoStack[0])
-              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-              if (updatedGame) setGameDetails(updatedGame);
-            }}
-          >
-          Undo</button>
-        <button
           onClick={async () => {
-            redoLast(
+            await undoLast(
+              shotLog,
               undoStack,
               setUndoStack,
               redoStack,
               setRedoStack,
             );
-            console.log(redoStack[0])
+            console.log(undoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (updatedGame) setGameDetails(updatedGame);
           }}
-        >Redo</button>
+        >
+          Undo
+        </button>
+        <button
+          onClick={async () => {
+            await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
+            console.log(redoStack[0]);
+            const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+            if (updatedGame) setGameDetails(updatedGame);
+          }}
+        >
+          Redo
+        </button>
       </div>
       <div className="interfaceInput">
         <div>

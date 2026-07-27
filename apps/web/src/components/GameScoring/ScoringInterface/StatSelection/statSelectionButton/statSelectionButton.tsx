@@ -74,7 +74,7 @@ export default function StatSelectionButton({
                 gameStatId: selectedGameStatline[0]?.id,
               };
               setUndoStack([...undoStack, newUndo]);
-              
+
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
               setSelectedUI("playerSelection");

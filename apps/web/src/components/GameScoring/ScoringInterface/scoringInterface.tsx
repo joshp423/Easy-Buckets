@@ -156,16 +156,18 @@ export default function ScoringInterface({
           />
         </div>
         <ScoringBoxScore gameDetails={gameDetails} />
-        <button 
-        onClick={async () => {
-          const updatedGame = await publishGameAPIReq(gameDetails.id);
-          if (updatedGame) {
-            navigate("/")
+        <button
+          onClick={async () => {
+            const updatedGame = await publishGameAPIReq(gameDetails.id);
+            if (updatedGame) {
+              navigate("/");
+              return;
+            }
             return;
-          }
-          return;
-        }}
-      >Finish Scoring Game</button>
+          }}
+        >
+          Finish Scoring Game
+        </button>
       </div>
     );
 
@@ -244,16 +246,18 @@ export default function ScoringInterface({
         />
       </div>
       <ScoringBoxScore gameDetails={gameDetails} />
-      <button 
+      <button
         onClick={async () => {
           const updatedGame = await publishGameAPIReq(gameDetails.id);
           if (updatedGame) {
-            navigate("/")
+            navigate("/");
             return;
           }
           return;
         }}
-      >Finish Scoring Game</button>
+      >
+        Finish Scoring Game
+      </button>
     </div>
   );
 }

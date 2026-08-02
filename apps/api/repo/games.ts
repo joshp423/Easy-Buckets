@@ -592,7 +592,7 @@ export class GameRepo {
 
     return await this.prisma.games.update({
       where: { id: game.id },
-      data: { draft: false }
-    })
+      data: { draft: false },
+    });
   }
 }

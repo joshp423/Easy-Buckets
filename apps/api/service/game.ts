@@ -133,6 +133,6 @@ export class GameService {
   }
 
   async publishGame({ userId, gameId }: ShotLogReq) {
-    return this.gameRepo.publishGame(userId, gameId)
+    return this.gameRepo.publishGame(userId, gameId);
   }
 }

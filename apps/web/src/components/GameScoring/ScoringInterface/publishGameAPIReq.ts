@@ -1,4 +1,3 @@
-
 export async function publishGameAPIReq(gameId: number) {
   const rsp = await fetch(`http://localhost:3000/games/${gameId}/publish`, {
     headers: {

@@ -16,7 +16,7 @@ import {
   deleteShot,
   getGame,
   getGameShots,
-  publishGame
+  publishGame,
 } from "../controllers/gameController.js";
 import {
   createSeason,
@@ -71,6 +71,10 @@ indexRouter.get(
   getGameShots,
 );
 
-indexRouter.put("/games/:gameId/publish", indexController.verifyToken, publishGame)
+indexRouter.put(
+  "/games/:gameId/publish",
+  indexController.verifyToken,
+  publishGame,
+);
 
 export default indexRouter;

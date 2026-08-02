@@ -572,4 +572,27 @@ export class GameRepo {
       orderBy: { id: "desc" },
     });
   }
+
+  async publishGame(userId: number, gameId: number) {
+    const game = await this.prisma.games.findUnique({
+      // userId authCheck
+      where: {
+        id: gameId,
+        season: {
+          team: {
+            userId,
+          },
+        },
+      },
+    });
+
+    if (!game) {
+      throw new Error("Forbidden");
+    }
+
+    return await this.prisma.games.update({
+      where: { id: game.id },
+      data: { draft: false }
+    })
+  }
 }

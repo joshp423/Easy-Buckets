@@ -131,4 +131,8 @@ export class GameService {
   async getShotLog({ userId, gameId }: ShotLogReq) {
     return this.gameRepo.getShotLog(userId, gameId);
   }
+
+  async publishGame({ userId, gameId }: ShotLogReq) {
+    return this.gameRepo.publishGame(userId, gameId)
+  }
 }

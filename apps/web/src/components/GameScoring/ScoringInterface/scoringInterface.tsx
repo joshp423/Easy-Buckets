@@ -17,6 +17,8 @@ import undoLast from "./undoLast";
 import { getSingleGameAPIFetch } from "../../../shared API functions/getSingleGameAPIFetch";
 import type { Shot } from "../../../types/shot";
 import redoLast from "./redoLast";
+import { publishGameAPIReq } from "./publishGameAPIReq";
+import { useNavigate } from "react-router";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -63,6 +65,7 @@ export default function ScoringInterface({
   const [hoveredShotId, setHoveredShotId] = useState<number | null>(null);
   const [undoStack, setUndoStack] = useState<stackStat[]>([]);
   const [redoStack, setRedoStack] = useState<redoStat[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
@@ -153,6 +156,16 @@ export default function ScoringInterface({
           />
         </div>
         <ScoringBoxScore gameDetails={gameDetails} />
+        <button 
+        onClick={async () => {
+          const updatedGame = await publishGameAPIReq(gameDetails.id);
+          if (updatedGame) {
+            navigate("/")
+            return;
+          }
+          return;
+        }}
+      >Finish Scoring Game</button>
       </div>
     );
 
@@ -231,11 +244,16 @@ export default function ScoringInterface({
         />
       </div>
       <ScoringBoxScore gameDetails={gameDetails} />
-      {/* <button 
-        onClick={(e) => {
-
+      <button 
+        onClick={async () => {
+          const updatedGame = await publishGameAPIReq(gameDetails.id);
+          if (updatedGame) {
+            navigate("/")
+            return;
+          }
+          return;
         }}
-      >Finish Scoring Game</button> */}
+      >Finish Scoring Game</button>
     </div>
   );
 }

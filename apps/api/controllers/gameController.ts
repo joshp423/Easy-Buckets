@@ -425,3 +425,30 @@ export async function getGameShots(req: AuthRequest, res: Response) {
 
   return res.status(201).json(gameShots);
 }
+
+export async function publishGame(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { gameId } = req.params;
+
+  const { success, data, error } = getShotsSchema.safeParse({
+    userId,
+    gameId,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const updatedGame = await gameService.publishGame(data);
+
+  if (!updatedGame) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(updatedGame);
+}

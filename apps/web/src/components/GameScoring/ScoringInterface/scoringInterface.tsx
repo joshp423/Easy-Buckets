@@ -83,7 +83,7 @@ export default function ScoringInterface({
   if (!gameDetails.replay)
     return (
       <div className="scoringInterface">
-        <div>
+        <div className="undoRedo">
           <button
             onClick={async () => {
               await undoLast(
@@ -96,6 +96,7 @@ export default function ScoringInterface({
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
             }}
+            className={undoStack.length === 0 ? "disabled" : "enabled"}
           >
             Undo
           </button>
@@ -105,6 +106,7 @@ export default function ScoringInterface({
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
             }}
+            className={redoStack.length === 0 ? "disabled" : "enabled"}
           >
             Redo
           </button>
@@ -157,7 +159,7 @@ export default function ScoringInterface({
   return (
     <div className="scoringInterface">
       <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
-      <div>
+      <div className="undoRedo">
         <button
           onClick={async () => {
             await undoLast(
@@ -171,6 +173,7 @@ export default function ScoringInterface({
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (updatedGame) setGameDetails(updatedGame);
           }}
+          className={undoStack.length === 0 ? "disabled" : "enabled"}
         >
           Undo
         </button>
@@ -181,6 +184,7 @@ export default function ScoringInterface({
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (updatedGame) setGameDetails(updatedGame);
           }}
+          className={redoStack.length === 0 ? "disabled" : "enabled"}
         >
           Redo
         </button>

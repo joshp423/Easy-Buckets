@@ -12,10 +12,11 @@
 
 .replayChart {
   display: grid;
-  grid-template-columns: 60% 35%;
+  grid-template-columns: 60% 38%;
   margin-bottom: 2%;
-  gap: 5%;
+  gap: 1rem;
   min-height: 40%;
+  justify-content: space-between;
 }
 
 .noReplayChart {

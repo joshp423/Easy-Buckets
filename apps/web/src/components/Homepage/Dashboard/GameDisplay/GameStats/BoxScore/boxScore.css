@@ -74,3 +74,9 @@ th:not(:first-of-type):not(:last-of-type) {
   border-left: 1px solid lightgrey;
   border-right: 1px solid lightgrey;
 }
+
+.boxScore > table > thead > tr > th,
+.boxScore > table > tbody > tr > td,
+.boxScore > table > tfoot > tr {
+  font-size: 0.8rem;
+}

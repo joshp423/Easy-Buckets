@@ -80,6 +80,7 @@
 .enabled:hover {
   outline: 1px solid black;
 }
+
 .disabled {
   background-color: grey;
   opacity: 0.6;

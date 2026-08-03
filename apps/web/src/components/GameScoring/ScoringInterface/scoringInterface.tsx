@@ -62,7 +62,7 @@ export default function ScoringInterface({
   const [selectedStat, setSelectedStat] = useState<string>("");
   const videoRef = useRef<VideoPlayerHandle>(null);
   const [shotLog, setShotLog] = useState<ShotLog | null>(null);
-  const [hoveredShotId, setHoveredShotId] = useState<number | null>(null);
+  const [selectedShot, setSelectedShot] = useState<number | null>(null);
   const [undoStack, setUndoStack] = useState<stackStat[]>([]);
   const [redoStack, setRedoStack] = useState<redoStat[]>([]);
   const navigate = useNavigate();
@@ -137,7 +137,7 @@ export default function ScoringInterface({
                 setUndoStack={setUndoStack}
               />
             </div>
-            <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId} />
+            <Shotlog shotLog={shotLog} selectedShot={selectedShot} setSelectedShot={setSelectedShot} replay={false}/>
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -150,7 +150,7 @@ export default function ScoringInterface({
             gameDetails={gameDetails}
             setGameDetails={setGameDetails}
             shotLog={shotLog}
-            hoveredShotId={hoveredShotId}
+            selectedShot={selectedShot}
             undoStack={undoStack}
             setUndoStack={setUndoStack}
           />
@@ -227,7 +227,7 @@ export default function ScoringInterface({
               setUndoStack={setUndoStack}
             />
           </div>
-          <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId} />
+          <Shotlog shotLog={shotLog} selectedShot={selectedShot} setSelectedShot={setSelectedShot} replay={true}/>
         </div>
         <CourtInterface
           selectedStat={selectedStat}
@@ -240,7 +240,7 @@ export default function ScoringInterface({
           gameDetails={gameDetails}
           setGameDetails={setGameDetails}
           shotLog={shotLog}
-          hoveredShotId={hoveredShotId}
+          selectedShot={selectedShot}
           undoStack={undoStack}
           setUndoStack={setUndoStack}
         />

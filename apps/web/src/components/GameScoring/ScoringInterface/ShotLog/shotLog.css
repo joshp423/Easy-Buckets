@@ -22,9 +22,9 @@
 
 .shotLog > h3 {
   text-align: center;
-  margin: 10px;
+  margin: 0px 0px 5px 0px;
 }
-.shotLog > table > tbody > tr:hover {
+.selected {
   background-color: rgb(56, 56, 240);
   color: white;
 }

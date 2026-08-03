@@ -25,7 +25,7 @@ type CourtInterfaceProps = {
   gameDetails: Game | null | "ready";
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
   shotLog: ShotLog | null;
-  hoveredShotId: number | null;
+  selectedShot: number | null;
   undoStack: stackStat[];
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
 };
@@ -41,7 +41,7 @@ export default function CourtInterface({
   gameDetails,
   setGameDetails,
   shotLog,
-  hoveredShotId,
+  selectedShot,
   undoStack,
   setUndoStack,
 }: CourtInterfaceProps) {
@@ -181,7 +181,7 @@ export default function CourtInterface({
             return (
               <FontAwesomeIcon
                 icon={faCircle}
-                className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
+                className={selectedShot === shot.id ? "selectedIcon" : ""}
                 style={{
                   color: "#04d708",
                   position: "absolute",
@@ -194,7 +194,7 @@ export default function CourtInterface({
           return (
             <FontAwesomeIcon
               icon={faX}
-              className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
+              className={selectedShot === shot.id ? "selectedIcon" : ""}
               style={{
                 color: "#d40c0c",
                 position: "absolute",

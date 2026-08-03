@@ -22,12 +22,14 @@ export default function GameDisplay({ seasonData }: GameDisplayProps) {
         {/* add icon + button disable */}
         <button
           onClick={() => canPageLeft() && setCurrentPage(currentPage - 1)}
+          className={canPageLeft() ? "" : "disabled"}
         >
           &lt;
         </button>
         <p>Game {currentPage + 1}</p>
         <button
           onClick={() => canPageRight() && setCurrentPage(currentPage + 1)}
+          className={canPageRight() ? "" : "disabled"}
         >
           &gt;
         </button>

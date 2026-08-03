@@ -8,9 +8,10 @@ import { useRef, useState, useEffect } from "react";
 
 type shotChartProps = {
   shotLog: ShotLog | null;
+  hoveredShotId: number | null;
 };
 
-export default function ShotChart({ shotLog }: shotChartProps) {
+export default function ShotChart({ shotLog, hoveredShotId }: shotChartProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
   const [courtHeight, setCourtHeight] = useState<number>(0);
@@ -43,7 +44,7 @@ export default function ShotChart({ shotLog }: shotChartProps) {
             return (
               <FontAwesomeIcon
                 icon={faCircle}
-                // className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
+                className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
                 style={{
                   color: "#04d708",
                   position: "absolute",
@@ -56,7 +57,7 @@ export default function ShotChart({ shotLog }: shotChartProps) {
           return (
             <FontAwesomeIcon
               icon={faX}
-              // className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
+              className={hoveredShotId === shot.id ? "hoveredIcon" : ""}
               style={{
                 color: "#d40c0c",
                 position: "absolute",

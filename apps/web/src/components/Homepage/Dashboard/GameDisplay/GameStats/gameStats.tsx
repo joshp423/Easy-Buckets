@@ -33,8 +33,8 @@ export default function GameStats({ currentGame }: GameStatsProps) {
           <VideoPlayer videoUrl={currentGame.replay} />
           <ShotChart shotLog={shotLog} hoveredShotId={hoveredShotId}/>
         </div>
-        <BoxScore currentGame={currentGame} />
         <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
+        <BoxScore currentGame={currentGame} />
       </div>
     );
   }
@@ -42,8 +42,9 @@ export default function GameStats({ currentGame }: GameStatsProps) {
   return (
     <div className="statsSection">
       <div className="noReplayChart">
-        <ShotChart shotLog={shotLog} />
+        <ShotChart shotLog={shotLog} hoveredShotId={hoveredShotId}/>
       </div>
+      <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
       <BoxScore currentGame={currentGame} />
     </div>
   );

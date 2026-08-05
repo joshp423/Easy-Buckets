@@ -4,9 +4,10 @@ import BoxScore from "./BoxScore/boxScore";
 import { type Game } from "../../../../../types/game";
 import "./gameStats.css";
 import type { ShotLog } from "../../../../../types/shotLog";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getShotsAPIReq } from "../../../../../shared API functions/getShotsAPIReq";
 import Shotlog from "../../../../GameScoring/ScoringInterface/ShotLog/shotLog";
+import type { VideoPlayerHandle } from "./VideoPlayer/videoPlayer";
 
 type GameStatsProps = {
   currentGame: Game;
@@ -14,7 +15,8 @@ type GameStatsProps = {
 
 export default function GameStats({ currentGame }: GameStatsProps) {
   const [shotLog, setShotLog] = useState<ShotLog | null>(null);
-  const [hoveredShotId, setHoveredShotId] = useState<number | null>(null); 
+  const [selectedShot, setSelectedShot] = useState<number | null>(null);
+  const videoRef = useRef<VideoPlayerHandle>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -31,9 +33,15 @@ export default function GameStats({ currentGame }: GameStatsProps) {
       <div className="statsSection">
         <div className="replayChart">
           <VideoPlayer videoUrl={currentGame.replay} />
-          <ShotChart shotLog={shotLog} hoveredShotId={hoveredShotId}/>
+          <ShotChart shotLog={shotLog} selectedShot={selectedShot} />
         </div>
-        <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
+        <Shotlog
+          shotLog={shotLog}
+          selectedShot={selectedShot}
+          setSelectedShot={setSelectedShot}
+          replay={true}
+          videoRef={videoRef}
+        />
         <BoxScore currentGame={currentGame} />
       </div>
     );
@@ -42,9 +50,15 @@ export default function GameStats({ currentGame }: GameStatsProps) {
   return (
     <div className="statsSection">
       <div className="noReplayChart">
-        <ShotChart shotLog={shotLog} hoveredShotId={hoveredShotId}/>
+        <ShotChart shotLog={shotLog} selectedShot={selectedShot} />
       </div>
-      <Shotlog shotLog={shotLog} setHoveredShotId={setHoveredShotId}/>
+      <Shotlog
+        shotLog={shotLog}
+        selectedShot={selectedShot}
+        setSelectedShot={setSelectedShot}
+        replay={false}
+        videoRef={videoRef}
+      />
       <BoxScore currentGame={currentGame} />
     </div>
   );

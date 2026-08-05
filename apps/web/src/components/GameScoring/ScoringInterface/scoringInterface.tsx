@@ -137,7 +137,13 @@ export default function ScoringInterface({
                 setUndoStack={setUndoStack}
               />
             </div>
-            <Shotlog shotLog={shotLog} selectedShot={selectedShot} setSelectedShot={setSelectedShot} replay={false}/>
+            <Shotlog
+              shotLog={shotLog}
+              selectedShot={selectedShot}
+              setSelectedShot={setSelectedShot}
+              replay={false}
+              videoRef={videoRef}
+            />
           </div>
           <CourtInterface
             selectedStat={selectedStat}
@@ -227,7 +233,13 @@ export default function ScoringInterface({
               setUndoStack={setUndoStack}
             />
           </div>
-          <Shotlog shotLog={shotLog} selectedShot={selectedShot} setSelectedShot={setSelectedShot} replay={true}/>
+          <Shotlog
+            shotLog={shotLog}
+            selectedShot={selectedShot}
+            setSelectedShot={setSelectedShot}
+            replay={true}
+            videoRef={videoRef}
+          />
         </div>
         <CourtInterface
           selectedStat={selectedStat}

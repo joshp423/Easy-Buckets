@@ -8,7 +8,12 @@ type videoPlayerProps = {
 };
 
 export type VideoPlayerHandle = {
-  getCurrentTimestamp: () => number; //defines what is publicly exposed outside this comp via ref
+  //defines what is publicly exposed outside this comp via ref
+  getCurrentTimestamp: () => number;
+  play: () => void;
+  pause: () => void;
+  togglePlay: () => void;
+  seekTo: (seconds: number) => void;
 };
 
 export default function VideoPlayer({ videoUrl, ref }: videoPlayerProps) {
@@ -27,6 +32,23 @@ export default function VideoPlayer({ videoUrl, ref }: videoPlayerProps) {
     //first argument is the ref passed from parent, second is function returning what ref.current should become (getCurrentTimestamp)
     getCurrentTimestamp: () => {
       return playerRef.current?.getCurrentTime() ?? 0; //if the playerRef exists if no then timeStamp = 0
+    },
+    play: () => {
+      playerRef.current?.playVideo();
+    },
+    pause: () => {
+      playerRef.current?.pauseVideo();
+    },
+    togglePlay: () => {
+      const state = playerRef.current?.getPlayerState();
+      if (state === 1) {
+        playerRef.current?.pauseVideo();
+        return;
+      }
+      playerRef.current?.playVideo();
+    },
+    seekTo: (seconds: number) => {
+      playerRef.current?.seekTo(seconds, true);
     },
   }));
 

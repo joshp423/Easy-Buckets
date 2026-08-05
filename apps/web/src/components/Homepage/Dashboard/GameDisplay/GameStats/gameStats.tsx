@@ -32,7 +32,7 @@ export default function GameStats({ currentGame }: GameStatsProps) {
     return (
       <div className="statsSection">
         <div className="replayChart">
-          <VideoPlayer videoUrl={currentGame.replay} />
+          <VideoPlayer videoUrl={currentGame.replay} ref={videoRef}/>
           <ShotChart shotLog={shotLog} selectedShot={selectedShot} />
         </div>
         <Shotlog

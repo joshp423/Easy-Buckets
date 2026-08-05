@@ -15,6 +15,7 @@ export default function Shotlog({
   selectedShot,
   setSelectedShot,
   replay,
+  videoRef
 }: shotLogProps) {
   if (!shotLog) return;
 
@@ -66,6 +67,7 @@ export default function Shotlog({
             <th>Number</th>
             <th>Shot Type</th>
             <th>Replay Time</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +91,17 @@ export default function Shotlog({
                   {shot.type} Point {shot.make === true ? "Make" : "Miss"}
                 </td>
                 <td>{formatTime(shot.timeStamp)}</td>
+                <td><button
+                  onClick={((e) => {
+                    e.stopPropagation(); // doesnt select row
+                    videoRef.current?.seekTo(shot.timeStamp - 5);
+                    videoRef.current?.play();
+                    setTimeout(() => {
+                      videoRef.current?.pause();
+                    }, 10000);
+                  })}
+                >
+                  View Shot</button></td>
               </tr>
             );
           })}

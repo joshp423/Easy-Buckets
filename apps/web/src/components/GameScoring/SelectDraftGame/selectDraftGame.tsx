@@ -4,6 +4,7 @@ import { seasonGameAPIFetch } from "../../../shared API functions/seasonGameAPIF
 import { type Game } from "../../../types/game";
 import { useState, useEffect } from "react";
 import "./selectDraftGame.css";
+import { useNavigate } from "react-router";
 
 type SelectDraftGameProps = {
   teamSeasons: SeasonOverview[];
@@ -17,6 +18,7 @@ export default function SelectDraftGame({
 }: SelectDraftGameProps) {
   const [seasonData, setSeasonData] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -52,6 +54,19 @@ export default function SelectDraftGame({
     setGameDetails(selectedGame);
   }
 
+  if (seasonData.length === 0) {
+    return(
+      <div className="selectDraftGame">
+        <h1>No Draft Games</h1>
+          <button type="button"
+          onClick={() => {
+            navigate("/score-game")
+          }}
+          >
+            Back</button>
+      </div>
+    )
+  }
   return (
     <div className="selectDraftGame">
       <h1>Select Draft Game</h1>

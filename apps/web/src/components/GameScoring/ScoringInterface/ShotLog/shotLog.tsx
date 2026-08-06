@@ -24,10 +24,19 @@ export default function Shotlog({
     const seconds = Math.floor(timeStamp % 60); //modulo - what's left after dividing timeStamp by 60
     return `${minutes}:${seconds.toString().padStart(2, "0")}`; //adds a 0 before the seconds if seconds is only one digit
   }
+
+  if(shotLog.length === 0) {
+    return(
+      <div className="shotLog">
+        <h3>Shot Log</h3>
+        <h4>No Shots!</h4>
+      </div>
+    )
+  }
   if (!replay) {
     return (
       <div className="shotLog">
-        <h3>Shot Log (Newest First)</h3>
+        <h3>Shot Log</h3>
         <table>
           <thead>
             <tr>
@@ -59,7 +68,7 @@ export default function Shotlog({
   }
   return (
     <div className="shotLog">
-      <h3>Shot Log (Newest First)</h3>
+      <h3>Shot Log</h3>
       <table>
         <thead>
           <tr>

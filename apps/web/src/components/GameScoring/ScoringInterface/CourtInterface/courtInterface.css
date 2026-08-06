@@ -30,4 +30,5 @@
 
 .courtInterface > div > .selectedIcon {
   transform: translate(15px, 15px) scale(2, 2) !important;
+  color: blue !important
 }

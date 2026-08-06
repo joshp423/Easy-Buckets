@@ -93,8 +93,13 @@ export default function Shotlog({
                 <td>{formatTime(shot.timeStamp)}</td>
                 <td><button
                   onClick={((e) => {
-                    e.stopPropagation(); // doesnt select row
-                    videoRef.current?.seekTo(shot.timeStamp - 5);
+                    e.stopPropagation(); // doesnt effect select row functionality
+                    if (shot.timeStamp >= 5) { 
+                      videoRef.current?.seekTo(shot.timeStamp - 5);
+                    }
+                    else {
+                      videoRef.current?.seekTo(shot.timeStamp - shot.timeStamp);
+                    }
                     videoRef.current?.play();
                     setTimeout(() => {
                       videoRef.current?.pause();

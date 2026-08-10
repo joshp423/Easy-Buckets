@@ -9,6 +9,7 @@ import { seasonGameAPIFetch } from "../../../shared API functions/seasonGameAPIF
 import type { Game } from "../../../types/game";
 import GameDisplay from "./GameDisplay/gameDisplay";
 import "./dashboard.css";
+import { DashboardSkeleton } from "../../skeletons";
 
 export default function Dashboard() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
@@ -16,9 +17,11 @@ export default function Dashboard() {
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const load = async () => {
+      setLoading(true);
       const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
       const seasons = team.seasons;
 
@@ -31,12 +34,14 @@ export default function Dashboard() {
       if (latestSeason) {
         setSelectedDashboardSeason(latestSeason);
       }
+      setLoading(false);
     };
 
     load();
   }, []);
 
   useEffect(() => {
+    
     const selectedSeason = teamSeasons.find(
       (season) => season.name === selectedDashboardSeason,
     );
@@ -44,21 +49,20 @@ export default function Dashboard() {
     if (!selectedSeason) return;
 
     const getData = async () => {
-      console.log(selectedSeason.id);
+      setLoading(true);
       const data = await seasonGameAPIFetch({
         id: selectedSeason.id,
         draft: false,
       });
-
-      console.log(data);
-
       setSeasonData(data);
+      setLoading(false);
     };
 
     getData();
   }, [selectedDashboardSeason, teamSeasons]);
   // add fallback component
-  if (!teamSeasons.length) {
+
+  if (!teamSeasons.length) { // if no data
     return (
       <div className="dashboard">
         <SideNav />
@@ -82,6 +86,23 @@ export default function Dashboard() {
         </div>
       </div>
     );
+  }
+
+  if (loading) {
+    return (
+      <div className="dashboard">
+        <SideNav />
+        <div className="dashboardMain">
+          <Nav
+            dashboardView={dashboardView}
+            setdashboardView={setdashboardView}
+            setSelectedDashboardSeason={setSelectedDashboardSeason}
+            teamSeasons={teamSeasons}
+          />
+          <DashboardSkeleton />
+        </div>
+      </div>
+    )
   }
 
   return (

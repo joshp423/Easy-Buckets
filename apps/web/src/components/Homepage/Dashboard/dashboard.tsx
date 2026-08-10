@@ -82,7 +82,7 @@ export default function Dashboard() {
             setSelectedDashboardSeason={setSelectedDashboardSeason}
             teamSeasons={teamSeasons}
           />
-          <SeasonStatsDisplay />
+          <SeasonStatsDisplay seasonData={seasonData}/>
         </div>
       </div>
     );

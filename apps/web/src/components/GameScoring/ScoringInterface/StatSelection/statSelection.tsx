@@ -16,6 +16,8 @@ type StatSelectionProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
   undoStack: stackStat[];
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
 };
 
 export default function StatSelection({
@@ -29,6 +31,8 @@ export default function StatSelection({
   setGameDetails,
   undoStack,
   setUndoStack,
+  setLoading,
+  loading
 }: StatSelectionProps) {
   const pointsStats = [
     "2P Make",
@@ -79,6 +83,8 @@ export default function StatSelection({
         courtPlacementStats={courtPlacementStats}
         undoStack={undoStack}
         setUndoStack={setUndoStack}
+        setLoading={setLoading}
+        loading={loading}
       />
       <StatSelectionButton
         gameDetails={gameDetails}
@@ -94,6 +100,8 @@ export default function StatSelection({
         courtPlacementStats={courtPlacementStats}
         undoStack={undoStack}
         setUndoStack={setUndoStack}
+        setLoading={setLoading}
+        loading={loading}
       />
       <StatSelectionButton
         gameDetails={gameDetails}
@@ -109,6 +117,8 @@ export default function StatSelection({
         courtPlacementStats={courtPlacementStats}
         undoStack={undoStack}
         setUndoStack={setUndoStack}
+        setLoading={setLoading}
+        loading={loading}
       />
     </div>
   );

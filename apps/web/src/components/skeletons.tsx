@@ -28,3 +28,10 @@ export function DashboardSkeleton() {
         </div>
     )
 }
+
+export function GameInitialiseSkeleton() {
+    return (
+        <div className="gameInitialise skeleton">   
+        </div>
+    )
+}

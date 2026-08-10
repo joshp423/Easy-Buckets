@@ -12,6 +12,7 @@ import GameDetailsInitialise from "./GameDetailsInitialise/gameDetailsInitialise
 import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
 import { type Game } from "../../types/game";
+import { GameInitialiseSkeleton } from "../skeletons";
 
 export type newGameCheck = "none" | "new" | "existing";
 
@@ -29,10 +30,12 @@ export default function GameScoring() {
   const [opponent, setOpponent] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [replay, setReplay] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    //relocate
+    //relocate?
     const load = async () => {
+      setLoading(true);
       const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
       const seasons = team.seasons;
 
@@ -44,16 +47,19 @@ export default function GameScoring() {
       if (latestSeason) {
         setSelectedDashboardSeason(latestSeason);
       }
+      setLoading(false);
     };
     load();
   }, []);
 
   useEffect(() => {
     const load = async () => {
+      setLoading(true);
       const players = await teamPlayersAPIFetch();
       if (players.length) {
         setPlayerList(players);
       }
+      setLoading(false);
     };
 
     load();
@@ -61,6 +67,14 @@ export default function GameScoring() {
 
   switch (newGameCheck) {
     case "none":
+      if (loading) {
+        return (
+          <div className="gameScoring">
+            <SideNav />
+            <GameInitialiseSkeleton />
+          </div>
+        )
+      }
       return (
         <div className="gameScoring">
           <SideNav />

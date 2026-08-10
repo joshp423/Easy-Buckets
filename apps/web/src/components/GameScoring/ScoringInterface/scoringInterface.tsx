@@ -65,10 +65,12 @@ export default function ScoringInterface({
   const [selectedShot, setSelectedShot] = useState<number | null>(null);
   const [undoStack, setUndoStack] = useState<stackStat[]>([]);
   const [redoStack, setRedoStack] = useState<redoStat[]>([]);
+  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
+      setLoading(true);
       if (gameDetails === "ready" || !gameDetails) return;
       const gamePlayers = gameDetails?.gameStatlines.map(
         (gameStatline) => gameStatline.player,
@@ -77,6 +79,7 @@ export default function ScoringInterface({
       setSelectedPlayers(gamePlayers);
       const shotLogData = await getShotsAPIReq(gameDetails.id);
       if (shotLogData) setShotLog(shotLogData);
+      setLoading(false);
     };
     load();
   }, [gameDetails, setGameDetails, setSelectedPlayers, undoStack]);
@@ -85,10 +88,11 @@ export default function ScoringInterface({
 
   if (!gameDetails.replay)
     return (
-      <div className="scoringInterface">
+      <div className={`scoringInterface ${loading ? "loading" : ""}`}>
         <div className="undoRedo">
           <button
             onClick={async () => {
+              setLoading(true);
               await undoLast(
                 shotLog,
                 undoStack,
@@ -98,18 +102,21 @@ export default function ScoringInterface({
               );
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
+              setLoading(false);
             }}
-            className={undoStack.length === 0 ? "disabled" : "enabled"}
+            className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
           >
             Undo
           </button>
           <button
             onClick={async () => {
+              setLoading(true);
               await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
               const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
               if (updatedGame) setGameDetails(updatedGame);
+              setLoading(false);
             }}
-            className={redoStack.length === 0 ? "disabled" : "enabled"}
+            className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
           >
             Redo
           </button>
@@ -135,6 +142,8 @@ export default function ScoringInterface({
                 setSelectedUI={setSelectedUI}
                 undoStack={undoStack}
                 setUndoStack={setUndoStack}
+                setLoading={setLoading}
+                loading={loading}
               />
             </div>
             <Shotlog
@@ -159,6 +168,8 @@ export default function ScoringInterface({
             selectedShot={selectedShot}
             undoStack={undoStack}
             setUndoStack={setUndoStack}
+            setLoading={setLoading}
+            loading={loading}
           />
         </div>
         <ScoringBoxScore gameDetails={gameDetails} />
@@ -178,11 +189,12 @@ export default function ScoringInterface({
     );
 
   return (
-    <div className="scoringInterface">
+    <div className={`scoringInterface ${loading ? "loading" : ""}`}>
       <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
       <div className="undoRedo">
         <button
           onClick={async () => {
+            setLoading(true);
             await undoLast(
               shotLog,
               undoStack,
@@ -193,19 +205,22 @@ export default function ScoringInterface({
             console.log(undoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (updatedGame) setGameDetails(updatedGame);
+            setLoading(false);
           }}
-          className={undoStack.length === 0 ? "disabled" : "enabled"}
+          className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
           Undo
         </button>
         <button
           onClick={async () => {
+            setLoading(true);
             await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
             console.log(redoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (updatedGame) setGameDetails(updatedGame);
+            setLoading(false);
           }}
-          className={redoStack.length === 0 ? "disabled" : "enabled"}
+          className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
           Redo
         </button>
@@ -231,6 +246,8 @@ export default function ScoringInterface({
               setSelectedUI={setSelectedUI}
               undoStack={undoStack}
               setUndoStack={setUndoStack}
+              setLoading={setLoading}
+              loading={loading}
             />
           </div>
           <Shotlog
@@ -255,6 +272,8 @@ export default function ScoringInterface({
           selectedShot={selectedShot}
           undoStack={undoStack}
           setUndoStack={setUndoStack}
+          setLoading={setLoading}
+          loading={loading}
         />
       </div>
       <ScoringBoxScore gameDetails={gameDetails} />

@@ -28,6 +28,8 @@ type CourtInterfaceProps = {
   selectedShot: number | null;
   undoStack: stackStat[];
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
 };
 
 export default function CourtInterface({
@@ -44,6 +46,8 @@ export default function CourtInterface({
   selectedShot,
   undoStack,
   setUndoStack,
+  setLoading,
+  loading
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
@@ -81,8 +85,9 @@ export default function CourtInterface({
   if (!gameDetails || gameDetails === "ready") return;
   return (
     <div // add hover shotLog animation useState
-      className={`courtInterface ${addUIClasses(selectedUI)}`}
+      className={`courtInterface ${addUIClasses(selectedUI)} ${loading ? "loading" : ""}`}
       onClick={async (e) => {
+        setLoading(true);
         console.log(gameDetails, courtImageRef.current);
         if (selectedUI !== "courtPlacement") return;
         if (!courtImageRef.current) return;
@@ -164,6 +169,7 @@ export default function CourtInterface({
         setSelectedPlayer(null);
         setSelectedStat("");
         setSelectedUI("playerSelection");
+        setLoading(false);
         return;
       }}
     >

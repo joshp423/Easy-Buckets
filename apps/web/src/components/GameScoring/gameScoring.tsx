@@ -30,7 +30,7 @@ export default function GameScoring() {
   const [opponent, setOpponent] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [replay, setReplay] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     //relocate?
@@ -73,7 +73,7 @@ export default function GameScoring() {
             <SideNav />
             <GameInitialiseSkeleton />
           </div>
-        )
+        );
       }
       return (
         <div className="gameScoring">

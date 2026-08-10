@@ -47,7 +47,7 @@ export default function CourtInterface({
   undoStack,
   setUndoStack,
   setLoading,
-  loading
+  loading,
 }: CourtInterfaceProps) {
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);

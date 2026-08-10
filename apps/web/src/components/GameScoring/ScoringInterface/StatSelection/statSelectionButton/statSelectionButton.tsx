@@ -20,7 +20,7 @@ type StatSelectionButtonProps = {
   undoStack: stackStat[];
   setUndoStack: React.Dispatch<React.SetStateAction<stackStat[]>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  loading: boolean
+  loading: boolean;
 };
 
 export default function StatSelectionButton({
@@ -38,7 +38,7 @@ export default function StatSelectionButton({
   undoStack,
   setUndoStack,
   setLoading,
-  loading
+  loading,
 }: StatSelectionButtonProps) {
   return (
     <div>
@@ -66,7 +66,7 @@ export default function StatSelectionButton({
                 (gameStatline) => gameStatline.playerId === selectedPlayer,
               );
               console.log(selectedPlayer, stat);
-              setLoading(true)
+              setLoading(true);
               await updateGameStatAPIReq({
                 gameStatlineId: selectedGameStatline[0]?.id,
                 statlineUpdateField: stat,
@@ -85,7 +85,7 @@ export default function StatSelectionButton({
               setSelectedUI("playerSelection");
               setSelectedPlayer(null);
               setSelectedStat("");
-              setLoading(false)
+              setLoading(false);
               return;
             }}
             style={{
@@ -97,9 +97,11 @@ export default function StatSelectionButton({
                 ? { cursor: "pointer" }
                 : {}),
             }}
-            className={`${selectedUI === "statSelection" || selectedUI === "courtPlacement"
+            className={`${
+              selectedUI === "statSelection" || selectedUI === "courtPlacement"
                 ? "enableButtonHover"
-                : ""} ${loading ? "loading" : ""}`}
+                : ""
+            } ${loading ? "loading" : ""}`}
           >
             {stat}
           </button>

@@ -65,7 +65,7 @@ export default function ScoringInterface({
   const [selectedShot, setSelectedShot] = useState<number | null>(null);
   const [undoStack, setUndoStack] = useState<stackStat[]>([]);
   const [redoStack, setRedoStack] = useState<redoStat[]>([]);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {

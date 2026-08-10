@@ -15,7 +15,7 @@ export default function Shotlog({
   selectedShot,
   setSelectedShot,
   replay,
-  videoRef
+  videoRef,
 }: shotLogProps) {
   if (!shotLog) return;
 
@@ -25,13 +25,13 @@ export default function Shotlog({
     return `${minutes}:${seconds.toString().padStart(2, "0")}`; //adds a 0 before the seconds if seconds is only one digit
   }
 
-  if(shotLog.length === 0) {
-    return(
+  if (shotLog.length === 0) {
+    return (
       <div className="shotLog">
         <h3>Shot Log</h3>
         <h4>No Shots!</h4>
       </div>
-    )
+    );
   }
   if (!replay) {
     return (
@@ -100,22 +100,26 @@ export default function Shotlog({
                   {shot.type} Point {shot.make === true ? "Make" : "Miss"}
                 </td>
                 <td>{formatTime(shot.timeStamp)}</td>
-                <td><button
-                  onClick={((e) => {
-                    e.stopPropagation(); // doesnt effect select row functionality
-                    if (shot.timeStamp >= 5) { 
-                      videoRef.current?.seekTo(shot.timeStamp - 5);
-                    }
-                    else {
-                      videoRef.current?.seekTo(shot.timeStamp - shot.timeStamp);
-                    }
-                    videoRef.current?.play();
-                    setTimeout(() => {
-                      videoRef.current?.pause();
-                    }, 10000);
-                  })}
-                >
-                  View Shot</button></td>
+                <td>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // doesnt effect select row functionality
+                      if (shot.timeStamp >= 5) {
+                        videoRef.current?.seekTo(shot.timeStamp - 5);
+                      } else {
+                        videoRef.current?.seekTo(
+                          shot.timeStamp - shot.timeStamp,
+                        );
+                      }
+                      videoRef.current?.play();
+                      setTimeout(() => {
+                        videoRef.current?.pause();
+                      }, 10000);
+                    }}
+                  >
+                    View Shot
+                  </button>
+                </td>
               </tr>
             );
           })}

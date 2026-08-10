@@ -32,7 +32,7 @@ export default function StatSelection({
   undoStack,
   setUndoStack,
   setLoading,
-  loading
+  loading,
 }: StatSelectionProps) {
   const pointsStats = [
     "2P Make",

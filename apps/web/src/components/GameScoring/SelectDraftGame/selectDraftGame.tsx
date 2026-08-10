@@ -55,17 +55,19 @@ export default function SelectDraftGame({
   }
 
   if (seasonData.length === 0) {
-    return(
+    return (
       <div className="selectDraftGame">
         <h1>No Draft Games</h1>
-          <button type="button"
+        <button
+          type="button"
           onClick={() => {
-            navigate("/score-game")
+            navigate("/score-game");
           }}
-          >
-            Back</button>
+        >
+          Back
+        </button>
       </div>
-    )
+    );
   }
   return (
     <div className="selectDraftGame">

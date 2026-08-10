@@ -27,6 +27,6 @@
 
 .shotChart > div > .selectedIcon {
   transform-origin: center;
-  transform:  translate(15px, 15px) scale(1.8, 1.8) !important;
-  color: blue !important
+  transform: translate(15px, 15px) scale(1.8, 1.8) !important;
+  color: blue !important;
 }

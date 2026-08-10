@@ -16,11 +16,11 @@ body {
 
 .skeleton {
   position: relative;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .skeleton::before {
- content: "";
+  content: "";
   position: absolute;
   inset: 0;
   transform: translateX(-100%);

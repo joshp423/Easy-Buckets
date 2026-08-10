@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [dashboardView, setdashboardView] = useState<DashboardView>("Game");
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const load = async () => {
@@ -41,7 +41,6 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    
     const selectedSeason = teamSeasons.find(
       (season) => season.name === selectedDashboardSeason,
     );
@@ -62,7 +61,8 @@ export default function Dashboard() {
   }, [selectedDashboardSeason, teamSeasons]);
   // add fallback component
 
-  if (!teamSeasons.length) { // if no data
+  if (!teamSeasons.length) {
+    // if no data
     return (
       <div className="dashboard">
         <SideNav />
@@ -102,7 +102,7 @@ export default function Dashboard() {
           <DashboardSkeleton />
         </div>
       </div>
-    )
+    );
   }
 
   return (

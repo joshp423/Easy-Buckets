@@ -1,5 +1,7 @@
 import type { Game } from "../../../../types/game";
 import "./seasonStatsDisplay.css";
+import ShotChart from "../GameDisplay/GameStats/ShotChart/shotChart";
+import type { ShotLog } from "../../../../types/shotLog";
 
 type SeasonStatsDisplayProps = {
   seasonData: Game[];
@@ -104,6 +106,33 @@ export default function SeasonStatsDisplay({
     },
     [],
   );
+  const seasonShots: ShotLog = seasonData.reduce<ShotLog>(
+    (acc, game) => {
+      game.gameStatlines.forEach((gameStatline) => {
+        gameStatline.shots?.forEach((shot) => {
+          const newShot = {
+            id: shot.id,
+            gameStatlineId: gameStatline.id,
+            make: shot.make,
+            X: shot.X,
+            Y: shot.Y,
+            type: shot.type,
+            timeStamp: shot.timeStamp,
+            gameStatline: {
+              player: {
+                name: gameStatline.player.name,
+                number: gameStatline.player.number
+              }
+            }
+          }
+          acc.push(newShot)
+        })
+      })
+      return acc;
+    }, [],
+  );
+
+  
   console.log(seasonStats);
 
   const teamTotals = {
@@ -150,6 +179,7 @@ export default function SeasonStatsDisplay({
 
   return (
     <div className="seasonStatsContainer">
+      <ShotChart shotLog={seasonShots} selectedShot={null}/>
       <div className="seasonStatsBoxScore">
         <table>
           <thead>

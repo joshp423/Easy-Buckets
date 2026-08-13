@@ -1,5 +1,5 @@
 import type { Game } from "../../../../types/game";
-import "./seasonStatsDisplay.css"
+import "./seasonStatsDisplay.css";
 
 type SeasonStatsDisplayProps = {
   seasonData: Game[];
@@ -8,15 +8,15 @@ type SeasonStatsDisplayProps = {
 //season and player stats, overall shots?
 //get just playerStats from specific season or work out from these stats?
 
-
-
-export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayProps) {
+export default function SeasonStatsDisplay({
+  seasonData,
+}: SeasonStatsDisplayProps) {
   if (!seasonData) return;
 
   type seasonStatPlayer = {
     name: string;
     number: number;
-    id: number,
+    id: number;
     twoPointFGMiss: number;
     twoPointFGMake: number;
     twoPointFGA: number;
@@ -37,47 +37,50 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
     points: number;
     threePointFGPercent: number;
     fTPercent: number;
-
   };
 
-  
   //reduce makes it so we can reference the array while building it as well as not have the same exact number of fields.
-  const seasonStats:seasonStatPlayer[] = seasonData.reduce<seasonStatPlayer[]>((accumulatedArray, game) => {
-    game.gameStatlines.forEach((gameStatline) => {
-      const existingPlayerSeasonStat = accumulatedArray.find(playerSeasonStats => playerSeasonStats.id === gameStatline.playerId)
-      if (!existingPlayerSeasonStat) {
-        accumulatedArray.push({
-          name: gameStatline.player.name,
-          number: gameStatline.player.number,
-          id: gameStatline.playerId,
-          twoPointFGMiss:  gameStatline.twoPointFGMiss,
-          twoPointFGMake: gameStatline.twoPointFGMake,
-          twoPointFGA: gameStatline.twoPointFGA,
-          threePointFGMiss: gameStatline.threePointFGMiss,
-          threePointFGMake: gameStatline.threePointFGMake,
-          threePointFGA: gameStatline.threePointFGA,
-          fTMiss: gameStatline.fTMiss,
-          fTMake: gameStatline.fTMake,
-          fTA: gameStatline.fTA,
-          oReb: gameStatline.oReb,
-          dReb: gameStatline.dReb,
-          assist: gameStatline.assist,
-          block: gameStatline.block,
-          steal: gameStatline.steal,
-          turnover: gameStatline.turnover,
-          pF: gameStatline.pF,
-          totalRebounds: gameStatline.totalRebounds,
-          points: gameStatline.points,
-          threePointFGPercent: gameStatline.threePointFGPercent,
-          fTPercent: gameStatline.fTPercent,
-        });
-        return;
-      }
+  const seasonStats: seasonStatPlayer[] = seasonData.reduce<seasonStatPlayer[]>(
+    (accumulatedArray, game) => {
+      game.gameStatlines.forEach((gameStatline) => {
+        const existingPlayerSeasonStat = accumulatedArray.find(
+          (playerSeasonStats) => playerSeasonStats.id === gameStatline.playerId,
+        );
+        if (!existingPlayerSeasonStat) {
+          accumulatedArray.push({
+            name: gameStatline.player.name,
+            number: gameStatline.player.number,
+            id: gameStatline.playerId,
+            twoPointFGMiss: gameStatline.twoPointFGMiss,
+            twoPointFGMake: gameStatline.twoPointFGMake,
+            twoPointFGA: gameStatline.twoPointFGA,
+            threePointFGMiss: gameStatline.threePointFGMiss,
+            threePointFGMake: gameStatline.threePointFGMake,
+            threePointFGA: gameStatline.threePointFGA,
+            fTMiss: gameStatline.fTMiss,
+            fTMake: gameStatline.fTMake,
+            fTA: gameStatline.fTA,
+            oReb: gameStatline.oReb,
+            dReb: gameStatline.dReb,
+            assist: gameStatline.assist,
+            block: gameStatline.block,
+            steal: gameStatline.steal,
+            turnover: gameStatline.turnover,
+            pF: gameStatline.pF,
+            totalRebounds: gameStatline.totalRebounds,
+            points: gameStatline.points,
+            threePointFGPercent: gameStatline.threePointFGPercent,
+            fTPercent: gameStatline.fTPercent,
+          });
+          return;
+        }
         existingPlayerSeasonStat.twoPointFGMiss += gameStatline.twoPointFGMiss;
         existingPlayerSeasonStat.twoPointFGMake += gameStatline.twoPointFGMake;
         existingPlayerSeasonStat.twoPointFGA += gameStatline.twoPointFGA;
-        existingPlayerSeasonStat.threePointFGMiss += gameStatline.threePointFGMiss;
-        existingPlayerSeasonStat.threePointFGMake += gameStatline.threePointFGMake;
+        existingPlayerSeasonStat.threePointFGMiss +=
+          gameStatline.threePointFGMiss;
+        existingPlayerSeasonStat.threePointFGMake +=
+          gameStatline.threePointFGMake;
         existingPlayerSeasonStat.threePointFGA += gameStatline.threePointFGA;
         existingPlayerSeasonStat.fTMiss += gameStatline.fTMiss;
         existingPlayerSeasonStat.fTMake += gameStatline.fTMake;
@@ -91,13 +94,18 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
         existingPlayerSeasonStat.pF += gameStatline.pF;
         existingPlayerSeasonStat.totalRebounds += gameStatline.totalRebounds;
         existingPlayerSeasonStat.points += gameStatline.points;
-        existingPlayerSeasonStat.fTPercent = existingPlayerSeasonStat.fTMake / existingPlayerSeasonStat.fTA
-        existingPlayerSeasonStat.threePointFGPercent = existingPlayerSeasonStat.threePointFGMake / existingPlayerSeasonStat.threePointFGA
-      })
+        existingPlayerSeasonStat.fTPercent =
+          existingPlayerSeasonStat.fTMake / existingPlayerSeasonStat.fTA;
+        existingPlayerSeasonStat.threePointFGPercent =
+          existingPlayerSeasonStat.threePointFGMake /
+          existingPlayerSeasonStat.threePointFGA;
+      });
       return accumulatedArray;
-    }, [])
-    console.log(seasonStats)
-  
+    },
+    [],
+  );
+  console.log(seasonStats);
+
   const teamTotals = {
     twoPointFGMiss: 0,
     twoPointFGMake: 0,
@@ -118,7 +126,7 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
     totalRebounds: 0,
     points: 0,
   };
-  
+
   seasonStats.forEach((player) => {
     teamTotals.twoPointFGMiss += player.twoPointFGMiss;
     teamTotals.twoPointFGMake += player.twoPointFGMake;
@@ -138,8 +146,8 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
     teamTotals.pF += player.pF;
     teamTotals.totalRebounds += player.totalRebounds;
     teamTotals.points += player.points;
-  })
-  
+  });
+
   return (
     <div className="seasonStatsContainer">
       <div className="seasonStatsBoxScore">
@@ -172,14 +180,26 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
               const id = playerSeasonStats.id;
               return (
                 <tr key={id}>
-                  <td>{playerSeasonStats.name} #{playerSeasonStats.number}</td>
-                  <td>{playerSeasonStats.twoPointFGMake + playerSeasonStats.threePointFGMake}</td>
-                  <td>{playerSeasonStats.twoPointFGA + playerSeasonStats.threePointFGA}</td>
+                  <td>
+                    {playerSeasonStats.name} #{playerSeasonStats.number}
+                  </td>
+                  <td>
+                    {playerSeasonStats.twoPointFGMake +
+                      playerSeasonStats.threePointFGMake}
+                  </td>
+                  <td>
+                    {playerSeasonStats.twoPointFGA +
+                      playerSeasonStats.threePointFGA}
+                  </td>
                   <td>
                     {Math.round(
-                      ((playerSeasonStats.threePointFGMake + playerSeasonStats.twoPointFGMake) /
-                      (playerSeasonStats.twoPointFGA + playerSeasonStats.threePointFGA)) * 100,
-                    )} %
+                      ((playerSeasonStats.threePointFGMake +
+                        playerSeasonStats.twoPointFGMake) /
+                        (playerSeasonStats.twoPointFGA +
+                          playerSeasonStats.threePointFGA)) *
+                        100,
+                    )}{" "}
+                    %
                   </td>
                   <td>{playerSeasonStats.threePointFGMake}</td>
                   <td>{playerSeasonStats.threePointFGA}</td>
@@ -217,7 +237,8 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
               <td>{teamTotals.threePointFGA}</td>
               <td>
                 {Math.round(
-                  (teamTotals.threePointFGMake / teamTotals.threePointFGA) * 100,
+                  (teamTotals.threePointFGMake / teamTotals.threePointFGA) *
+                    100,
                 )}
                 %
               </td>
@@ -238,5 +259,5 @@ export default function SeasonStatsDisplay({ seasonData }: SeasonStatsDisplayPro
         </table>
       </div>
     </div>
-  )
+  );
 }

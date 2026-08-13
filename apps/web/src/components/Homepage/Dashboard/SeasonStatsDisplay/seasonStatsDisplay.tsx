@@ -106,33 +106,30 @@ export default function SeasonStatsDisplay({
     },
     [],
   );
-  const seasonShots: ShotLog = seasonData.reduce<ShotLog>(
-    (acc, game) => {
-      game.gameStatlines.forEach((gameStatline) => {
-        gameStatline.shots?.forEach((shot) => {
-          const newShot = {
-            id: shot.id,
-            gameStatlineId: gameStatline.id,
-            make: shot.make,
-            X: shot.X,
-            Y: shot.Y,
-            type: shot.type,
-            timeStamp: shot.timeStamp,
-            gameStatline: {
-              player: {
-                name: gameStatline.player.name,
-                number: gameStatline.player.number
-              }
-            }
-          }
-          acc.push(newShot)
-        })
-      })
-      return acc;
-    }, [],
-  );
+  const seasonShots: ShotLog = seasonData.reduce<ShotLog>((acc, game) => {
+    game.gameStatlines.forEach((gameStatline) => {
+      gameStatline.shots?.forEach((shot) => {
+        const newShot = {
+          id: shot.id,
+          gameStatlineId: gameStatline.id,
+          make: shot.make,
+          X: shot.X,
+          Y: shot.Y,
+          type: shot.type,
+          timeStamp: shot.timeStamp,
+          gameStatline: {
+            player: {
+              name: gameStatline.player.name,
+              number: gameStatline.player.number,
+            },
+          },
+        };
+        acc.push(newShot);
+      });
+    });
+    return acc;
+  }, []);
 
-  
   console.log(seasonStats);
 
   const teamTotals = {
@@ -179,7 +176,7 @@ export default function SeasonStatsDisplay({
 
   return (
     <div className="seasonStatsContainer">
-      <ShotChart shotLog={seasonShots} selectedShot={null}/>
+      <ShotChart shotLog={seasonShots} selectedShot={null} />
       <div className="seasonStatsBoxScore">
         <table>
           <thead>

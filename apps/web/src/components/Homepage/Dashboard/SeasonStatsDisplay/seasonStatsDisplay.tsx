@@ -2,6 +2,7 @@ import type { Game } from "../../../../types/game";
 import "./seasonStatsDisplay.css";
 import ShotChart from "../GameDisplay/GameStats/ShotChart/shotChart";
 import type { ShotLog } from "../../../../types/shotLog";
+import { useState } from "react";
 
 type SeasonStatsDisplayProps = {
   seasonData: Game[];
@@ -13,6 +14,8 @@ type SeasonStatsDisplayProps = {
 export default function SeasonStatsDisplay({
   seasonData,
 }: SeasonStatsDisplayProps) {
+  const [selectedShot, setSelectedShot] = useState<number | null>(null);
+
   if (!seasonData) return;
 
   type seasonStatPlayer = {
@@ -110,7 +113,7 @@ export default function SeasonStatsDisplay({
     game.gameStatlines.forEach((gameStatline) => {
       gameStatline.shots?.forEach((shot) => {
         const newShot = {
-          id: shot.id,
+          id: gameStatline.playerId, // using this to bulk select shots
           gameStatlineId: gameStatline.id,
           make: shot.make,
           X: shot.X,
@@ -130,7 +133,7 @@ export default function SeasonStatsDisplay({
     return acc;
   }, []);
 
-  console.log(seasonStats);
+  console.log(seasonShots)
 
   const teamTotals = {
     twoPointFGMiss: 0,
@@ -174,9 +177,14 @@ export default function SeasonStatsDisplay({
     teamTotals.points += player.points;
   });
 
+  const statLeaders = {
+    points: {"": 0},
+    
+  }
+
   return (
     <div className="seasonStatsContainer">
-      <ShotChart shotLog={seasonShots} selectedShot={null} />
+      <ShotChart shotLog={seasonShots} selectedShot={selectedShot} />
       <div className="seasonStatsBoxScore">
         <table>
           <thead>
@@ -206,7 +214,15 @@ export default function SeasonStatsDisplay({
             {seasonStats.map((playerSeasonStats) => {
               const id = playerSeasonStats.id;
               return (
-                <tr key={id}>
+                <tr key={id} style={{"cursor": "pointer"}} onClick={() => {
+                  if (selectedShot === id) {
+                    setSelectedShot(null);
+                    return;
+                  }
+                  setSelectedShot((playerSeasonStats.id));
+                }}
+                className={selectedShot === id ? "selected" : ""}
+                >
                   <td>
                     {playerSeasonStats.name} #{playerSeasonStats.number}
                   </td>
@@ -283,6 +299,23 @@ export default function SeasonStatsDisplay({
               <td>{teamTotals.points}</td>
             </tr>
           </tfoot>
+        </table>
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Stat Leader</th>
+              <th>Per Game Average</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>Points</td>
+                <td></td>
+            </tr>
+          </tbody>   
         </table>
       </div>
     </div>

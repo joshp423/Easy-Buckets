@@ -179,8 +179,20 @@ export default function SeasonStatsDisplay({
 
   const statLeaders = {
     points: {"": 0},
-    
+    fGP: {"": 0},
+    tPP: {"": 0},
+    assists: {"": 0},
+    rebounds: {"": 0},
+    assistTurnover: {"": 0},
+    steals: {"": 0},
+    fouls: {"": 0},
   }
+
+  seasonStats.forEach((player) => {
+    if (statLeaders.points[""] < player.points) {
+      statLeaders.points = `${player.name}`: player.points}
+    }
+  })
 
   return (
     <div className="seasonStatsContainer">

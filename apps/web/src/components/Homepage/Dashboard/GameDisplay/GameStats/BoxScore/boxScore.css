@@ -33,7 +33,6 @@ th {
 
 td {
   padding: 0.5rem 0.75rem;
-  
 }
 
 thead {
@@ -45,7 +44,7 @@ td:not(:first-of-type):not(:last-of-type) {
   border-right: 1px solid lightgrey;
 }
 
-thead > tr > th { 
+thead > tr > th {
   background: #e37204;
   color: white;
   border-bottom: 2px solid black;
@@ -96,7 +95,6 @@ tfoot {
   border-left: 1px solid lightgrey;
   border-right: 1px solid lightgrey;
 }
-
 
 .boxScore > table > thead > tr > th,
 .boxScore > table > tbody > tr > td,

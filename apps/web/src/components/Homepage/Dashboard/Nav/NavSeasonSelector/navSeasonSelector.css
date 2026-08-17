@@ -15,3 +15,7 @@
   background-color: #e37204;
   color: white;
 }
+
+.navSeasonSelector > select:hover {
+  outline: 1px solid black;
+}

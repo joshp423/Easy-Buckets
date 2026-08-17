@@ -1,15 +1,23 @@
 .seasonStatsContainer {
-  display: flex;
+  display: grid;
+  grid-template-rows: 60% 38%;
   flex-direction: column;
   align-items: center;
+  max-height: 1700px;
+  max-width: 1400px;
+  min-width: 1230px;
+  height: 100%;
+  align-self: center;
+  gap: 1.5rem;
 }
 
 .seasonStatsContainer > div:first-child {
   display: grid;
   grid-template-columns: 39% 59%;
   height: 100%;
-  gap: 2%;
+  gap: 1rem;
   width: 100%;
+  justify-content: space-between;
 }
 
 /* .seasonStatsContainer > div > div:last-child {
@@ -23,8 +31,6 @@
   border-radius: 12px;
   width: 100%;
   overflow-x: scroll;
-  max-height: 50%;
-  margin-top: 2%;
   overflow-y: hidden;
   flex-shrink: 0;
 }
@@ -62,4 +68,8 @@
   border: 1px solid lightgrey;
   font-size: 0.9rem;
   white-space: nowrap;
+}
+
+.seasonStatLeadersTable > table > tbody > tr > td {
+  border: 1px solid lightgrey;
 }

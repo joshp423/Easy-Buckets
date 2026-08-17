@@ -178,7 +178,7 @@ export default function SeasonStatLeadersTable({
           <tr>
             <td>Steals</td>
             <td>
-              {statLeaders.points.name} - {statLeaders.rebounds.value} SPG
+              {statLeaders.steals.name} - {statLeaders.steals.value} SPG
             </td>
           </tr>
           <tr>

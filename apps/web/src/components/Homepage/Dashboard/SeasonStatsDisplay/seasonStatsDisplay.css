@@ -31,3 +31,26 @@
   font-size: 0.9rem;
   white-space: nowrap;
 }
+
+.seasonStatLeadersTable {
+  display: flex;
+  padding: 2%;
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  max-width: 100%;
+  max-height: 50%;
+  min-height: 40%;
+  margin-top: 2%;
+  overflow-y: hidden;
+  flex-shrink: 0;
+}
+
+.seasonStatLeadersTable > table {
+  border-collapse: collapse;
+  text-indent: 0;
+  text-align: left;
+  width: 100%;
+  border: 1px solid lightgrey;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}

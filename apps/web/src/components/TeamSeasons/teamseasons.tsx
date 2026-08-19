@@ -2,9 +2,9 @@ import SideNav from "../SideNav/sideNav"
 import { useState, useEffect } from "react";
 import { type Player } from "../../types/player";
 import { teamPlayersAPIFetch } from "../GameScoring/teamPlayersAPIFetch";
-import { PlayerListEdit } from "./PlayerListEdit/playerListEdit";
+import  PlayerListEdit  from "./PlayerListEdit/playerListEdit";
 
-export function TeamSeasons() {
+export default function TeamSeasons() {
 
     //active players + edit, season list into game list + edit, team name edit
     const [playerList, setPlayerList] = useState<Player[]>([]);

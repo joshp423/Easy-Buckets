@@ -14,7 +14,7 @@ const routes = [
       { path: "/sign-up", element: <SignUp /> },
       { path: "/log-in", element: <LogIn /> },
       { path: "/score-game", element: <GameScoring /> },
-      { path: "/team-seasons", element: <TeamSeasons />}
+      { path: "/team-seasons", element: <TeamSeasons /> },
     ],
   },
 ];

@@ -1,9 +1,7 @@
-import type { Player } from "../../../../types/player"
+import type { Player } from "../../../../types/player";
 
 type editPlayerDetailsAPIReqArgs = {
-    player: Player
-}
+  player: Player;
+};
 
-export default function editPlayerDetailsAPIReq() {
-
-}
+export default function editPlayerDetailsAPIReq() {}

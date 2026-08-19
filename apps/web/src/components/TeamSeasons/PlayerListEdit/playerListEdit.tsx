@@ -1,6 +1,7 @@
 import type { Player } from "../../../types/player";
 import { useState } from "react";
 import CreatePlayers from "../../GameScoring/CreatePlayers/createPlayers";
+import EditPlayer from "./EditPlayer/editplayer";
 
 type PlayerListEditProps = {
   playerList: Player[];
@@ -17,9 +18,9 @@ export default function PlayerListEdit({
   if (playerList.length === 0) return;
 
   if (editPlayer) {
-    if (addPlayer) {
-      return <div className="playerListEdit"></div>;
-    }
+    return <div className="playerListEdit"><EditPlayer editPlayer={editPlayer}, setEditPlayer={setEditPlayer}/></div>;
+  }
+  if (addPlayer) {
     return <div className="playerListEdit"></div>;
   }
   return (

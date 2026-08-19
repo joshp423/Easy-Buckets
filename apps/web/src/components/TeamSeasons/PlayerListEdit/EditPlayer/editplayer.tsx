@@ -1,16 +1,27 @@
 import type { Player } from "../../../../types/player";
 import { useState, type SyntheticEvent } from "react";
+import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
 
 type EditPlayerProps = {
   editPlayer: Player;
+  setEditPlayer: React.Dispatch<React.SetStateAction<Player | null>>
 };
 
-export default function EditPlayer({ editPlayer }: EditPlayerProps) {
+export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProps) {
+  
   const [playerName, setPlayerName] = useState<string>(editPlayer.name);
   const [playerNumber, setPlayerNumber] = useState<number>(editPlayer.number);
 
-  function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
+  async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    const updatedPlayer = await editPlayerDetailsAPIReq({player: {
+      name: playerName,
+      number: playerNumber,
+      id: editPlayer.id
+    }});
+    if (updatedPlayer) {
+      setEditPlayer(null)
+    }
   }
 
   function deletePlayer() {}

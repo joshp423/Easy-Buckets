@@ -4,4 +4,19 @@ type editPlayerDetailsAPIReqArgs = {
   player: Player;
 };
 
-export default function editPlayerDetailsAPIReq() {}
+export async function editPlayerDetailsAPIReq({player}: editPlayerDetailsAPIReqArgs) {
+  const rsp = await fetch(`http://localhost:3000/teams/player/edit`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    method: "PUT",
+    body: JSON.stringify({
+      player
+    })
+  });
+
+  const data = await rsp.json();
+
+  return data;
+}

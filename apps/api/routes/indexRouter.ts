@@ -77,4 +77,10 @@ indexRouter.put(
   publishGame,
 );
 
+indexRouter.put(
+  "teams/players/edit",
+  indexController.verifyToken,
+  
+)
+
 export default indexRouter;

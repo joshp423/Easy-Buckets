@@ -38,6 +38,15 @@ const createTeamPlayersSchema = z.object({
   ),
 });
 
+const editPlayerSchema = z.object({
+  player: z.object({
+    id: z.number(),
+    name: z.string(),
+    number: z.string()
+  }),
+  userId: z.number()
+})
+
 export async function createTeam(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
@@ -146,3 +155,30 @@ the rsp became: {teamSeasons: {id, name, seasons, etc}}, not what we wanted whic
 
 solution was to strip the object we were creating in the .json() function call .json({}) so we didnt create a new object with a key
 */
+
+export async function editTeamPlayer(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { player } = req.body;
+
+  const { success, data, error } = createTeamPlayersSchema.safeParse({
+    userId,
+    player,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error,
+    });
+  }
+
+  const updatedPlayer = await teamService.editTeamPlayer(data);
+  
+    if (!updatedPlayer) {
+      return res.status(403).json({
+        message: "an unexpected error occured",
+      });
+    }
+  
+    return res.status(201).json(updatedPlayer);
+}

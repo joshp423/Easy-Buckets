@@ -5,7 +5,7 @@ import "./navLinks.css";
 const links = [
   { name: "Stats", href: "/" },
   { name: "Game Scoring", href: "/score-game" },
-  { name: "Team & Seasons", href: "/team" },
+  { name: "Team & Seasons", href: "/team-seasons" },
 ];
 
 export default function NavLinks() {

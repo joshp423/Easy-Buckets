@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import type { Player, TeamPlayers } from "../service/team.js";
+import type { editPlayer, Player } from "../service/team.js";
 
 export class TeamRepo {
   private prisma: PrismaClient;
@@ -66,5 +66,22 @@ export class TeamRepo {
         teamId: team.id,
       })),
     });
+  }
+
+  async editTeamPlayer(userId: number, player: editPlayer) {
+    const updatedPlayer = await this.prisma.players.update({
+      where: {
+        team: {
+          userId
+        },
+        id: player.id
+      },
+      data: {
+        name: player.name,
+        id: player.id,
+        number: Number(player.name)
+        }
+    })
+    return updatedPlayer;
   }
 }

@@ -42,7 +42,7 @@ const editPlayerSchema = z.object({
   player: z.object({
     id: z.number(),
     name: z.string(),
-    number: z.string()
+    number: z.number()
   }),
   userId: z.number()
 })
@@ -161,7 +161,7 @@ export async function editTeamPlayer(req: AuthRequest, res: Response) {
 
   const { player } = req.body;
 
-  const { success, data, error } = createTeamPlayersSchema.safeParse({
+  const { success, data, error } = editPlayerSchema.safeParse({
     userId,
     player,
   });
@@ -172,7 +172,7 @@ export async function editTeamPlayer(req: AuthRequest, res: Response) {
     });
   }
 
-  const updatedPlayer = await teamService.editTeamPlayer(data);
+  const updatedPlayer = await teamService.editTeamPlayer(data.userId, data.player);
   
     if (!updatedPlayer) {
       return res.status(403).json({

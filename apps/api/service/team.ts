@@ -16,6 +16,13 @@ export type TeamPlayers = {
   players: Player[];
 };
 
+export type editPlayer = {
+  name: string;
+  number: number;
+  id: number
+}
+
+
 export class TeamService {
   private config: configSchema;
   private teamRepo: TeamRepo;
@@ -39,5 +46,9 @@ export class TeamService {
 
   async createTeamPlayers({ userId, players }: TeamPlayers) {
     return this.teamRepo.createTeamPlayers(userId, players);
+  }
+
+  async editTeamPlayer( userId: number, player: editPlayer) {
+    return this.teamRepo.editTeamPlayer(userId, player)
   }
 }

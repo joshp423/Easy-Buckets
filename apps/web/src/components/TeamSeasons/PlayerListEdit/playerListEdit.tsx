@@ -18,7 +18,7 @@ export default function PlayerListEdit({
   if (playerList.length === 0) return;
 
   if (editPlayer) {
-    return <div className="playerListEdit"><EditPlayer editPlayer={editPlayer}, setEditPlayer={setEditPlayer}/></div>;
+    return <div className="playerListEdit"><EditPlayer editPlayer={editPlayer} setEditPlayer={setEditPlayer}/></div>;
   }
   if (addPlayer) {
     return <div className="playerListEdit"></div>;

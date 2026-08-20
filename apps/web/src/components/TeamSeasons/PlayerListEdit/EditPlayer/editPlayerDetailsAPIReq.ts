@@ -5,7 +5,7 @@ type editPlayerDetailsAPIReqArgs = {
 };
 
 export async function editPlayerDetailsAPIReq({player}: editPlayerDetailsAPIReqArgs) {
-  const rsp = await fetch(`http://localhost:3000/teams/player/edit`, {
+  const rsp = await fetch(`http://localhost:3000/teams/players/edit`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

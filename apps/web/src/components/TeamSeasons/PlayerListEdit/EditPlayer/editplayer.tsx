@@ -8,7 +8,7 @@ type EditPlayerProps = {
 };
 
 export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProps) {
-  
+  // add loading
   const [playerName, setPlayerName] = useState<string>(editPlayer.name);
   const [playerNumber, setPlayerNumber] = useState<number>(editPlayer.number);
 
@@ -22,6 +22,7 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
     if (updatedPlayer) {
       setEditPlayer(null)
     }
+    return;
   }
 
   function deletePlayer() {}
@@ -36,7 +37,7 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
           }}
           type="text"
           name="playerName"
-          value={editPlayer.name}
+          placeholder={editPlayer.name}
         />
         <label htmlFor="playerName">Edit Player Number: </label>
         <input
@@ -45,10 +46,10 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
           }}
           type="number"
           name="playerName"
-          value={editPlayer.number}
+          defaultValue={editPlayer.number}
         />
-        <button type="button">Delete Player from team</button>
         <button type="submit">Confirm Changes</button>
+        <button type="button">Delete Player from team</button>
       </form>
     </div>
   );

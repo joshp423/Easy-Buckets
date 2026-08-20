@@ -21,14 +21,18 @@ export default function PlayerListEdit({
     return <div className="playerListEdit"><EditPlayer editPlayer={editPlayer} setEditPlayer={setEditPlayer}/></div>;
   }
   if (addPlayer) {
-    return <div className="playerListEdit"></div>;
+    return (
+      <div className="playerListEdit">
+        <CreatePlayers setAddPlayer={setAddPlayer}/>
+      </div>
+    )
   }
   return (
     <div className="playerListEdit">
       <ul>
         {playerList.map((player) => (
           <li key={player.id}>
-            <p>{player.name + " " + player.number}</p>
+            <p>{player.name + " " + "#" + player.number}</p>
             <button
               type="button"
               onClick={() => {

@@ -78,8 +78,7 @@ export class TeamRepo {
       },
       data: {
         name: player.name,
-        id: player.id,
-        number: Number(player.name)
+        number: player.number
         }
     })
     return updatedPlayer;

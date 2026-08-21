@@ -47,6 +47,11 @@ const editPlayerSchema = z.object({
   userId: z.number()
 })
 
+const deletePlayerSchema = z.object({
+  userId: z.number(),
+  playerID: z.number(),
+})
+
 export async function createTeam(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
@@ -181,4 +186,31 @@ export async function editTeamPlayer(req: AuthRequest, res: Response) {
     }
   
     return res.status(201).json(updatedPlayer);
+}
+
+export async function deleteTeamPlayer(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+  const { playerId } = req.body;
+
+  
+  const { success, data, error } = deletePlayerSchema.safeParse({
+    userId,
+    playerId,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error,
+    });
+  }
+
+  const deletedPlayer = await teamService.deleteTeamPlayer(data.userId, data.playerID);
+  
+    if (!deletedPlayer) {
+      return res.status(403).json({
+        message: "an unexpected error occured",
+      });
+    }
+  
+    return res.status(201).json(deletedPlayer);
 }

@@ -1,5 +1,6 @@
 import type { PrismaClient } from "@prisma/client";
-import type { editPlayer, Player } from "../service/team.js";
+import type { EditPlayer, Player } from "../service/team.js";
+import type { deleteTeamPlayer } from "../controllers/teamController.js";
 
 export class TeamRepo {
   private prisma: PrismaClient;
@@ -68,7 +69,7 @@ export class TeamRepo {
     });
   }
 
-  async editTeamPlayer(userId: number, player: editPlayer) {
+  async editTeamPlayer(userId: number, player: EditPlayer) {
     const updatedPlayer = await this.prisma.players.update({
       where: {
         team: {
@@ -83,4 +84,16 @@ export class TeamRepo {
     })
     return updatedPlayer;
   }
+
+  async deleteTeamPlayer(userId: number, playerId: number) {
+    const deletedPlayer = await this.prisma.players.delete({
+      where: {
+        team: {
+          userId
+        },
+        id: playerId
+      }
+    })
+    return deletedPlayer;
+  };
 }

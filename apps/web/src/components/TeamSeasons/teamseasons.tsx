@@ -12,6 +12,8 @@ export default function TeamSeasons() {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    if (editPlayer !== null) return;
+
     const load = async () => {
       setLoading(true);
       const players = await teamPlayersAPIFetch();

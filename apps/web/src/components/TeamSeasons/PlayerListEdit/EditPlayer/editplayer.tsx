@@ -1,5 +1,5 @@
 import type { Player } from "../../../../types/player";
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
 import { deletePlayerDetailsAPIReq } from "./deletePlayerAPIReq";
 
@@ -10,22 +10,23 @@ type EditPlayerProps = {
 
 export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProps) {
   // add loading
-  const [playerName, setPlayerName] = useState<string>("");
-  const [playerNumber, setPlayerNumber] = useState<number>(0);
-
   if (!editPlayer) return;
 
-  setPlayerName(editPlayer.name);
-  setPlayerNumber(editPlayer.number);
+  
 
   async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+
     if (!editPlayer) return;
+
+    const form = new FormData(e.currentTarget);
+
     const updatedPlayer = await editPlayerDetailsAPIReq({player: {
-      name: playerName,
-      number: playerNumber,
+      name: form.get("playerName") as string,
+      number: Number(form.get("playerNumber")),
       id: editPlayer.id
     }});
+
     if (updatedPlayer) {
       setEditPlayer(null)
     }
@@ -45,20 +46,14 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
       <form onSubmit={confirmPlayerEdit}>
         <label htmlFor="playerName">Edit Player Name: </label>
         <input
-          onChange={(e) => {
-            setPlayerName(e.target.value);
-          }}
           type="text"
           name="playerName"
           defaultValue={editPlayer.name}
         />
-        <label htmlFor="playerName">Edit Player Number: </label>
+        <label htmlFor="playerNumber">Edit Player Number: </label>
         <input
-          onChange={(e) => {
-            setPlayerNumber(Number(e.target.value));
-          }}
           type="number"
-          name="playerName"
+          name="playerNumber"
           defaultValue={editPlayer.number}
         />
         <button type="submit">Confirm Changes</button>

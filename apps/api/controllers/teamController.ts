@@ -42,15 +42,15 @@ const editPlayerSchema = z.object({
   player: z.object({
     id: z.number(),
     name: z.string(),
-    number: z.number()
+    number: z.number(),
   }),
-  userId: z.number()
-})
+  userId: z.number(),
+});
 
 const deletePlayerSchema = z.object({
   userId: z.number(),
   playerId: z.number(),
-})
+});
 
 export async function createTeam(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -177,22 +177,24 @@ export async function editTeamPlayer(req: AuthRequest, res: Response) {
     });
   }
 
-  const updatedPlayer = await teamService.editTeamPlayer(data.userId, data.player);
-  
-    if (!updatedPlayer) {
-      return res.status(403).json({
-        message: "an unexpected error occured",
-      });
-    }
-  
-    return res.status(201).json(updatedPlayer);
+  const updatedPlayer = await teamService.editTeamPlayer(
+    data.userId,
+    data.player,
+  );
+
+  if (!updatedPlayer) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(updatedPlayer);
 }
 
 export async function deleteTeamPlayer(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
   const { playerId } = req.body;
 
-  
   const { success, data, error } = deletePlayerSchema.safeParse({
     userId,
     playerId,
@@ -204,13 +206,16 @@ export async function deleteTeamPlayer(req: AuthRequest, res: Response) {
     });
   }
 
-  const deletedPlayer = await teamService.deleteTeamPlayer(data.userId, data.playerId);
-  
-    if (!deletedPlayer) {
-      return res.status(403).json({
-        message: "an unexpected error occured",
-      });
-    }
-  
-    return res.status(201).json(deletedPlayer);
+  const deletedPlayer = await teamService.deleteTeamPlayer(
+    data.userId,
+    data.playerId,
+  );
+
+  if (!deletedPlayer) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(deletedPlayer);
 }

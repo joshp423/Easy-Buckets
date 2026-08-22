@@ -17,18 +17,21 @@ export default function PlayerListEdit({
   editPlayer,
   setEditPlayer,
 }: PlayerListEditProps) {
-  
   if (playerList.length === 0) return;
 
   if (editPlayer) {
-    return <div className="playerListEdit"><EditPlayer editPlayer={editPlayer} setEditPlayer={setEditPlayer}/></div>;
+    return (
+      <div className="playerListEdit">
+        <EditPlayer editPlayer={editPlayer} setEditPlayer={setEditPlayer} />
+      </div>
+    );
   }
   if (addPlayer) {
     return (
       <div className="playerListEdit">
-        <CreatePlayers setAddPlayer={setAddPlayer}/>
+        <CreatePlayers setAddPlayer={setAddPlayer} />
       </div>
-    )
+    );
   }
   return (
     <div className="playerListEdit">

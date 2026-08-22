@@ -1,18 +1,19 @@
 import type { Player } from "../../../../types/player";
-import { useEffect, useState, type SyntheticEvent } from "react";
+import { type SyntheticEvent } from "react";
 import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
 import { deletePlayerDetailsAPIReq } from "./deletePlayerAPIReq";
 
 type EditPlayerProps = {
   editPlayer: Player | null;
-  setEditPlayer: React.Dispatch<React.SetStateAction<Player | null>>
+  setEditPlayer: React.Dispatch<React.SetStateAction<Player | null>>;
 };
 
-export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProps) {
+export default function EditPlayer({
+  editPlayer,
+  setEditPlayer,
+}: EditPlayerProps) {
   // add loading
   if (!editPlayer) return;
-
-  
 
   async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,14 +22,16 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
 
     const form = new FormData(e.currentTarget);
 
-    const updatedPlayer = await editPlayerDetailsAPIReq({player: {
-      name: form.get("playerName") as string,
-      number: Number(form.get("playerNumber")),
-      id: editPlayer.id
-    }});
+    const updatedPlayer = await editPlayerDetailsAPIReq({
+      player: {
+        name: form.get("playerName") as string,
+        number: Number(form.get("playerNumber")),
+        id: editPlayer.id,
+      },
+    });
 
     if (updatedPlayer) {
-      setEditPlayer(null)
+      setEditPlayer(null);
     }
     return;
   }
@@ -36,7 +39,7 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
   async function deletePlayer(playerId: number) {
     const deletedPlayer = await deletePlayerDetailsAPIReq(playerId);
     if (deletedPlayer) {
-      setEditPlayer(null)
+      setEditPlayer(null);
     }
     return;
   }
@@ -45,11 +48,7 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
     <div className="editPlayer">
       <form onSubmit={confirmPlayerEdit}>
         <label htmlFor="playerName">Edit Player Name: </label>
-        <input
-          type="text"
-          name="playerName"
-          defaultValue={editPlayer.name}
-        />
+        <input type="text" name="playerName" defaultValue={editPlayer.name} />
         <label htmlFor="playerNumber">Edit Player Number: </label>
         <input
           type="number"
@@ -57,7 +56,14 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
           defaultValue={editPlayer.number}
         />
         <button type="submit">Confirm Changes</button>
-        <button type="button" onClick={() => {deletePlayer(editPlayer.id)}}>Delete Player from team</button>
+        <button
+          type="button"
+          onClick={() => {
+            deletePlayer(editPlayer.id);
+          }}
+        >
+          Delete Player from team
+        </button>
       </form>
     </div>
   );

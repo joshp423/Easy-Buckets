@@ -7,7 +7,7 @@ import {
   getTeamPlayers,
   createTeamPlayers,
   editTeamPlayer,
-  deleteTeamPlayer
+  deleteTeamPlayer,
 } from "../controllers/teamController.js";
 import {
   createGame,
@@ -82,13 +82,13 @@ indexRouter.put(
 indexRouter.put(
   "/teams/players/edit",
   indexController.verifyToken,
-  editTeamPlayer
+  editTeamPlayer,
 );
 
 indexRouter.delete(
   "/teams/players/delete",
   indexController.verifyToken,
-  deleteTeamPlayer
+  deleteTeamPlayer,
 );
 
 export default indexRouter;

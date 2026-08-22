@@ -72,26 +72,25 @@ export class TeamRepo {
     const updatedPlayer = await this.prisma.players.update({
       where: {
         team: {
-          userId
+          userId,
         },
-        id: player.id
+        id: player.id,
       },
       data: {
         name: player.name,
-        number: player.number
-        }
-    })
+        number: player.number,
+      },
+    });
     return updatedPlayer;
   }
 
   async deleteTeamPlayer(userId: number, playerId: number) {
-    
     // use auth check to avoid deleting too many records
     const authPlayerCheck = await this.prisma.players.findUnique({
       where: {
-        id: playerId
-      }
-    })
+        id: playerId,
+      },
+    });
 
     if (!authPlayerCheck) {
       throw new Error("Forbidden");
@@ -99,25 +98,24 @@ export class TeamRepo {
 
     await this.prisma.shots.deleteMany({
       where: {
-        gameStatline :{
+        gameStatline: {
           playerId,
-        }
-      }
+        },
+      },
     });
 
     await this.prisma.gameStatlines.deleteMany({
       where: {
         playerId,
-      }
-    })
+      },
+    });
 
     const deletedPlayer = await this.prisma.players.delete({
       where: {
         id: playerId,
-      }
+      },
     });
 
     return deletedPlayer;
-  };
-
+  }
 }

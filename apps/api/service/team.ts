@@ -19,8 +19,8 @@ export type TeamPlayers = {
 export type EditPlayer = {
   name: string;
   number: number;
-  id: number
-}
+  id: number;
+};
 
 export class TeamService {
   private config: configSchema;

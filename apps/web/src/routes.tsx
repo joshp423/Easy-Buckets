@@ -3,7 +3,7 @@ import Homepage from "./components/Homepage/homePage";
 import SignUp from "./components/SignUp/signUp";
 import LogIn from "./components/Login/logIn";
 import GameScoring from "./components/GameScoring/gameScoring";
-import TeamSeasons from "./components/TeamSeasons/teamseasons";
+import TeamSeasons from "./components/TeamSeasons/teamSeasons";
 
 const routes = [
   {

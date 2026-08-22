@@ -1,19 +1,26 @@
 import type { Player } from "../../../../types/player";
 import { useState, type SyntheticEvent } from "react";
 import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
+import { deletePlayerDetailsAPIReq } from "./deletePlayerAPIReq";
 
 type EditPlayerProps = {
-  editPlayer: Player;
+  editPlayer: Player | null;
   setEditPlayer: React.Dispatch<React.SetStateAction<Player | null>>
 };
 
 export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProps) {
   // add loading
-  const [playerName, setPlayerName] = useState<string>(editPlayer.name);
-  const [playerNumber, setPlayerNumber] = useState<number>(editPlayer.number);
+  const [playerName, setPlayerName] = useState<string>("");
+  const [playerNumber, setPlayerNumber] = useState<number>(0);
+
+  if (!editPlayer) return;
+
+  setPlayerName(editPlayer.name);
+  setPlayerNumber(editPlayer.number);
 
   async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!editPlayer) return;
     const updatedPlayer = await editPlayerDetailsAPIReq({player: {
       name: playerName,
       number: playerNumber,
@@ -25,7 +32,13 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
     return;
   }
 
-  function deletePlayer() {}
+  async function deletePlayer(playerId: number) {
+    const deletedPlayer = await deletePlayerDetailsAPIReq(playerId);
+    if (deletedPlayer) {
+      setEditPlayer(null)
+    }
+    return;
+  }
 
   return (
     <div className="editPlayer">
@@ -37,7 +50,7 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
           }}
           type="text"
           name="playerName"
-          placeholder={editPlayer.name}
+          defaultValue={editPlayer.name}
         />
         <label htmlFor="playerName">Edit Player Number: </label>
         <input
@@ -49,7 +62,7 @@ export default function EditPlayer({ editPlayer, setEditPlayer }: EditPlayerProp
           defaultValue={editPlayer.number}
         />
         <button type="submit">Confirm Changes</button>
-        <button type="button">Delete Player from team</button>
+        <button type="button" onClick={() => {deletePlayer(editPlayer.id)}}>Delete Player from team</button>
       </form>
     </div>
   );

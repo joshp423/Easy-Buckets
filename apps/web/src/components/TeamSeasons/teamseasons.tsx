@@ -8,6 +8,7 @@ export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
+  const [editPlayer, setEditPlayer] = useState<Player | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -21,12 +22,14 @@ export default function TeamSeasons() {
     };
 
     load();
-  }, []);
+  }, [editPlayer]);
 
   return (
     <div className="teamSeasons">
       <SideNav />
       <PlayerListEdit
+        editPlayer={editPlayer}
+        setEditPlayer={setEditPlayer}
         playerList={playerList}
         setAddPlayer={setAddPlayer}
         addPlayer={addPlayer}

@@ -49,7 +49,7 @@ const editPlayerSchema = z.object({
 
 const deletePlayerSchema = z.object({
   userId: z.number(),
-  playerID: z.number(),
+  playerId: z.number(),
 })
 
 export async function createTeam(req: AuthRequest, res: Response) {
@@ -204,7 +204,7 @@ export async function deleteTeamPlayer(req: AuthRequest, res: Response) {
     });
   }
 
-  const deletedPlayer = await teamService.deleteTeamPlayer(data.userId, data.playerID);
+  const deletedPlayer = await teamService.deleteTeamPlayer(data.userId, data.playerId);
   
     if (!deletedPlayer) {
       return res.status(403).json({

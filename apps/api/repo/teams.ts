@@ -1,6 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
 import type { EditPlayer, Player } from "../service/team.js";
-import type { deleteTeamPlayer } from "../controllers/teamController.js";
 
 export class TeamRepo {
   private prisma: PrismaClient;
@@ -86,14 +85,39 @@ export class TeamRepo {
   }
 
   async deleteTeamPlayer(userId: number, playerId: number) {
-    const deletedPlayer = await this.prisma.players.delete({
+    
+    // use auth check to avoid deleting too many records
+    const authPlayerCheck = await this.prisma.players.findUnique({
       where: {
-        team: {
-          userId
-        },
         id: playerId
       }
     })
+
+    if (!authPlayerCheck) {
+      throw new Error("Forbidden");
+    }
+
+    await this.prisma.shots.deleteMany({
+      where: {
+        gameStatline :{
+          playerId,
+        }
+      }
+    });
+
+    await this.prisma.gameStatlines.deleteMany({
+      where: {
+        playerId,
+      }
+    })
+
+    const deletedPlayer = await this.prisma.players.delete({
+      where: {
+        id: playerId,
+      }
+    });
+
     return deletedPlayer;
   };
+
 }

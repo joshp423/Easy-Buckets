@@ -19,9 +19,11 @@ import {
   getGame,
   getGameShots,
   publishGame,
+  deleteGame,
 } from "../controllers/gameController.js";
 import {
   createSeason,
+  editSeasonName,
   getSeasonGames,
 } from "../controllers/seasonController.js";
 const indexRouter = Router();
@@ -91,4 +93,14 @@ indexRouter.delete(
   deleteTeamPlayer,
 );
 
+indexRouter.delete(
+  "/games/:gameId/delete",
+  indexController.verifyToken,
+  deleteGame,
+)
+indexRouter.put(
+  "/seasons/:seasonId/update/name",
+  indexController.verifyToken,
+  editSeasonName,
+)
 export default indexRouter;

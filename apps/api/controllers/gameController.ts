@@ -141,6 +141,11 @@ const getShotsSchema = z.object({
   gameId: z.coerce.number(),
 });
 
+const deleteGameSchema = z.object({
+  userId: z.number(),
+  gameId: z.coerce.number(),
+})
+
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
@@ -451,4 +456,31 @@ export async function publishGame(req: AuthRequest, res: Response) {
   }
 
   return res.status(201).json(updatedGame);
+}
+
+export async function deleteGame(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { gameId } = req.params;
+
+  const { success, data, error } = getShotsSchema.safeParse({
+    userId,
+    gameId,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const deletedGame = await gameService.deleteGame(data.gameId, data.userId);
+
+  if (!deletedGame) {
+    return res.status(403).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(201).json(deletedGame);
 }

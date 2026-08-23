@@ -135,4 +135,8 @@ export class GameService {
   async publishGame({ userId, gameId }: ShotLogReq) {
     return this.gameRepo.publishGame(userId, gameId);
   }
+
+  async deleteGame(userId: number, gameId: number) {
+    return this.gameRepo.deleteGame(userId, gameId);
+  }
 }

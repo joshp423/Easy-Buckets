@@ -47,4 +47,31 @@ export class SeasonRepo {
       },
     });
   }
+
+  async editSeasonName(userId: number, seasonId: number, newSeasonName: string) {
+
+    const authCheckSeason = await this.prisma.seasons.findUnique({
+      where: {
+        id: seasonId, 
+        team: {
+          userId
+        }
+      }
+    })
+
+    if (!authCheckSeason) {
+      throw new Error("Forbidden");
+    }
+
+    const updatedSeasonName = await this.prisma.seasons.update({
+      where: {
+        id: seasonId
+      },
+      data: {
+        name: newSeasonName
+      }
+    })
+
+    return updatedSeasonName.name;
+  }
 }

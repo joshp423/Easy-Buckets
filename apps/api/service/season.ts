@@ -22,4 +22,8 @@ export class SeasonService {
   async getSeasonGames(id: number, drafts: boolean) {
     return this.seasonRepo.getGames(id, drafts);
   }
+
+  async editSeasonName(userId:number, seasonId: number, newSeasonName: string) {
+    return this.seasonRepo.editSeasonName(userId, seasonId, newSeasonName)
+  }
 }

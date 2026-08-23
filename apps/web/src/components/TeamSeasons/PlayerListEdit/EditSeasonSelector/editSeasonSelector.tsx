@@ -7,13 +7,13 @@ type EditSeasonsProps = {
   setSelectedDashboardSeason: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function EditSeasons({
+export default function EditSeasonSelector({
   teamSeasons,
   setSelectedDashboardSeason,
   selectedDashboardSeason,
 }: EditSeasonsProps) {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   //navigate to teamSeasons/seasonName
   return (
     <div className="editSeasons">
@@ -22,7 +22,13 @@ export default function EditSeasons({
         teamSeasons={teamSeasons}
         setSelectedDashboardSeason={setSelectedDashboardSeason}
       />
-      <button onClick={() => {navigate(`/team-seasons/${selectedDashboardSeason}`)}}>Edit Selected Season</button>
+      <button onClick={() => {
+        const seasonId = teamSeasons.find((season) => season.name === selectedDashboardSeason)
+        navigate(
+          `/team-seasons/${selectedDashboardSeason}`, {
+            state: { seasonId }
+          }
+        )}}>Edit Selected Season</button>
     </div>
   );
 }

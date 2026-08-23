@@ -2,6 +2,7 @@ import type { PrismaClient } from "@prisma/client";
 import type { GameStatPlayer } from "../service/game.js";
 import type { shotObject } from "../service/game.js";
 import { id } from "zod/locales";
+import type { deleteGame } from "../controllers/gameController.js";
 
 export class GameRepo {
   private prisma: PrismaClient;
@@ -574,7 +575,7 @@ export class GameRepo {
   }
 
   async publishGame(userId: number, gameId: number) {
-    const game = await this.prisma.games.findUnique({
+    const gameAuthCheck = await this.prisma.games.findUnique({
       // userId authCheck
       where: {
         id: gameId,
@@ -586,13 +587,37 @@ export class GameRepo {
       },
     });
 
-    if (!game) {
+    if (!gameAuthCheck) {
       throw new Error("Forbidden");
     }
 
     return await this.prisma.games.update({
-      where: { id: game.id },
+      where: { id: gameAuthCheck.id },
       data: { draft: false },
     });
   }
+
+  async deleteGame(userId: number, gameId: number) {
+    const gameAuthCheck = await this.prisma.games.findUnique({
+      where: {
+        id: gameId,
+        season: {
+          team: {
+            userId,
+          },
+        },
+      },
+    });
+
+    if (!gameAuthCheck) {
+      throw new Error("Forbidden");
+    }
+
+    return await this.prisma.games.delete({
+      where: {
+        id: gameId
+      }
+    })
+  }
+
 }

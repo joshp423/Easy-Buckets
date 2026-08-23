@@ -5,7 +5,7 @@ import { teamPlayersAPIFetch } from "../GameScoring/teamPlayersAPIFetch";
 import PlayerListEdit from "./PlayerListEdit/playerListEdit";
 import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
-import EditSeasons from "./PlayerListEdit/EditSeasons/editSeasons";
+import EditSeasonSelector from "./PlayerListEdit/EditSeasonSelector/editSeasonSelector";
 
 export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit
@@ -64,7 +64,7 @@ export default function TeamSeasons() {
           setAddPlayer={setAddPlayer}
           addPlayer={addPlayer}
         />
-        <EditSeasons
+        <EditSeasonSelector
           teamSeasons={teamSeasons}
           setSelectedDashboardSeason={setSelectedDashboardSeason}
           selectedDashboardSeason={selectedDashboardSeason}

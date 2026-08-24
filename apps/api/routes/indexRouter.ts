@@ -23,6 +23,7 @@ import {
 } from "../controllers/gameController.js";
 import {
   createSeason,
+  deleteSeason,
   editSeasonName,
   getSeasonGames,
 } from "../controllers/seasonController.js";
@@ -102,5 +103,11 @@ indexRouter.put(
   "/seasons/:seasonId/update/name",
   indexController.verifyToken,
   editSeasonName,
+)
+
+indexRouter.delete(
+  "/seasons/:seasonId/delete",
+  indexController.verifyToken,
+  deleteSeason
 )
 export default indexRouter;

@@ -1,4 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
+import { deleteSeason } from "../controllers/seasonController.js";
 
 export class SeasonRepo {
   private prisma: PrismaClient;
@@ -73,5 +74,19 @@ export class SeasonRepo {
     })
 
     return updatedSeasonName.name;
+  }
+
+  async deleteSeason(userId: number, seasonId: number) {
+    //combining authcheck for this one
+
+    const deletedSeason = await this.prisma.seasons.delete({
+      where: {
+        team: {
+          userId
+        },
+        id: seasonId
+      }
+    })
+    return deletedSeason;
   }
 }

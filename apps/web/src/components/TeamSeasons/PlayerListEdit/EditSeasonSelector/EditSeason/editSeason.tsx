@@ -4,6 +4,8 @@ import { seasonGameAPIFetch } from "../../../../../shared API functions/seasonGa
 import type { Game } from "../../../../../types/game";
 import updateSeasonNameAPIReq from "./updateSeasonNameAPIReq";
 import { useNavigate } from "react-router";
+import DeleteCheck from "../DeleteCheck/deleteCheck";
+import SideNav from "../../../../SideNav/sideNav";
 
 export default function EditSeason() {
     const { selectedDashboardSeason } = useParams();
@@ -13,10 +15,13 @@ export default function EditSeason() {
     const seasonId = location.state as number;
     const [seasonName, setSeasonName] = useState<string>("");
     const navigate = useNavigate();
-    const [editedGame, setEditedGame] = useState<Game | null>(null)
+    const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
+    const [deletedObj, setDeletedObj] = useState<"game" | "season" | null>(null);
+    const [deletedObjId, setDeletedObjId] = useState<number | null>(null)
 
     useEffect(() => {
         async function getSeasonData() {
+            if (deleteCheck) return;
             setLoading(true);
             const data = await seasonGameAPIFetch({
                 id: seasonId,
@@ -27,7 +32,7 @@ export default function EditSeason() {
             setLoading(false);
         }
         getSeasonData();
-    }, [seasonId, selectedDashboardSeason])
+    }, [seasonId, selectedDashboardSeason, deleteCheck])
 
     async function uploadNameChange() {
         setLoading(true);
@@ -42,20 +47,27 @@ export default function EditSeason() {
         setLoading(false);
     }
     //skelly required
-    if (editedGame) {
+    if (deleteCheck) {
         return(
-            <div className="editGame">
-                
+            <div className="seasonEditor">
+                <SideNav />
+                <DeleteCheck deletedObj={deletedObj} deletedObjId={deletedObjId} setDeleteCheck={setDeleteCheck}/>
             </div>
         )
     }
     return(
-        <div className="editSeason">
+        <div className="seasonEditor">
+            <SideNav />
             <div className="seasonNameEdit">
                 <form action="" onSubmit={() => {uploadNameChange()}}>
                     <label htmlFor="seasonName">Season Name</label>
                     <input type="text" defaultValue={selectedDashboardSeason} onChange={(e) => {setSeasonName(e.target.value)}}/>
                     <button type="submit">Confirm Changes</button>
+                    <button onClick={() => {
+                        setDeleteCheck(true);
+                        setDeletedObj("season");
+                        setDeletedObjId(seasonId);
+                    }}>Delete Season</button>
                 </form>
             </div>
             <div className="seasonGameEditList">
@@ -65,10 +77,14 @@ export default function EditSeason() {
                         return(
                             <li>
                                 <h3>{formatDate} vs: {game.opponent}</h3>
-                                <button onClick={() => {setEditedGame(game)}}>Edit Game</button>
+                                <button onClick={() => {
+                                    setDeleteCheck(true);
+                                    setDeletedObj("game");
+                                    setDeletedObjId(game.id);
+                                }}>Delete Game</button>
                             </li>
-                        );
-                    })};
+                        )
+                    })}
                 </ul>
             </div>
 

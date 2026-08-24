@@ -1,3 +1,4 @@
+import type { deleteSeason } from "../controllers/seasonController.js";
 import type { SeasonRepo } from "../repo/seasons.js";
 import type { configSchema } from "./config.js";
 
@@ -23,7 +24,11 @@ export class SeasonService {
     return this.seasonRepo.getGames(id, drafts);
   }
 
-  async editSeasonName(userId:number, seasonId: number, newSeasonName: string) {
-    return this.seasonRepo.editSeasonName(userId, seasonId, newSeasonName)
+  async editSeasonName(userId: number, seasonId: number, newSeasonName: string) {
+    return this.seasonRepo.editSeasonName(userId, seasonId, newSeasonName);
+  }
+
+  async deleteSeason(userId: number, seasonId: number) {
+    return this.seasonRepo.deleteSeason(userId, seasonId);
   }
 }

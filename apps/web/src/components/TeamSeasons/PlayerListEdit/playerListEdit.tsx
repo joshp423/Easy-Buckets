@@ -35,6 +35,7 @@ export default function PlayerListEdit({
   }
   return (
     <div className="playerListEdit">
+      <h3>Players:</h3>
       <ul>
         {playerList.map((player) => (
           <li key={player.id}>

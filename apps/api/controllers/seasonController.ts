@@ -36,6 +36,12 @@ const editSeasonNameSchema = z.object({
   newSeasonName: z.string()
 })
 
+
+const deleteSeasonSchema = z.object({
+  userId: z.number(),
+  seasonId: z.coerce.number()
+})
+
 export async function createSeason(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
@@ -116,4 +122,30 @@ export async function editSeasonName(req: AuthRequest, res: Response) {
   }
 
   return res.status(200).json({ updatedSeasonName });
+}
+
+export async function deleteSeason(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+  const { seasonId } = req.params;
+
+  const { success, data, error } = deleteSeasonSchema.safeParse({
+    userId,
+    seasonId
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const deletedSeason = await seasonService.deleteSeason(data.userId, data.seasonId);
+
+  if (!deletedSeason) {
+    return res.status(500).json({
+      message: "an unexpected error occured",
+    });
+  }
+
+  return res.status(200).json({ deletedSeason });
 }

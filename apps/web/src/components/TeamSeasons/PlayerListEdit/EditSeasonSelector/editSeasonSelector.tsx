@@ -23,7 +23,8 @@ export default function EditSeasonSelector({
         setSelectedDashboardSeason={setSelectedDashboardSeason}
       />
       <button onClick={() => {
-        const seasonId = teamSeasons.find((season) => season.name === selectedDashboardSeason)
+        const season = teamSeasons.find((season) => season.name === selectedDashboardSeason);
+        const seasonId = season?.id;
         navigate(
           `/team-seasons/${selectedDashboardSeason}`, {
             state: { seasonId }

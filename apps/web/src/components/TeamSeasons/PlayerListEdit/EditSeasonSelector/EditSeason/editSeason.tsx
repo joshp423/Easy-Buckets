@@ -12,12 +12,14 @@ export default function EditSeason() {
     const [seasonGames, setSeasonGames] = useState<Game[]>([])
     const [loading, setLoading] = useState<boolean>(false);
     const location = useLocation();
-    const seasonId = location.state as number;
+    const seasonId = location.state.seasonId;
     const [seasonName, setSeasonName] = useState<string>("");
     const navigate = useNavigate();
     const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
     const [deletedObj, setDeletedObj] = useState<"game" | "season" | null>(null);
     const [deletedObjId, setDeletedObjId] = useState<number | null>(null)
+
+    console.log(seasonId)
 
     useEffect(() => {
         async function getSeasonData() {
@@ -87,7 +89,7 @@ export default function EditSeason() {
                     })}
                 </ul>
             </div>
-
+            <DeleteCheck deletedObj={deletedObj} deletedObjId={deletedObjId} setDeleteCheck={setDeleteCheck}/>
         </div>
     )
 }

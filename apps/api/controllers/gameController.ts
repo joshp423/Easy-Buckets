@@ -144,7 +144,7 @@ const getShotsSchema = z.object({
 const deleteGameSchema = z.object({
   userId: z.number(),
   gameId: z.coerce.number(),
-})
+});
 
 export async function createGame(req: AuthRequest, res: Response) {
   const userId = req.user?.id;

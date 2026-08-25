@@ -18,9 +18,10 @@ export default function TeamSeasons() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
-  const [editTeamPlayersToggle, setEditTeamPlayersToggle] = useState<boolean>(false);
+  const [editTeamPlayersToggle, setEditTeamPlayersToggle] =
+    useState<boolean>(false);
   const [editSeasonToggle, seteditSeasonToggle] = useState<boolean>(false);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,16 +66,28 @@ export default function TeamSeasons() {
         <SideNav />
         <div className="editSectionContainer">
           <div className="editNav">
-            <button onClick={() => {
-              if (editTeamPlayersToggle) {
-                setEditTeamPlayersToggle(false)
-                return;
+            <button
+              onClick={() => {
+                if (editTeamPlayersToggle) {
+                  setEditTeamPlayersToggle(false);
+                  return;
+                }
+                setEditTeamPlayersToggle(true);
+                console.log(editTeamPlayersToggle);
+              }}
+              style={
+                editTeamPlayersToggle
+                  ? {
+                      outline: "1px solid black",
+                      borderRadius: "12px",
+                      backgroundColor: "#e37204",
+                      color: "white",
+                    }
+                  : {}
               }
-              setEditTeamPlayersToggle(true);
-              console.log(editTeamPlayersToggle);
-            }}
-            style={editTeamPlayersToggle ? {"outline": "1px solid black", "borderRadius": "12px", "backgroundColor": "#e37204", "color": "white"} : {}}
-            >Edit Team Players</button>
+            >
+              Edit Team Players
+            </button>
             <button>Edit Season</button>
             <button>Add New Season</button>
           </div>
@@ -92,9 +105,14 @@ export default function TeamSeasons() {
               setSelectedDashboardSeason={setSelectedDashboardSeason}
               selectedDashboardSeason={selectedDashboardSeason}
             />
-            <button onClick={() => {navigate("/new-season")}}>Add Season</button>
+            <button
+              onClick={() => {
+                navigate("/new-season");
+              }}
+            >
+              Add Season
+            </button>
           </div>
-          
         </div>
       </div>
     );

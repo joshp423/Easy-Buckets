@@ -12,7 +12,6 @@ export default function EditSeasonSelector({
   setSelectedDashboardSeason,
   selectedDashboardSeason,
 }: EditSeasonsProps) {
-
   const navigate = useNavigate();
   //navigate to teamSeasons/seasonName
   return (
@@ -22,14 +21,19 @@ export default function EditSeasonSelector({
         teamSeasons={teamSeasons}
         setSelectedDashboardSeason={setSelectedDashboardSeason}
       />
-      <button onClick={() => {
-        const season = teamSeasons.find((season) => season.name === selectedDashboardSeason);
-        const seasonId = season?.id;
-        navigate(
-          `/team-seasons/${selectedDashboardSeason}`, {
-            state: { seasonId }
-          }
-        )}}>Edit Selected Season</button>
+      <button
+        onClick={() => {
+          const season = teamSeasons.find(
+            (season) => season.name === selectedDashboardSeason,
+          );
+          const seasonId = season?.id;
+          navigate(`/team-seasons/${selectedDashboardSeason}`, {
+            state: { seasonId },
+          });
+        }}
+      >
+        Edit Selected Season
+      </button>
     </div>
   );
 }

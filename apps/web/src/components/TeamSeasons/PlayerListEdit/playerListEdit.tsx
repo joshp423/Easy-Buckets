@@ -1,7 +1,7 @@
 import type { Player } from "../../../types/player";
 import CreatePlayers from "../../GameScoring/CreatePlayers/createPlayers";
 import EditPlayer from "./EditPlayer/editplayer";
-import "./playerListEdit.css"
+import "./playerListEdit.css";
 
 type PlayerListEditProps = {
   playerList: Player[];
@@ -18,26 +18,39 @@ export default function PlayerListEdit({
   addPlayer,
   editPlayer,
   setEditPlayer,
-  editTeamPlayersToggle
+  editTeamPlayersToggle,
 }: PlayerListEditProps) {
   if (playerList.length === 0) return;
 
   if (editPlayer) {
     return (
-      <div className="playerListEdit" style={editTeamPlayersToggle ? {"display": "flex"} : {"display": "none"}}>
+      <div
+        className="playerListEdit"
+        style={
+          editTeamPlayersToggle ? { display: "flex" } : { display: "none" }
+        }
+      >
         <EditPlayer editPlayer={editPlayer} setEditPlayer={setEditPlayer} />
       </div>
     );
   }
   if (addPlayer) {
     return (
-      <div className="playerListEdit" style={editTeamPlayersToggle ? {"display": "flex"} : {"display": "none"}}>
+      <div
+        className="playerListEdit"
+        style={
+          editTeamPlayersToggle ? { display: "flex" } : { display: "none" }
+        }
+      >
         <CreatePlayers setAddPlayer={setAddPlayer} />
       </div>
     );
   }
   return (
-    <div className="playerListEdit" style={editTeamPlayersToggle ? {"display": "flex"} : {"display": "none"}}>
+    <div
+      className="playerListEdit"
+      style={editTeamPlayersToggle ? { display: "flex" } : { display: "none" }}
+    >
       <h3>Players:</h3>
       <ul>
         {playerList.map((player) => (

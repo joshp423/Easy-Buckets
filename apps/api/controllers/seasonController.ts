@@ -33,14 +33,13 @@ const getSeasonGamesSchema = z.object({
 const editSeasonNameSchema = z.object({
   userId: z.number(),
   seasonId: z.coerce.number(),
-  newSeasonName: z.string()
-})
-
+  newSeasonName: z.string(),
+});
 
 const deleteSeasonSchema = z.object({
   userId: z.number(),
-  seasonId: z.coerce.number()
-})
+  seasonId: z.coerce.number(),
+});
 
 export async function createSeason(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
@@ -96,7 +95,6 @@ export async function getSeasonGames(req: Request, res: Response) {
 }
 
 export async function editSeasonName(req: AuthRequest, res: Response) {
-
   const userId = req.user?.id;
   const { seasonId } = req.params;
   const { newSeasonName } = req.body;
@@ -113,7 +111,11 @@ export async function editSeasonName(req: AuthRequest, res: Response) {
     });
   }
 
-  const updatedSeasonName = await seasonService.editSeasonName(data.userId, data.seasonId, data.newSeasonName);
+  const updatedSeasonName = await seasonService.editSeasonName(
+    data.userId,
+    data.seasonId,
+    data.newSeasonName,
+  );
 
   if (!updatedSeasonName) {
     return res.status(500).json({
@@ -130,7 +132,7 @@ export async function deleteSeason(req: AuthRequest, res: Response) {
 
   const { success, data, error } = deleteSeasonSchema.safeParse({
     userId,
-    seasonId
+    seasonId,
   });
 
   if (!success) {
@@ -139,7 +141,10 @@ export async function deleteSeason(req: AuthRequest, res: Response) {
     });
   }
 
-  const deletedSeason = await seasonService.deleteSeason(data.userId, data.seasonId);
+  const deletedSeason = await seasonService.deleteSeason(
+    data.userId,
+    data.seasonId,
+  );
 
   if (!deletedSeason) {
     return res.status(500).json({

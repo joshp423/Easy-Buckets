@@ -17,8 +17,11 @@ const routes = [
       { path: "/log-in", element: <LogIn /> },
       { path: "/score-game", element: <GameScoring /> },
       { path: "/team-seasons", element: <TeamSeasons /> },
-      { path: "/team-seasons/:selectedDashboardSeason", element: <EditSeason /> },
-      { path: "/new-season", element: <NewSeason />}
+      {
+        path: "/team-seasons/:selectedDashboardSeason",
+        element: <EditSeason />,
+      },
+      { path: "/new-season", element: <NewSeason /> },
     ],
   },
 ];

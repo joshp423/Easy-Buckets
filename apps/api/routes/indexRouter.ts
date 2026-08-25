@@ -98,16 +98,16 @@ indexRouter.delete(
   "/games/:gameId/delete",
   indexController.verifyToken,
   deleteGame,
-)
+);
 indexRouter.put(
   "/seasons/:seasonId/update/name",
   indexController.verifyToken,
   editSeasonName,
-)
+);
 
 indexRouter.delete(
   "/seasons/:seasonId/delete",
   indexController.verifyToken,
-  deleteSeason
-)
+  deleteSeason,
+);
 export default indexRouter;

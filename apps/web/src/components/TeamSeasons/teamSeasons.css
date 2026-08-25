@@ -1,42 +1,42 @@
 .teamSeasons {
-    display: grid;
-    grid-template-columns: 15% 85%;
-    padding: 0.5%;
-    min-height: 100vh;
-    min-width: 1440px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0.5%;
+  min-height: 100vh;
+  min-width: 1440px;
 }
 
 .editSectionContainer {
-    display: flex;
-    flex-direction: column;
-    background-color: #f3f5f8;
-    border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f5f8;
+  border-radius: 12px;
 }
 
 .editNav {
-    display: flex;
-    margin: 1rem 1rem 0rem 1rem;
-    justify-content: space-around;
-    background-color: white;
-    border-radius: 12px;
+  display: flex;
+  margin: 1rem 1rem 0rem 1rem;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 12px;
 }
 
 .editNav > button {
-    margin: 0 1rem 0 1rem;
-    padding: 1% 3% 1% 3%;
-    border: none;
-    background-color: white;
+  margin: 0 1rem 0 1rem;
+  padding: 1% 3% 1% 3%;
+  border: none;
+  background-color: white;
 }
 
 .editNav > button:hover {
-    border-radius: 12px;
-    color: white;
-    background-color: #e37204;
-    cursor: pointer;
+  border-radius: 12px;
+  color: white;
+  background-color: #e37204;
+  cursor: pointer;
 }
 
 .editSection {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 1rem 1.5rem 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 1rem 1.5rem 1rem 1.5rem;
 }

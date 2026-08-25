@@ -615,9 +615,8 @@ export class GameRepo {
 
     return await this.prisma.games.delete({
       where: {
-        id: gameId
-      }
-    })
+        id: gameId,
+      },
+    });
   }
-
 }

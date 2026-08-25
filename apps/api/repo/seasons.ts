@@ -9,11 +9,10 @@ export class SeasonRepo {
   }
 
   async create(name: string, userId: number) {
-
     const team = await this.prisma.teams.findUnique({
       where: {
-        userId
-      }
+        userId,
+      },
     });
 
     if (!team) {
@@ -60,16 +59,19 @@ export class SeasonRepo {
     });
   }
 
-  async editSeasonName(userId: number, seasonId: number, newSeasonName: string) {
-
+  async editSeasonName(
+    userId: number,
+    seasonId: number,
+    newSeasonName: string,
+  ) {
     const authCheckSeason = await this.prisma.seasons.findUnique({
       where: {
-        id: seasonId, 
+        id: seasonId,
         team: {
-          userId
-        }
-      }
-    })
+          userId,
+        },
+      },
+    });
 
     if (!authCheckSeason) {
       throw new Error("Forbidden");
@@ -77,12 +79,12 @@ export class SeasonRepo {
 
     const updatedSeasonName = await this.prisma.seasons.update({
       where: {
-        id: seasonId
+        id: seasonId,
       },
       data: {
-        name: newSeasonName
-      }
-    })
+        name: newSeasonName,
+      },
+    });
 
     return updatedSeasonName.name;
   }
@@ -93,11 +95,11 @@ export class SeasonRepo {
     const deletedSeason = await this.prisma.seasons.delete({
       where: {
         team: {
-          userId
+          userId,
         },
-        id: seasonId
-      }
-    })
+        id: seasonId,
+      },
+    });
     return deletedSeason;
   }
 }

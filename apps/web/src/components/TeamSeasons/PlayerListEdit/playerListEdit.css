@@ -1,0 +1,58 @@
+.playerListEdit {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    margin: 0 4rem 0 4rem;
+    border-radius: 12px;
+
+}
+
+.playerListEdit > h3 {
+    margin: 0;
+}
+
+.playerListEdit > ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.playerListEdit > ul >li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: space-between;
+
+}
+
+.playerListEdit > ul > li > button {
+    margin-top: 3px;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #f3f5f8;
+}
+
+.playerListEdit > ul > li > button:hover{
+    border-radius: 12px;
+    color: white;
+    background-color: #e37204;
+    cursor: pointer;
+}
+
+.playerListEdit > div > button {
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #f3f5f8;
+    margin-top: 1rem;
+}
+
+.playerListEdit > div > button:hover {
+    border-radius: 12px;
+    color: white;
+    background-color: #e37204;
+    cursor: pointer;
+}

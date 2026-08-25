@@ -1,5 +1,5 @@
-import NavSeasonSelector from "../../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
-import type { SeasonOverview } from "../../../../types/seasonOverview";
+import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
+import type { SeasonOverview } from "../../../types/seasonOverview";
 import { useNavigate } from "react-router";
 type EditSeasonsProps = {
   teamSeasons: SeasonOverview[];
@@ -17,7 +17,7 @@ export default function EditSeasonSelector({
   //navigate to teamSeasons/seasonName
   return (
     <div className="editSeasons">
-      <h3>Season:</h3>
+      <h3>Seasons:</h3>
       <NavSeasonSelector
         teamSeasons={teamSeasons}
         setSelectedDashboardSeason={setSelectedDashboardSeason}

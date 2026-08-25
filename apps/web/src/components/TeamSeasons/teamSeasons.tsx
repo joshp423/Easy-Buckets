@@ -5,7 +5,8 @@ import { teamPlayersAPIFetch } from "../GameScoring/teamPlayersAPIFetch";
 import PlayerListEdit from "./PlayerListEdit/playerListEdit";
 import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
-import EditSeasonSelector from "./PlayerListEdit/EditSeasonSelector/editSeasonSelector";
+import EditSeasonSelector from "./EditSeasonSelector/editSeasonSelector";
+import { useNavigate } from "react-router";
 
 export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit
@@ -16,6 +17,7 @@ export default function TeamSeasons() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
@@ -69,6 +71,7 @@ export default function TeamSeasons() {
           setSelectedDashboardSeason={setSelectedDashboardSeason}
           selectedDashboardSeason={selectedDashboardSeason}
         />
+        <button onClick={() => {navigate("/new-season")}}>Add Season</button>
       </div>
     );
   }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
-import { seasonGameAPIFetch } from "../../../../../shared API functions/seasonGameAPIFetch";
-import type { Game } from "../../../../../types/game";
+import { seasonGameAPIFetch } from "../../../../shared API functions/seasonGameAPIFetch";
+import type { Game } from "../../../../types/game";
 import updateSeasonNameAPIReq from "./updateSeasonNameAPIReq";
 import { useNavigate } from "react-router";
 import DeleteCheck from "../DeleteCheck/deleteCheck";
-import SideNav from "../../../../SideNav/sideNav";
+import SideNav from "../../../SideNav/sideNav";
 
 export default function EditSeason() {
     const { selectedDashboardSeason } = useParams();

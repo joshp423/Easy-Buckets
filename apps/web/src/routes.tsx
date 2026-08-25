@@ -4,7 +4,8 @@ import SignUp from "./components/SignUp/signUp";
 import LogIn from "./components/Login/logIn";
 import GameScoring from "./components/GameScoring/gameScoring";
 import TeamSeasons from "./components/TeamSeasons/teamSeasons";
-import EditSeason from "./components/TeamSeasons/PlayerListEdit/EditSeasonSelector/EditSeason/editSeason";
+import EditSeason from "./components/TeamSeasons/EditSeasonSelector/EditSeason/editSeason";
+import NewSeason from "./components/TeamSeasons/NewSeason/newSeason";
 
 const routes = [
   {
@@ -17,6 +18,7 @@ const routes = [
       { path: "/score-game", element: <GameScoring /> },
       { path: "/team-seasons", element: <TeamSeasons /> },
       { path: "/team-seasons/:selectedDashboardSeason", element: <EditSeason /> },
+      { path: "/new-season", element: <NewSeason />}
     ],
   },
 ];

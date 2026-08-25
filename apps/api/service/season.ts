@@ -4,7 +4,7 @@ import type { configSchema } from "./config.js";
 
 export type Season = {
   name: string;
-  teamId: number;
+  userId: number;
 };
 
 export class SeasonService {
@@ -16,8 +16,8 @@ export class SeasonService {
     this.config = config;
   }
 
-  async createSeason({ name, teamId }: Season) {
-    return this.seasonRepo.create(name, teamId);
+  async createSeason({ name, userId }: Season) {
+    return this.seasonRepo.create(name, userId);
   }
 
   async getSeasonGames(id: number, drafts: boolean) {

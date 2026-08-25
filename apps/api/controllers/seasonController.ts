@@ -21,7 +21,7 @@ const createSeasonSchema = z.object({
     .trim()
     .max(25, { message: `Password: ${lengthErr}` })
     .min(1, { message: `Password: ${lengthErr}` }),
-  teamId: z.number(),
+  userId: z.number(),
 });
 
 const getSeasonGamesSchema = z.object({

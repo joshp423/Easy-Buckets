@@ -8,11 +8,22 @@ export class SeasonRepo {
     this.prisma = prisma;
   }
 
-  async create(name: string, teamId: number) {
+  async create(name: string, userId: number) {
+
+    const team = await this.prisma.teams.findUnique({
+      where: {
+        userId
+      }
+    });
+
+    if (!team) {
+      throw new Error("Forbidden");
+    }
+
     return await this.prisma.seasons.create({
       data: {
         name,
-        teamId,
+        teamId: team?.id,
       },
     });
   }

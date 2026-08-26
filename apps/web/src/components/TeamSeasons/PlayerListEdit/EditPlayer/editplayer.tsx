@@ -1,8 +1,8 @@
 import type { Player } from "../../../../types/player";
-import { type SyntheticEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
-import { deletePlayerDetailsAPIReq } from "./deletePlayerAPIReq";
 import "./editPlayer.css";
+import DeleteCheck from "../../EditSeasonSelector/DeleteCheck/deleteCheck";
 
 type EditPlayerProps = {
   editPlayer: Player | null;
@@ -13,12 +13,12 @@ export default function EditPlayer({
   editPlayer,
   setEditPlayer,
 }: EditPlayerProps) {
+  const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
   // add loading
   if (!editPlayer) return;
 
   async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    
 
     if (!editPlayer) return;
 
@@ -37,38 +37,46 @@ export default function EditPlayer({
     }
     return;
   }
-  
 
-  async function deletePlayer(playerId: number) {
-    const deletedPlayer = await deletePlayerDetailsAPIReq(playerId);
-    if (deletedPlayer) {
-      setEditPlayer(null);
-    }
-    return;
+  if (deleteCheck) {
+    return (
+      <DeleteCheck
+        deletedObj={"player"}
+        deletedObjId={editPlayer.id}
+        deleteCheck={deleteCheck}
+        setDeleteCheck={setDeleteCheck}
+      />
+    );
   }
-
   return (
     <div className="editPlayer">
       <form onSubmit={confirmPlayerEdit}>
         <label htmlFor="playerName">Edit Player Name: </label>
-        <input type="text" name="playerName" defaultValue={editPlayer.name} />
+        <input type="text" id="playerName" defaultValue={editPlayer.name} />
         <label htmlFor="playerNumber">Edit Player Number: </label>
         <input
           type="number"
-          name="playerNumber"
+          id="playerNumber"
           defaultValue={editPlayer.number}
         />
         <button type="submit">Confirm Changes</button>
         <button
           type="button"
           onClick={() => {
-            deletePlayer(editPlayer.id);
+            setDeleteCheck(true);
           }}
         >
-          Delete Player from team
+          Delete Player From Team
         </button>
       </form>
-      <button type="button" onClick={() => {setEditPlayer(null)}}>Back</button>
+      <button
+        type="button"
+        onClick={() => {
+          setEditPlayer(null);
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 }

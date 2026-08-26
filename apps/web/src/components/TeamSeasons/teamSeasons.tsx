@@ -23,7 +23,6 @@ export default function TeamSeasons() {
   const [editSeasonToggle, seteditSeasonToggle] = useState<boolean>(false);
   const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(false);
 
-
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
 
@@ -74,7 +73,7 @@ export default function TeamSeasons() {
                 }
                 setEditTeamPlayersToggle(true);
                 setAddSeasonToggle(false);
-                seteditSeasonToggle(false)
+                seteditSeasonToggle(false);
               }}
               style={
                 editTeamPlayersToggle
@@ -108,8 +107,10 @@ export default function TeamSeasons() {
                       color: "white",
                     }
                   : {}
-              }  
-            >Edit Season</button>
+              }
+            >
+              Edit Seasons
+            </button>
             <button
               onClick={() => {
                 if (addSeasonToggle) {
@@ -129,8 +130,10 @@ export default function TeamSeasons() {
                       color: "white",
                     }
                   : {}
-              }  
-            >Add New Season</button>
+              }
+            >
+              Add New Season
+            </button>
           </div>
           <div className="editSection">
             <PlayerListEdit
@@ -147,8 +150,10 @@ export default function TeamSeasons() {
               selectedDashboardSeason={selectedDashboardSeason}
               editSeasonToggle={editSeasonToggle}
             />
-            <div 
-              style={addSeasonToggle ? {"display": "flex"}: {"display": "none"}}
+            <div
+              style={
+                addSeasonToggle ? { display: "flex" } : { display: "none" }
+              }
             >
               <NewSeason />
             </div>

@@ -1,44 +1,52 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { seasonGameAPIFetch } from "../../../../shared API functions/seasonGameAPIFetch";
 import type { Game } from "../../../../types/game";
 import updateSeasonNameAPIReq from "./updateSeasonNameAPIReq";
 import { useNavigate } from "react-router";
 import DeleteCheck from "../DeleteCheck/deleteCheck";
-import SideNav from "../../../SideNav/sideNav";
+import "./editSeason.css";
 
-export default function EditSeason() {
-  const { selectedDashboardSeason } = useParams();
+type EditSeasonProps = {
+  seasonId: number | null;
+  setEditedSeason: React.Dispatch<React.SetStateAction<number | null>>;
+  seasonName: string;
+};
+
+export default function EditSeason({
+  seasonId,
+  setEditedSeason,
+  seasonName,
+}: EditSeasonProps) {
   const [seasonGames, setSeasonGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const location = useLocation();
-  const seasonId = location.state.seasonId;
-  const [seasonName, setSeasonName] = useState<string>("");
+  const [updatedSeasonName, setUpdatedSeasonName] = useState<string>("");
   const navigate = useNavigate();
   const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
   const [deletedObj, setDeletedObj] = useState<"game" | "season" | null>(null);
   const [deletedObjId, setDeletedObjId] = useState<number | null>(null);
 
-  console.log(seasonId);
-
   useEffect(() => {
     async function getSeasonData() {
-      if (deleteCheck) return;
+      if (deleteCheck || !seasonId) return;
       setLoading(true);
       const data = await seasonGameAPIFetch({
         id: seasonId,
         draft: false,
       });
       setSeasonGames(data);
-      if (selectedDashboardSeason) setSeasonName(selectedDashboardSeason);
       setLoading(false);
     }
     getSeasonData();
-  }, [seasonId, selectedDashboardSeason, deleteCheck]);
+  }, [seasonId, deleteCheck]);
 
   async function uploadNameChange() {
+    if (!seasonId) return;
     setLoading(true);
-    const updatedName = await updateSeasonNameAPIReq(seasonId, seasonName);
+    const updatedName = await updateSeasonNameAPIReq(
+      seasonId,
+      updatedSeasonName,
+    );
     if (updatedName) {
       navigate(`/team-seasons/${updatedName}`, {
         state: { seasonId },
@@ -46,22 +54,22 @@ export default function EditSeason() {
     }
     setLoading(false);
   }
+
   //skelly required
   if (deleteCheck) {
     return (
       <div className="seasonEditor">
-        <SideNav />
         <DeleteCheck
           deletedObj={deletedObj}
           deletedObjId={deletedObjId}
           setDeleteCheck={setDeleteCheck}
+          deleteCheck={deleteCheck}
         />
       </div>
     );
   }
   return (
     <div className="seasonEditor">
-      <SideNav />
       <div className="seasonNameEdit">
         <form
           action=""
@@ -69,27 +77,31 @@ export default function EditSeason() {
             uploadNameChange();
           }}
         >
-          <label htmlFor="seasonName">Season Name</label>
+          <label htmlFor="seasonName">Season Name:</label>
           <input
+            id="seasonName"
             type="text"
-            defaultValue={selectedDashboardSeason}
+            defaultValue={seasonName}
             onChange={(e) => {
-              setSeasonName(e.target.value);
+              setUpdatedSeasonName(e.target.value);
             }}
           />
-          <button type="submit">Confirm Changes</button>
-          <button
-            onClick={() => {
-              setDeleteCheck(true);
-              setDeletedObj("season");
-              setDeletedObjId(seasonId);
-            }}
-          >
-            Delete Season
-          </button>
+          <div>
+            <button type="submit">Confirm Changes</button>
+            <button
+              onClick={() => {
+                setDeleteCheck(true);
+                setDeletedObj("season");
+                setDeletedObjId(seasonId);
+              }}
+            >
+              Delete Season
+            </button>
+          </div>
         </form>
       </div>
       <div className="seasonGameEditList">
+        <h3>Games:</h3>
         <ul>
           {seasonGames.map((game) => {
             const formatDate = new Date(game.date).toLocaleString();
@@ -112,9 +124,11 @@ export default function EditSeason() {
           })}
         </ul>
       </div>
+      <button onClick={() => setEditedSeason(null)}>Back</button>
       <DeleteCheck
         deletedObj={deletedObj}
         deletedObjId={deletedObjId}
+        deleteCheck={deleteCheck}
         setDeleteCheck={setDeleteCheck}
       />
     </div>

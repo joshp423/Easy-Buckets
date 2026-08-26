@@ -1,4 +1,4 @@
-export async function deletePlayerDetailsAPIReq(playerId: number) {
+export default async function deletePlayerDetailsAPIReq(playerId: number) {
   const rsp = await fetch(`http://localhost:3000/teams/players/delete`, {
     headers: {
       "Content-Type": "application/json",

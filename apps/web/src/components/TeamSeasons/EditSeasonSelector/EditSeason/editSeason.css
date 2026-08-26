@@ -1,0 +1,105 @@
+.editSeasonContainer {
+  min-width: 50%;
+}
+
+.seasonEditor {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+  gap: 1rem;
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+.seasonNameEdit > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.seasonNameEdit > form > label {
+  font-size: 20px;
+}
+
+.seasonNameEdit > form > input {
+  margin: 10px 0 20px 0;
+  padding: 2% 3% 2% 3%;
+  width: 100%;
+}
+
+.seasonNameEdit > form > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.seasonNameEdit > form > div > button {
+  color: white;
+  background-color: #e37204;
+  cursor: pointer;
+  border: none;
+  padding: 2% 3% 2% 3%;
+  border-radius: 12px;
+}
+
+.seasonGameEditList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.seasonGameEditList > h3,
+.seasonGameEditList > ul {
+  margin: 0;
+}
+
+.seasonGameEditList > ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.seasonGameEditList > ul > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+  justify-content: center;
+  padding-bottom: 20px;
+  gap: 1rem;
+}
+
+.seasonGameEditList > ul > li > h3 {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.seasonGameEditList > ul > li > button {
+  color: white;
+  background-color: #e37204;
+  cursor: pointer;
+  border: none;
+  padding: 3% 4% 3% 4%;
+  border-radius: 12px;
+}
+
+.seasonEditor > button {
+  color: white;
+  background-color: #e37204;
+  cursor: pointer;
+  border: none;
+  padding: 2% 3% 2% 3%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  align-self: center;
+}

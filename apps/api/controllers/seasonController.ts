@@ -16,7 +16,7 @@ export interface AuthRequest extends Request {
 }
 
 const createSeasonSchema = z.object({
-  name: z
+  seasonName: z
     .string()
     .trim()
     .max(25, { message: `Password: ${lengthErr}` })
@@ -44,11 +44,11 @@ const deleteSeasonSchema = z.object({
 export async function createSeason(req: AuthRequest, res: Response) {
   const userId = req.user?.id;
 
-  const { name } = req.body;
+  const { seasonName } = req.body;
 
   const { success, data, error } = createSeasonSchema.safeParse({
+    seasonName,
     userId,
-    name,
   });
 
   if (!success) {

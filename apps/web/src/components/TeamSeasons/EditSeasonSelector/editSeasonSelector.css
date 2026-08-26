@@ -1,0 +1,26 @@
+.editSeasonSelector {
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  justify-content: center;
+  min-width: 400px;
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.editSeasonSelector > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.editSeasonSelector > button {
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  color: white;
+  white-space: nowrap;
+}

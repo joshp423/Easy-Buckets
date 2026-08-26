@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import type { SyntheticEvent } from "react";
+import "./newSeason.css";
 
 export default function NewSeason() {
   const [seasonName, setSeasonName] = useState<string>("");
@@ -19,7 +20,7 @@ export default function NewSeason() {
     });
 
     if (newSeason) {
-      navigate("/");
+      navigate("/team-seasons");
     }
   }
 
@@ -30,10 +31,10 @@ export default function NewSeason() {
           createSeasonAPIReq(e);
         }}
       >
-        <label htmlFor="seasonName">New Season Name</label>
+        <label htmlFor="seasonName">New Season Name: </label>
         <input
           type="text"
-          name="seasonName"
+          id="seasonName"
           onChange={(e) => {
             setSeasonName(e.target.value);
           }}

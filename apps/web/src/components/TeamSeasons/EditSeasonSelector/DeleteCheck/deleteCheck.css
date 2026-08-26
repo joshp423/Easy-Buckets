@@ -1,0 +1,21 @@
+.deleteCheck {
+  flex-direction: column;
+  align-items: center;
+}
+
+.deleteCheck > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.deleteCheck > div > button {
+  color: white;
+  background-color: #e37204;
+  cursor: pointer;
+  border: none;
+  padding: 5% 10% 5% 10%;
+  border-radius: 12px;
+  white-space: nowrap;
+}

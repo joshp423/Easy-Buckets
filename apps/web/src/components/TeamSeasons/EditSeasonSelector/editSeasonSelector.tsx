@@ -1,6 +1,9 @@
 import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
 import type { SeasonOverview } from "../../../types/seasonOverview";
-import { useNavigate } from "react-router";
+import EditSeason from "./EditSeason/editSeason";
+import { useState } from "react";
+import "./editSeasonSelector.css";
+
 type EditSeasonsProps = {
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
@@ -12,30 +15,50 @@ export default function EditSeasonSelector({
   teamSeasons,
   setSelectedDashboardSeason,
   selectedDashboardSeason,
-  editSeasonToggle
+  editSeasonToggle,
 }: EditSeasonsProps) {
-  const navigate = useNavigate();
-  //navigate to teamSeasons/seasonName
-  return (
-    <div className="editSeasons" style={editSeasonToggle ? {"display": "flex"}: {"display": "none"}}>
-      <h3>Seasons:</h3>
-      <NavSeasonSelector
-        teamSeasons={teamSeasons}
-        setSelectedDashboardSeason={setSelectedDashboardSeason}
-      />
-      <button
-        onClick={() => {
-          const season = teamSeasons.find(
-            (season) => season.name === selectedDashboardSeason,
-          );
-          const seasonId = season?.id;
-          navigate(`/team-seasons/${selectedDashboardSeason}`, {
-            state: { seasonId },
-          });
-        }}
+  const [editedSeason, setEditedSeason] = useState<number | null>(null);
+  const seasonName = selectedDashboardSeason;
+
+  if (!editedSeason) {
+    return (
+      <div
+        className="editSeasonSelector"
+        style={editSeasonToggle ? { display: "grid" } : { display: "none" }}
       >
-        Edit Selected Season
-      </button>
+        <div>
+          <h3>Seasons:</h3>
+          <NavSeasonSelector
+            teamSeasons={teamSeasons}
+            setSelectedDashboardSeason={setSelectedDashboardSeason}
+          />
+        </div>
+        <button
+          onClick={() => {
+            const season = teamSeasons.find(
+              (season) => season.name === selectedDashboardSeason,
+            );
+            if (!season) return;
+            const seasonId = season?.id;
+            setEditedSeason(seasonId);
+          }}
+        >
+          Edit Season
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="editSeasonContainer"
+      style={editSeasonToggle ? { display: "flex" } : { display: "none" }}
+    >
+      <EditSeason
+        seasonId={editedSeason}
+        setEditedSeason={setEditedSeason}
+        seasonName={seasonName}
+      />
     </div>
   );
 }

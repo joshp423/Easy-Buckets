@@ -6,8 +6,9 @@ import PlayerListEdit from "./PlayerListEdit/playerListEdit";
 import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
 import EditSeasonSelector from "./EditSeasonSelector/editSeasonSelector";
-import { useNavigate } from "react-router";
 import "./teamSeasons.css";
+import NewSeason from "./NewSeason/newSeason";
+import { fa } from "zod/v4/locales";
 
 export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit
@@ -19,10 +20,10 @@ export default function TeamSeasons() {
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
   const [editTeamPlayersToggle, setEditTeamPlayersToggle] =
-    useState<boolean>(false);
+    useState<boolean>(true);
   const [editSeasonToggle, seteditSeasonToggle] = useState<boolean>(false);
+  const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(false);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
@@ -73,7 +74,8 @@ export default function TeamSeasons() {
                   return;
                 }
                 setEditTeamPlayersToggle(true);
-                console.log(editTeamPlayersToggle);
+                setAddSeasonToggle(false);
+                seteditSeasonToggle(false)
               }}
               style={
                 editTeamPlayersToggle
@@ -88,8 +90,48 @@ export default function TeamSeasons() {
             >
               Edit Team Players
             </button>
-            <button>Edit Season</button>
-            <button>Add New Season</button>
+            <button
+              onClick={() => {
+                if (editSeasonToggle) {
+                  seteditSeasonToggle(false);
+                  return;
+                }
+                seteditSeasonToggle(true);
+                setEditTeamPlayersToggle(false);
+                setAddSeasonToggle(false);
+              }}
+              style={
+                editSeasonToggle
+                  ? {
+                      outline: "1px solid black",
+                      borderRadius: "12px",
+                      backgroundColor: "#e37204",
+                      color: "white",
+                    }
+                  : {}
+              }  
+            >Edit Season</button>
+            <button
+              onClick={() => {
+                if (addSeasonToggle) {
+                  setAddSeasonToggle(false);
+                  return;
+                }
+                setAddSeasonToggle(true);
+                setEditTeamPlayersToggle(false);
+                seteditSeasonToggle(false);
+              }}
+              style={
+                addSeasonToggle
+                  ? {
+                      outline: "1px solid black",
+                      borderRadius: "12px",
+                      backgroundColor: "#e37204",
+                      color: "white",
+                    }
+                  : {}
+              }  
+            >Add New Season</button>
           </div>
           <div className="editSection">
             <PlayerListEdit
@@ -104,14 +146,13 @@ export default function TeamSeasons() {
               teamSeasons={teamSeasons}
               setSelectedDashboardSeason={setSelectedDashboardSeason}
               selectedDashboardSeason={selectedDashboardSeason}
+              editSeasonToggle={editSeasonToggle}
             />
-            <button
-              onClick={() => {
-                navigate("/new-season");
-              }}
+            <div 
+              style={addSeasonToggle ? {"display": "flex"}: {"display": "none"}}
             >
-              Add Season
-            </button>
+              <NewSeason />
+            </div>
           </div>
         </div>
       </div>

@@ -67,7 +67,7 @@ export default function PlayerListEdit({
           </li>
         ))}
       </ul>
-      <div>
+      <div className="addPlayer">
         <button
           type="button"
           onClick={() => {

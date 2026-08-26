@@ -1,9 +1,10 @@
 .playerListEdit {
   flex-direction: column;
   align-items: center;
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 12px;
   min-width: 40%;
+  background-color: #f3f5f8;
 }
 
 .playerListEdit > h3 {
@@ -30,27 +31,15 @@
   padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 12px;
   border: none;
-  background-color: #f3f5f8;
-}
-
-.playerListEdit > ul > li > button:hover {
-  border-radius: 12px;
-  color: white;
   background-color: #e37204;
-  cursor: pointer;
+  color: white;
 }
 
-.playerListEdit > div > button {
+.addPlayer > button {
   padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 12px;
   border: none;
-  background-color: #f3f5f8;
-  margin-top: 1rem;
-}
-
-.playerListEdit > div > button:hover {
-  border-radius: 12px;
-  color: white;
   background-color: #e37204;
-  cursor: pointer;
+  color: white;
+  margin-top: 1rem;
 }

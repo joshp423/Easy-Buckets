@@ -2,6 +2,7 @@ import type { Player } from "../../../../types/player";
 import { type SyntheticEvent } from "react";
 import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
 import { deletePlayerDetailsAPIReq } from "./deletePlayerAPIReq";
+import "./editPlayer.css";
 
 type EditPlayerProps = {
   editPlayer: Player | null;
@@ -17,6 +18,7 @@ export default function EditPlayer({
 
   async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    
 
     if (!editPlayer) return;
 
@@ -35,6 +37,7 @@ export default function EditPlayer({
     }
     return;
   }
+  
 
   async function deletePlayer(playerId: number) {
     const deletedPlayer = await deletePlayerDetailsAPIReq(playerId);
@@ -65,6 +68,7 @@ export default function EditPlayer({
           Delete Player from team
         </button>
       </form>
+      <button type="button" onClick={() => {setEditPlayer(null)}}>Back</button>
     </div>
   );
 }

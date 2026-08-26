@@ -8,7 +8,6 @@ import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFe
 import EditSeasonSelector from "./EditSeasonSelector/editSeasonSelector";
 import "./teamSeasons.css";
 import NewSeason from "./NewSeason/newSeason";
-import { fa } from "zod/v4/locales";
 
 export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit

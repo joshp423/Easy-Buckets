@@ -38,3 +38,8 @@ body {
     transform: translateX(100%);
   }
 }
+
+button:hover {
+  cursor: pointer;
+  outline: 1px solid black;
+}

@@ -20,7 +20,7 @@ export default function NewSeason() {
     });
 
     if (newSeason) {
-      navigate("/team-seasons");
+      navigate("/score-game");
     }
   }
 

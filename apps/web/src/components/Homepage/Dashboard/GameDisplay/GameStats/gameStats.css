@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: 95% 5%;
   height: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   align-self: center;
   width: 100%;
 }

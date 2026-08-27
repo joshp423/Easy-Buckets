@@ -4,6 +4,7 @@
   padding: 0.5%;
   min-height: 100vh;
   min-width: 1440px;
+  height: 100%;
 }
 
 .editSectionContainer {

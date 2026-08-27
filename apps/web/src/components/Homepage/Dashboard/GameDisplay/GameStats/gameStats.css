@@ -4,12 +4,14 @@
   height: 100%;
   max-width: 1400px;
   align-self: center;
+  width: 100%;
 }
 
 .statsSection {
   display: flex;
   flex-direction: column;
   margin-top: 1%;
+  height: 100%;
 }
 
 .replayChart {

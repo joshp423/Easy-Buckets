@@ -5,6 +5,7 @@ import type { ShotLog } from "../../../../types/shotLog";
 import { useState } from "react";
 import SeasonStatsTable from "./SeasonStatsTable/seasonStatsTable";
 import SeasonStatLeadersTable from "./SeasonStatLeadersTable/seasonStatLeadersTable";
+import NoGames from "../noGames";
 
 type SeasonStatsDisplayProps = {
   seasonData: Game[];
@@ -42,7 +43,7 @@ export default function SeasonStatsDisplay({
 }: SeasonStatsDisplayProps) {
   const [selectedShot, setSelectedShot] = useState<number | null>(null);
 
-  if (!seasonData) return;
+  if (seasonData.length === 0) return <NoGames />
 
   //reduce makes it so we can reference the array while building it as well as not have the same exact number of fields.
   const seasonStats: seasonStatPlayer[] = seasonData.reduce<seasonStatPlayer[]>(

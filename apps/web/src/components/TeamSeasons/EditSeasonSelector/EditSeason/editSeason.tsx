@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import { seasonGameAPIFetch } from "../../../../shared API functions/seasonGameAPIFetch";
 import type { Game } from "../../../../types/game";
 import updateSeasonNameAPIReq from "./updateSeasonNameAPIReq";
 import { useNavigate } from "react-router";
 import DeleteCheck from "../DeleteCheck/deleteCheck";
 import "./editSeason.css";
-
+import { EditSeasonSkeleton } from "../../../skeletons";
 type EditSeasonProps = {
   seasonId: number | null;
   setEditedSeason: React.Dispatch<React.SetStateAction<number | null>>;
@@ -56,6 +55,10 @@ export default function EditSeason({
   }
 
   //skelly required
+  if (loading) {
+    return <EditSeasonSkeleton />;
+  }
+
   if (deleteCheck) {
     return (
       <div className="seasonEditor">
@@ -64,6 +67,56 @@ export default function EditSeason({
           deletedObjId={deletedObjId}
           setDeleteCheck={setDeleteCheck}
           deleteCheck={deleteCheck}
+        />
+      </div>
+    );
+  }
+
+  if (seasonGames.length === 0) {
+    return (
+      <div className="seasonEditor">
+        <div className="seasonNameEdit">
+          <form
+            action=""
+            onSubmit={() => {
+              uploadNameChange();
+            }}
+          >
+            <label htmlFor="seasonName">Season Name:</label>
+            <input
+              id="seasonName"
+              type="text"
+              defaultValue={seasonName}
+              onChange={(e) => {
+                setUpdatedSeasonName(e.target.value);
+              }}
+            />
+            <div>
+              <button type="submit">Confirm Changes</button>
+              <button
+                onClick={() => {
+                  setDeleteCheck(true);
+                  setDeletedObj("season");
+                  setDeletedObjId(seasonId);
+                }}
+              >
+                Delete Season
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="seasonGameEditList">
+          <h3>Games:</h3>
+          <ul>
+            <li style={{ marginTop: "20px" }}>No Games</li>
+          </ul>
+        </div>
+        <button onClick={() => setEditedSeason(null)}>Back</button>
+        <DeleteCheck
+          deletedObj={deletedObj}
+          deletedObjId={deletedObjId}
+          deleteCheck={deleteCheck}
+          setDeleteCheck={setDeleteCheck}
         />
       </div>
     );

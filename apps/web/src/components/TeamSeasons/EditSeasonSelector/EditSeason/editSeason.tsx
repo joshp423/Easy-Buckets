@@ -157,7 +157,7 @@ export default function EditSeason({
         <h3>Games:</h3>
         <ul>
           {seasonGames.map((game) => {
-            const formatDate = new Date(game.date).toLocaleString();
+            const formatDate = new Date(game.date).toLocaleString().split(",", 1);
             return (
               <li>
                 <h3>

@@ -4,3 +4,7 @@
   align-items: center;
   gap: 1%;
 }
+
+.disabled {
+  cursor: not-allowed !important;
+}

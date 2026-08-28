@@ -81,7 +81,7 @@ export default function SelectDraftGame({
           }}
         >
           {seasonData.map(({ id, date, opponent }) => {
-            const formatDate = new Date(date).toLocaleString();
+            const formatDate = new Date(date).toLocaleString().split(",", 1);
             return (
               <option key={id} value={id}>
                 {formatDate} vs {opponent}

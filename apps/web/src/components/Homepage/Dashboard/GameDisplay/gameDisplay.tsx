@@ -2,7 +2,6 @@ import GameStats from "./GameStats/gameStats";
 import { useState } from "react";
 import type { Game } from "../../../../types/game";
 import "./gameDisplay.css";
-import { useNavigate } from "react-router";
 import NoGames from "../noGames";
 
 type GameDisplayProps = {
@@ -13,7 +12,6 @@ export default function GameDisplay({ seasonData }: GameDisplayProps) {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const currentGame = seasonData?.[currentPage];
   const gameAmount = seasonData?.length || 0;
-  const navigate = useNavigate();
 
   const canPageLeft = () => (currentPage < 1 ? false : true);
   const canPageRight = () => (currentPage >= gameAmount - 1 ? false : true);

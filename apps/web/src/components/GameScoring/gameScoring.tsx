@@ -95,6 +95,7 @@ export default function GameScoring() {
               teamSeasons={teamSeasons}
               selectedDashboardSeason={selectedDashboardSeason}
               setGameDetails={setGameDetails}
+              setNewGameCheck={setNewGameCheck}
             />
           </div>
         );

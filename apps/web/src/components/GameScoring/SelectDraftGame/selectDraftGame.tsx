@@ -4,21 +4,22 @@ import { seasonGameAPIFetch } from "../../../shared API functions/seasonGameAPIF
 import { type Game } from "../../../types/game";
 import { useState, useEffect } from "react";
 import "./selectDraftGame.css";
-import { useNavigate } from "react-router";
+import type { newGameCheck } from "../gameScoring";
 
 type SelectDraftGameProps = {
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
+  setNewGameCheck:React.Dispatch<React.SetStateAction<newGameCheck>>
 };
 export default function SelectDraftGame({
   selectedDashboardSeason,
   teamSeasons,
   setGameDetails,
+  setNewGameCheck
 }: SelectDraftGameProps) {
   const [seasonData, setSeasonData] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<number | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -61,7 +62,7 @@ export default function SelectDraftGame({
         <button
           type="button"
           onClick={() => {
-            navigate("/score-game");
+            setNewGameCheck("none");
           }}
         >
           Back

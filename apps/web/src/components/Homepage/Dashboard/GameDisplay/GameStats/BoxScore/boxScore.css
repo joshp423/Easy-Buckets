@@ -31,7 +31,7 @@ th {
 }
 
 td {
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 thead {
@@ -99,4 +99,10 @@ tfoot {
 .boxScore > table > tbody > tr > td,
 .boxScore > table > tfoot > tr {
   font-size: 0.8rem;
+}
+
+
+tr {
+  height: 25px;
+  border-bottom: 1px solid lightgrey;
 }

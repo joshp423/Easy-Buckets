@@ -66,7 +66,7 @@ export default function TeamSeasons() {
         <SideNav />
         <TeamSeasonsSkeleton />
       </div>
-    )
+    );
   }
 
   return (

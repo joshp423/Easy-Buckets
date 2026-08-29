@@ -26,7 +26,11 @@ export default function EditPlayer({
     setLoading(true);
     const form = new FormData(e.currentTarget);
 
-    console.log(form.get("playerName") as string, Number(form.get("playerNumber")), editPlayer.id)
+    console.log(
+      form.get("playerName") as string,
+      Number(form.get("playerNumber")),
+      editPlayer.id,
+    );
 
     const updatedPlayer = await editPlayerDetailsAPIReq({
       player: {
@@ -57,14 +61,21 @@ export default function EditPlayer({
     <div className="editPlayer">
       <form onSubmit={confirmPlayerEdit}>
         <label htmlFor="playerName">Edit Player Name: </label>
-        <input type="text" id="playerName" name="playerName" defaultValue={editPlayer.name} />
+        <input
+          type="text"
+          id="playerName"
+          name="playerName"
+          defaultValue={editPlayer.name}
+        />
         <label htmlFor="playerNumber">Edit Player Number: </label>
         <input
           type="number"
           id="playerNumber"
           defaultValue={editPlayer.number}
         />
-        <button type="submit">{loading ? <LoadingBall /> :"Confirm Changes"}</button>
+        <button type="submit">
+          {loading ? <LoadingBall /> : "Confirm Changes"}
+        </button>
         <button
           type="button"
           onClick={() => {

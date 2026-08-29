@@ -16,8 +16,7 @@ export default function GameDisplay({ seasonData }: GameDisplayProps) {
   const canPageLeft = () => (currentPage < 1 ? false : true);
   const canPageRight = () => (currentPage >= gameAmount - 1 ? false : true);
 
-  if (!currentGame)
-    return <NoGames/>
+  if (!currentGame) return <NoGames />;
 
   return (
     <div className="gameDisplay">

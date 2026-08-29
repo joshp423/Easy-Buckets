@@ -10,13 +10,13 @@ type SelectDraftGameProps = {
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
-  setNewGameCheck:React.Dispatch<React.SetStateAction<newGameCheck>>
+  setNewGameCheck: React.Dispatch<React.SetStateAction<newGameCheck>>;
 };
 export default function SelectDraftGame({
   selectedDashboardSeason,
   teamSeasons,
   setGameDetails,
-  setNewGameCheck
+  setNewGameCheck,
 }: SelectDraftGameProps) {
   const [seasonData, setSeasonData] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<number | null>(null);

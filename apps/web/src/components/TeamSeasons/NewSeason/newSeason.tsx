@@ -10,7 +10,7 @@ export default function NewSeason() {
   const navigate = useNavigate();
   async function createSeasonAPIReq(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const newSeason = await fetch("http://localhost:3000/seasons/create", {
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default function NewSeason() {
     if (newSeason) {
       navigate("/score-game");
     }
-    setLoading(true)
+    setLoading(true);
   }
 
   return (
@@ -43,7 +43,7 @@ export default function NewSeason() {
             setSeasonName(e.target.value);
           }}
         />
-        <button type="submit">{loading ? <LoadingBall /> :"Submit"} </button>
+        <button type="submit">{loading ? <LoadingBall /> : "Submit"} </button>
       </form>
     </div>
   );

@@ -31,7 +31,7 @@
 
 .editNav > button:hover {
   border-radius: 12px;
-  outline:none !important;
+  outline: none !important;
   color: white;
   background-color: #e37204;
   cursor: pointer;

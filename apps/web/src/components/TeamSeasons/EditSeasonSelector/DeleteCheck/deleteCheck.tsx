@@ -21,7 +21,7 @@ export default function DeleteCheck({
   const [loading, setLoading] = useState<boolean>(false);
   async function deleteObj() {
     if (!deletedObjId) return;
-    setLoading(true)
+    setLoading(true);
 
     switch (deletedObj) {
       case "season": {
@@ -46,7 +46,7 @@ export default function DeleteCheck({
         break;
       }
     }
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
@@ -61,7 +61,7 @@ export default function DeleteCheck({
             deleteObj();
           }}
         >
-          {loading ? <LoadingBall /> :"Yes"}
+          {loading ? <LoadingBall /> : "Yes"}
         </button>
         <button
           onClick={() => {

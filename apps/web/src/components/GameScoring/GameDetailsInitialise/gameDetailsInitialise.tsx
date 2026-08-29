@@ -12,7 +12,7 @@ type GameDetailsInitialiseProps = {
   setReplay: React.Dispatch<React.SetStateAction<string | null>>;
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
-  setNewGameCheck:React.Dispatch<React.SetStateAction<newGameCheck>>
+  setNewGameCheck: React.Dispatch<React.SetStateAction<newGameCheck>>;
 };
 
 export default function GameDetailsInitialise({
@@ -23,7 +23,7 @@ export default function GameDetailsInitialise({
   teamSeasons,
   setReplay,
   selectedDashboardSeason,
-  setNewGameCheck
+  setNewGameCheck,
 }: GameDetailsInitialiseProps) {
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -74,9 +74,13 @@ export default function GameDetailsInitialise({
           Next
         </button>
       </form>
-      <button onClick={() => {
-        setNewGameCheck("none");
-      }}>Back</button>
+      <button
+        onClick={() => {
+          setNewGameCheck("none");
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 }

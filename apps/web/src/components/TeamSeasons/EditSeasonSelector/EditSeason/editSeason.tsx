@@ -46,7 +46,6 @@ export default function EditSeason({
     const updatedName = await updateSeasonNameAPIReq(
       seasonId,
       updatedSeasonName,
-      
     );
     if (updatedName) {
       navigate(`/team-seasons/${updatedName}`, {
@@ -93,7 +92,9 @@ export default function EditSeason({
             }}
           />
           <div>
-            <button type="submit">{loading ? <LoadingBall /> :"Confirm Changes"}</button>
+            <button type="submit">
+              {loading ? <LoadingBall /> : "Confirm Changes"}
+            </button>
             <button
               onClick={() => {
                 setDeleteCheck(true);
@@ -101,7 +102,7 @@ export default function EditSeason({
                 setDeletedObjId(seasonId);
               }}
             >
-            Delete Season
+              Delete Season
             </button>
           </div>
         </form>
@@ -109,9 +110,11 @@ export default function EditSeason({
       <div className="seasonGameEditList">
         <h3>Games:</h3>
         <ul>
-          {seasonGames.length !== 0 ? 
+          {seasonGames.length !== 0 ? (
             seasonGames.map((game) => {
-              const formatDate = new Date(game.date).toLocaleString().split(",", 1);
+              const formatDate = new Date(game.date)
+                .toLocaleString()
+                .split(",", 1);
               return (
                 <li>
                   <h3>
@@ -124,12 +127,14 @@ export default function EditSeason({
                       setDeletedObjId(game.id);
                     }}
                   >
-                  Delete Game
+                    Delete Game
                   </button>
                 </li>
               );
-            }) : <li style={{ marginTop: "20px" }}>No Games</li>
-          }
+            })
+          ) : (
+            <li style={{ marginTop: "20px" }}>No Games</li>
+          )}
         </ul>
       </div>
       <button onClick={() => setEditedSeason(null)}>Back</button>

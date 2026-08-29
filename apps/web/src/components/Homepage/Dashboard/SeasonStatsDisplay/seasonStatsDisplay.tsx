@@ -43,7 +43,7 @@ export default function SeasonStatsDisplay({
 }: SeasonStatsDisplayProps) {
   const [selectedShot, setSelectedShot] = useState<number | null>(null);
 
-  if (seasonData.length === 0) return <NoGames />
+  if (seasonData.length === 0) return <NoGames />;
 
   //reduce makes it so we can reference the array while building it as well as not have the same exact number of fields.
   const seasonStats: seasonStatPlayer[] = seasonData.reduce<seasonStatPlayer[]>(

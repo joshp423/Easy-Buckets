@@ -1,26 +1,32 @@
 export function DashboardSkeleton() {
   return (
     <div className="gameDisplay skeleton">
-      <div className="statsSection skeleton" style={{width: "100%"}}>
-        <div className="replayChart skeleton" >
+      <div className="statsSection skeleton" style={{ width: "100%" }}>
+        <div className="replayChart skeleton">
           <div className="videoPlayer skeleton">
-            <div className="skeleton"><iframe width={640} height={"100%"}></iframe></div>
+            <div className="skeleton">
+              <iframe width={640} height={"100%"}></iframe>
+            </div>
           </div>
           <div className="shotChart skeleton">
-            <div className="skeleton"><img className="skeleton"/></div>
+            <div className="skeleton">
+              <img className="skeleton" />
+            </div>
           </div>
         </div>
         <div className="shotLog skeleton" style={{ height: "100%" }}></div>
         <div className="boxScore skeleton"></div>
       </div>
-      <div className="skeleton"
+      <div
+        className="skeleton"
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <div className="skeleton"
+        <div
+          className="skeleton"
           style={{
             backgroundColor: "#f3f5f8",
             width: "30%",
@@ -44,9 +50,22 @@ export function TeamSeasonsSkeleton() {
 export function EditSeasonSkeleton() {
   return (
     <div className="seasonEditor skeleton">
-      <div className="seasonNameEdit skeleton"><form style={{height: "157px"}}></form></div>
-      <div className="seasonGameEditList skeleton" style={{height: "150px"}}></div>
-      <div className="skeleton" style={{height: "50px", width: "40%", backgroundColor: "#f3f5f8", alignSelf: "center"}}></div>
+      <div className="seasonNameEdit skeleton">
+        <form style={{ height: "157px" }}></form>
+      </div>
+      <div
+        className="seasonGameEditList skeleton"
+        style={{ height: "150px" }}
+      ></div>
+      <div
+        className="skeleton"
+        style={{
+          height: "50px",
+          width: "40%",
+          backgroundColor: "#f3f5f8",
+          alignSelf: "center",
+        }}
+      ></div>
     </div>
   );
 }

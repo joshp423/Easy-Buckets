@@ -40,7 +40,7 @@ export default function LogIn() {
               email,
               password,
               navigate,
-            })
+            });
           }}
         >
           <div className="logInForm">
@@ -70,9 +70,7 @@ export default function LogIn() {
               />
             </div>
             <button type="submit">
-              <div >
-                {loading ? <LoadingBall /> :<p>Log In</p>}
-              </div>{" "}
+              <div>{loading ? <LoadingBall /> : <p>Log In</p>}</div>{" "}
             </button>
           </div>
         </form>

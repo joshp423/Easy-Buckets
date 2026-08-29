@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { type SeasonOverview } from "../../../types/seasonOverview";
 import "./gameDetailsInitilialise.css";
 import { type Game } from "../../../types/game";
+import type { newGameCheck } from "../gameScoring";
 
 type GameDetailsInitialiseProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -11,6 +12,7 @@ type GameDetailsInitialiseProps = {
   setReplay: React.Dispatch<React.SetStateAction<string | null>>;
   teamSeasons: SeasonOverview[];
   selectedDashboardSeason: string;
+  setNewGameCheck:React.Dispatch<React.SetStateAction<newGameCheck>>
 };
 
 export default function GameDetailsInitialise({
@@ -21,6 +23,7 @@ export default function GameDetailsInitialise({
   teamSeasons,
   setReplay,
   selectedDashboardSeason,
+  setNewGameCheck
 }: GameDetailsInitialiseProps) {
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -40,7 +43,7 @@ export default function GameDetailsInitialise({
       <h1>New Game</h1>
       <p>Completing this section will save the game as a draft</p>
       <form>
-        <label htmlFor="opponent">Opponent </label>
+        <label htmlFor="opponent">Opponent: </label>
         <input
           type="text"
           name="opponent"
@@ -49,7 +52,7 @@ export default function GameDetailsInitialise({
             setOpponent(e.target.value);
           }}
         />
-        <label htmlFor="date">Date </label>
+        <label htmlFor="date">Date: </label>
         <input
           type="date"
           name="date"
@@ -58,7 +61,7 @@ export default function GameDetailsInitialise({
             setDate(String(e.target.value));
           }}
         />
-        <label htmlFor="replay">Replay URL (Optional) </label>
+        <label htmlFor="replay">Replay URL (Optional): </label>
         <input
           type="text"
           name="replay"
@@ -71,6 +74,9 @@ export default function GameDetailsInitialise({
           Next
         </button>
       </form>
+      <button onClick={() => {
+        setNewGameCheck("none");
+      }}>Back</button>
     </div>
   );
 }

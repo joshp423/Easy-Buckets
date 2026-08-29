@@ -91,7 +91,6 @@
 .logInForm > button > div {
   display: flex;
   justify-content: flex-start;
-  margin-left: 5%;
 }
 
 .logInForm > button > div > p {

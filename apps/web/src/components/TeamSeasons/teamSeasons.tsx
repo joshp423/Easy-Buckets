@@ -20,9 +20,9 @@ export default function TeamSeasons() {
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
   const [editTeamPlayersToggle, setEditTeamPlayersToggle] =
-    useState<boolean>(true);
+    useState<boolean>(false);
   const [editSeasonToggle, seteditSeasonToggle] = useState<boolean>(false);
-  const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(false);
+  const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(true);
 
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete

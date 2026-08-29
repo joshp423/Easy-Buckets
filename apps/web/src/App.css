@@ -43,3 +43,17 @@ button:hover {
   cursor: pointer;
   outline: 1px solid black;
 }
+
+input {
+  border: 1px solid #e5e7eb;
+}
+
+input:focus {
+  border: 1px solid #e37204;
+  outline: none !important;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+}

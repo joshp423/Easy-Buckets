@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import DeleteCheck from "../DeleteCheck/deleteCheck";
 import "./editSeason.css";
 import { EditSeasonSkeleton } from "../../../skeletons";
+import LoadingBall from "../../../../assets/LoadingBall/loadingball";
 type EditSeasonProps = {
   seasonId: number | null;
   setEditedSeason: React.Dispatch<React.SetStateAction<number | null>>;
@@ -45,6 +46,7 @@ export default function EditSeason({
     const updatedName = await updateSeasonNameAPIReq(
       seasonId,
       updatedSeasonName,
+      
     );
     if (updatedName) {
       navigate(`/team-seasons/${updatedName}`, {
@@ -72,55 +74,6 @@ export default function EditSeason({
     );
   }
 
-  if (seasonGames.length === 0) {
-    return (
-      <div className="seasonEditor">
-        <div className="seasonNameEdit">
-          <form
-            action=""
-            onSubmit={() => {
-              uploadNameChange();
-            }}
-          >
-            <label htmlFor="seasonName">Season Name:</label>
-            <input
-              id="seasonName"
-              type="text"
-              defaultValue={seasonName}
-              onChange={(e) => {
-                setUpdatedSeasonName(e.target.value);
-              }}
-            />
-            <div>
-              <button type="submit">Confirm Changes</button>
-              <button
-                onClick={() => {
-                  setDeleteCheck(true);
-                  setDeletedObj("season");
-                  setDeletedObjId(seasonId);
-                }}
-              >
-                Delete Season
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="seasonGameEditList">
-          <h3>Games:</h3>
-          <ul>
-            <li style={{ marginTop: "20px" }}>No Games</li>
-          </ul>
-        </div>
-        <button onClick={() => setEditedSeason(null)}>Back</button>
-        <DeleteCheck
-          deletedObj={deletedObj}
-          deletedObjId={deletedObjId}
-          deleteCheck={deleteCheck}
-          setDeleteCheck={setDeleteCheck}
-        />
-      </div>
-    );
-  }
   return (
     <div className="seasonEditor">
       <div className="seasonNameEdit">
@@ -140,7 +93,7 @@ export default function EditSeason({
             }}
           />
           <div>
-            <button type="submit">Confirm Changes</button>
+            <button type="submit">{loading ? <LoadingBall /> :"Confirm Changes"}</button>
             <button
               onClick={() => {
                 setDeleteCheck(true);
@@ -148,7 +101,7 @@ export default function EditSeason({
                 setDeletedObjId(seasonId);
               }}
             >
-              Delete Season
+            Delete Season
             </button>
           </div>
         </form>
@@ -156,25 +109,27 @@ export default function EditSeason({
       <div className="seasonGameEditList">
         <h3>Games:</h3>
         <ul>
-          {seasonGames.map((game) => {
-            const formatDate = new Date(game.date).toLocaleString().split(",", 1);
-            return (
-              <li>
-                <h3>
-                  {formatDate} vs: {game.opponent}
-                </h3>
-                <button
-                  onClick={() => {
-                    setDeleteCheck(true);
-                    setDeletedObj("game");
-                    setDeletedObjId(game.id);
-                  }}
-                >
+          {seasonGames.length !== 0 ? 
+            seasonGames.map((game) => {
+              const formatDate = new Date(game.date).toLocaleString().split(",", 1);
+              return (
+                <li>
+                  <h3>
+                    {formatDate} vs: {game.opponent}
+                  </h3>
+                  <button
+                    onClick={() => {
+                      setDeleteCheck(true);
+                      setDeletedObj("game");
+                      setDeletedObjId(game.id);
+                    }}
+                  >
                   Delete Game
-                </button>
-              </li>
-            );
-          })}
+                  </button>
+                </li>
+              );
+            }) : <li style={{ marginTop: "20px" }}>No Games</li>
+          }
         </ul>
       </div>
       <button onClick={() => setEditedSeason(null)}>Back</button>

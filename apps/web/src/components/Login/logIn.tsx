@@ -4,6 +4,7 @@ import { logInAPI } from "./logInAPI";
 import { useOutletContext } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import "./logIn.css";
+import LoadingBall from "../../assets/LoadingBall/loadingball";
 
 type logInProps = {
   loginStatus: boolean;
@@ -29,7 +30,8 @@ export default function LogIn() {
           <h1>Easy Buckets</h1>
         </div>
         <form
-          onSubmit={(e) =>
+          onSubmit={(e) => {
+            setLoading(true);
             logInAPI({
               e,
               setLoginStatus,
@@ -39,7 +41,7 @@ export default function LogIn() {
               password,
               navigate,
             })
-          }
+          }}
         >
           <div className="logInForm">
             <h1>Please log in to continue</h1>
@@ -68,12 +70,9 @@ export default function LogIn() {
               />
             </div>
             <button type="submit">
-              <div style={{ display: loading === true ? "none" : "flex" }}>
-                <p>Log In</p>
+              <div >
+                {loading ? <LoadingBall /> :<p>Log In</p>}
               </div>{" "}
-              <div
-                style={{ display: loading === true ? "flex" : "none" }}
-              ></div>
             </button>
           </div>
         </form>

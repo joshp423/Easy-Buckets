@@ -125,6 +125,7 @@ export default function GameScoring() {
               setReplay={setReplay}
               teamSeasons={teamSeasons}
               selectedDashboardSeason={selectedDashboardSeason}
+              setNewGameCheck={setNewGameCheck}
             />
           </div>
         );

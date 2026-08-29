@@ -3,6 +3,7 @@ import { useState, type SyntheticEvent } from "react";
 import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
 import "./editPlayer.css";
 import DeleteCheck from "../../EditSeasonSelector/DeleteCheck/deleteCheck";
+import LoadingBall from "../../../../assets/LoadingBall/loadingball";
 
 type EditPlayerProps = {
   editPlayer: Player | null;
@@ -14,15 +15,18 @@ export default function EditPlayer({
   setEditPlayer,
 }: EditPlayerProps) {
   const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
-  // add loading
+  const [loading, setLoading] = useState<boolean>(false);
+
   if (!editPlayer) return;
 
   async function confirmPlayerEdit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!editPlayer) return;
-
+    setLoading(true);
     const form = new FormData(e.currentTarget);
+
+    console.log(form.get("playerName") as string, Number(form.get("playerNumber")), editPlayer.id)
 
     const updatedPlayer = await editPlayerDetailsAPIReq({
       player: {
@@ -35,6 +39,7 @@ export default function EditPlayer({
     if (updatedPlayer) {
       setEditPlayer(null);
     }
+    setLoading(false);
     return;
   }
 
@@ -52,14 +57,14 @@ export default function EditPlayer({
     <div className="editPlayer">
       <form onSubmit={confirmPlayerEdit}>
         <label htmlFor="playerName">Edit Player Name: </label>
-        <input type="text" id="playerName" defaultValue={editPlayer.name} />
+        <input type="text" id="playerName" name="playerName" defaultValue={editPlayer.name} />
         <label htmlFor="playerNumber">Edit Player Number: </label>
         <input
           type="number"
           id="playerNumber"
           defaultValue={editPlayer.number}
         />
-        <button type="submit">Confirm Changes</button>
+        <button type="submit">{loading ? <LoadingBall /> :"Confirm Changes"}</button>
         <button
           type="button"
           onClick={() => {

@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import type { SyntheticEvent } from "react";
 import "./newSeason.css";
+import LoadingBall from "../../../assets/LoadingBall/loadingball";
 
 export default function NewSeason() {
   const [seasonName, setSeasonName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   async function createSeasonAPIReq(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true)
     const newSeason = await fetch("http://localhost:3000/seasons/create", {
       headers: {
         "Content-Type": "application/json",
@@ -22,6 +25,7 @@ export default function NewSeason() {
     if (newSeason) {
       navigate("/score-game");
     }
+    setLoading(true)
   }
 
   return (
@@ -39,7 +43,7 @@ export default function NewSeason() {
             setSeasonName(e.target.value);
           }}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">{loading ? <LoadingBall /> :"Submit"} </button>
       </form>
     </div>
   );

@@ -2,6 +2,8 @@ import deleteGameAPIReq from "./deleteGameAPIReq";
 import deleteSeasonAPIReq from "./deleteSeasonAPIReq";
 import deletePlayerDetailsAPIReq from "../../PlayerListEdit/EditPlayer/deletePlayerAPIReq";
 import "./deleteCheck.css";
+import { useState } from "react";
+import LoadingBall from "../../../../assets/LoadingBall/loadingball";
 
 type DeleteCheckProps = {
   deletedObj: "game" | "season" | "player" | null;
@@ -16,8 +18,10 @@ export default function DeleteCheck({
   setDeleteCheck,
   deleteCheck,
 }: DeleteCheckProps) {
+  const [loading, setLoading] = useState<boolean>(false);
   async function deleteObj() {
     if (!deletedObjId) return;
+    setLoading(true)
 
     switch (deletedObj) {
       case "season": {
@@ -39,8 +43,10 @@ export default function DeleteCheck({
         if (deletedPlayer) {
           setDeleteCheck(false);
         }
+        break;
       }
     }
+    setLoading(false)
   }
 
   return (
@@ -55,7 +61,7 @@ export default function DeleteCheck({
             deleteObj();
           }}
         >
-          Yes
+          {loading ? <LoadingBall /> :"Yes"}
         </button>
         <button
           onClick={() => {

@@ -66,7 +66,9 @@ export default function Dashboard() {
     return (
       <div className="dashboard">
         <SideNav />
-        <div className="dashboardMain"></div>
+        <div className="dashboardMain">
+          
+        </div>
       </div>
     );
   }

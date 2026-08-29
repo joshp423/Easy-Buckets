@@ -5,6 +5,8 @@ import { useOutletContext } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import "./logIn.css";
 import LoadingBall from "../../assets/LoadingBall/loadingball";
+import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type logInProps = {
   loginStatus: boolean;
@@ -27,7 +29,7 @@ export default function LogIn() {
     <div className="logInContainer">
       <div className="logIn">
         <div className="logInTitle">
-          <h1>Easy Buckets</h1>
+          <h1 onClick={() => {navigate("/")}}>Easy Buckets</h1>
         </div>
         <form
           onSubmit={(e) => {
@@ -52,6 +54,7 @@ export default function LogIn() {
             </div>
             <label htmlFor="username">Email: </label>
             <div className="logInFormInput">
+               <FontAwesomeIcon icon={faEnvelope}/>
               <input
                 name="email"
                 type="text"
@@ -60,8 +63,9 @@ export default function LogIn() {
               />
             </div>
             <label htmlFor="username"> Password: </label>
-            {/* add icons to inputs and button */}
+            
             <div className="logInFormInput">
+              <FontAwesomeIcon icon={faKey} />
               <input
                 name="password"
                 type="password"
@@ -70,7 +74,7 @@ export default function LogIn() {
               />
             </div>
             <button type="submit">
-              <div>{loading ? <LoadingBall /> : <p>Log In</p>}</div>{" "}
+              <div>{loading ? <LoadingBall /> : <p>Log In</p>}</div>
             </button>
           </div>
         </form>

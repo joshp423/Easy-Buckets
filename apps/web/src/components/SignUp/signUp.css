@@ -1,12 +1,4 @@
-.logInContainer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.logIn {
+.signUp {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +7,7 @@
   justify-content: center;
 }
 
-.logInTitle {
+.signUpTitle {
   display: flex;
   flex-direction: row;
   margin-bottom: 3%;
@@ -27,27 +19,28 @@
   border-radius: 12px;
 }
 
-.logInTitle > h1 {
+.signUpTitle > h1 {
   margin: 0;
   padding-left: 5%;
   margin-top: 5%;
   cursor: pointer;
 }
 
-.logIn > form {
+.signUp > form {
   width: 100%;
 }
 
-.logInForm {
+.signUpForm {
   display: flex;
   flex-direction: column;
   padding: 10% 5% 15% 5%;
   background-color: #f3f5f8;
   border-radius: 12px;
   color: black;
+  width: 100%;
 }
 
-.logInForm > h1 {
+.signUpForm > h1 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 500;
@@ -55,33 +48,37 @@
   margin-bottom: 8%;
 }
 
-.logInForm > label {
+.signUpForm > label {
   font-size: 1rem;
   margin-bottom: 2%;
 }
 
-.logInFormInput {
+.signUpFormInput {
   border: 1px solid #e5e7eb;
   background-color: white;
-  padding: 2%;
+  padding: 0% 2% 0% 2%;
   border-radius: 12px;
   cursor: text;
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
-.logInFormInput:focus-within {
+.signUpFormInput:focus-within {
   border: 1px solid #e37204;
 }
 
-.logInFormInput > input {
+.signUpFormInput > input {
   background-color: white;
   border: none;
   outline: none;
   color: black;
+  height: 100%;
+  width: 100%;
+  padding: 2%;
 }
 
-.logInForm > button {
+.signUpForm > button {
   margin-top: 5%;
   padding: 1%;
   border-radius: 12px;
@@ -91,16 +88,16 @@
   color: white;
 }
 
-.logInForm > button > div {
+.signUpForm > button > div {
   display: flex;
   justify-content: flex-start;
 }
 
-.logInForm > button > div > p {
+.signUpForm > button > div > p {
   font-weight: 600;
 }
 
-.errorHandling > li {
+.signUpForm > li {
   font-size: 1.2rem;
   list-style-type: none;
   color: red;

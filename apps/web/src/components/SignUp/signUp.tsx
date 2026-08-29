@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUpAPI } from "./signUpAPI";
+import "./signUp.css"
+import LoadingBall from "../../assets/LoadingBall/loadingball";
+import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -13,7 +17,7 @@ export default function SignUp() {
   return (
     <div className="signUp">
       <div className="signUpTitle">
-        <h1>Easy Buckets</h1>
+        <h1 onClick={() => {navigate("/")}}>Easy Buckets</h1>
       </div>
       <form
         onSubmit={(e) =>
@@ -27,25 +31,31 @@ export default function SignUp() {
             ))}
           </div>
           <h1>Sign Up</h1>
-          <label htmlFor="username">Email: </label>
-          <input
-            name="email"
-            type="text"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label htmlFor="username"> Password: </label>
-          <input
-            name="password"
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <label htmlFor="email">Email: </label>
+          <div className="signUpFormInput">
+            <FontAwesomeIcon icon={faEnvelope}/>
+            <input
+              name="email"
+              id="email"
+              type="text"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          
+          <label htmlFor="password"> Password: </label>
+          <div className="signUpFormInput">
+            <FontAwesomeIcon icon={faKey} />
+            <input
+              name="password"
+              id="password"
+              type="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
           <button type="submit">
-            <div style={{ display: loading === true ? "none" : "flex" }}>
-              Sign Up
-            </div>{" "}
-            <div style={{ display: loading === true ? "flex" : "none" }}></div>
+            <div>{loading ? <LoadingBall /> : <p>Submit</p>}</div>
           </button>
         </div>
       </form>

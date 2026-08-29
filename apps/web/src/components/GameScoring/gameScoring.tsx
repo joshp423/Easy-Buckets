@@ -13,7 +13,12 @@ import { type SeasonOverview } from "../../types/seasonOverview";
 import { teamSeasonsAPIFetch } from "../../shared API functions/teamSeasonsAPIFetch";
 import { type Game } from "../../types/game";
 import { GameInitialiseSkeleton } from "../skeletons";
+import { useOutletContext } from "react-router-dom";
+import LoggedOutHP from "../Homepage/loggedOutHP/loggedOutHP";
 
+type gameScoringProps = {
+  loginStatus: boolean;
+}
 export type newGameCheck = "none" | "new" | "existing";
 
 export default function GameScoring() {
@@ -31,6 +36,7 @@ export default function GameScoring() {
   const [date, setDate] = useState<string>("");
   const [replay, setReplay] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { loginStatus } = useOutletContext<gameScoringProps>();
 
   useEffect(() => {
     //relocate?
@@ -64,6 +70,8 @@ export default function GameScoring() {
 
     load();
   }, []);
+
+  if (!loginStatus) return <LoggedOutHP />
 
   switch (newGameCheck) {
     case "none":

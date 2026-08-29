@@ -31,8 +31,11 @@
   border: none;
   display: flex;
   align-items: center;
+  padding-left: 0.5rem;
+  justify-content: flex-start;
 }
 
 .sideNavSpace {
   min-height: none;
 }
+

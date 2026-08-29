@@ -1,7 +1,8 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import "./loggedOutHP.css";
 
 export default function LoggedOutHP() {
+  const navigate = useNavigate();
   return (
     <div className="HpMain">
       <div className="hpTitle">
@@ -15,8 +16,8 @@ export default function LoggedOutHP() {
           </h1>
           <p> You're in the right place. </p>
           <div>
-            <Link to={"/sign-up"}>Sign Up</Link>
-            <Link to={"/log-in"}>Log In</Link>
+            <button onClick={() => {navigate("/sign-up")}}>Sign Up</button>
+            <button onClick={() => {navigate("/log-in")}}>Log In</button>
           </div>
         </div>
         <div className="hpImage"></div>

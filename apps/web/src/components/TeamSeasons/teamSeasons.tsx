@@ -9,6 +9,12 @@ import EditSeasonSelector from "./EditSeasonSelector/editSeasonSelector";
 import "./teamSeasons.css";
 import NewSeason from "./NewSeason/newSeason";
 import { TeamSeasonsSkeleton } from "../skeletons";
+import { useOutletContext } from "react-router-dom";
+import LoggedOutHP from "../Homepage/loggedOutHP/loggedOutHP";
+
+type teamSeasonsProps = {
+  loginStatus: boolean;
+}
 
 export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit
@@ -23,6 +29,7 @@ export default function TeamSeasons() {
     useState<boolean>(false);
   const [editSeasonToggle, seteditSeasonToggle] = useState<boolean>(false);
   const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(true);
+  const { loginStatus } = useOutletContext<teamSeasonsProps>();
 
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
@@ -60,6 +67,10 @@ export default function TeamSeasons() {
     load();
   }, []);
 
+  if (!loginStatus) {
+    return <LoggedOutHP />
+  }
+
   if (loading) {
     return (
       <div className="teamSeasons">
@@ -68,6 +79,7 @@ export default function TeamSeasons() {
       </div>
     );
   }
+  
 
   return (
     <div className="teamSeasons">

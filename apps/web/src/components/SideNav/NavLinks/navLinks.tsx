@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router";
 import "./navLinks.css";
-//add icons
+import { faChartSimple, faClipboard, faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const links = [
-  { name: "Stats", href: "/" },
-  { name: "Game Scoring", href: "/score-game" },
-  { name: "Team & Seasons", href: "/team-seasons" },
+  { name: "Stats", href: "/", icon: faChartSimple },
+  { name: "Game Scoring", href: "/score-game", icon: faClipboard },
+  { name: "Team & Seasons", href: "/team-seasons", icon: faBookOpen},
 ];
 
 export default function NavLinks() {
@@ -14,7 +15,7 @@ export default function NavLinks() {
 
   return (
     <>
-      {links.map(({ href, name }) => {
+      {links.map(({ href, name, icon }) => {
         // const icon = link.icon;
         return (
           <Link
@@ -25,6 +26,7 @@ export default function NavLinks() {
             }}
             key={name}
           >
+            <FontAwesomeIcon icon={icon} />
             <p>{name}</p>
           </Link>
         );

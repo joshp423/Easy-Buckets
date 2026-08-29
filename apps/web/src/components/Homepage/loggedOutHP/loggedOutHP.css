@@ -51,11 +51,11 @@
   gap: 10%;
 }
 
-.hpBlurb > div > a {
-  text-decoration: none;
+.hpBlurb > div > button {
   color: white;
-  padding: 1% 3% 1% 3%;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   background-color: #e37204;
   border-radius: 12px;
   font-size: 1.3rem;
+  border: none;
 }

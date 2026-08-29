@@ -26,12 +26,6 @@ export default function EditPlayer({
     setLoading(true);
     const form = new FormData(e.currentTarget);
 
-    console.log(
-      form.get("playerName") as string,
-      Number(form.get("playerNumber")),
-      editPlayer.id,
-    );
-
     const updatedPlayer = await editPlayerDetailsAPIReq({
       player: {
         name: form.get("playerName") as string,

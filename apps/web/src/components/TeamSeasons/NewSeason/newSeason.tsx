@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import type { SyntheticEvent } from "react";
 import "./newSeason.css";
 import LoadingBall from "../../../assets/LoadingBall/loadingball";
+import { API_URL } from "../../../config/api";
 
 export default function NewSeason() {
   const [seasonName, setSeasonName] = useState<string>("");
@@ -14,7 +15,7 @@ export default function NewSeason() {
     e.preventDefault();
     setLoading(true);
 
-    const rsp = await fetch("http://localhost:3000/seasons/create", {
+    const rsp = await fetch(`${API_URL}/seasons/create`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,

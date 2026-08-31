@@ -5,6 +5,7 @@ import { type Game } from "../../../types/game";
 import { useState, useEffect } from "react";
 import "./selectDraftGame.css";
 import type { newGameCheck } from "../gameScoring";
+import LoadingBall from "../../../assets/LoadingBall/loadingball";
 
 type SelectDraftGameProps = {
   teamSeasons: SeasonOverview[];
@@ -20,6 +21,7 @@ export default function SelectDraftGame({
 }: SelectDraftGameProps) {
   const [seasonData, setSeasonData] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -29,11 +31,14 @@ export default function SelectDraftGame({
     if (!selectedSeason) return;
 
     const getData = async () => {
+      setLoading(true)
       const data = await seasonGameAPIFetch({
         id: selectedSeason.id,
         draft: true,
       });
+      if (!data) return;
       setSeasonData(data);
+      setLoading(false)
     };
 
     getData();
@@ -54,7 +59,7 @@ export default function SelectDraftGame({
     setGameDetails(selectedGame);
   }
 
-  if (seasonData.length === 0) {
+  if (seasonData.length === 0 && !loading) {
     return (
       <div className="selectDraftGame">
         <h1>No Draft Games</h1>
@@ -71,6 +76,7 @@ export default function SelectDraftGame({
   }
   return (
     <div className="selectDraftGame">
+      {!loading ? <LoadingBall /> : <>
       <h1>Select Draft Game</h1>
       <form onSubmit={selectGame}>
         <select
@@ -91,6 +97,7 @@ export default function SelectDraftGame({
         </select>
         <button type="submit">Next</button>
       </form>
+      </>}
     </div>
   );
 }

@@ -76,7 +76,7 @@ export default function SelectDraftGame({
   }
   return (
     <div className="selectDraftGame">
-      {!loading ? <LoadingBall /> : <>
+      {loading ? <LoadingBall /> : <>
       <h1>Select Draft Game</h1>
       <form onSubmit={selectGame}>
         <select

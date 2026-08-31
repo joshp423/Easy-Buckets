@@ -26,6 +26,7 @@
   height: 32px;
   animation: bounce ease-in-out 700ms;
   animation-iteration-count: infinite;
+  margin-left: 10px;
 }
 
 .ball {

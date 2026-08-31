@@ -7,7 +7,5 @@ export async function publishGameAPIReq(gameId: number) {
     method: "PUT",
   });
 
-  const data = await rsp.json();
-
-  return data;
+  return rsp;
 }

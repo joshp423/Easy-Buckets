@@ -1,6 +1,6 @@
 import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
-import { type Game } from "../../../types/game";
+import type { Game } from "../types/game";
 
 type createGameDraftAPIRequestProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null>>;

@@ -42,7 +42,7 @@ export default function GameDetailsInitialise({
     <div className="gameDetailsInitialise">
       <h1>New Game</h1>
       <p>Completing this section will save the game as a draft</p>
-      <form>
+      <form onSubmit={() => {setGameDetails("ready")}}>
         <label htmlFor="opponent">Opponent: </label>
         <input
           type="text"
@@ -70,9 +70,7 @@ export default function GameDetailsInitialise({
             setReplay(String(e.target.value));
           }}
         />
-        <button type="button" onClick={() => setGameDetails("ready")}>
-          Next
-        </button>
+        <button type="submit">Next</button>
       </form>
       <button
         onClick={() => {

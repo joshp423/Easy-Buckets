@@ -13,6 +13,7 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
   const [addPlayersAmount, setAddPlayersAmount] = useState<number>(1);
   const [newPlayers, setNewPlayers] = useState<NewPlayer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const canDecreasePlayers = () => (addPlayersAmount === 1 ? false : true);
   const canIncreasePlayers = () => (addPlayersAmount >= 7 ? false : true);
@@ -46,15 +47,22 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
     e.preventDefault();
     setLoading(true);
     const rsp = await createPlayersAPIRequest({ newPlayers });
-    if (rsp.status === 201) {
-      navigate(0);
-      return;
+    const data = await rsp.json();
+    switch (rsp.status) {
+      case 201:
+        navigate(0);
+        return;
+      case 400:
+        setError(data.errors)
+        return;
+      case 403:
+        navigate("/error", {
+          state: {
+            error: "An unexpected error occured, please try again later",
+          },
+        });
+        return;
     }
-    navigate("/error", {
-      state: {
-        error: "New message failed, try again later.",
-      },
-    });
     setLoading(false);
     return;
   }
@@ -62,6 +70,9 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
   return (
     <div className="addPlayers">
       <h1>Add New Players</h1>
+      <div className="errorHandling">
+          <p>{error}</p>
+        </div>
       <form onSubmit={uploadNewPlayers}>
         {Array.from({ length: addPlayersAmount }).map((_, i) => (
           <div key={i}>

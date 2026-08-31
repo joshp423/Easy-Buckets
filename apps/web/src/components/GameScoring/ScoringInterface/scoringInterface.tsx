@@ -86,111 +86,10 @@ export default function ScoringInterface({
 
   if (gameDetails === "ready" || !gameDetails) return;
 
-  if (!gameDetails.replay)
-    return (
-      <div className={`scoringInterface ${loading ? "loading" : ""}`}>
-        <div className="undoRedo">
-          <button
-            onClick={async () => {
-              setLoading(true);
-              await undoLast(
-                shotLog,
-                undoStack,
-                setUndoStack,
-                redoStack,
-                setRedoStack,
-              );
-              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-              if (updatedGame) setGameDetails(updatedGame);
-              setLoading(false);
-            }}
-            className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
-          >
-            Undo
-          </button>
-          <button
-            onClick={async () => {
-              setLoading(true);
-              await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
-              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-              if (updatedGame) setGameDetails(updatedGame);
-              setLoading(false);
-            }}
-            className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
-          >
-            Redo
-          </button>
-        </div>
-        <div className="interfaceInput">
-          <div>
-            <div className="selectionSections">
-              <PlayerSelection
-                selectedPlayers={selectedPlayers}
-                setSelectedPlayer={setSelectedPlayer}
-                selectedPlayer={selectedPlayer}
-                selectedUI={selectedUI}
-                setSelectedUI={setSelectedUI}
-              />
-              <StatSelection
-                gameDetails={gameDetails}
-                setGameDetails={setGameDetails}
-                setSelectedStat={setSelectedStat}
-                selectedStat={selectedStat}
-                selectedPlayer={selectedPlayer}
-                setSelectedPlayer={setSelectedPlayer}
-                selectedUI={selectedUI}
-                setSelectedUI={setSelectedUI}
-                undoStack={undoStack}
-                setUndoStack={setUndoStack}
-                setLoading={setLoading}
-                loading={loading}
-              />
-            </div>
-            <Shotlog
-              shotLog={shotLog}
-              selectedShot={selectedShot}
-              setSelectedShot={setSelectedShot}
-              replay={false}
-              videoRef={videoRef}
-            />
-          </div>
-          <CourtInterface
-            selectedStat={selectedStat}
-            setSelectedStat={setSelectedStat}
-            selectedPlayer={selectedPlayer}
-            setSelectedPlayer={setSelectedPlayer}
-            selectedUI={selectedUI}
-            setSelectedUI={setSelectedUI}
-            videoRef={videoRef}
-            gameDetails={gameDetails}
-            setGameDetails={setGameDetails}
-            shotLog={shotLog}
-            selectedShot={selectedShot}
-            undoStack={undoStack}
-            setUndoStack={setUndoStack}
-            setLoading={setLoading}
-            loading={loading}
-          />
-        </div>
-        <ScoringBoxScore gameDetails={gameDetails} />
-        <button
-          onClick={async () => {
-            const updatedGame = await publishGameAPIReq(gameDetails.id);
-            if (updatedGame) {
-              navigate("/");
-              return;
-            }
-            return;
-          }}
-        >
-          Finish Scoring Game
-        </button>
-      </div>
-    );
 
   return (
     <div className={`scoringInterface ${loading ? "loading" : ""}`}>
-      <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
+      {gameDetails.replay ? (<VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />) : ""}
       <div className="undoRedo">
         <button
           onClick={async () => {
@@ -204,8 +103,16 @@ export default function ScoringInterface({
             );
             console.log(undoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-            if (updatedGame) setGameDetails(updatedGame);
-            setLoading(false);
+            if (!updatedGame) {
+                navigate("/error", {
+                  state: {
+                    error: "An unexpected error occured, please try again later",
+                  },
+                });
+                return;
+              }
+              setGameDetails(updatedGame);
+              setLoading(false);
           }}
           className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
@@ -217,8 +124,16 @@ export default function ScoringInterface({
             await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
             console.log(redoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-            if (updatedGame) setGameDetails(updatedGame);
-            setLoading(false);
+            if (!updatedGame) {
+                navigate("/error", {
+                  state: {
+                    error: "An unexpected error occured, please try again later",
+                  },
+                });
+                return;
+              }
+              setGameDetails(updatedGame);
+              setLoading(false);
           }}
           className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
@@ -279,12 +194,16 @@ export default function ScoringInterface({
       <ScoringBoxScore gameDetails={gameDetails} />
       <button
         onClick={async () => {
-          const updatedGame = await publishGameAPIReq(gameDetails.id);
-          if (updatedGame) {
+          const rsp = await publishGameAPIReq(gameDetails.id);
+          if (rsp.status !== 201) {
+              navigate("/error", {
+                state: {
+                  error: "An unexpected error occured, please try again later",
+                },
+              });
+            }
             navigate("/");
             return;
-          }
-          return;
         }}
       >
         Finish Scoring Game

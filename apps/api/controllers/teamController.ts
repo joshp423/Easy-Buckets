@@ -32,8 +32,8 @@ const createTeamPlayersSchema = z.object({
   userId: z.number(),
   players: z.array(
     z.object({
-      name: z.string(),
-      number: z.number(),
+      name: z.string().max(30, { message: "Player Name must be less than 30 characters"}).min(1),
+      number: z.number().max(99),
     }),
   ),
 });

@@ -122,6 +122,7 @@ export default function SelectActivePlayers({
           <button type="submit">Submit</button>
         </div>
       </form>
+      <button onClick={() =>setGameDetails(null)}>Back</button>
     </div>
   );
 }

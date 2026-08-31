@@ -63,12 +63,7 @@ export default function StatSelection({
   }
 
   return (
-    <div
-      className={`statSelection ${addUIClasses(selectedUI)} `}
-      // className={`statSelection
-      //   ${selectedPlayer ? "spotlightMiddle" : "notSpotlightedMiddle"}
-      //   ${selectedStat && courtPlacementStats.filter(() => selectedStat) ? "courtSpotlightMiddle" : "notSpotlightedMiddle"})}`}
-    >
+    <div className={`statSelection ${addUIClasses(selectedUI)} `}>
       <StatSelectionButton
         gameDetails={gameDetails}
         setGameDetails={setGameDetails}

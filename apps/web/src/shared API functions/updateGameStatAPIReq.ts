@@ -23,12 +23,5 @@ export async function updateGameStatAPIReq({
   });
 
   const data = await rsp.json();
-
-  // const newUndo = {
-  //   type: statlineUpdateField,
-  //   adding: statlineUpdateIndicator,
-  //   gameStatId: gameStatlineId,
-  // };
-  // setUndoStack([...undoStack, newUndo]);
   return data;
 }

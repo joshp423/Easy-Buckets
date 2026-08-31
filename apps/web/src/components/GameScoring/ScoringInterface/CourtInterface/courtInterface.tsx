@@ -11,6 +11,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import type { ShotLog } from "../../../../types/shotLog";
 import type { stackStat } from "../scoringInterface";
+import { useNavigate } from "react-router";
 
 type CourtInterfaceProps = {
   selectedPlayer: number | null;
@@ -52,6 +53,7 @@ export default function CourtInterface({
   const courtImageRef = useRef<HTMLImageElement>(null);
   const [courtWidth, setCourtWidth] = useState<number>(0);
   const [courtHeight, setCourtHeight] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     //running after render
@@ -87,11 +89,12 @@ export default function CourtInterface({
     <div // add hover shotLog animation useState
       className={`courtInterface ${addUIClasses(selectedUI)} ${loading ? "loading" : ""}`}
       onClick={async (e) => {
-        setLoading(true);
-        console.log(gameDetails, courtImageRef.current);
+
         if (selectedUI !== "courtPlacement") return;
-        if (!courtImageRef.current) return;
-        if (!courtWidth || !courtHeight) return;
+        if (!courtImageRef.current || !courtWidth || !courtHeight) return;
+        setLoading(true);
+
+       try {
         const realImage = courtImageRef.current?.getBoundingClientRect(); //get image position and size relative to viewport
         const X = (e.clientX - realImage?.left) / courtWidth;
         const Y = (e.clientY - realImage?.top) / courtHeight;
@@ -99,10 +102,10 @@ export default function CourtInterface({
         const selectedGameStatline = gameDetails.gameStatlines.filter(
           (gameStatline) => gameStatline.playerId === selectedPlayer,
         );
-        console.log(X, Y, timeStamp);
+        let newShot;
         switch (selectedStat) {
           case "2P Make":
-            await uploadShotAPIReq({
+            newShot = await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: true,
@@ -114,7 +117,7 @@ export default function CourtInterface({
             });
             break;
           case "2P Miss":
-            await uploadShotAPIReq({
+            newShot = await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: false,
@@ -126,7 +129,7 @@ export default function CourtInterface({
             });
             break;
           case "3P Make":
-            await uploadShotAPIReq({
+            newShot = await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: true,
@@ -138,7 +141,7 @@ export default function CourtInterface({
             });
             break;
           case "3P Miss":
-            await uploadShotAPIReq({
+            newShot = await uploadShotAPIReq({
               gameStatlineId: selectedGameStatline[0].id,
               shot: {
                 make: false,
@@ -150,11 +153,14 @@ export default function CourtInterface({
             });
             break;
         }
-        await updateGameStatAPIReq({
+        if (!newShot) throw new Error;
+
+        const updatedGameStats = await updateGameStatAPIReq({
           gameStatlineId: selectedGameStatline[0].id,
           statlineUpdateField: selectedStat,
           statlineUpdateIndicator: true,
         });
+        if (!updatedGameStats) throw new Error;
 
         const newUndo = {
           type: selectedStat,
@@ -163,14 +169,22 @@ export default function CourtInterface({
         };
         setUndoStack([...undoStack, newUndo]);
 
-        console.log(undoStack);
         const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-        if (updatedGame) setGameDetails(updatedGame);
+        if (!updatedGame) throw new Error;
+
+        setGameDetails(updatedGame);
         setSelectedPlayer(null);
         setSelectedStat("");
         setSelectedUI("playerSelection");
+       } catch {
+          navigate("/error", {
+                  state: {
+                    error: "An unexpected error occured, please try again later",
+                  },
+                });
+       } finally {
         setLoading(false);
-        return;
+       }        
       }}
     >
       <div>

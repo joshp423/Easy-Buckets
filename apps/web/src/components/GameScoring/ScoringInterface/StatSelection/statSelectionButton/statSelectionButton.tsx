@@ -2,6 +2,7 @@ import { updateGameStatAPIReq } from "../../../../../shared API functions/update
 import { getSingleGameAPIFetch } from "../../../../../shared API functions/getSingleGameAPIFetch";
 import type { Game } from "../../../../../types/game";
 import type { stackStat } from "../../scoringInterface";
+import { useNavigate } from "react-router";
 
 type StatSelectionButtonProps = {
   statArray: string[];
@@ -40,6 +41,8 @@ export default function StatSelectionButton({
   setLoading,
   loading,
 }: StatSelectionButtonProps) {
+
+  const navigate = useNavigate();
   return (
     <div>
       <h3>{sectionName}</h3>
@@ -65,29 +68,43 @@ export default function StatSelectionButton({
               const selectedGameStatline = gameDetails.gameStatlines.filter(
                 (gameStatline) => gameStatline.playerId === selectedPlayer,
               );
-              console.log(selectedPlayer, stat);
+
               setLoading(true);
-              await updateGameStatAPIReq({
-                gameStatlineId: selectedGameStatline[0]?.id,
-                statlineUpdateField: stat,
-                statlineUpdateIndicator: true,
-              });
+              try {
+                const rsp = await updateGameStatAPIReq({
+                  gameStatlineId: selectedGameStatline[0]?.id,
+                  statlineUpdateField: stat,
+                  statlineUpdateIndicator: true,
+                });
 
-              const newUndo = {
-                type: stat,
-                adding: true,
-                gameStatId: selectedGameStatline[0]?.id,
-              };
-              setUndoStack([...undoStack, newUndo]);
+                if (!rsp) throw new Error;
 
-              const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-              if (updatedGame) setGameDetails(updatedGame);
-              setSelectedUI("playerSelection");
-              setSelectedPlayer(null);
-              setSelectedStat("");
-              setLoading(false);
-              return;
+                const newUndo = {
+                  type: stat,
+                  adding: true,
+                  gameStatId: selectedGameStatline[0]?.id,
+                };
+                setUndoStack([...undoStack, newUndo]);
+
+                const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+                if (!updatedGame) throw new Error;
+                  
+                setGameDetails(updatedGame);
+                setSelectedUI("playerSelection");
+                setSelectedPlayer(null);
+                setSelectedStat("");
+              } catch {
+                navigate("/error", {
+                  state: {
+                    error: "An unexpected error occured, please try again later",
+                  },
+                });
+              } finally {
+                setLoading(false);
+              }
             }}
+            
+
             style={{
               ...(selectedStat === stat
                 ? { backgroundColor: "#e37204", color: "white" }

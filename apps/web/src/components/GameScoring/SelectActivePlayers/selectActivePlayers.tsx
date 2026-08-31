@@ -37,7 +37,6 @@ export default function SelectActivePlayers({
 }: SelectActivePlayersProps) {
   async function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(gameDetails);
     if (!gameDetails) return;
 
     const gameData = await createGameAndPlayerAPIRequest({
@@ -49,10 +48,17 @@ export default function SelectActivePlayers({
       navigate,
       playerList: selectedPlayers,
     });
-    if (gameData) {
-      setGameDetails(gameData);
-      setReadyCheck(true);
+    if (!gameData) {
+      navigate("/error", {
+        state: {
+          error: "An unexpected error occured, please try again later",
+        },
+      });
+      return;
     }
+    setGameDetails(gameData);
+    setReadyCheck(true);
+    
   }
 
   const updateSelectedPlayers = (player: Player, selected: boolean) => {

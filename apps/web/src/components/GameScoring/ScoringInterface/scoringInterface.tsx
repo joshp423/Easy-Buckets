@@ -101,7 +101,6 @@ export default function ScoringInterface({
               redoStack,
               setRedoStack,
             );
-            console.log(undoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (!updatedGame) {
                 navigate("/error", {
@@ -122,7 +121,6 @@ export default function ScoringInterface({
           onClick={async () => {
             setLoading(true);
             await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
-            console.log(redoStack[0]);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (!updatedGame) {
                 navigate("/error", {

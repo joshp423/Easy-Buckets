@@ -14,7 +14,7 @@ import LoggedOutHP from "../Homepage/loggedOutHP/loggedOutHP";
 
 type teamSeasonsProps = {
   loginStatus: boolean;
-}
+};
 
 export default function TeamSeasons() {
   //active players + edit, season list into game list + edit, team name edit
@@ -49,7 +49,7 @@ export default function TeamSeasons() {
 
   useEffect(() => {
     if (editedSeason !== null) return;
-    
+
     const load = async () => {
       setLoading(true);
       const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
@@ -71,7 +71,7 @@ export default function TeamSeasons() {
   }, [editedSeason]);
 
   if (!loginStatus) {
-    return <LoggedOutHP />
+    return <LoggedOutHP />;
   }
 
   if (loading) {
@@ -82,7 +82,6 @@ export default function TeamSeasons() {
       </div>
     );
   }
-  
 
   return (
     <div className="teamSeasons">

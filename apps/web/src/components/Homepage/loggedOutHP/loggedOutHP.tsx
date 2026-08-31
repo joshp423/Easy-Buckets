@@ -16,8 +16,20 @@ export default function LoggedOutHP() {
           </h1>
           <p> You're in the right place. </p>
           <div>
-            <button onClick={() => {navigate("/sign-up")}}>Sign Up</button>
-            <button onClick={() => {navigate("/log-in")}}>Log In</button>
+            <button
+              onClick={() => {
+                navigate("/sign-up");
+              }}
+            >
+              Sign Up
+            </button>
+            <button
+              onClick={() => {
+                navigate("/log-in");
+              }}
+            >
+              Log In
+            </button>
           </div>
         </div>
         <div className="hpImage"></div>

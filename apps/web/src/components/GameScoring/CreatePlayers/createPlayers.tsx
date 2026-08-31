@@ -12,7 +12,7 @@ type CreatePlayersProps = {
 export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
   const [addPlayersAmount, setAddPlayersAmount] = useState<number>(1);
   const [newPlayers, setNewPlayers] = useState<NewPlayer[]>([]);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const canDecreasePlayers = () => (addPlayersAmount === 1 ? false : true);
   const canIncreasePlayers = () => (addPlayersAmount >= 7 ? false : true);
@@ -113,7 +113,9 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
             +
           </button>
         </div>
-        <button type="submit">{loading ? <LoadingBall /> : "Add Players"}</button>
+        <button type="submit">
+          {loading ? <LoadingBall /> : "Add Players"}
+        </button>
       </form>
       <button
         type="button"

@@ -14,7 +14,7 @@ export default async function updateSeasonNameAPIReq(
       method: "PUT",
       body: JSON.stringify({
         seasonId,
-        newSeasonName
+        newSeasonName,
       }),
     },
   );

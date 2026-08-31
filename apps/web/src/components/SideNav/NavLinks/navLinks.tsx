@@ -1,12 +1,16 @@
 import { Link, useLocation } from "react-router";
 import "./navLinks.css";
-import { faChartSimple, faClipboard, faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartSimple,
+  faClipboard,
+  faBookOpen,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const links = [
   { name: "Stats", href: "/", icon: faChartSimple },
   { name: "Game Scoring", href: "/score-game", icon: faClipboard },
-  { name: "Team & Seasons", href: "/team-seasons", icon: faBookOpen},
+  { name: "Team & Seasons", href: "/team-seasons", icon: faBookOpen },
 ];
 
 export default function NavLinks() {

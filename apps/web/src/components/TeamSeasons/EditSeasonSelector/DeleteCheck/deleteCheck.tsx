@@ -11,7 +11,7 @@ type DeleteCheckProps = {
   deletedObjId: number | null;
   setDeleteCheck: React.Dispatch<React.SetStateAction<boolean>>;
   deleteCheck: boolean;
-  setEditPlayer:  React.Dispatch<React.SetStateAction<Player | null>> | null;
+  setEditPlayer: React.Dispatch<React.SetStateAction<Player | null>> | null;
 };
 
 export default function DeleteCheck({
@@ -19,7 +19,7 @@ export default function DeleteCheck({
   deletedObjId,
   setDeleteCheck,
   deleteCheck,
-  setEditPlayer
+  setEditPlayer,
 }: DeleteCheckProps) {
   const [loading, setLoading] = useState<boolean>(false);
   async function deleteObj() {
@@ -45,7 +45,7 @@ export default function DeleteCheck({
         const deletedPlayer = await deletePlayerDetailsAPIReq(deletedObjId);
         if (deletedPlayer && setEditPlayer) {
           setDeleteCheck(false);
-          setEditPlayer(null)
+          setEditPlayer(null);
         }
         break;
       }

@@ -47,7 +47,9 @@ export default function EditSeason({
       seasonId,
       updatedSeasonName,
     );
-    if (updatedName) {setEditedSeason(null)} ;
+    if (updatedName) {
+      setEditedSeason(null);
+    }
     setLoading(false);
   }
 
@@ -73,10 +75,7 @@ export default function EditSeason({
   return (
     <div className="seasonEditor">
       <div className="seasonNameEdit">
-        <form
-          action=""
-          onSubmit={uploadNameChange}
-        >
+        <form action="" onSubmit={uploadNameChange}>
           <label htmlFor="seasonName">Season Name:</label>
           <input
             id="seasonName"

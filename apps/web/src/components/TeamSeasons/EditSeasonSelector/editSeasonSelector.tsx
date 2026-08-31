@@ -9,7 +9,7 @@ type EditSeasonsProps = {
   setSelectedDashboardSeason: React.Dispatch<React.SetStateAction<string>>;
   editSeasonToggle: boolean;
   editedSeason: number | null;
-  setEditedSeason:  React.Dispatch<React.SetStateAction<number | null>>
+  setEditedSeason: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 export default function EditSeasonSelector({
@@ -18,7 +18,7 @@ export default function EditSeasonSelector({
   selectedDashboardSeason,
   editSeasonToggle,
   editedSeason,
-  setEditedSeason
+  setEditedSeason,
 }: EditSeasonsProps) {
   const seasonName = selectedDashboardSeason;
 

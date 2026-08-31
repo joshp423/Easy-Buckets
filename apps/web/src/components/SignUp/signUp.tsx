@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUpAPI } from "./signUpAPI";
-import "./signUp.css"
+import "./signUp.css";
 import LoadingBall from "../../assets/LoadingBall/loadingball";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +17,13 @@ export default function SignUp() {
   return (
     <div className="signUp">
       <div className="signUpTitle">
-        <h1 onClick={() => {navigate("/")}}>Easy Buckets</h1>
+        <h1
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Easy Buckets
+        </h1>
       </div>
       <form
         onSubmit={(e) =>
@@ -33,7 +39,7 @@ export default function SignUp() {
           <h1>Sign Up</h1>
           <label htmlFor="email">Email: </label>
           <div className="signUpFormInput">
-            <FontAwesomeIcon icon={faEnvelope}/>
+            <FontAwesomeIcon icon={faEnvelope} />
             <input
               name="email"
               id="email"
@@ -42,7 +48,7 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          
+
           <label htmlFor="password"> Password: </label>
           <div className="signUpFormInput">
             <FontAwesomeIcon icon={faKey} />

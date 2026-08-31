@@ -209,7 +209,7 @@ export default function ScoringInterface({
           }}
           className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
-        {loading ? <LoadingBall /> : "Undo"}
+          {loading ? <LoadingBall /> : "Undo"}
         </button>
         <button
           onClick={async () => {
@@ -222,7 +222,7 @@ export default function ScoringInterface({
           }}
           className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
-        {loading ? <LoadingBall /> : "Redo"}
+          {loading ? <LoadingBall /> : "Redo"}
         </button>
       </div>
       <div className="interfaceInput">

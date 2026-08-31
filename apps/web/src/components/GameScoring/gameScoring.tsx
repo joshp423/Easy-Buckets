@@ -18,7 +18,7 @@ import LoggedOutHP from "../Homepage/loggedOutHP/loggedOutHP";
 
 type gameScoringProps = {
   loginStatus: boolean;
-}
+};
 export type newGameCheck = "none" | "new" | "existing";
 
 export default function GameScoring() {
@@ -71,7 +71,7 @@ export default function GameScoring() {
     load();
   }, []);
 
-  if (!loginStatus) return <LoggedOutHP />
+  if (!loginStatus) return <LoggedOutHP />;
 
   switch (newGameCheck) {
     case "none":

@@ -29,7 +29,13 @@ export default function LogIn() {
     <div className="logInContainer">
       <div className="logIn">
         <div className="logInTitle">
-          <h1 onClick={() => {navigate("/")}}>Easy Buckets</h1>
+          <h1
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Easy Buckets
+          </h1>
         </div>
         <form
           onSubmit={(e) => {
@@ -54,7 +60,7 @@ export default function LogIn() {
             </div>
             <label htmlFor="username">Email: </label>
             <div className="logInFormInput">
-               <FontAwesomeIcon icon={faEnvelope}/>
+              <FontAwesomeIcon icon={faEnvelope} />
               <input
                 name="email"
                 type="text"
@@ -63,7 +69,7 @@ export default function LogIn() {
               />
             </div>
             <label htmlFor="username"> Password: </label>
-            
+
             <div className="logInFormInput">
               <FontAwesomeIcon icon={faKey} />
               <input

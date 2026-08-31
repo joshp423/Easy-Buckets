@@ -89,102 +89,101 @@ export default function CourtInterface({
     <div // add hover shotLog animation useState
       className={`courtInterface ${addUIClasses(selectedUI)} ${loading ? "loading" : ""}`}
       onClick={async (e) => {
-
         if (selectedUI !== "courtPlacement") return;
         if (!courtImageRef.current || !courtWidth || !courtHeight) return;
         setLoading(true);
 
-       try {
-        const realImage = courtImageRef.current?.getBoundingClientRect(); //get image position and size relative to viewport
-        const X = (e.clientX - realImage?.left) / courtWidth;
-        const Y = (e.clientY - realImage?.top) / courtHeight;
-        const timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
-        const selectedGameStatline = gameDetails.gameStatlines.filter(
-          (gameStatline) => gameStatline.playerId === selectedPlayer,
-        );
-        let newShot;
-        switch (selectedStat) {
-          case "2P Make":
-            newShot = await uploadShotAPIReq({
-              gameStatlineId: selectedGameStatline[0].id,
-              shot: {
-                make: true,
-                X,
-                Y,
-                type: 2,
-                timeStamp,
-              },
-            });
-            break;
-          case "2P Miss":
-            newShot = await uploadShotAPIReq({
-              gameStatlineId: selectedGameStatline[0].id,
-              shot: {
-                make: false,
-                X,
-                Y,
-                type: 2,
-                timeStamp,
-              },
-            });
-            break;
-          case "3P Make":
-            newShot = await uploadShotAPIReq({
-              gameStatlineId: selectedGameStatline[0].id,
-              shot: {
-                make: true,
-                X,
-                Y,
-                type: 3,
-                timeStamp,
-              },
-            });
-            break;
-          case "3P Miss":
-            newShot = await uploadShotAPIReq({
-              gameStatlineId: selectedGameStatline[0].id,
-              shot: {
-                make: false,
-                X,
-                Y,
-                type: 3,
-                timeStamp,
-              },
-            });
-            break;
-        }
-        if (!newShot) throw new Error;
+        try {
+          const realImage = courtImageRef.current?.getBoundingClientRect(); //get image position and size relative to viewport
+          const X = (e.clientX - realImage?.left) / courtWidth;
+          const Y = (e.clientY - realImage?.top) / courtHeight;
+          const timeStamp = videoRef.current?.getCurrentTimestamp() ?? 0;
+          const selectedGameStatline = gameDetails.gameStatlines.filter(
+            (gameStatline) => gameStatline.playerId === selectedPlayer,
+          );
+          let newShot;
+          switch (selectedStat) {
+            case "2P Make":
+              newShot = await uploadShotAPIReq({
+                gameStatlineId: selectedGameStatline[0].id,
+                shot: {
+                  make: true,
+                  X,
+                  Y,
+                  type: 2,
+                  timeStamp,
+                },
+              });
+              break;
+            case "2P Miss":
+              newShot = await uploadShotAPIReq({
+                gameStatlineId: selectedGameStatline[0].id,
+                shot: {
+                  make: false,
+                  X,
+                  Y,
+                  type: 2,
+                  timeStamp,
+                },
+              });
+              break;
+            case "3P Make":
+              newShot = await uploadShotAPIReq({
+                gameStatlineId: selectedGameStatline[0].id,
+                shot: {
+                  make: true,
+                  X,
+                  Y,
+                  type: 3,
+                  timeStamp,
+                },
+              });
+              break;
+            case "3P Miss":
+              newShot = await uploadShotAPIReq({
+                gameStatlineId: selectedGameStatline[0].id,
+                shot: {
+                  make: false,
+                  X,
+                  Y,
+                  type: 3,
+                  timeStamp,
+                },
+              });
+              break;
+          }
+          if (!newShot) throw new Error();
 
-        const updatedGameStats = await updateGameStatAPIReq({
-          gameStatlineId: selectedGameStatline[0].id,
-          statlineUpdateField: selectedStat,
-          statlineUpdateIndicator: true,
-        });
-        if (!updatedGameStats) throw new Error;
+          const updatedGameStats = await updateGameStatAPIReq({
+            gameStatlineId: selectedGameStatline[0].id,
+            statlineUpdateField: selectedStat,
+            statlineUpdateIndicator: true,
+          });
+          if (!updatedGameStats) throw new Error();
 
-        const newUndo = {
-          type: selectedStat,
-          adding: true,
-          gameStatId: selectedGameStatline[0]?.id,
-        };
-        setUndoStack([...undoStack, newUndo]);
+          const newUndo = {
+            type: selectedStat,
+            adding: true,
+            gameStatId: selectedGameStatline[0]?.id,
+          };
+          setUndoStack([...undoStack, newUndo]);
 
-        const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-        if (!updatedGame) throw new Error;
+          const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
+          if (!updatedGame) throw new Error();
 
-        setGameDetails(updatedGame);
-        setSelectedPlayer(null);
-        setSelectedStat("");
-        setSelectedUI("playerSelection");
-       } catch {
+          setGameDetails(updatedGame);
+          setSelectedPlayer(null);
+          setSelectedStat("");
+          setSelectedUI("playerSelection");
+        } catch {
           navigate("/error", {
-                  state: {
-                    error: "An unexpected error occured, please try again later",
-                  },
-                });
-       } finally {
-        setLoading(false);
-       }        
+            state: {
+              error: "An unexpected error occured, please try again later",
+            },
+          });
+        } finally {
+          setLoading(false);
+        }
       }}
     >
       <div>

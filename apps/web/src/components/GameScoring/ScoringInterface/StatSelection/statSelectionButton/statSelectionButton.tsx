@@ -41,7 +41,6 @@ export default function StatSelectionButton({
   setLoading,
   loading,
 }: StatSelectionButtonProps) {
-
   const navigate = useNavigate();
   return (
     <div>
@@ -77,7 +76,7 @@ export default function StatSelectionButton({
                   statlineUpdateIndicator: true,
                 });
 
-                if (!rsp) throw new Error;
+                if (!rsp) throw new Error();
 
                 const newUndo = {
                   type: stat,
@@ -87,8 +86,8 @@ export default function StatSelectionButton({
                 setUndoStack([...undoStack, newUndo]);
 
                 const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
-                if (!updatedGame) throw new Error;
-                  
+                if (!updatedGame) throw new Error();
+
                 setGameDetails(updatedGame);
                 setSelectedUI("playerSelection");
                 setSelectedPlayer(null);
@@ -96,15 +95,14 @@ export default function StatSelectionButton({
               } catch {
                 navigate("/error", {
                   state: {
-                    error: "An unexpected error occured, please try again later",
+                    error:
+                      "An unexpected error occured, please try again later",
                   },
                 });
               } finally {
                 setLoading(false);
               }
             }}
-            
-
             style={{
               ...(selectedStat === stat
                 ? { backgroundColor: "#e37204", color: "white" }

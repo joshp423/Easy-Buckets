@@ -16,7 +16,7 @@ const routes = [
       { path: "/log-in", element: <LogIn /> },
       { path: "/score-game", element: <GameScoring /> },
       { path: "/team-seasons", element: <TeamSeasons /> },
-      { path: "/error", element: <ErrorPage />}
+      { path: "/error", element: <ErrorPage /> },
     ],
   },
 ];

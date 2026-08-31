@@ -5,6 +5,8 @@ import "./selectActivePlayers.css";
 import { createGameAndPlayerAPIRequest } from "../createGameAndPlayerAPIReq";
 import { useNavigate } from "react-router";
 import { type Game } from "../../../types/game";
+import { useState } from "react";
+import LoadingBall from "../../../assets/LoadingBall/loadingball";
 
 type SelectActivePlayersProps = {
   selectedSeasonId: number | null;
@@ -35,10 +37,12 @@ export default function SelectActivePlayers({
   setGameDetails,
   gameDetails,
 }: SelectActivePlayersProps) {
+  const [loading, setLoading] = useState<boolean>(false);
+
   async function confirmPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!gameDetails) return;
-
+    setLoading(true);
     const gameData = await createGameAndPlayerAPIRequest({
       e,
       seasonId: selectedSeasonId,
@@ -54,11 +58,12 @@ export default function SelectActivePlayers({
           error: "An unexpected error occured, please try again later",
         },
       });
+      setLoading(false);
       return;
     }
     setGameDetails(gameData);
     setReadyCheck(true);
-    
+    setLoading(false);
   }
 
   const updateSelectedPlayers = (player: Player, selected: boolean) => {
@@ -76,9 +81,7 @@ export default function SelectActivePlayers({
 
   if (!playerList) return;
 
-  if (addPlayer) {
-    return <CreatePlayers setAddPlayer={setAddPlayer} />;
-  }
+  if (addPlayer) return <CreatePlayers setAddPlayer={setAddPlayer} />;
 
   return (
     <div className="selectActivePlayers">
@@ -123,12 +126,12 @@ export default function SelectActivePlayers({
               setAddPlayer(true);
             }}
           >
-            Add player
+            {loading ? <LoadingBall /> : "Add player"}
           </button>
           <button type="submit">Submit</button>
         </div>
       </form>
-      <button onClick={() =>setGameDetails(null)}>Back</button>
+      <button onClick={() => setGameDetails(null)}>Back</button>
     </div>
   );
 }

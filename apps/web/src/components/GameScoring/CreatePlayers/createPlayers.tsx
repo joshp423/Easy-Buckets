@@ -53,7 +53,7 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
         navigate(0);
         return;
       case 400:
-        setError(data.errors)
+        setError(data.errors);
         return;
       case 403:
         navigate("/error", {
@@ -71,8 +71,8 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
     <div className="addPlayers">
       <h1>Add New Players</h1>
       <div className="errorHandling">
-          <p>{error}</p>
-        </div>
+        <p>{error}</p>
+      </div>
       <form onSubmit={uploadNewPlayers}>
         {Array.from({ length: addPlayersAmount }).map((_, i) => (
           <div key={i}>

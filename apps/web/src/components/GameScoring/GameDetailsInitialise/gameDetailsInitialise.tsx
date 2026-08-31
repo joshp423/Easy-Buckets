@@ -42,7 +42,11 @@ export default function GameDetailsInitialise({
     <div className="gameDetailsInitialise">
       <h1>New Game</h1>
       <p>Completing this section will save the game as a draft</p>
-      <form onSubmit={() => {setGameDetails("ready")}}>
+      <form
+        onSubmit={() => {
+          setGameDetails("ready");
+        }}
+      >
         <label htmlFor="opponent">Opponent: </label>
         <input
           type="text"

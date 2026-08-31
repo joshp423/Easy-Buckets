@@ -86,10 +86,13 @@ export default function ScoringInterface({
 
   if (gameDetails === "ready" || !gameDetails) return;
 
-
   return (
     <div className={`scoringInterface ${loading ? "loading" : ""}`}>
-      {gameDetails.replay ? (<VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />) : ""}
+      {gameDetails.replay ? (
+        <VideoPlayer videoUrl={gameDetails.replay} ref={videoRef} />
+      ) : (
+        ""
+      )}
       <div className="undoRedo">
         <button
           onClick={async () => {
@@ -103,15 +106,15 @@ export default function ScoringInterface({
             );
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (!updatedGame) {
-                navigate("/error", {
-                  state: {
-                    error: "An unexpected error occured, please try again later",
-                  },
-                });
-                return;
-              }
-              setGameDetails(updatedGame);
-              setLoading(false);
+              navigate("/error", {
+                state: {
+                  error: "An unexpected error occured, please try again later",
+                },
+              });
+              return;
+            }
+            setGameDetails(updatedGame);
+            setLoading(false);
           }}
           className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
@@ -123,15 +126,15 @@ export default function ScoringInterface({
             await redoLast(undoStack, setUndoStack, redoStack, setRedoStack);
             const updatedGame = await getSingleGameAPIFetch(gameDetails.id);
             if (!updatedGame) {
-                navigate("/error", {
-                  state: {
-                    error: "An unexpected error occured, please try again later",
-                  },
-                });
-                return;
-              }
-              setGameDetails(updatedGame);
-              setLoading(false);
+              navigate("/error", {
+                state: {
+                  error: "An unexpected error occured, please try again later",
+                },
+              });
+              return;
+            }
+            setGameDetails(updatedGame);
+            setLoading(false);
           }}
           className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
@@ -194,14 +197,14 @@ export default function ScoringInterface({
         onClick={async () => {
           const rsp = await publishGameAPIReq(gameDetails.id);
           if (rsp.status !== 201) {
-              navigate("/error", {
-                state: {
-                  error: "An unexpected error occured, please try again later",
-                },
-              });
-            }
-            navigate("/");
-            return;
+            navigate("/error", {
+              state: {
+                error: "An unexpected error occured, please try again later",
+              },
+            });
+          }
+          navigate("/");
+          return;
         }}
       >
         Finish Scoring Game

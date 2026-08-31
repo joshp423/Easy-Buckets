@@ -28,35 +28,21 @@ export default function GameStats({ currentGame }: GameStatsProps) {
   });
   if (!currentGame) return;
 
-  if (currentGame.replay) {
-    return (
-      <div className="statsSection">
-        <div className="replayChart">
-          <VideoPlayer videoUrl={currentGame.replay} ref={videoRef} />
-          <ShotChart shotLog={shotLog} selectedShot={selectedShot} />
-        </div>
-        <Shotlog
-          shotLog={shotLog}
-          selectedShot={selectedShot}
-          setSelectedShot={setSelectedShot}
-          replay={true}
-          videoRef={videoRef}
-        />
-        <BoxScore currentGame={currentGame} />
-      </div>
-    );
-  }
-
   return (
     <div className="statsSection">
-      <div className="noReplayChart">
+      <div className="replayChart">
+        {currentGame.replay ? (
+          <VideoPlayer videoUrl={currentGame.replay} ref={videoRef} />
+        ) : (
+          <></>
+        )}
         <ShotChart shotLog={shotLog} selectedShot={selectedShot} />
       </div>
       <Shotlog
         shotLog={shotLog}
         selectedShot={selectedShot}
         setSelectedShot={setSelectedShot}
-        replay={false}
+        replay={true}
         videoRef={videoRef}
       />
       <BoxScore currentGame={currentGame} />

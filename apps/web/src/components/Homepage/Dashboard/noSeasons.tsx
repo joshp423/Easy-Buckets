@@ -7,7 +7,7 @@ export default function NoSeasons() {
       <h3>No Seasons Yet For This Team</h3>
       <button
         onClick={() => {
-          navigate("/score-game");
+          navigate("/team-seasons");
         }}
       >
         Create New Season?

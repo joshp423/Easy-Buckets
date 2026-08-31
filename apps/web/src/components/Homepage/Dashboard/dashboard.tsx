@@ -10,6 +10,8 @@ import type { Game } from "../../../types/game";
 import GameDisplay from "./GameDisplay/gameDisplay";
 import "./dashboard.css";
 import { DashboardSkeleton } from "../../skeletons";
+import NoSeasons from "./noSeasons";
+import { useNavigate } from "react-router";
 
 export default function Dashboard() {
   const [teamSeasons, setTeamSeasons] = useState<SeasonOverview[]>([]);
@@ -18,27 +20,34 @@ export default function Dashboard() {
   const [selectedDashboardSeason, setSelectedDashboardSeason] =
     useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
       setLoading(true);
-      const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
-      const seasons = team.seasons;
+      setError(null);
 
-      if (seasons.length) {
-        setTeamSeasons(seasons);
+      try {
+        const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
+        const seasons = team.seasons;
+
+        if (seasons.length !== 0) {
+          setTeamSeasons(seasons);
+          setSelectedDashboardSeason(seasons[0].name);
+        }
+          
+      } catch {
+        setError("An unexpected error occured, please try again later");
+      } finally {
+        setLoading(false);
       }
-
-      const latestSeason = seasons[0].name;
-
-      if (latestSeason) {
-        setSelectedDashboardSeason(latestSeason);
-      }
-      setLoading(false);
     };
 
     load();
   }, []);
+
+  
 
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
@@ -49,24 +58,36 @@ export default function Dashboard() {
 
     const getData = async () => {
       setLoading(true);
-      const data = await seasonGameAPIFetch({
-        id: selectedSeason.id,
-        draft: false,
-      });
-      setSeasonData(data);
-      setLoading(false);
+      setError(null)
+      try {
+        const data = await seasonGameAPIFetch({
+          id: selectedSeason.id,
+          draft: false,
+        });
+        setSeasonData(data);
+        setLoading(false);
+      } catch {
+        setError("An unexpected error occured, please try again later");
+      } finally {
+        setLoading(false);
+      }
     };
 
     getData();
   }, [selectedDashboardSeason, teamSeasons]);
-  // add fallback component
 
-  if (!teamSeasons.length) {
+  useEffect(() => {
+    if (error) {
+      navigate("/error", { state: { error } });
+    }
+  }, [error, navigate]);
+
+  if (!teamSeasons.length && !loading) {
     // if no data
     return (
       <div className="dashboard">
         <SideNav />
-        <div className="dashboardMain"></div>
+        <NoSeasons />
       </div>
     );
   }
@@ -88,23 +109,6 @@ export default function Dashboard() {
     );
   }
 
-  if (loading) {
-    return (
-      <div className="dashboard">
-        <SideNav />
-        <div className="dashboardMain">
-          <Nav
-            dashboardView={dashboardView}
-            setdashboardView={setdashboardView}
-            setSelectedDashboardSeason={setSelectedDashboardSeason}
-            teamSeasons={teamSeasons}
-          />
-          <DashboardSkeleton />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="dashboard">
       <SideNav />
@@ -115,7 +119,11 @@ export default function Dashboard() {
           setSelectedDashboardSeason={setSelectedDashboardSeason}
           teamSeasons={teamSeasons}
         />
-        <GameDisplay seasonData={seasonData} />
+        {loading ? (
+          <DashboardSkeleton />
+        ) : (
+          <GameDisplay seasonData={seasonData} />
+        )}
       </div>
     </div>
   );

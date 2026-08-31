@@ -15,6 +15,8 @@ import { type Game } from "../../types/game";
 import { GameInitialiseSkeleton } from "../skeletons";
 import { useOutletContext } from "react-router-dom";
 import LoggedOutHP from "../Homepage/loggedOutHP/loggedOutHP";
+import NoSeasons from "../Homepage/Dashboard/noSeasons";
+import { useNavigate } from "react-router-dom";
 
 type gameScoringProps = {
   loginStatus: boolean;
@@ -37,27 +39,34 @@ export default function GameScoring() {
   const [replay, setReplay] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { loginStatus } = useOutletContext<gameScoringProps>();
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    //relocate?
     const load = async () => {
       setLoading(true);
-      const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
-      const seasons = team.seasons;
+      setError(null);
 
-      if (seasons.length) {
-        setTeamSeasons(seasons);
-      }
-      const latestSeason = seasons[0].name;
+      try {
+        const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
+        const seasons = team.seasons;
 
-      if (latestSeason) {
-        setSelectedDashboardSeason(latestSeason);
+        if (seasons.length !== 0) {
+          setTeamSeasons(seasons);
+          setSelectedDashboardSeason(seasons[0].name);
+        }
+          
+      } catch {
+        setError("An unexpected error occured, please try again later");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
+
     load();
   }, []);
 
+  
   useEffect(() => {
     const load = async () => {
       setLoading(true);
@@ -71,26 +80,37 @@ export default function GameScoring() {
     load();
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      navigate("/error", { state: { error } });
+    }
+  }, [error, navigate]);
+
+
   if (!loginStatus) return <LoggedOutHP />;
+
+  if (teamSeasons.length === 0 && !loading)
+    return (
+      <div className="gameScoring">
+        <SideNav />
+        <NoSeasons />
+      </div>
+    );
 
   switch (newGameCheck) {
     case "none":
-      if (loading) {
-        return (
-          <div className="gameScoring">
-            <SideNav />
-            <GameInitialiseSkeleton />
-          </div>
-        );
-      }
       return (
         <div className="gameScoring">
           <SideNav />
-          <GameInitialise
-            setNewGameCheck={setNewGameCheck}
-            teamSeasons={teamSeasons}
-            setSelectedDashboardSeason={setSelectedDashboardSeason}
-          />
+          {loading ? (
+            <GameInitialiseSkeleton />
+          ) : (
+            <GameInitialise
+              setNewGameCheck={setNewGameCheck}
+              teamSeasons={teamSeasons}
+              setSelectedDashboardSeason={setSelectedDashboardSeason}
+            />
+          )}
         </div>
       );
 

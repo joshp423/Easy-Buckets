@@ -11,6 +11,7 @@ import NewSeason from "./NewSeason/newSeason";
 import { TeamSeasonsSkeleton } from "../skeletons";
 import { useOutletContext } from "react-router-dom";
 import LoggedOutHP from "../Homepage/loggedOutHP/loggedOutHP";
+import { useNavigate } from "react-router-dom";
 
 type teamSeasonsProps = {
   loginStatus: boolean;
@@ -31,17 +32,24 @@ export default function TeamSeasons() {
   const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(true);
   const { loginStatus } = useOutletContext<teamSeasonsProps>();
   const [editedSeason, setEditedSeason] = useState<number | null>(null);
-
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
 
     const load = async () => {
       setLoading(true);
-      const players = await teamPlayersAPIFetch();
-      if (players.length) {
-        setPlayerList(players);
+      try {
+        const players = await teamPlayersAPIFetch();
+        if (players.length) {
+          setPlayerList(players);
+        }
+      } catch {
+        setError("An unexpected error occured, please try again later");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     load();
@@ -52,23 +60,31 @@ export default function TeamSeasons() {
 
     const load = async () => {
       setLoading(true);
-      const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
-      const seasons = team.seasons;
+      setError(null);
 
-      if (seasons.length) {
-        setTeamSeasons(seasons);
+      try {
+        const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
+        const seasons = team.seasons;
+
+        if (seasons.length !== 0) {
+          setTeamSeasons(seasons);
+          setSelectedDashboardSeason(seasons[0].name);
+        }
+          
+      } catch {
+        setError("An unexpected error occured, please try again later");
+      } finally {
+        setLoading(false);
       }
-
-      const latestSeason = seasons[0].name;
-
-      if (latestSeason) {
-        setSelectedDashboardSeason(latestSeason);
-      }
-      setLoading(false);
-    };
-
+    }
     load();
   }, [editedSeason]);
+
+  useEffect(() => {
+    if (error) {
+      navigate("/error", { state: { error } });
+    }
+  }, [error, navigate]);
 
   if (!loginStatus) {
     return <LoggedOutHP />;

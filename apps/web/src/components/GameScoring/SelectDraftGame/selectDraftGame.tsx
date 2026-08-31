@@ -33,7 +33,6 @@ export default function SelectDraftGame({
         id: selectedSeason.id,
         draft: true,
       });
-
       setSeasonData(data);
     };
 

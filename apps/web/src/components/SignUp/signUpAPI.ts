@@ -1,5 +1,6 @@
 import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
+import { API_URL } from "../../config/api";
 
 type signUpAPIProps = {
   e: SyntheticEvent<HTMLFormElement>;
@@ -21,7 +22,7 @@ export async function signUpAPI({
   e.preventDefault();
   setLoading(true);
 
-  const rsp = await fetch("http://localhost:3000/users/sign-up", {
+  const rsp = await fetch(`${API_URL}/users/sign-up`, {
     headers: {
       "Content-Type": "application/json",
     },

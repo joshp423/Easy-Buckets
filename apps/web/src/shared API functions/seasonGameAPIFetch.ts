@@ -1,4 +1,5 @@
 import { seasonSchema } from "../types/season";
+import { API_URL } from "../config/api";
 
 type gameStatsAPIFetchProps = {
   id: number;
@@ -9,16 +10,13 @@ export async function seasonGameAPIFetch({
   id,
   draft,
 }: gameStatsAPIFetchProps) {
-  const rsp = await fetch(
-    `http://localhost:3000/seasons/${id}/games?drafts=${draft}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      method: "GET",
+  const rsp = await fetch(`${API_URL}/seasons/${id}/games?drafts=${draft}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-  );
+    method: "GET",
+  });
 
   const data = await rsp.json();
   const season = seasonSchema.parse(data.seasonData);

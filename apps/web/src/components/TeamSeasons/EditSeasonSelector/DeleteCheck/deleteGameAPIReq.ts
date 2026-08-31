@@ -1,5 +1,7 @@
+import { API_URL } from "../../../../config/api";
+
 export default async function deleteGameAPIReq(gameId: number) {
-  const rsp = await fetch(`http://localhost:3000/games/${gameId}/delete`, {
+  const rsp = await fetch(`${API_URL}/games/${gameId}/delete`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -2,6 +2,7 @@ import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
 import { type Player } from "../../types/player";
 import { gameSchema } from "../../types/game";
+import { API_URL } from "../../config/api";
 
 type createGameAndPlayerAPIRequestProps = {
   e: SyntheticEvent<HTMLFormElement>;
@@ -24,7 +25,7 @@ export async function createGameAndPlayerAPIRequest({
 }: createGameAndPlayerAPIRequestProps) {
   e.preventDefault();
 
-  const gameCreateRsp = await fetch("http://localhost:3000/games/create", {
+  const gameCreateRsp = await fetch(`${API_URL}/games/create`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -45,10 +46,9 @@ export async function createGameAndPlayerAPIRequest({
 
   const data = await gameCreateRsp.json();
   const { id } = data;
-  console.log(id, playerList);
 
   if (replay) {
-    const replayRsp = await fetch("http://localhost:3000/games/add-replay", {
+    const replayRsp = await fetch(`${API_URL}/games/add-replay`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -67,7 +67,7 @@ export async function createGameAndPlayerAPIRequest({
   }
 
   const gameStatCreateRsp = await fetch(
-    "http://localhost:3000/games/gameStatlines/create",
+    `${API_URL}/games/gameStatlines/create`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export async function createGameAndPlayerAPIRequest({
     return;
   }
 
-  const gameDataRsp = await fetch(`http://localhost:3000/games/${id}`, {
+  const gameDataRsp = await fetch(`${API_URL}/games/${id}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

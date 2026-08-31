@@ -1,7 +1,8 @@
 import { shotSchema } from "../../../types/shot";
+import { API_URL } from "../../../config/api";
 
 export async function deleteShotAPIReq(shotId: number) {
-  const rsp = await fetch(`http://localhost:3000/games/shots/${shotId}`, {
+  const rsp = await fetch(`${API_URL}/games/shots/${shotId}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

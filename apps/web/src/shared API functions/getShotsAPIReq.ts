@@ -1,7 +1,8 @@
 import { shotLogSchema } from "../types/shotLog";
+import { API_URL } from "../config/api";
 
 export async function getShotsAPIReq(gameId: number) {
-  const rsp = await fetch(`http://localhost:3000/games/${gameId}/shots`, {
+  const rsp = await fetch(`${API_URL}/games/${gameId}/shots`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

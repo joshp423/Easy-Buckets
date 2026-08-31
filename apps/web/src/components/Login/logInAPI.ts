@@ -2,6 +2,7 @@ import { type SyntheticEvent } from "react";
 import { type NavigateFunction } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { type JwtPayload } from "../../types/jwtPayload";
+import { API_URL } from "../../config/api";
 
 type LogInAPIProps = {
   e: SyntheticEvent<HTMLFormElement>;
@@ -25,7 +26,7 @@ export async function logInAPI({
   e.preventDefault();
   setLoading(true);
 
-  const rsp = await fetch("http://localhost:3000/users/log-in", {
+  const rsp = await fetch(`${API_URL}/users/log-in`, {
     headers: {
       "Content-Type": "application/json",
     },

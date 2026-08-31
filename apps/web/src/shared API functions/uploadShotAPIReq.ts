@@ -1,5 +1,6 @@
 import { shotSchema } from "../types/shot";
 import type { Shot } from "../types/shot";
+import { API_URL } from "../config/api";
 
 type uploadShotAPIReqProps = {
   gameStatlineId: number;
@@ -10,7 +11,7 @@ export async function uploadShotAPIReq({
   gameStatlineId,
   shot,
 }: uploadShotAPIReqProps) {
-  const rsp = await fetch("http://localhost:3000/games/shots/create", {
+  const rsp = await fetch(`${API_URL}/games/shots/create`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

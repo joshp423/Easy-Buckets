@@ -1,3 +1,5 @@
+import { API_URL } from "../config/api";
+
 type updateGameStatAPIProps = {
   gameStatlineId: number;
   statlineUpdateField: string;
@@ -9,7 +11,7 @@ export async function updateGameStatAPIReq({
   statlineUpdateField,
   statlineUpdateIndicator,
 }: updateGameStatAPIProps) {
-  const rsp = await fetch("http://localhost:3000/games/gameStatlines/update", {
+  const rsp = await fetch(`${API_URL}/games/gameStatlines/update`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

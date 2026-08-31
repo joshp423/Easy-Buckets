@@ -1,4 +1,5 @@
 import type { NewPlayer } from "../../../types/newPlayer";
+import { API_URL } from "../../../config/api";
 
 type createPlayersAPIRequestProps = {
   newPlayers: NewPlayer[];
@@ -7,8 +8,7 @@ type createPlayersAPIRequestProps = {
 export async function createPlayersAPIRequest({
   newPlayers,
 }: createPlayersAPIRequestProps) {
-  console.log(newPlayers);
-  const rsp = await fetch("http://localhost:3000/teams/players/create", {
+  const rsp = await fetch(`${API_URL}/teams/players/create`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

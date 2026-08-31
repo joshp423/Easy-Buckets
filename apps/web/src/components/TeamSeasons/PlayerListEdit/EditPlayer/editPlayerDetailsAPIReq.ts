@@ -1,4 +1,5 @@
 import type { Player } from "../../../../types/player";
+import { API_URL } from "../../../../config/api";
 
 type editPlayerDetailsAPIReqArgs = {
   player: Player;
@@ -7,7 +8,7 @@ type editPlayerDetailsAPIReqArgs = {
 export async function editPlayerDetailsAPIReq({
   player,
 }: editPlayerDetailsAPIReqArgs) {
-  const rsp = await fetch(`http://localhost:3000/teams/players/edit`, {
+  const rsp = await fetch(`${API_URL}/teams/players/edit`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

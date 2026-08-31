@@ -30,6 +30,7 @@ export default function TeamSeasons() {
   const [editSeasonToggle, seteditSeasonToggle] = useState<boolean>(false);
   const [addSeasonToggle, setAddSeasonToggle] = useState<boolean>(true);
   const { loginStatus } = useOutletContext<teamSeasonsProps>();
+  const [editedSeason, setEditedSeason] = useState<number | null>(null);
 
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
@@ -47,6 +48,8 @@ export default function TeamSeasons() {
   }, [editPlayer]);
 
   useEffect(() => {
+    if (editedSeason !== null) return;
+    
     const load = async () => {
       setLoading(true);
       const team = await teamSeasonsAPIFetch({ orderBy: "desc" });
@@ -65,7 +68,7 @@ export default function TeamSeasons() {
     };
 
     load();
-  }, []);
+  }, [editedSeason]);
 
   if (!loginStatus) {
     return <LoggedOutHP />
@@ -170,6 +173,8 @@ export default function TeamSeasons() {
             setSelectedDashboardSeason={setSelectedDashboardSeason}
             selectedDashboardSeason={selectedDashboardSeason}
             editSeasonToggle={editSeasonToggle}
+            editedSeason={editedSeason}
+            setEditedSeason={setEditedSeason}
           />
           <div
             style={addSeasonToggle ? { display: "flex" } : { display: "none" }}

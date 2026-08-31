@@ -1,7 +1,6 @@
 import z from "zod";
 
 export const shotSchema = z.object({
-  id: z.number(),
   make: z.boolean(),
   X: z.number(),
   Y: z.number(),

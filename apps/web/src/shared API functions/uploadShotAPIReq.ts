@@ -3,7 +3,7 @@ import type { Shot } from "../types/shot";
 
 type uploadShotAPIReqProps = {
   gameStatlineId: number;
-  shot: Shot;
+  shot: Shot ;
 };
 
 export async function uploadShotAPIReq({

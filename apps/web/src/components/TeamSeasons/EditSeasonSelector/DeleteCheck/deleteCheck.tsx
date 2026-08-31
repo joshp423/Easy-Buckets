@@ -4,12 +4,14 @@ import deletePlayerDetailsAPIReq from "../../PlayerListEdit/EditPlayer/deletePla
 import "./deleteCheck.css";
 import { useState } from "react";
 import LoadingBall from "../../../../assets/LoadingBall/loadingball";
+import type { Player } from "../../../../types/player";
 
 type DeleteCheckProps = {
   deletedObj: "game" | "season" | "player" | null;
   deletedObjId: number | null;
   setDeleteCheck: React.Dispatch<React.SetStateAction<boolean>>;
   deleteCheck: boolean;
+  setEditPlayer:  React.Dispatch<React.SetStateAction<Player | null>> | null;
 };
 
 export default function DeleteCheck({
@@ -17,6 +19,7 @@ export default function DeleteCheck({
   deletedObjId,
   setDeleteCheck,
   deleteCheck,
+  setEditPlayer
 }: DeleteCheckProps) {
   const [loading, setLoading] = useState<boolean>(false);
   async function deleteObj() {
@@ -40,8 +43,9 @@ export default function DeleteCheck({
       }
       case "player": {
         const deletedPlayer = await deletePlayerDetailsAPIReq(deletedObjId);
-        if (deletedPlayer) {
+        if (deletedPlayer && setEditPlayer) {
           setDeleteCheck(false);
+          setEditPlayer(null)
         }
         break;
       }

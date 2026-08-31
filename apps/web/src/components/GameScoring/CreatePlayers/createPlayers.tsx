@@ -3,6 +3,7 @@ import type { NewPlayer } from "../../../types/newPlayer";
 import { createPlayersAPIRequest } from "./createPlayersAPIRequest";
 import { useNavigate } from "react-router";
 import "./createPlayers.css";
+import LoadingBall from "../../../assets/LoadingBall/loadingball";
 
 type CreatePlayersProps = {
   setAddPlayer: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,6 +12,7 @@ type CreatePlayersProps = {
 export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
   const [addPlayersAmount, setAddPlayersAmount] = useState<number>(1);
   const [newPlayers, setNewPlayers] = useState<NewPlayer[]>([]);
+  const [loading, setLoading] = useState<boolean>(false)
 
   const canDecreasePlayers = () => (addPlayersAmount === 1 ? false : true);
   const canIncreasePlayers = () => (addPlayersAmount >= 7 ? false : true);
@@ -42,8 +44,8 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
 
   async function uploadNewPlayers(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
     const rsp = await createPlayersAPIRequest({ newPlayers });
-    console.log(rsp.status);
     if (rsp.status === 201) {
       navigate(0);
       return;
@@ -53,6 +55,7 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
         error: "New message failed, try again later.",
       },
     });
+    setLoading(false);
     return;
   }
 
@@ -66,6 +69,7 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
               type="text"
               placeholder="Player Name"
               value={newPlayers[i]?.name ?? ""}
+              required
               onChange={(e) => {
                 updatePlayers(i, "name", e.target.value);
               }}
@@ -73,6 +77,8 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
             <input
               type="number"
               placeholder="Player Number"
+              max={99}
+              required
               onChange={(e) => {
                 updatePlayers(i, "number", Number(e.target.value));
               }}
@@ -107,7 +113,7 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
             +
           </button>
         </div>
-        <button type="submit">Add Players</button>
+        <button type="submit">{loading ? <LoadingBall /> : "Add Players"}</button>
       </form>
       <button
         type="button"

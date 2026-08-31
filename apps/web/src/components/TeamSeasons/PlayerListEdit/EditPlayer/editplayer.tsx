@@ -48,6 +48,7 @@ export default function EditPlayer({
         deletedObjId={editPlayer.id}
         deleteCheck={deleteCheck}
         setDeleteCheck={setDeleteCheck}
+        setEditPlayer={setEditPlayer}
       />
     );
   }
@@ -76,7 +77,7 @@ export default function EditPlayer({
             setDeleteCheck(true);
           }}
         >
-          Delete Player From Team
+          {loading ? <LoadingBall /> : "Delete Player From Team"}
         </button>
       </form>
       <button

@@ -3,8 +3,7 @@ import PlayerSelection from "./PlayerSelection/playerSelection";
 import { useEffect, useRef, useState } from "react";
 import StatSelection from "./StatSelection/statSelection";
 import CourtInterface from "./CourtInterface/courtInterface";
-// import "./scoringInterface.css";
-import "./scoringInterfaceB.css";
+import "./scoringInterface.css";
 import type { Game } from "../../../types/game";
 import VideoPlayer, {
   type VideoPlayerHandle,
@@ -19,6 +18,7 @@ import type { Shot } from "../../../types/shot";
 import redoLast from "./redoLast";
 import { publishGameAPIReq } from "./publishGameAPIReq";
 import { useNavigate } from "react-router";
+import LoadingBall from "../../../assets/LoadingBall/loadingball";
 
 type ScoringInterfaceProps = {
   setGameDetails: React.Dispatch<React.SetStateAction<Game | null | "ready">>;
@@ -209,7 +209,7 @@ export default function ScoringInterface({
           }}
           className={`${undoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
-          Undo
+        {loading ? <LoadingBall /> : "Undo"}
         </button>
         <button
           onClick={async () => {
@@ -222,7 +222,7 @@ export default function ScoringInterface({
           }}
           className={`${redoStack.length === 0 ? "disabled" : "enabled"} ${loading ? "loading" : ""}`}
         >
-          Redo
+        {loading ? <LoadingBall /> : "Redo"}
         </button>
       </div>
       <div className="interfaceInput">

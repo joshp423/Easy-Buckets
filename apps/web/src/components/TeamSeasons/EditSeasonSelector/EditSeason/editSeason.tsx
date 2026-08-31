@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import { seasonGameAPIFetch } from "../../../../shared API functions/seasonGameAPIFetch";
 import type { Game } from "../../../../types/game";
 import updateSeasonNameAPIReq from "./updateSeasonNameAPIReq";
-import { useNavigate } from "react-router";
 import DeleteCheck from "../DeleteCheck/deleteCheck";
 import "./editSeason.css";
 import { EditSeasonSkeleton } from "../../../skeletons";
 import LoadingBall from "../../../../assets/LoadingBall/loadingball";
+
 type EditSeasonProps = {
   seasonId: number | null;
   setEditedSeason: React.Dispatch<React.SetStateAction<number | null>>;
@@ -21,7 +21,6 @@ export default function EditSeason({
   const [seasonGames, setSeasonGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [updatedSeasonName, setUpdatedSeasonName] = useState<string>("");
-  const navigate = useNavigate();
   const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
   const [deletedObj, setDeletedObj] = useState<"game" | "season" | null>(null);
   const [deletedObjId, setDeletedObjId] = useState<number | null>(null);
@@ -40,18 +39,15 @@ export default function EditSeason({
     getSeasonData();
   }, [seasonId, deleteCheck]);
 
-  async function uploadNameChange() {
+  async function uploadNameChange(e: SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (!seasonId) return;
     setLoading(true);
     const updatedName = await updateSeasonNameAPIReq(
       seasonId,
       updatedSeasonName,
     );
-    if (updatedName) {
-      navigate(`/team-seasons/${updatedName}`, {
-        state: { seasonId },
-      });
-    }
+    if (updatedName) {setEditedSeason(null)} ;
     setLoading(false);
   }
 
@@ -68,6 +64,7 @@ export default function EditSeason({
           deletedObjId={deletedObjId}
           setDeleteCheck={setDeleteCheck}
           deleteCheck={deleteCheck}
+          setEditPlayer={null}
         />
       </div>
     );
@@ -78,9 +75,7 @@ export default function EditSeason({
       <div className="seasonNameEdit">
         <form
           action=""
-          onSubmit={() => {
-            uploadNameChange();
-          }}
+          onSubmit={uploadNameChange}
         >
           <label htmlFor="seasonName">Season Name:</label>
           <input
@@ -143,6 +138,7 @@ export default function EditSeason({
         deletedObjId={deletedObjId}
         deleteCheck={deleteCheck}
         setDeleteCheck={setDeleteCheck}
+        setEditPlayer={null}
       />
     </div>
   );

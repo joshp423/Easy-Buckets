@@ -13,7 +13,7 @@ export async function createPlayersAPIRequest({
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify({
       players: newPlayers,
     }),

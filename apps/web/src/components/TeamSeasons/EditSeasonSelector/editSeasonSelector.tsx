@@ -1,7 +1,6 @@
 import NavSeasonSelector from "../../Homepage/Dashboard/Nav/NavSeasonSelector/navSeasonSelector";
 import type { SeasonOverview } from "../../../types/seasonOverview";
 import EditSeason from "./EditSeason/editSeason";
-import { useState } from "react";
 import "./editSeasonSelector.css";
 
 type EditSeasonsProps = {
@@ -9,6 +8,8 @@ type EditSeasonsProps = {
   selectedDashboardSeason: string;
   setSelectedDashboardSeason: React.Dispatch<React.SetStateAction<string>>;
   editSeasonToggle: boolean;
+  editedSeason: number | null;
+  setEditedSeason:  React.Dispatch<React.SetStateAction<number | null>>
 };
 
 export default function EditSeasonSelector({
@@ -16,8 +17,9 @@ export default function EditSeasonSelector({
   setSelectedDashboardSeason,
   selectedDashboardSeason,
   editSeasonToggle,
+  editedSeason,
+  setEditedSeason
 }: EditSeasonsProps) {
-  const [editedSeason, setEditedSeason] = useState<number | null>(null);
   const seasonName = selectedDashboardSeason;
 
   if (!editedSeason) {

@@ -34,7 +34,7 @@ export default function TeamSeasons() {
   const [editedSeason, setEditedSeason] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (editPlayer !== null) return; //only reload when loading complete
 
@@ -70,13 +70,12 @@ export default function TeamSeasons() {
           setTeamSeasons(seasons);
           setSelectedDashboardSeason(seasons[0].name);
         }
-          
       } catch {
         setError("An unexpected error occured, please try again later");
       } finally {
         setLoading(false);
       }
-    }
+    };
     load();
   }, [editedSeason]);
 

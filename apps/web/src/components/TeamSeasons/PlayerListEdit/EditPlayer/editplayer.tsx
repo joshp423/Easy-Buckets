@@ -4,6 +4,7 @@ import { editPlayerDetailsAPIReq } from "./editPlayerDetailsAPIReq";
 import "./editPlayer.css";
 import DeleteCheck from "../../EditSeasonSelector/DeleteCheck/deleteCheck";
 import LoadingBall from "../../../../assets/LoadingBall/loadingball";
+import { useNavigate } from "react-router";
 
 type EditPlayerProps = {
   editPlayer: Player | null;
@@ -16,6 +17,7 @@ export default function EditPlayer({
 }: EditPlayerProps) {
   const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   if (!editPlayer) return;
 
@@ -24,21 +26,30 @@ export default function EditPlayer({
 
     if (!editPlayer) return;
     setLoading(true);
-    const form = new FormData(e.currentTarget);
 
-    const updatedPlayer = await editPlayerDetailsAPIReq({
-      player: {
-        name: form.get("playerName") as string,
-        number: Number(form.get("playerNumber")),
-        id: editPlayer.id,
-      },
-    });
+    try {
+      const form = new FormData(e.currentTarget);
 
-    if (updatedPlayer) {
-      setEditPlayer(null);
+      const updatedPlayer = await editPlayerDetailsAPIReq({
+        player: {
+          name: form.get("playerName") as string,
+          number: Number(form.get("playerNumber")),
+          id: editPlayer.id,
+        },
+      });
+
+      if (updatedPlayer) {
+        setEditPlayer(null);
+      }
+    } catch {
+      navigate("/error", {
+        state: {
+          error: "An unexpected error occured, please try again later",
+        },
+      });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    return;
   }
 
   if (deleteCheck) {

@@ -52,8 +52,6 @@ export default function BoxScore({ currentGame }: boxScoreProps) {
     teamTotals.points += playerStats.points;
   });
 
-  console.log(teamTotals);
-
   return (
     <div className="boxScore">
       <table>

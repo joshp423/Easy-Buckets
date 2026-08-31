@@ -7,11 +7,14 @@ import LoadingBall from "../../../assets/LoadingBall/loadingball";
 export default function NewSeason() {
   const [seasonName, setSeasonName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
   async function createSeasonAPIReq(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    const newSeason = await fetch("http://localhost:3000/seasons/create", {
+
+    const rsp = await fetch("http://localhost:3000/seasons/create", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -21,15 +24,32 @@ export default function NewSeason() {
         seasonName,
       }),
     });
-
-    if (newSeason) {
-      navigate("/score-game");
+    const data = await rsp.json();
+    if (data.status !== 201) {
+      if (data.status === 400) {
+        setError("Enter valid season name");
+        navigate("/error", {
+          state: {
+            error,
+          },
+        });
+        return;
+      }
+      navigate("/error", {
+        state: {
+          error: "An unexpected error occured, please try again later",
+        },
+      });
     }
-    setLoading(true);
+    navigate("/score-game");
+    setLoading(false);
   }
 
   return (
     <div className="newSeason">
+      <div className="errorHandling">
+        <p>{error}</p>
+      </div>
       <form
         onSubmit={(e) => {
           createSeasonAPIReq(e);
@@ -39,6 +59,7 @@ export default function NewSeason() {
         <input
           type="text"
           id="seasonName"
+          required
           onChange={(e) => {
             setSeasonName(e.target.value);
           }}

@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import "./errorPage.css";
+import SideNav from "../SideNav/sideNav";
 
 type errorPageState = {
   error: string;
@@ -11,9 +12,12 @@ function ErrorPage() {
 
   return (
     <div className="errorPage">
-      <h1>Something went wrong</h1>
-      <p>{error?.error}</p>
-      <p>Please try again later.</p>
+      <SideNav />
+      <div>
+        <h1>Something went wrong</h1>
+        <h3>{error?.error}</h3>
+        <p>Please try again later.</p>
+      </div>
     </div>
   );
 }

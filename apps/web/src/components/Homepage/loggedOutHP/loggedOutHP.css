@@ -33,6 +33,7 @@
   padding: 10%;
   border-radius: 12px;
   height: 100%;
+  border: 1px solid lightgrey;
 }
 
 .hpBlurb > h1 {

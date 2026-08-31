@@ -11,6 +11,7 @@
   border-radius: 12px;
   min-height: 40%;
   width: 100%;
+  border: 1px solid lightgrey;
 }
 
 .gameDetailsInitialise > p {

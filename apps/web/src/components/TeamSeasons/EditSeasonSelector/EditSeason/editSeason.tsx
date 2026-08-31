@@ -6,6 +6,7 @@ import DeleteCheck from "../DeleteCheck/deleteCheck";
 import "./editSeason.css";
 import { EditSeasonSkeleton } from "../../../skeletons";
 import LoadingBall from "../../../../assets/LoadingBall/loadingball";
+import { useNavigate } from "react-router";
 
 type EditSeasonProps = {
   seasonId: number | null;
@@ -24,33 +25,53 @@ export default function EditSeason({
   const [deleteCheck, setDeleteCheck] = useState<boolean>(false);
   const [deletedObj, setDeletedObj] = useState<"game" | "season" | null>(null);
   const [deletedObjId, setDeletedObjId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getSeasonData() {
       if (deleteCheck || !seasonId) return;
       setLoading(true);
-      const data = await seasonGameAPIFetch({
-        id: seasonId,
-        draft: false,
-      });
-      setSeasonGames(data);
-      setLoading(false);
+      setError(null);
+      try {
+        const data = await seasonGameAPIFetch({
+          id: seasonId,
+          draft: false,
+        });
+        setSeasonGames(data);
+      } catch {
+        setError("An unexpected error occured, please try again later");
+      } finally {
+        setLoading(false);
+      }
     }
     getSeasonData();
   }, [seasonId, deleteCheck]);
+
+  useEffect(() => {
+    if (error) {
+      navigate("/error", { state: { error } });
+    }
+  }, [error, navigate]);
 
   async function uploadNameChange(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!seasonId) return;
     setLoading(true);
-    const updatedName = await updateSeasonNameAPIReq(
-      seasonId,
-      updatedSeasonName,
-    );
-    if (updatedName) {
-      setEditedSeason(null);
+    setError(null);
+    try {
+      const updatedName = await updateSeasonNameAPIReq(
+        seasonId,
+        updatedSeasonName,
+      );
+      if (updatedName) {
+        setEditedSeason(null);
+      }
+    } catch {
+      setError("An unexpected error occured, please try again later");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   //skelly required

@@ -12,6 +12,7 @@
   flex-direction: column;
   background-color: #f3f5f8;
   border-radius: 12px;
+  border: 1px solid lightgrey;
 }
 
 .editNav {

@@ -10,6 +10,7 @@
   margin-top: 2%;
   overflow-y: hidden;
   flex-shrink: 0;
+  border: 1px solid lightgrey;
 }
 
 .boxScore > table {

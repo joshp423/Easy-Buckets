@@ -5,6 +5,7 @@ import "./deleteCheck.css";
 import { useState } from "react";
 import LoadingBall from "../../../../assets/LoadingBall/loadingball";
 import type { Player } from "../../../../types/player";
+import { useNavigate } from "react-router";
 
 type DeleteCheckProps = {
   deletedObj: "game" | "season" | "player" | null;
@@ -22,35 +23,46 @@ export default function DeleteCheck({
   setEditPlayer,
 }: DeleteCheckProps) {
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   async function deleteObj() {
     if (!deletedObjId) return;
     setLoading(true);
 
-    switch (deletedObj) {
-      case "season": {
-        const deletedSeason = await deleteSeasonAPIReq(deletedObjId);
-        if (deletedSeason) {
-          setDeleteCheck(false);
+    try {
+      switch (deletedObj) {
+        case "season": {
+          const deletedSeason = await deleteSeasonAPIReq(deletedObjId);
+          if (deletedSeason) {
+            setDeleteCheck(false);
+          }
+          break;
         }
-        break;
-      }
-      case "game": {
-        const deletedGame = await deleteGameAPIReq(deletedObjId);
-        if (deletedGame) {
-          setDeleteCheck(false);
+        case "game": {
+          const deletedGame = await deleteGameAPIReq(deletedObjId);
+          if (deletedGame) {
+            setDeleteCheck(false);
+          }
+          break;
         }
-        break;
-      }
-      case "player": {
-        const deletedPlayer = await deletePlayerDetailsAPIReq(deletedObjId);
-        if (deletedPlayer && setEditPlayer) {
-          setDeleteCheck(false);
-          setEditPlayer(null);
+        case "player": {
+          const deletedPlayer = await deletePlayerDetailsAPIReq(deletedObjId);
+          if (deletedPlayer && setEditPlayer) {
+            setDeleteCheck(false);
+            setEditPlayer(null);
+          }
+          break;
         }
-        break;
       }
+    } catch {
+      navigate("/error", {
+        state: {
+          error: "An unexpected error occured, please try again later",
+        },
+      });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (

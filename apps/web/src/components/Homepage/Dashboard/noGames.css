@@ -9,6 +9,7 @@
   background-color: #f3f5f8;
   padding: 2rem;
   border-radius: 12px;
+  border: 1px solid lightgrey;
 }
 
 .noGamesContainer > button {

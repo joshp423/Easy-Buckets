@@ -12,6 +12,7 @@
   height: auto;
   justify-self: center;
   align-self: center;
+  border: 1px solid lightgrey;
 }
 
 .selectActivePlayers > form {
@@ -73,4 +74,14 @@
 
 .selectActivePlayers > form > table > tbody > tr > td:last-of-type {
   text-align: center;
+}
+
+.selectActivePlayers > button {
+  padding: 0.3rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #e37204;
+  font-weight: 500;
+  color: white;
+  width: 20%;
 }

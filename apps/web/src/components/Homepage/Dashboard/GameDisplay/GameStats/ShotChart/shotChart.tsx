@@ -24,7 +24,6 @@ export default function ShotChart({ shotLog, selectedShot }: shotChartProps) {
 
     const courtSizeObserver = new ResizeObserver(() => {
       //resizeObserver fires callback every time rendered size changes
-      console.log("resize fired", element.clientWidth, element.clientHeight);
       setCourtWidth(element.clientWidth);
       setCourtHeight(element.clientHeight);
     });

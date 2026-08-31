@@ -36,7 +36,6 @@ export default function Dashboard() {
           setTeamSeasons(seasons);
           setSelectedDashboardSeason(seasons[0].name);
         }
-          
       } catch {
         setError("An unexpected error occured, please try again later");
       } finally {
@@ -47,8 +46,6 @@ export default function Dashboard() {
     load();
   }, []);
 
-  
-
   useEffect(() => {
     const selectedSeason = teamSeasons.find(
       (season) => season.name === selectedDashboardSeason,
@@ -58,7 +55,7 @@ export default function Dashboard() {
 
     const getData = async () => {
       setLoading(true);
-      setError(null)
+      setError(null);
       try {
         const data = await seasonGameAPIFetch({
           id: selectedSeason.id,

@@ -55,7 +55,6 @@ export default function GameScoring() {
           setTeamSeasons(seasons);
           setSelectedDashboardSeason(seasons[0].name);
         }
-          
       } catch {
         setError("An unexpected error occured, please try again later");
       } finally {
@@ -66,7 +65,6 @@ export default function GameScoring() {
     load();
   }, []);
 
-  
   useEffect(() => {
     const load = async () => {
       setLoading(true);
@@ -85,7 +83,6 @@ export default function GameScoring() {
       navigate("/error", { state: { error } });
     }
   }, [error, navigate]);
-
 
   if (!loginStatus) return <LoggedOutHP />;
 

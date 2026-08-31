@@ -9,6 +9,7 @@
     "start": "node dist/app.js",
     "dev": "tsx app.ts",
     "build": "npx tsc",
+    "postinstall": "prisma generate",
     "prettier": "npx prettier . --write"
   },
   "keywords": [],

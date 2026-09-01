@@ -8,14 +8,14 @@ export function DashboardSkeleton() {
               <iframe width={640} height={"100%"}></iframe>
             </div>
           </div>
-          <div className="shotChart skeleton">
+          <div className="shotChart skeleton" >
             <div className="skeleton">
               <img className="skeleton" />
             </div>
           </div>
         </div>
-        <div className="shotLog skeleton" style={{ height: "100%" }}></div>
-        <div className="boxScore skeleton"></div>
+        <div className="shotLog skeleton" style={{ height: "100%", overflow: "none"}}></div>
+        <div className="boxScore skeleton" style={{overflowX: "hidden"}}></div>
       </div>
       <div
         className="skeleton"

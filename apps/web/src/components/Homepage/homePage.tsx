@@ -40,7 +40,7 @@ export default function Homepage() {
   if (loginStatus) {
 
     if (loading) return (
-      <div>
+      <div className="loadingContainer">
         <LoadingBall />
       </div>
     )

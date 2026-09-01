@@ -33,3 +33,11 @@
   animation: spin linear 800ms;
   animation-iteration-count: infinite;
 }
+
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  align-items: center;
+}

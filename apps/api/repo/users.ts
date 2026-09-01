@@ -23,4 +23,12 @@ export class UserRepo {
       },
     });
   }
+
+  async userTeamCheck(userId: number) {
+    return await this.prisma.teams.findUnique({
+      where: {
+        userId,
+      },
+    });
+  }
 }

@@ -34,4 +34,8 @@ export class UserService {
 
     return token;
   }
+
+  async checkUserTeam(userId: number) {
+    return this.userRepo.userTeamCheck(userId);
+  }
 }

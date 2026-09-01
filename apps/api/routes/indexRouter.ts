@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as indexController from "../controllers/indexController.js";
-import { signUp, logIn } from "../controllers/userController.js";
+import { signUp, logIn, checkUserTeam } from "../controllers/userController.js";
 import {
   getTeamSeasons,
   createTeam,
@@ -75,25 +75,21 @@ indexRouter.get(
   indexController.verifyToken,
   getGameShots,
 );
-
 indexRouter.put(
   "/games/:gameId/publish",
   indexController.verifyToken,
   publishGame,
 );
-
 indexRouter.put(
   "/teams/players/edit",
   indexController.verifyToken,
   editTeamPlayer,
 );
-
 indexRouter.delete(
   "/teams/players/delete",
   indexController.verifyToken,
   deleteTeamPlayer,
 );
-
 indexRouter.delete(
   "/games/:gameId/delete",
   indexController.verifyToken,
@@ -104,10 +100,11 @@ indexRouter.put(
   indexController.verifyToken,
   editSeasonName,
 );
-
 indexRouter.delete(
   "/seasons/:seasonId/delete",
   indexController.verifyToken,
   deleteSeason,
 );
+indexRouter.get("/users/team", indexController.verifyToken, checkUserTeam);
+
 export default indexRouter;

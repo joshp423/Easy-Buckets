@@ -37,6 +37,10 @@ const LogInSchema = z.object({
   password: z.string(),
 });
 
+const userTeamCheckSchema = z.object({
+  userId: z.number(),
+});
+
 export async function signUp(req: Request, res: Response) {
   const { email, password } = req.body;
 
@@ -93,4 +97,22 @@ export async function logIn(req: Request, res: Response) {
     message: "Successfully logged in",
     token,
   });
+}
+
+export async function checkUserTeam(req: AuthRequest, res: Response) {
+  const userId = req.user?.id;
+
+  const { success, data, error } = userTeamCheckSchema.safeParse({
+    userId,
+  });
+
+  if (!success) {
+    return res.status(400).json({
+      errors: error.issues.map((issue) => issue.message),
+    });
+  }
+
+  const userTeam = await userService.checkUserTeam(data.userId);
+
+  return res.status(200).json(userTeam);
 }

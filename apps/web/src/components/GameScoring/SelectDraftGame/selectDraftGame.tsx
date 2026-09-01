@@ -31,14 +31,14 @@ export default function SelectDraftGame({
     if (!selectedSeason) return;
 
     const getData = async () => {
-      setLoading(true)
+      setLoading(true);
       const data = await seasonGameAPIFetch({
         id: selectedSeason.id,
         draft: true,
       });
       if (!data) return;
       setSeasonData(data);
-      setLoading(false)
+      setLoading(false);
     };
 
     getData();
@@ -76,28 +76,34 @@ export default function SelectDraftGame({
   }
   return (
     <div className="selectDraftGame">
-      {loading ? <LoadingBall /> : <>
-      <h1>Select Draft Game</h1>
-      <form onSubmit={selectGame}>
-        <select
-          name="gameSelect"
-          id="gameSelect"
-          onChange={(e) => {
-            setGameId(Number(e.target.value));
-          }}
-        >
-          {seasonData.map(({ id, date, opponent }) => {
-            const formatDate = new Date(date).toLocaleString().split(",", 1);
-            return (
-              <option key={id} value={id}>
-                {formatDate} vs {opponent}
-              </option>
-            );
-          })}
-        </select>
-        <button type="submit">Next</button>
-      </form>
-      </>}
+      {loading ? (
+        <LoadingBall />
+      ) : (
+        <>
+          <h1>Select Draft Game</h1>
+          <form onSubmit={selectGame}>
+            <select
+              name="gameSelect"
+              id="gameSelect"
+              onChange={(e) => {
+                setGameId(Number(e.target.value));
+              }}
+            >
+              {seasonData.map(({ id, date, opponent }) => {
+                const formatDate = new Date(date)
+                  .toLocaleString()
+                  .split(",", 1);
+                return (
+                  <option key={id} value={id}>
+                    {formatDate} vs {opponent}
+                  </option>
+                );
+              })}
+            </select>
+            <button type="submit">Next</button>
+          </form>
+        </>
+      )}
     </div>
   );
 }

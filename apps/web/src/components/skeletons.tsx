@@ -14,7 +14,7 @@ export function DashboardSkeleton() {
             </div>
           </div>
         </div>
-        <div className="shotLog skeleton" style={{ height: "100%", overflowX: "hidden"}}></div>
+        <div className="shotLog skeleton" style={{ height: "100%", overflow: "hidden"}}></div>
         <div className="boxScore skeleton" style={{overflowX: "hidden"}}></div>
       </div>
       <div

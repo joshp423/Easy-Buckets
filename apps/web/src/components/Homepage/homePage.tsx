@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import userTeamCheckAPIReq from "./userTeamCheckAPIReq";
 import TeamCreation from "./TeamCreation/teamCreation";
+import LoadingBall from "../../assets/LoadingBall/loadingball";
+import { useNavigate } from "react-router-dom";
 
 type homepageProps = {
   loginStatus: boolean;
@@ -13,16 +15,35 @@ type homepageProps = {
 export default function Homepage() {
   const { loginStatus } = useOutletContext<homepageProps>();
   const [teamCheck, setTeamCheck] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function load() {
-      const existingTeam = await userTeamCheckAPIReq();
-      if (existingTeam) setTeamCheck(true);
+      setLoading(true)
+      try {
+        const existingTeam = await userTeamCheckAPIReq();
+        if (existingTeam) setTeamCheck(true);
+      } catch {
+        navigate("/error", {
+          state: {
+            error: "An unexpected error occured, please try again later",
+          },
+        });
+      } finally {
+        setLoading(false);
+      }
     }
     load();
-  }, []);
+  }, [navigate]);
 
   if (loginStatus) {
+
+    if (loading) return (
+      <div>
+        <LoadingBall />
+      </div>
+    )
     return (
       <>
         {teamCheck ? (

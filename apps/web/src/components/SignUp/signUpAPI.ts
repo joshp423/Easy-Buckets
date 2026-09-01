@@ -9,6 +9,7 @@ type signUpAPIProps = {
   email: string;
   password: string;
   navigate: NavigateFunction;
+  setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export async function signUpAPI({
@@ -18,6 +19,7 @@ export async function signUpAPI({
   email,
   password,
   navigate,
+  setSuccess
 }: signUpAPIProps) {
   e.preventDefault();
   setLoading(true);
@@ -46,5 +48,6 @@ export async function signUpAPI({
     return;
   }
   setLoading(false);
+  setSuccess(true)
   navigate("/");
 }

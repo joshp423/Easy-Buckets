@@ -21,16 +21,15 @@
   margin-bottom: 3%;
   background-color: #e37204;
   width: 100%;
-  padding: 20% 0% 5% 0%;
+  padding: 25% 0% 5% 5%;
   color: white;
-  align-items: flex-end;
+  align-items: center;
   border-radius: 12px;
 }
 
 .logInTitle > h1 {
   margin: 0;
-  padding-left: 5%;
-  margin-top: 5%;
+  padding-left: 2%;
   cursor: pointer;
 }
 

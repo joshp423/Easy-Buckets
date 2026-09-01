@@ -18,9 +18,15 @@
   display: flex;
   align-items: flex-end;
   border-radius: 12px;
+  padding: 0rem 0rem 1rem 1rem;
+}
+
+.hpTitle >svg {
+  margin-bottom: 3px;
 }
 
 .hpTitle > h1 {
+  margin: 0;
   margin-left: 1%;
 }
 

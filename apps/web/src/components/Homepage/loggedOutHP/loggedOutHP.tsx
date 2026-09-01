@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router";
+import { faBasketball } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./loggedOutHP.css";
 
 export default function LoggedOutHP() {
@@ -6,6 +8,7 @@ export default function LoggedOutHP() {
   return (
     <div className="HpMain">
       <div className="hpTitle">
+        <FontAwesomeIcon icon={faBasketball} />
         <h1>Easy Buckets</h1>
       </div>
       <div>

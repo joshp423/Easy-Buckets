@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import "./logIn.css";
 import LoadingBall from "../../assets/LoadingBall/loadingball";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faKey, faBasketball } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type logInProps = {
@@ -20,6 +20,7 @@ export default function LogIn() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   if (loginStatus) {
     return <Navigate to="/" replace />;
@@ -29,6 +30,7 @@ export default function LogIn() {
     <div className="logInContainer">
       <div className="logIn">
         <div className="logInTitle">
+          <FontAwesomeIcon icon={faBasketball} />
           <h1
             onClick={() => {
               navigate("/");
@@ -48,6 +50,7 @@ export default function LogIn() {
               email,
               password,
               navigate,
+              setSuccess
             });
           }}
         >
@@ -79,7 +82,7 @@ export default function LogIn() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit">
+            <button type="submit" style={success ? {"backgroundColor": "green"} : {}}>
               <div>{loading ? <LoadingBall /> : <p>Log In</p>}</div>
             </button>
           </div>

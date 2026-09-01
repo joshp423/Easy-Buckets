@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signUpAPI } from "./signUpAPI";
 import "./signUp.css";
 import LoadingBall from "../../assets/LoadingBall/loadingball";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faKey, faBasketball } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SignUp() {
@@ -13,10 +13,12 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   return (
     <div className="signUp">
       <div className="signUpTitle">
+        <FontAwesomeIcon icon={faBasketball} />
         <h1
           onClick={() => {
             navigate("/");
@@ -27,7 +29,7 @@ export default function SignUp() {
       </div>
       <form
         onSubmit={(e) =>
-          signUpAPI({ e, setLoading, setErrors, email, password, navigate })
+          signUpAPI({ e, setLoading, setErrors, email, password, navigate, setSuccess })
         }
       >
         <div className="signUpForm">
@@ -61,7 +63,7 @@ export default function SignUp() {
             />
           </div>
           <button type="submit">
-            <div>{loading ? <LoadingBall /> : <p>Submit</p>}</div>
+            <div style={success ? {"backgroundColor": "green"} : {}}>{loading ? <LoadingBall /> : <p>Submit</p>}</div>
           </button>
         </div>
       </form>

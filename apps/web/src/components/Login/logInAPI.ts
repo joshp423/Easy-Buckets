@@ -12,6 +12,7 @@ type LogInAPIProps = {
   email: string;
   password: string;
   navigate: NavigateFunction;
+  setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export async function logInAPI({
@@ -22,6 +23,7 @@ export async function logInAPI({
   email,
   password,
   navigate,
+  setSuccess
 }: LogInAPIProps) {
   e.preventDefault();
   setLoading(true);
@@ -45,6 +47,7 @@ export async function logInAPI({
       localStorage.setItem("token", data.token);
       localStorage.setItem("loggedUserId", String(decoded.id));
       setLoginStatus(true);
+      setSuccess(true);
       navigate("/");
       break;
     }

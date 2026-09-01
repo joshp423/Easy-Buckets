@@ -38,3 +38,19 @@
 .sideNavSpace {
   min-height: none;
 }
+
+.sideNav > a > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sideNav > a > div > p {
+  margin: 0;
+}
+
+.sideNav > button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

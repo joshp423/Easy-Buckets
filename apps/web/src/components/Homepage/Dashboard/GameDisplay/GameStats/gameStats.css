@@ -23,9 +23,11 @@
   justify-content: space-between;
 }
 
-.noReplayChart {
+.noReplay {
   display: flex;
   margin-bottom: 2%;
-  max-width: 35%;
+  max-width: 40%;
   align-self: center;
 }
+
+

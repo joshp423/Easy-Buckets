@@ -123,7 +123,7 @@ export default function EditSeason({
         </form>
       </div>
       <div className="seasonGameEditList">
-        <h3>Games:</h3>
+        <h3>Completed Games:</h3>
         <ul>
           {seasonGames.length !== 0 ? (
             seasonGames.map((game) => {

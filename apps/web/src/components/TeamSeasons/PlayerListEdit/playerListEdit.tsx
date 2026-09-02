@@ -42,7 +42,7 @@ export default function PlayerListEdit({
           editTeamPlayersToggle ? { display: "flex" } : { display: "none" }
         }
       >
-        <CreatePlayers setAddPlayer={setAddPlayer} />
+        <CreatePlayers setAddPlayer={setAddPlayer} setSelectedPlayers={null}/>
       </div>
     );
   }

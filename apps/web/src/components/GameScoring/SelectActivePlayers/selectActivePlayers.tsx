@@ -81,7 +81,7 @@ export default function SelectActivePlayers({
 
   if (!playerList) return;
 
-  if (addPlayer) return <CreatePlayers setAddPlayer={setAddPlayer} />;
+  if (addPlayer) return <CreatePlayers setAddPlayer={setAddPlayer} setSelectedPlayers={setSelectedPlayers}/>;
 
   return (
     <div className="selectActivePlayers">

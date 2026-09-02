@@ -213,7 +213,7 @@ export default function ScoringInterface({
           return;
         }}
       >
-        Finish Scoring Game
+        {loading ? <LoadingBall /> : "Finish Scoring Game"}
       </button>
     </div>
   );

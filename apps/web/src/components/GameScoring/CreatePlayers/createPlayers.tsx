@@ -4,12 +4,14 @@ import { createPlayersAPIRequest } from "./createPlayersAPIRequest";
 import { useNavigate } from "react-router";
 import "./createPlayers.css";
 import LoadingBall from "../../../assets/LoadingBall/loadingball";
+import type { Player } from "../../../types/player";
 
 type CreatePlayersProps = {
   setAddPlayer: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedPlayers: React.Dispatch<React.SetStateAction<Player[]>> | null;
 };
 
-export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
+export default function CreatePlayers({ setAddPlayer, setSelectedPlayers }: CreatePlayersProps) {
   const [addPlayersAmount, setAddPlayersAmount] = useState<number>(1);
   const [newPlayers, setNewPlayers] = useState<NewPlayer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -131,6 +133,7 @@ export default function CreatePlayers({ setAddPlayer }: CreatePlayersProps) {
       <button
         type="button"
         onClick={() => {
+          if (setSelectedPlayers) setSelectedPlayers([]);
           setAddPlayer(false);
         }}
       >

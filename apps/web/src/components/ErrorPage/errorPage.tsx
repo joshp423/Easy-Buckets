@@ -16,7 +16,6 @@ function ErrorPage() {
       <div>
         <h1>Something went wrong</h1>
         <h3>{error?.error}</h3>
-        <p>Please try again later.</p>
       </div>
     </div>
   );

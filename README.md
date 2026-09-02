@@ -57,3 +57,6 @@ Prisma ORM
 Zod
 bcryptjs
 JWT
+
+Notes:
+Just desktop formatting for now, might create a react native app at a later date and do formatting then.

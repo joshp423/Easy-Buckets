@@ -312,6 +312,7 @@ export class GameRepo {
       case "FT Make": {
         const newMakes = gameStatline.fTMake + statAmount;
         const newAttempts = gameStatline.fTA + statAmount;
+        const pointsUpdateAmount = statlineUpdateIndicator ? 1 : -1;
         const updatedStatline = await this.prisma.gameStatlines.update({
           where: {
             id: gameStatlineId,
@@ -320,6 +321,7 @@ export class GameRepo {
             fTMake: newMakes,
             fTA: newAttempts,
             fTPercent: newMakes === 0 ? 0 : (newMakes / newAttempts) * 100,
+            points: gameStatline.points + pointsUpdateAmount,
           },
         });
         return updatedStatline;

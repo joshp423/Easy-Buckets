@@ -29,8 +29,6 @@ import {
 } from "../controllers/seasonController.js";
 const indexRouter = Router();
 
-//what if someone completes initial gameupdate then not players? Think upload has to be at player lock in.
-
 indexRouter.post("/users/sign-up", signUp);
 indexRouter.post("/users/log-in", logIn);
 indexRouter.get("/teams/seasons", indexController.verifyToken, getTeamSeasons);

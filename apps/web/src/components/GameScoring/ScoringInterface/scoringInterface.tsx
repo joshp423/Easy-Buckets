@@ -166,13 +166,19 @@ export default function ScoringInterface({
               loading={loading}
             />
           </div>
-          <Shotlog
+          {gameDetails.replay ? <Shotlog
             shotLog={shotLog}
             selectedShot={selectedShot}
             setSelectedShot={setSelectedShot}
             replay={true}
             videoRef={videoRef}
-          />
+          /> : <Shotlog
+            shotLog={shotLog}
+            selectedShot={selectedShot}
+            setSelectedShot={setSelectedShot}
+            replay={false}
+            videoRef={videoRef}
+          /> }
         </div>
         <CourtInterface
           selectedStat={selectedStat}

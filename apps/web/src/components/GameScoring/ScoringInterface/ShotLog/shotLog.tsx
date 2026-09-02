@@ -33,39 +33,7 @@ export default function Shotlog({
       </div>
     );
   }
-  if (!replay) {
-    return (
-      <div className="shotLog">
-        <h3>Shot Log</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Player</th>
-              <th>Number</th>
-              <th>Shot Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shotLog?.map((shot) => {
-              return (
-                <tr
-                  key={shot.id}
-                  onMouseEnter={() => setSelectedShot(shot.id)}
-                  onMouseLeave={() => setSelectedShot(null)}
-                >
-                  <td>{shot.gameStatline.player.name}</td>
-                  <td>#{shot.gameStatline.player.number}</td>
-                  <td>
-                    {shot.type} Point {shot.make === true ? "Make" : "Miss"}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
+  
   return (
     <div className="shotLog">
       <h3>Shot Log</h3>
@@ -75,8 +43,8 @@ export default function Shotlog({
             <th>Player</th>
             <th>Number</th>
             <th>Shot Type</th>
-            <th>Replay Time</th>
-            <th></th>
+            {replay ? <th>Replay Time</th> : <></> }
+            {replay ? <th></th> : <></> }
           </tr>
         </thead>
         <tbody>
@@ -99,8 +67,8 @@ export default function Shotlog({
                 <td>
                   {shot.type} Point {shot.make === true ? "Make" : "Miss"}
                 </td>
-                <td>{formatTime(shot.timeStamp)}</td>
-                <td>
+                {replay ? (<td>{formatTime(shot.timeStamp)}</td>) : <></> }
+                {replay ? <td>
                   <button
                     onClick={(e) => {
                       e.stopPropagation(); // doesnt effect select row functionality
@@ -119,7 +87,7 @@ export default function Shotlog({
                   >
                     View Shot
                   </button>
-                </td>
+                </td> : <></> }
               </tr>
             );
           })}

@@ -86,15 +86,17 @@ export default function SelectActivePlayers({
   return (
     <div className="selectActivePlayers">
       <form onSubmit={confirmPlayers}>
-        <h1>Select Active Players</h1>
+        {playerList.length === 0 ? (
+          <h1>No Active Players</h1>
+        ) : ( <h1>Select Active Players</h1> )}
         <table>
-          <thead>
+        {playerList.length === 0 ? "" : (<thead>
             <tr>
               <th>Player</th>
               <th>Active?</th>
             </tr>
           </thead>
-
+        )}
           <tbody>
             {playerList.map((player) => (
               <tr key={player.id}>
@@ -118,7 +120,6 @@ export default function SelectActivePlayers({
             ))}
           </tbody>
         </table>
-
         <div>
           <button
             type="button"
@@ -126,9 +127,9 @@ export default function SelectActivePlayers({
               setAddPlayer(true);
             }}
           >
-            {loading ? <LoadingBall /> : "Add player"}
+            Add Player
           </button>
-          <button type="submit">Submit</button>
+          <button type="submit">{loading ? <LoadingBall /> : "Submit"}</button>
         </div>
       </form>
       <button onClick={() => setGameDetails(null)}>Back</button>

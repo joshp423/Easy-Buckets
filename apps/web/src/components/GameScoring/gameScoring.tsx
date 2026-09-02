@@ -195,7 +195,7 @@ export default function GameScoring() {
       return (
         <div className="gameScoring">
           <SideNav />
-          <CreatePlayers setAddPlayer={setAddPlayer} />
+          <CreatePlayers setAddPlayer={setAddPlayer} setSelectedPlayers={null}/>
         </div>
       );
   }

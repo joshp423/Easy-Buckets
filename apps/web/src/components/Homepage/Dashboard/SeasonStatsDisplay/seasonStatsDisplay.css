@@ -1,7 +1,6 @@
 .seasonStatsContainer {
   display: grid;
-  grid-template-rows: 60% 38%;
-  flex-direction: column;
+  grid-template-rows: 65% 25%;
   align-items: center;
   max-height: 1700px;
   max-width: 1600px;
@@ -9,6 +8,9 @@
   height: 100%;
   align-self: center;
   gap: 1.5rem;
+  align-content: space-between;
+  margin-top: 1%;
+  align-items: end;
 }
 
 .seasonStatsContainer > div:first-child {
@@ -26,10 +28,10 @@
   background-color: #f3f5f8;
   border-radius: 12px;
   width: 100%;
-  overflow-x: scroll;
   overflow-y: hidden;
   flex-shrink: 0;
   border: 1px solid lightgrey;
+  max-height: 500px;
 }
 
 .seasonStatsBoxScore > table {

@@ -20,6 +20,7 @@ export default function Homepage() {
 
   useEffect(() => {
     async function load() {
+      if (!loginStatus) return;
       setLoading(true)
       try {
         const existingTeam = await userTeamCheckAPIReq();

@@ -26,12 +26,12 @@ Screenshots (set up using personal account anon data with video replay)
 
 Scoring Interface
 
-<img width="2658" height="1341" alt="scoringView" src="https://github.com/user-attachments/assets/3e8341e2-2ed0-43f2-b36f-f79fcec9fa81" />
+<img width="1680" height="1146" alt="image" src="https://github.com/user-attachments/assets/ce23fa2d-de31-443b-bb4c-596776487e43" />
 
 
 Game Stats Interface
 
-<img width="2271" height="1326" alt="ViewStats" src="https://github.com/user-attachments/assets/4f2e538a-b7f0-4a3b-a6af-d665c4c5658b" />
+<img width="1404" height="1230" alt="image" src="https://github.com/user-attachments/assets/282d2eda-265c-48c9-a73b-de66bbbba839" />
 
 
 Season Stats Interface
